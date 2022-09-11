@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Academic | Žiga Kovačič</title>
-    <link>https://zzigak.github.io/tag/academic/</link>
-      <atom:link href="https://zzigak.github.io/tag/academic/index.xml" rel="self" type="application/rss+xml" />
-    <description>Academic</description>
+    <title>Augmented reality | Žiga Kovačič</title>
+    <link>https://zzigak.github.io/category/augmented-reality/</link>
+      <atom:link href="https://zzigak.github.io/category/augmented-reality/index.xml" rel="self" type="application/rss+xml" />
+    <description>Augmented reality</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://zzigak.github.io/media/icon_hu36281d0b6c8341c9b0d73106e7706ebe_82408_512x512_fill_lanczos_center_3.png</url>
-      <title>Academic</title>
-      <link>https://zzigak.github.io/tag/academic/</link>
+      <title>Augmented reality</title>
+      <link>https://zzigak.github.io/category/augmented-reality/</link>
     </image>
     
     <item>
