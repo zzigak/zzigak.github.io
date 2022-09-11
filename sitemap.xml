@@ -36,10 +36,12 @@
   <url>
     <loc>https://zzigak.github.io/project/</loc><lastmod>2016-04-27T00:00:00+00:00</lastmod><changefreq>weekly</changefreq></url>
   <url>
-    <loc>https://zzigak.github.io/publication-type/1/</loc><lastmod>2013-07-01T00:00:00+00:00</lastmod><changefreq>weekly</changefreq></url>
+    <loc>https://zzigak.github.io/publication-type/1/</loc><changefreq>weekly</changefreq></url>
   <url>
-    <loc>https://zzigak.github.io/publication/example/</loc><lastmod>2013-07-01T00:00:00+00:00</lastmod><changefreq>weekly</changefreq></url>
+    <loc>https://zzigak.github.io/publication/example/</loc><changefreq>weekly</changefreq></url>
   <url>
-    <loc>https://zzigak.github.io/publication_types/</loc><lastmod>2013-07-01T00:00:00+00:00</lastmod><changefreq>weekly</changefreq></url>
+    <loc>https://zzigak.github.io/tag/material-science/</loc><changefreq>weekly</changefreq></url>
   <url>
-    <loc>https://zzigak.github.io/publication/</loc><lastmod>2013-07-01T00:00:00+00:00</lastmod><changefreq>weekly</changefreq></url></urlset>
+    <loc>https://zzigak.github.io/publication_types/</loc><changefreq>weekly</changefreq></url>
+  <url>
+    <loc>https://zzigak.github.io/publication/</loc><changefreq>weekly</changefreq></url></urlset>

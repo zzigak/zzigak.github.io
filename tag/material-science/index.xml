@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Publications | Žiga Kovačič</title>
-    <link>https://zzigak.github.io/publication/</link>
-      <atom:link href="https://zzigak.github.io/publication/index.xml" rel="self" type="application/rss+xml" />
-    <description>Publications</description>
+    <title>Material science | Žiga Kovačič</title>
+    <link>https://zzigak.github.io/tag/material-science/</link>
+      <atom:link href="https://zzigak.github.io/tag/material-science/index.xml" rel="self" type="application/rss+xml" />
+    <description>Material science</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
     <image>
       <url>https://zzigak.github.io/media/icon_hu36281d0b6c8341c9b0d73106e7706ebe_82408_512x512_fill_lanczos_center_3.png</url>
-      <title>Publications</title>
-      <link>https://zzigak.github.io/publication/</link>
+      <title>Material science</title>
+      <link>https://zzigak.github.io/tag/material-science/</link>
     </image>
     
     <item>
