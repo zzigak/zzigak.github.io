@@ -1,128 +1,161 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <meta name="color-scheme" content="light dark"> -->
-<link rel="icon" type="image/png" href="data:image/png;base64,">
-<title>Best Motherfucking Website</title>
-<style>
-	@media (prefers-color-scheme: dark){
-		/* body {
-			background:#000
-		} */
-	}
-	body{
-		margin:1em auto;
-		max-width:40em;
-		padding:0 .62em 3.24em;
-		font:1.2em/1.62 sans-serif
-	}
-	h1,h2,h3 {
-		line-height:1.2
-	}
-	@media print{
-		body{
-			max-width:none
-		}
-	}
-    img {
-        max-width: 50%;
-        height: auto;
-        display: table;
-        margin: 40pt auto;
-        border-radius: 5px;
-        /* filter: drop-shadow(5px 5px ); */
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Best Motherfucking Website</title>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            /* body {
+                background:#000
+            } */
         }
 
-    h2{
-    border-bottom: 3px solid #CCC;
-    width:100%;
-    float:left;
-    padding-bottom:3px;
-}
+        body {
+            margin: 1em auto;
+            max-width: 40em;
+            padding: 0 .62em 3.24em;
+            font: 1.2em/1.62 sans-serif;
+            /*background: #F2F2F2;  Set the background color */
+        }
+        a{
+            color: #1772d0;
+        text-decoration: none;
+        }
 
-</style>
+        a:focus,
+        a:hover {
+        color: #f09228;
+        text-decoration: none;
+        }
+
+        h1 {
+            padding-top: 20px;
+            margin: 0;
+            font-size: 32px;        
+        }
+        h2 {
+            border-bottom: 3px solid #CCC;
+            width: 100%;
+            float: left;
+            padding-bottom: 3px;
+        }
+
+        img {
+            max-width: 40%;
+            height: auto;
+            display: table;
+            margin: 10pt auto;
+            border-radius: 5px;
+        }
+
+        #container2 {
+            width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 50px;
+            text-align: left;
+            margin-top: 20px; /* Adjust as needed */
+            overflow: hidden; /* Clear float */
+        }
+
+        #content2 {
+            float: left;
+            width: 60%; /* Adjust width as needed */
+        }
+
+        .figure {
+            float: right;
+            width: 40%; /* Adjust width as needed */
+        }
+        .name {
+            padding-top: 20px;
+            margin: 0;
+            font-size: 32px;
+            }
+
+    </style>
+</head>
+<body>
 <article>
-<header>
-
-</header>
-<center><h1>Žiga Kovačič</h1></center>
-
-<figure class="figure">
-    <img src="images/headshot3.png" class="figure-img img-fluid rounded" alt="Me.">
-</figure>
+    <header></header>
 
 
+    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        <tr style="padding:0px">
+          <td style="padding:0px">
+            <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+              <tr style="padding:0px">
+                <td style="padding:2.5%;width:63%;vertical-align:middle">
+                  <h1 style="text-align: center;">
+                    Žiga Kovačič
+                  </h1>
+                  <p>Hi there! I am a sophomore studying Mathematics, Computer Science, and College Scholars at Cornell University where I’m fortunate to be advised by <a href="https://www.cs.cornell.edu/abe/group/">Abe Davis</a>. I'm doing research at the intersection of Computer Graphics and Machine Learning.</p>
+                  <p style="text-align:center">
+                    <a href="mailto:zk66@cornell.edu">Email</a> &nbsp;/&nbsp;
+                    <a href="assets/resume.pdf">CV</a> &nbsp;/&nbsp;
+                    <!-- <a href="https://scholar.google.com/citations?hl=en&user=jktWnL8AAAAJ">Scholar</a> &nbsp;/&nbsp; -->
+                    <a href="https://twitter.com/zzigakovacic">X</a> &nbsp;/&nbsp;
+                    <a href="https://github.com/zzigak/">Github</a>
+                    <!-- <p><b>Email: </b>zk66 at cornell dot edu
+                        <br>
+                        [<a href="https://github.com/zzigak">Github</a>]
+                        [<a href="https://www.linkedin.com/in/zigakovacic/">LinkedIn</a>]
+                        [<a href="https://twitter.com/zzigakovacic">X</a>]
+                        [<a href="assets/resume.pdf">CV</a>]
+                    </p> -->
+                  </p>
+                </td>
+                <td style="padding:2.5%;width:40%;max-width:40%">
+                  <a href="images/headshot3.png"><img style="width:100%;max-width:100%;object-fit: cover; border-radius: 5%;" alt="profile photo" src="images/headshot3.png" class="hoverZoomLink"></a>
+                </td>
+              </tr>
+            </tbody></table>
 
-<p>Hi there! I am a sophomore studying Mathematics, Computer Science, and College Scholars at Cornell University where I’m fortunate to be advised by <a href="https://www.cs.cornell.edu/abe/group/">Abe Davis</a>. I'm doing research at the intersection of Computer Graphics and Machine Learning.</p>
-
-<p> My research focus is on using classical and machine learning approaches to find useful representations of real-world object that can capture not only their shape, but also their physical properties and dynamics of the real world. Currently, I am interested in learned physically plausible re-simulations of objects.</p>
-
-<p><b>Email: </b>zk66 at cornell dot edu
-    <br>
-    [<a href="https://github.com/zzigak">Github</a>]
-    [<a href="https://www.linkedin.com/in/zigakovacic/">LinkedIn</a>]
-     [<a href="https://twitter.com/zzigakovacic">X</a>]
-    <!-- [<a href="">Google Scholar</a>] -->
-    [<a href="assets/resume.pdf">CV</a>]
-
-
-</p>
-
-
-<h2>Publications</h2>
-<p>Soon to come...Diff Diff Diff </p> 
-
-<h2>Teaching Assitant</h2>
-<ul>
-    <li>Spring 2024: <a href="https://classes.cornell.edu/browse/roster/SP24/class/CS/4780">CS 4780: Introduction to Machine Learning</a></li>
-    <li>Spring 2023: <a href="https://www.cs.cornell.edu/courses/cs2110/2023sp/">CS 2110: Object Oriented Programming and Datastructures</a></li>
-</ul>
-
-<h2>Projects</h2>
-<p> Will link them up when I find the time  : D</p>
-
-<h3>Computer Graphics, CS 4620 </h3>
-<ul>
-    <li><strong>Ray Tracer</strong>  [Creative Project Winner]:</li>
-    <li><strong>Fluid Simulation</strong> [Final Project Winner]:</li>
-</ul>
-
-<h3>Computation for Content Creation, CS 6682</h3>
-
+                
+                
+    <h2>Research</h2>
+    <p> My research focus is on using classical and machine learning approaches to find useful representations of real-world objects that can capture not only their shape but also their physical properties and dynamics of the real world. Currently, I am interested in physically plausible re-simulations of objects.</p>
 
 
-<h2>Affiliations</h2>
+    <h3>Publications</h3>
+    <p>Soon to come...</p>
 
-<center>
-    <table border="0" cellpadding="0" cellspacing="0" width="900" align="center">
-      <tr>
-        <td width="1"></td>
-          <td width="40" align="center" valign="middle"><img src="images/logo_cornell.png" height="30" /></td>
-            <td width="40" align="center" valign="middle"><img src="images/cuai_logo.png" height="30" /></td>
-            <!-- <td width="80" align="center" valign="middle"><img src="images/logo_openai.png" height="70" /></td>
-            <td width="80" align="center" valign="middle"><img src="images/logo_adobe.jpeg" height="70" /></td>
-            <td width="100" align="center" valign="middle"><img src="images/logo_google.png" height=80" /></td>
-            <td width="100" align="center" valign="middle"><img src="images/logo_intel.png" height="70" /></td>
-            <td width="100" align="center" valign="middle"><img src="images/logo_ntu.jpg" height="80" /></td> -->
-        <td width="300"></td>
-      </tr>
-        <tr>
-        <td width="1"></td>
-            <td width="40" align="center" valign="middle"><p>Cornell University: 2022-Present</td>
-            <td width="40" align="center" valign="middle"><p>CUAI: 2023-Present</td>
-            <!-- <td width="80" align="center" valign="middle"><p>2018 Summer</td>
-            <td width="80" align="center" valign="middle"><p>2017 Summer</td>
-            <td width="100" align="center" valign="middle"><p>2016 Summer</td>
-            <td width="100" align="center" valign="middle"><p>2015 Summer</td>
-            <td width="100" align="center" valign="middle"><p>2009-2013</td> -->
-        <td width="300"></td>
-      </tr>
-</table>
-</center>
+    <h2>Teaching Assistant</h2>
+    <ul>
+        <li>Spring 2024: <a href="https://classes.cornell.edu/browse/roster/SP24/class/CS/4780">CS 4780: Introduction to Machine Learning</a></li>
+        <li>Spring 2023: <a href="https://www.cs.cornell.edu/courses/cs2110/2023sp/">CS 2110: Object Oriented Programming and Datastructures</a></li>
+    </ul>
 
+    <h2>Projects</h2>
+    <p> Will link them up when I find the time  : D</p>
 
+    <h3>Computer Graphics, CS 4620 </h3>
+    <ul>
+        <li><strong>Ray Tracer</strong> [Creative Project Winner]:</li>
+        <li><strong>Fluid Simulation</strong> [Final Project Winner]:</li>
+    </ul>
 
+    <h3>Computation for Content Creation, CS 6682</h3>
 
+    <h2>Affiliations</h2>
+
+    <center>
+        <table border="0" cellpadding="0" cellspacing="0" width="900" align="center">
+            <tr>
+                <td width="1"></td>
+                <td width="40" align="center" valign="middle"><img src="images/logo_cornell.png" height="30" /></td>
+                <td width="40" align="center" valign="middle"><img src="images/cuai_logo.png" height="30" /></td>
+                <td width="300"></td>
+            </tr>
+            <tr>
+                <td width="1"></td>
+                <td width="40" align="center" valign="middle"><p>Cornell University: 2022-Present</td>
+                <td width="40" align="center" valign="middle"><p>CUAI: 2023-Present</td>
+                <td width="300"></td>
+            </tr>
+        </table>
+    </center>
 </article>
+</body>
+</html>
