@@ -128,3 +128,12 @@ a.footer {
     /* Pure black */
 
 }
+
+.row {
+    display: flex;
+    /* Ensure the row is a flex container */
+    flex-wrap: wrap;
+    /* Allow wrapping of child elements */
+    row-gap: 1rem;
+    /* Add a 1rem gap between rows */
+}
