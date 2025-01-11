@@ -1,0 +1,130 @@
+body {
+    color: black;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Make headers thicker */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    /* 700 is equivalent to "bold" */
+}
+
+a {
+    text-decoration: underline;
+    color: #007BFF;
+}
+
+/* Hover effect for default links */
+a:hover {
+    color: #0056b3;
+    /* Darker shade of blue */
+    text-decoration: underline;
+}
+
+
+
+a.black {
+    color: black;
+}
+
+/* Hover effect for black links */
+a.black:hover {
+    color: #333;
+    /* Slightly lighter black */
+    text-decoration: underline;
+    font-weight: 300;
+}
+
+
+a.black_underline {
+    color: black;
+    text-decoration-line: underline;
+}
+
+a.black_underline:hover {
+    color: #333;
+    text-decoration-line: underline;
+    font-weight: 600;
+}
+
+a.publication_link {
+    /* color: #007BFF; */
+    color: #505050;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.publication_link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.publication-entry p {
+    margin-bottom: 0.8rem;
+    /* Adjust this value to control spacing */
+}
+
+p.bold {
+    font-weight: bold;
+}
+
+p.bold_and_large {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+p.bold_and_italic {
+    font-weight: bold;
+    font-style: italic;
+}
+
+a.footer {
+    color: black;
+    font-style: italic;
+}
+
+.author-name {
+    /* Make your name bold */
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.other-author {
+    font-weight: normal;
+    /* Make other authors' names normal weight */
+    color: black;
+    /* Optional: Add a color to make it stand out */
+    text-decoration: none;
+}
+
+.journal-name {
+    margin-top: 5px;
+    /* Add some space above the journal name */
+    font-style: italic;
+    /* Italicize the journal name */
+    display: block;
+    /* Ensure it appears on a new line */
+}
+
+.navbar-brand {
+    /* font-weight: bold; */
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #ffcc00;
+    /* Change this to your desired hover color */
+}
+
+.custom-navbar {
+    background-color: #000000;
+
+    /* Pure black */
+
+}
