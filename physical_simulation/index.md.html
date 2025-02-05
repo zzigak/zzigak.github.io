@@ -136,10 +136,11 @@ Force is along the direction of the spring:
 
 **Adding damping.** Good integrators preserve "energy" so this osciallation continue. Instead we want to damp them.
 
-- Just using *drag force* $f_d =. -k_d v$ slow down all motion, but we only want to oppose the spring's movement.
+- Just using *drag force* $f_d = -k_d v$ slow down all motion, but we only want to oppose the spring's movement.
 
 *Solution:* spring damping force opposes changes in spring length only!
-- only oppose relative motion.
+
+- only oppose relative motion,
 - only oppose motion *in* the direction of the spring
 - $f_i = k_d(v_{ij}\cdot \hat x_{ij})\hat x_{ij}$ where $v_{ij} = v_j - v_i$. This pulls $i$ towards $j$ only when
 elongating the spring.
@@ -147,16 +148,22 @@ elongating the spring.
 
 *Note:* $(\hat x \hat x^\top) v$ projects $v$ in direction of $\hat x$.
 
-**Oscillations of undamped springs**
-
+**Oscillations of undamped springs.**
 - a 1D damped spring obeys $m x'' + k_d x' + k_s x = 0$
 - and if $k_d$ is negligible, then $x(t ) = C_1 cos(\omega t + C_2)$ where $\omega^2 = k_s /m$.
 
 
-**3D is a cloth.** Tetrahedral mesh is stable.
+**3D is a cloth.** We can create a simple cloth model using a web of particles interconnected using springs. These
+springs can be connected in such a way to
+oppose bending, shearing, stretching, etc. If we want a stable simulation, we can use a tetrahedral mesh. That said,
+there are far better models for simulating cloth
+based on either potential energy minimization—where we define a set of potential energies for bending, stretching, etc.
+and minimize that energy—or particle based methods
+where we derive forces from energies of local particle interactions.
 
 
-**Problem with spring-mass systems for deformables.** Very simple and fun, but limited in terms of achieving certain
+**Problem with spring-mass systems for deformables.** Spring-mass systems are very simple and fun, but limited in terms
+of achieving certain
 material properties / measurements, bending springs are not good at resisting slight bending and its hard to express
 preservation of volume or area.
 
