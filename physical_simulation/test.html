@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Physical Simulation Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="test_files/libs/clipboard/clipboard.min.js"></script>
+<script src="test_files/libs/quarto-html/quarto.js"></script>
+<script src="test_files/libs/quarto-html/popper.min.js"></script>
+<script src="test_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="test_files/libs/quarto-html/anchor.min.js"></script>
+<link href="test_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="test_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="test_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="test_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="test_files/libs/bootstrap/bootstrap-973236bd072d72a04ee9cd82dcc9cb29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="quarto.css">
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Physical Simulation Notes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>These notes are a colmulation of my attempt at capturing my reading on physical simulation. As my foul mind cannot always find the will to write these notes, they are not exhaustive.</p>
+<section id="deformable-models-in-graphics" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Deformable Models in Graphics</h1>
+</section>
+<section id="refresher-on-differential-equations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Refresher on Differential Equations</h1>
+<p><strong>Ode.</strong> Function relating the variable and its derivatives:</p>
+<p><span class="math display">\[F(t, y, y', y'', \dots) = 0.\]</span> Most cases we can’t get closed-form solution for <span class="math inline">\(y\)</span>, instead we want an algorithm that gives us values of <span class="math inline">\(y\)</span> at many <span class="math inline">\(t_k\)</span> to approximate <span class="math inline">\(y\)</span>. We call such solvers <strong>numerical integrators</strong>.</p>
+<p>If we have a vectored valued function <span class="math inline">\(\bf y \in R^N\)</span>, then the solution to the initial value problem is just a <em>path through</em> <span class="math inline">\(\mathrm{R}^N\)</span>. Most often we try to work with the form of ODE solving for highest derivative:</p>
+<p><span class="math display">\[y^{(k)} = F(t,y, y', \dots, y^{(k-1)}).\]</span></p>
+<p><strong>Reduction to 1st order.</strong> Given an explicit higher order ODE we can reduce it to first order (only 1st and 0th derivatives of <span class="math inline">\(y\)</span>). We define a new family of unknown functions <span class="math inline">\(y_1 = y, y_2=y', ..., y_{k-1} = y^(k-2), F(x, y_{1},
+y_{2},\dots, y_{k-1}) = y^{k})\)</span> and rewrite our ODE as a system of simpler ODEs:</p>
+<p><span class="math display">\[[y_{1}, y_{2}, \dots, y_{k-1}, f(t, y, y_{1}, \dots, y_{k-1})] = [y', y_{1}', \dots, y_{k-2}', y'_{k-1}]\]</span> which is a single first order ODE in <span class="math inline">\(kN\)</span> variables.</p>
+<p><strong>Autonomous vs non-autonomous.</strong> Sometimes we see <span class="math inline">\(t\)</span> as an explicit parameter, and sometimes we do not. A differential equation is <em>autonomous</em> if it does not depend on the variable <em>x</em>, or in our example <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[y'(t) = f(y(t)) \text{ is autonomous}\]</span> <span class="math display">\[y'(t) = f(t, y(t)) \text{ is NOT autonomous}\]</span></p>
+<p><em>We can switch from non-autonomous to autonomous with a conversion by relabeling variables.</em></p>
+<p><strong>Vector field picture.</strong> <span class="math inline">\(y(t)\)</span> is a path of a point through the <em>state space</em> (this is <span class="math inline">\(y\)</span> after reduction). <span class="math inline">\(f\)</span> is a vector field in that state space, and tells particles where to go. So the process is an advection through the flow field.</p>
+<section id="numerical-solving-numerical-integrators" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="numerical-solving-numerical-integrators"><span class="header-section-number">2.1</span> Numerical Solving: Numerical Integrators</h2>
+<p>We can only evaluate <span class="math inline">\(\bf f\)</span> at different <span class="math inline">\(t\)</span>. Since we want <span class="math inline">\(y\)</span> on some range of <span class="math inline">\(t\)</span> we evaluate <span class="math inline">\(y(t_k)\)</span> at a series of <em>time steps</em>.</p>
+<p><strong>Setup.</strong> We usually know <span class="math inline">\(y(0)\)</span> and we want <span class="math inline">\(y\)</span> until some <span class="math inline">\(t&gt;0\)</span>. Start with constant step size <span class="math inline">\(h\)</span>, then we get a <em>series of time-steps</em> <span class="math inline">\(t_0, t_0+h, \dots, t_{0} k*h.\)</span> for <span class="math inline">\(k+1\)</span> time steps. Number of steps to get to <span class="math inline">\(T\)</span> is <span class="math inline">\(T/h\)</span>.</p>
+<p>We usually only know the <span class="math inline">\(y(t_k)\)</span> approximately so want to make our guess <span class="math inline">\(y_k\)</span> as close as possible: <span class="math inline">\(y(t_k) \approx
+y_k\)</span>.</p>
+<section id="eulers-integrators" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="eulers-integrators"><span class="header-section-number">2.1.1</span> Euler’s integrators</h3>
+<p>We derive from Taylor expansion, so we can analyze local approximation. e.g.&nbsp;expand <span class="math inline">\(y\)</span> around <span class="math inline">\(t_k\)</span>: <span class="math inline">\(y(t) = y(t_k) +
+y'(t_k)(t-t_k) + O(|t-t_k|^2)\)</span>. By assuming we have <span class="math inline">\(t_k\)</span>, then we can get at <span class="math inline">\(k+1\)</span> with <span class="math display">\[y(t_{k+1}) = y(t_{k}) + h\cdot f(y(t_k)) + O(h^2),
+\]</span> since <span class="math inline">\(f(y(t)) = y'(t)\)</span>. This is <strong>first order accurate, explicit</strong> integration. Explicit because its already solved for <span class="math inline">\(k\)</span>. This gives <span class="math inline">\(y_{k+1} = y_{k} + hf(y_k)\)</span>.</p>
+</section>
+<section id="backward-euler" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="backward-euler"><span class="header-section-number">2.1.2</span> Backward Euler</h3>
+<p>Alternatively we can expand around <span class="math inline">\(t=t_{k+1}\)</span>, how do we get <span class="math inline">\(t_k\)</span>?</p>
+<p><span class="math display">\[y(t_k) = y(t_{k+1}) - h\cdot f(y(t_{k+1})) + O(h^2)\]</span></p>
+<p>so we get <span class="math inline">\(y_{t+1} = y_t + h f(y_{t+1})\)</span>. This is implicit first order accurate.</p>
+<p><strong>Error shrink.</strong> If things are working, we can get <em>any</em> accuracy by taking small <span class="math inline">\(h\)</span>: <span class="math display">\[\\lim_{ h \to 0 } [y_{k} - y(t_{k})] = 0 \]</span> <strong>Error growth.</strong> Since we are time-stepping, the error with accumulate. Worst case each error points in the same direction at each step we multiply the error by <span class="math inline">\(h\)</span>. If the error in one step is <span class="math inline">\(O(h^p)\)</span> then error after <span class="math inline">\(N = T/h\)</span> steps is <span class="math inline">\(O(h^{p-1})\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/euler.png" class="img-fluid figure-img"></p>
+<figcaption>Euler Integration</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/vector_field.png" class="img-fluid figure-img"></p>
+<figcaption>Vector filed view</figcaption>
+</figure>
+</div>
+<p><strong>Towards Higher Order.</strong> Midpoint method uses 2 evaluations of <span class="math inline">\(f\)</span>. First evaluates at midpoint time using linear approximation, then approximates from there w/ secon order.</p>
+<p><strong>Midpoint method in 2nd order systems.</strong> <span class="math inline">\(x''\)</span> but no <span class="math inline">\(x'\)</span>. Then it depends only on <span class="math inline">\(x\)</span> not <span class="math inline">\(x'\)</span>.</p>
+<p>Then <span class="math inline">\(x\)</span> is updated based on midpoint velocity and <span class="math inline">\(x'\)</span> is updated based on <span class="math inline">\(f(x)\)</span>, so <span class="math inline">\(f\)</span> depending only on <span class="math inline">\(x\)</span>.</p>
+<p>Can use <em>staggered grid.</em> Called <strong>leap-frog</strong> integrator. ==(only works when force doesn’t depend on velocity)==</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/grid.png" class="img-fluid figure-img"></p>
+<figcaption>Staggered grid</figcaption>
+</figure>
+</div>
+<p><strong>Symplectic Euler / Semi-implict Euler.</strong> https://adamsturge.github.io/Engine-Blog/mydoc_symplectic_euler.html https://en.wikipedia.org/wiki/Semi-implicit_Euler_method - leapfrog only works for <span class="math inline">\(f(x) = x''\)</span>. - can’t evaluate <span class="math inline">\(f(x,v)\)</span> without knowing <span class="math inline">\(x,v\)</span> at the same timestep, can’t use staggered grid. - <em>Solution:</em> - keep the timestep equations, remove staggered grid. - or use the position update from Forward Euler and the velocity update from Backward Euler - <em>nice property:</em> each timestep preserves area in the (x,v) picture (really in position–momentum space) <img src="images/update.png" class="img-fluid" alt="Sympletic euler updated"> - simplectyc integrator holds for Hamiltonian systems (roughly energy conserving system)</p>
+<p>if <span class="math inline">\(\partial_t x = f(t,v)\)</span> and <span class="math inline">\(\partial_t v = g(t,x)\)</span> and hamiltonian is <span class="math inline">\(H= T(t,v) + V(t,x)\)</span>.</p>
+<p>We have steps:</p>
+<p><span class="math display">\[v_{n+1} = v_n + g(t_n,x_n) \Delta t\]</span> <span class="math display">\[x_{n+1} = x_n + f(t_n,v_{n+1}) \Delta t\]</span></p>
+<p>Difference with forward Euler is we use <span class="math inline">\(v_{n+1}\)</span> to compute new <span class="math inline">\(x\)</span>. It is a first order integrator.</p>
+<p><span class="math display">\[x_{n+1} = x_n + f(t_n,v_{n+1}) \Delta t\]</span></p>
+<p><span class="math display">\[v_{n+1} = v_n + g(t_n,x_n) \Delta t\]</span></p>
+</section>
+</section>
+</section>
+<section id="mass-spring-models" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Mass-spring models</h1>
+<p><strong>Binary Spring.</strong> Each spring is defined by the <span class="math inline">\(i,j\)</span> particles that it connects, the stiffness <span class="math inline">\(k_s\)</span> and rest length <span class="math inline">\(l_o\)</span>.</p>
+<p>By <em>Hook’s law</em>, force is proportional to displacement from rest state:</p>
+<p><span class="math display">\[f = k_{s} (l-l_{0}).\]</span></p>
+<p>Force is along the direction of the spring: - <span class="math inline">\(f_i = k_s(||x_{ij}|| -l_0)\hat x_{i,j}\)</span> where <span class="math inline">\(x_{i,j} = x_j-x_i\)</span> (pulls <span class="math inline">\(i\)</span> towards <span class="math inline">\(j\)</span>) - <span class="math inline">\(f_j = k_s(||x_ji|| - l_0)\hat x_{ji} = -f_{i}\)</span></p>
+<p><strong>Adding damping.</strong> Good integrators preserve “energy” so this osciallation continue. Instead we want to damp them.</p>
+<ul>
+<li>Just using <em>drag force</em> <span class="math inline">\(f_d = -k_d v\)</span> slow down all motion, but we only want to oppose the spring’s movement.</li>
+</ul>
+<p><em>Solution:</em> spring damping force opposes changes in spring length only!</p>
+<ul>
+<li>only oppose relative motion,</li>
+<li>only oppose motion <em>in</em> the direction of the spring</li>
+<li><span class="math inline">\(f_i = k_d(v_{ij}\cdot \hat x_{ij})\hat x_{ij}\)</span> where <span class="math inline">\(v_{ij} = v_j - v_i\)</span>. This pulls <span class="math inline">\(i\)</span> towards <span class="math inline">\(j\)</span> only when elongating the spring.</li>
+</ul>
+<p><em>Note:</em> <span class="math inline">\((\hat x \hat x^\top) v\)</span> projects <span class="math inline">\(v\)</span> in direction of <span class="math inline">\(\hat x\)</span>.</p>
+<p><strong>Oscillations of undamped springs.</strong> - a 1D damped spring obeys <span class="math inline">\(m x'' + k_d x' + k_s x = 0\)</span> - and if <span class="math inline">\(k_d\)</span> is negligible, then <span class="math inline">\(x(t ) = C_1 cos(\omega t + C_2)\)</span> where <span class="math inline">\(\omega^2 = k_s /m\)</span>.</p>
+<p><strong>3D is a cloth.</strong> We can create a simple cloth model using a web of particles interconnected using springs. These springs can be connected in such a way to oppose bending, shearing, stretching, etc. If we want a stable simulation, we can use a tetrahedral mesh. That said, there are far better models for simulating cloth based on either potential energy minimization—where we define a set of potential energies for bending, stretching, etc. and minimize that energy—or particle based methods where we derive forces from energies of local particle interactions.</p>
+<p><strong>Problem with spring-mass systems for deformables.</strong> Spring-mass systems are very simple and fun, but limited in terms of achieving certain material properties / measurements, bending springs are not good at resisting slight bending and its hard to express preservation of volume or area.</p>
+<p>But the nice thing about springs is that its a <em>conservative force</em>, taht is it takes same amount of work <span class="math inline">\(W\)</span> no matter the path it takes. As such it is a derivative of potential energy!</p>
+<p><strong>Deriving force from spring energy.</strong> Spring energy is:</p>
+<p><span class="math display">\[E_{i,j}(x) = 1/2 k_{s} (||x_{i} - x_{j}||-l_{0})^2 \]</span> for one spring.</p>
+<p>Force is just the negative gradient of energy:</p>
+<p><span class="math display">\[f_{i}(x) = -\frac{\partial E}{\partial x_{i}} (x)\]</span></p>
+<p>In spring case we have <span class="math inline">\(x_{ij} = x_{j } - x_{i}\)</span>: <span class="math display">\[\nabla_{x_{i}}x_{{ij}} = - 1\]</span></p>
+<p><strong>Derivative is a linear transformation.</strong> So instead of saying <span class="math inline">\(\partial f / \partial x\)</span> we can write <span class="math inline">\(\delta f = A
+\delta x\)</span>.</p>
+<p><strong>A better bending force: Hinge energy.</strong> Want to minimize angles between 3 points in a rod. So we want an energy that depends on the angle between <span class="math inline">\(x_{ij}, x_{jk}\)</span>.</p>
+<section id="text-example" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="text-example"><span class="header-section-number">3.1</span> Text Example</h2>
+<p>This is a simple text example. Quarto allows you to write documents in Markdown, which is a lightweight and easy-to-use syntax for formatting text[<sup>4</sup>].</p>
+</section>
+<section id="math-example" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="math-example"><span class="header-section-number">3.2</span> Math Example</h2>
+<p>You can include math in your Quarto documents using LaTeX syntax. For example, here is an inline equation: <span class="math inline">\(e^{i\pi} + 1 = 0\)</span>. You can also create a block equation like this:</p>
+<p><span id="eq-continuity"><span class="math display">\[
+\frac{\partial \rho}{\partial t} + \nabla \cdot \vec{j} = 0 \,.
+\tag{1}\]</span></span></p>
+<p>Quarto uses MathJax to render math in HTML[<sup>2</sup>].</p>
+</section>
+<section id="executable-python-program" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="executable-python-program"><span class="header-section-number">3.3</span> Executable Python Program</h2>
+<p>Quarto supports executable Python code blocks within markdown. This allows you to create fully reproducible documents and reports[<sup>1</sup>]. Here is an example of a Python code block that generates a plot:</p>
+<div id="cell-fig-polar" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> r</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>subplot_kw <span class="op">=</span> {<span class="st">'projection'</span>: <span class="st">'polar'</span>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ax.plot(theta, r)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>ax.set_rticks([<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>])</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-polar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="test_files/figure-html/fig-polar-output-1.png" width="450" height="439" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-polar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A line plot on a polar axis
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

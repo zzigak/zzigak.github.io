@@ -1,10 +1,64 @@
 <!-- <meta charset="utf-8" emacsmode="-*- markdown -*-"> -->
-<!-- <!doctype html><meta charset="utf-8" lang="en"><style class="fallback">body{visibility:hidden;}</style> -->
+<!doctype html>
+<meta charset="utf-8" lang="en">
+<style class="fallback">
+	body {
+		visibility: hidden;
+	}
+</style>
 
 **Physical Simulation Notes**
 
 These notes are a colmulation of my attempt at capturing my reading on physical simulation. As my foul mind cannot
 always find the will to write these notes, they are not exhaustive.
+
+# Deformable Models in Graphics
+
+In graphical system we often want to simulate deformable objects. Simply put,
+deformable objects are ones that can change shape through time. To simulate such objects we need to describe
+how external forces on these objects translate into a deformation *and* how deformed objects generate forces that oppose
+external forces.
+Most of these methods have been thoroughly studied in context of continuum mechanics, but for our purposes we will only
+focus on parts relevant to physical simulation in graphics.
+
+
+In these notes, we will first describe what a
+deformation is, then we will discuss a few ways
+of measuring the magnitude of the deformation, and then finally discuss how we can derive energies and forces from these
+deformations.
+
+
+## Describing Deformations
+All motion can be separated into rigid-body displacement and deformation. The former is a combination of a rotation and
+a translation and does not affect the body shape $B$. A deformation is "the change in the metric properties of a
+continuous body", excluding rotation and
+translation.
+That is, a deformation describes how a "rest state" configuration $\mathcal{K}_0(B)$ of a body $B$ is transformed into a
+"deformed state" configuration $\mathcal{K}_t(B)$ at timestep $t$. Whereas in rigid-body motion the relative distances
+between
+particles $p,q \in \mathcal{K}_0(B)$ are preserved, in a deformation they are not. We call the the function that maps a
+point $X \in \mathcal{K}_0(B)$ to a point $x \in \mathcal{K}_t(B)$ the deformation map $\phi$:
+
+$$x = \phi(X,t).$$ This is a continuous map from the rest state to the deformed state, because reaby points in the rest
+state are mapped to nearby points in the deformed state (at least as long as the material is not tearing).
+
+We classify deformations into two types: **infinitesimal** and **finite**. Without getting ahead of ourselves with all
+the notation,
+infinitesimal deformations are simply deformations where the displacements are much smaller than any relevant dimension
+of the body. In this setting we can approximate all deformations by linearizing around the point of interest. Finite
+deformations on the other hand are ones in
+which displacements are large compared to body dimensions. When dealing with finite deformations we sadly loose the
+privilidge to use linear approximations of deformations,
+rather we have to deal with non-linear deformations. In graphics we deal with the latter. You can see a comparison
+between finite and infitesimal formalations applied to large deformations:
+https://www.youtube.com/watch?v=OtTsiqEfUsY
+
+
+Commonly, we represent objects as meshes of points connected by edges or faces. We describe all possible deformations of
+a
+single triangle as an affine map $\bf x = A \bf X + t$.
+
+## Measuring Deformations: What is the "size" of a deformation?
 
 
 # Refresher on Differential Equations
@@ -21,7 +75,7 @@ $$y^{(k)} = F(t,y, y', \dots, y^{(k-1)}).$$
 
 **Reduction to 1st order.** Given an explicit higher order ODE we can reduce it to first order (only 1st and 0th
 derivatives of $y$). We define a new family of unknown functions $y_1 = y, y_2=y', ..., y_{k-1} = y^(k-2), F(x, y_{1},
-y_{2},\dots, y_{k-1}) = y^{k})$ and rewrite our ODE as a system of simpler ODEs:
+y_{2},\dots, y_{k-1}) = y^{k}$ and rewrite our ODE as a system of simpler ODEs:
 
 $$[y_{1}, y_{2}, \dots, y_{k-1}, f(t, y, y_{1}, \dots, y_{k-1})] = [y', y_{1}', \dots, y_{k-2}', y'_{k-1}]$$
 which is a single first order ODE in $kN$ variables.
@@ -191,6 +245,9 @@ $$\nabla_{x_{i}}x_{{ij}} = - 1$$
 
 **A better bending force: Hinge energy.** Want to minimize angles between 3 points in a rod. So we want an energy that
 depends on the angle between $x_{ij}, x_{jk}$.
+
+
+
 
 
 

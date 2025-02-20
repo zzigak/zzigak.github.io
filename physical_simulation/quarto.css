@@ -1,0 +1,41 @@
+/* custom.css */
+
+/* Set the base font to Times New Roman */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+}
+
+/* Style main titles (h1) */
+h1 {
+    font-weight: bold;
+    border-bottom: 4px solid black;
+    /* Wide underline */
+    margin-bottom: 10px;
+    /* Adjust spacing as needed */
+}
+
+/* Style second-level titles (h2) */
+h2 {
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    /* Thinner underline */
+    margin-bottom: 10px;
+    /* Adjust spacing as needed */
+}
+
+/* Style third-level titles (h3) */
+h3 {
+    font-weight: bold;
+    border-bottom: none;
+    /* No underline */
+    margin-bottom: 10px;
+    /* Adjust spacing as needed */
+}
+
+/* Set titles to use a non-serif font */
+h1,
+h2,
+h3 {
+    font-family: Arial, sans-serif;
+}
