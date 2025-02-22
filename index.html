@@ -181,8 +181,9 @@
 
         <div class="row pt-4 publication-entry">
             <div class="col-md-3">
-                <img src="image/ismb.png" width="100%">
-
+                <video width="100%" controls autoplay muted style="object-fit: cover;">
+                    <source src="video/ismb_demo.mov" type="video/mp4">Your browser does not support the video tag.
+                </video>
             </div>
             <div class="col-md-9">
                 <p class="bold_and_large">Image space Modal Basis in JS and Python </p>
@@ -190,12 +191,32 @@
                     This project implements the 2015 paper "Image-Space Modal Bases for Plausible Manipulation of
                     Objects in Video" by Davis et al., which extracts object vibration modes from video to simulate
                     physically plausible deformations. I developed the modal analysis pipeline in Python and built a
-                    custom rasterizer in JavaScript for real-time rendering, extending the original work with modal
-                    warping.
+                    custom rasterizer in JavaScript for real-time rendering, extending the original work with
+                    <strong>modal
+                        warping.</strong>
                 </p>
                 <p>
                     <a href="https://github.com/zzigak/npz2ply" class="publication_link">[GitHub (Coming Soon)]</a>
                     <!-- <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link">[Video]</a> -->
+                </p>
+            </div>
+        </div>
+
+        <div class="row pt-4 publication-entry">
+            <div class="col-md-3">
+                <video width="100%" controls autoplay muted style="object-fit: cover;">
+                    <source src="video/obstruction_removal.mov" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="col-md-9">
+                <p class="bold_and_large">Obstruction Removal - SliceSplatting </p>
+                <p>
+                    This project modifies Gaussian Splatting to remove obstructions blocking the view of objects of
+                    interest in a 3D scene reconstruction.
+                </p>
+                <p>
+                    <a href="https://github.com/zzigak/npz2ply" class="publication_link">[GitHub (Coming Soon)]</a>
                 </p>
             </div>
         </div>
