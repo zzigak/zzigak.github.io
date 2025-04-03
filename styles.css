@@ -1,17 +1,61 @@
+:root {
+
+    --very-light-gray: #f1f1f1;
+    --light-gray: #c2c0bf;
+    --dark-gray: #8a8b8c;
+    --very-dark-gray: #2d2d2d;
+
+}
+
+
 body {
     color: black;
+    font-size: 14px;
+    line-height: 24px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-/* Make headers thicker */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Center the content and set max-width */
+.container {
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+/* Make headers thicker and smaller */
+h1 {
+    font-size: 2.5rem;
+    /* 40px */
     font-weight: 600;
-    /* 700 is equivalent to "bold" */
+}
+
+h2 {
+    font-size: 2rem;
+    /* 32px */
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5rem;
+    /* 28px */
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 1.5rem;
+    /* 24px */
+    font-weight: 600;
+}
+
+h5 {
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 600;
+}
+
+h6 {
+    font-size: 1rem;
+    /* 16px */
+    font-weight: 600;
 }
 
 a {
@@ -26,10 +70,9 @@ a:hover {
     text-decoration: underline;
 }
 
-
-
 a.black {
     color: black;
+    font-weight: 400;
 }
 
 /* Hover effect for black links */
@@ -37,9 +80,8 @@ a.black:hover {
     color: #333;
     /* Slightly lighter black */
     text-decoration: underline;
-    font-weight: 300;
+    font-weight: 600;
 }
-
 
 a.black_underline {
     color: black;
@@ -111,29 +153,325 @@ a.footer {
     /* Ensure it appears on a new line */
 }
 
-.navbar-brand {
-    /* font-weight: bold; */
-    text-decoration: none;
-    color: black;
-}
 
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: #ffcc00;
-    /* Change this to your desired hover color */
-}
 
+/*------------------
+ * Navbar Styles
+ *------------------*/
+
+/* --- Base Navbar & Size Adjustments --- */
 .custom-navbar {
-    background-color: #000000;
-
-    /* Pure black */
-
+    background-color: #222;
+    /* Dark background */
+    border-color: #080808;
+    /* Border color (often subtle/unused unless border is added) */
+    padding-top: 0.7rem;
+    /* Overall vertical padding */
+    padding-bottom: 0.7rem;
 }
 
+.custom-navbar .navbar-brand,
+.custom-navbar .navbar-nav .nav-link {
+    padding-top: 0.2rem;
+    /* Vertical padding for brand & links */
+    padding-bottom: 0.2rem;
+    /* Optional: Slightly smaller font */
+    /* font-size: 0.9rem; */
+}
+
+/* --- Link & Brand Colors & Styling --- */
+
+/* Default color for navigation links */
+.custom-navbar .navbar-nav .nav-link {
+    color: #9d9d9d;
+    /* Greyish text color */
+    text-decoration: none;
+    /* Remove underline */
+}
+
+/* Default color for brand */
+.custom-navbar .navbar-brand {
+    color: #9d9d9d;
+    /* Greyish text color */
+    text-decoration: none;
+    /* Remove underline */
+}
+
+/* Hover/Focus color for links and brand */
+.custom-navbar .navbar-nav .nav-link:hover,
+.custom-navbar .navbar-nav .nav-link:focus,
+.custom-navbar .navbar-brand:hover,
+.custom-navbar .navbar-brand:focus {
+    color: #ffffff;
+    /* Brighter white on hover/focus */
+    text-decoration: none;
+    /* Ensure no underline on hover/focus */
+}
+
+/* --- Icon Styling --- */
+.custom-navbar .navbar-nav .nav-link .fa-fw {
+    margin-right: 0.4em;
+    /* Add space between icon and text */
+    /* Icon color will inherit from the parent nav-link */
+}
+
+
+/* --- Toggler Styling (for mobile view) --- */
+.navbar-dark .navbar-toggler {
+    border-color: rgba(187, 194, 207, 0.5);
+    /* Your chosen light grey border */
+}
+
+/* Ensure the toggler icon itself is visible (Bootstrap default for navbar-dark is usually fine) */
+.navbar-dark .navbar-toggler-icon {
+    /* Default white SVG icon from Bootstrap navbar-dark should work. */
+    /* If you need to force a specific color (e.g., #9d9d9d), uncomment and modify below */
+    /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(157, 157, 157, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); */
+}
+
+
+/* --- Dropdown Styling (if used) --- */
+.navbar-dark .navbar-nav .dropdown-menu {
+    background-color: #222;
+    /* Match navbar background */
+    border-color: rgba(187, 194, 207, 0.2);
+    /* Your chosen border color */
+}
+
+.navbar-dark .navbar-nav .dropdown-item {
+    color: #bbc2cf;
+    /* Text color for dropdown items */
+    text-decoration: none;
+    /* Remove underline */
+}
+
+.navbar-dark .navbar-nav .dropdown-item:hover,
+.navbar-dark .navbar-nav .dropdown-item:focus {
+    color: #ffffff;
+    /* Text color on hover/focus */
+    background-color: rgba(187, 194, 207, 0.1);
+    /* Subtle background on hover/focus */
+}
+
+
+.highlight {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+/*------------------
+ * Publications
+ * (Light Mode Only)
+ *------------------*/
+.pub-wrapper .section-item {
+    margin-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Base link styling in publications section */
+.pub-wrapper a {
+    color: var(--text);
+    /* Assumes --text is defined for light mode (e.g., dark grey/black) */
+    text-decoration: none;
+    transition: color 0.2s ease;
+    /* Smooth color transition */
+}
+
+/* Publication title */
+.pub-wrapper .title a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.25em;
+    /* Increased font size */
+    /* color: inherit; */
+    /* Ensure color is inherited or set explicitly if needed */
+}
+
+/* Styling for the venue container */
+.pub-wrapper .link .venue {
+    /* Styles the container span */
+    font-weight: bold;
+}
+
+/* Keep venue link looking like text (overrides button style below) */
+/* If you WANT the venue to be a button too, comment out or remove this block */
+.pub-wrapper .link .venue a {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-size: 1em;
+    /* Reset font size */
+    line-height: inherit;
+    background-color: transparent;
+    font-weight: bold;
+    /* Ensure it stays bold */
+    /* color: var(--text); */
+    /* Explicitly set color if needed */
+}
+
+.pub-wrapper .link .venue a:hover,
+.pub-wrapper .link .venue a:focus {
+    background-color: transparent;
+    /* No background hover */
+    /* color: var(--link-hover-color); */
+    /* Optional: Define hover color */
+    /* text-decoration: underline; */
+    /* Optional: Add underline on hover */
+}
+
+
+/* Styling for authors */
+.pub-wrapper .authors {
+    color: var(--dark-gray);
+    /* Assumes --dark-gray is suitable for light mode */
+    font-size: 0.95em;
+    /* Slightly smaller */
+    margin: 0.3em 0;
+}
+
+.pub-wrapper .authors a {
+    color: var(--dark-gray);
+    /* Match author text color */
+    text-decoration: none;
+}
+
+/* Style for your name - NOTE: use class="me" in HTML */
+.pub-wrapper .authors a.me {
+    font-weight: bold;
+    text-decoration: none;
+    /* color: inherit; or specific color */
+}
+
+/* Image styling */
+.pub-wrapper .figure img {
+    max-width: 240px;
+    width: 100%;
+    display: block;
+    /* Ensures shadow and radius apply correctly */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* Drop shadow */
+    transition: box-shadow 0.3s ease;
+    /* Smooth transition for hover */
+}
+
+/* Optional: Enhance shadow on image hover */
+.pub-wrapper .figure img:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Responsive adjustment for figure margin */
+@media (max-width: 767.98px) {
+    .pub-wrapper .figure {
+        margin-bottom: 15px;
+        /* Increased margin slightly */
+        text-align: center;
+        /* Center image on small screens */
+    }
+
+    .pub-wrapper .figure img {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/* Minimalistic buttons for links */
+.pub-wrapper .link {
+    margin-top: 0.5em;
+    /* Add some space above the buttons */
+}
+
+.pub-wrapper .link a {
+    /* Styles applied here affect ALL links in .link unless overridden */
+    /* (like the .venue a override block above) */
+    display: inline-block;
+    padding: 0.2em 0.7em;
+    /* Padding inside button */
+    margin: 0.2em 0.4em 0.2em 0;
+    /* Space between buttons */
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    /* Subtle dark border for light mode */
+    border-radius: 4px;
+    /* Slightly rounded button corners */
+    font-size: 0.85em;
+    /* Smaller text for buttons */
+    line-height: 1.4;
+    /* Adjust line height if padding causes issues */
+    background-color: transparent;
+    text-decoration: none;
+    /* Ensure no underline */
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    /* color: var(--text); */
+    /* Ensure button text color is correct */
+}
+
+/* Hover/focus state for buttons */
+.pub-wrapper .link a:hover,
+.pub-wrapper .link a:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    /* Subtle dark background for light mode hover */
+    border-color: rgba(0, 0, 0, 0.3);
+    /* Darker border on hover */
+    /* color: var(--link-hover-color); */
+    /* Define hover text color if needed */
+    text-decoration: none;
+}
+
+
+/* Modify the existing image styling rule to include videos */
+.pub-wrapper .figure img,
+.pub-wrapper .figure video {
+    max-width: 240px;
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+    object-fit: cover;
+    /* Add this to maintain aspect ratio */
+}
+
+/* Add video-specific styling if needed */
+.pub-wrapper .figure video {
+    background-color: #000;
+    /* Black background for video elements */
+}
+
+/* Optional: Enhance shadow on hover for both */
+.pub-wrapper .figure img:hover,
+.pub-wrapper .figure video:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .pub-wrapper .figure {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .pub-wrapper .figure img,
+    .pub-wrapper .figure video {
+        max-width: 100%;
+        /* Allow full width on mobile */
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/* Row styling (Bootstrap compatible) */
+/* No need to redeclare .row styles if using standard Bootstrap */
+/* If custom row behavior is needed, style carefully */
+/*
 .row {
     display: flex;
-    /* Ensure the row is a flex container */
     flex-wrap: wrap;
-    /* Allow wrapping of child elements */
     row-gap: 1rem;
-    /* Add a 1rem gap between rows */
 }
+*/

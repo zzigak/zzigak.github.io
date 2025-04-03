@@ -6,7 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -15,9 +18,10 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <!-- <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light"> -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-navbar">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Žiga</a>
+            <a class="navbar-brand" href="#">Žiga Kovačič</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,16 +29,16 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link text-decoration-none" href="#bio">Bio</a>
+                        <a class="nav-link" href="#bio"><i class="fas fa-user fa-fw"></i> Bio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-decoration-none" href="#publication">Publications</a>
+                        <a class="nav-link" href="#publication"><i class="fas fa-book-open fa-fw"></i> Publications</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-decoration-none" href="#experience">Experiences</a>
+                        <a class="nav-link" href="#experience"><i class="fas fa-briefcase fa-fw"></i> Experiences</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-decoration-none" href="#personal">Personal</a>
+                        <a class="nav-link" href="#personal"><i class="fas fa-bowl-food fa-fw"></i> Personal</a>
                     </li>
                 </ul>
             </div>
@@ -45,12 +49,12 @@
 
 
 
-
     <!-- Main page -->
     <div class="container pt-5 mt-5">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-3">
-                <img src="image/mit_1.gif" alt="animated portrait" width="100%" class="mobile-spacing">
+                <img src="image/mit_1.gif" alt="animated portrait"
+                    style="width: 100%; max-width: 220px; border-radius: 5px; " class="mobile-spacing">
             </div>
             <div class="col-md-9">
                 <h3>Žiga Kovačič</h3>
@@ -84,17 +88,8 @@
 
 
                     </p>
-                    <!-- <p>
-                        Before joining [Your University], I was a [Previous Position] at <a href="#"
-                            class="black">Previous Institution</a>.
-                        I completed my Ph.D. in [Your Field] at <a href="#" class="black">Your Ph.D. Institution</a>.
-                        I obtained my Master's in [Your Field] from <a href="#" class="black">Your Master's
-                            Institution</a>
-                        and my Bachelor's in [Your Field] from <a href="#" class="black">Your Bachelor's
-                            Institution</a>.
-                    </p> -->
                     <p>
-                        <b> Research.</b>
+                        <b> Research Interests.</b>
                         I'm broadly interested in the intersection of computer graphics, physics, machine learning, and
                         cognition. Currently I'm focusing on code generation for physical simulation and physically
                         plausible re-simulations, i.e. finding useful
@@ -115,56 +110,49 @@
         <hr>
 
 
-        <!-- Publications -->
-        <div class="row pt-2" id="publication">
-            <div class="col-md-12">
-                <h3>Publications</h3>
-                <p>* indicates equal contributions. See my <a href="#" class="black">Google Scholar</a> page for an
-                    up-to-date list.</p>
-            </div>
-        </div>
 
-        <!-- Example Publication -->
-        <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <img src="image/catgod_small.png" width="100%">
+        <!-- Publications -->
+        <div class="sec-wrapper pub-wrapper" id="publication">
+            <div class="row pt-2" id="publication">
+                <div class="col-md-12">
+                    <h3>Publications</h3>
+                    <p>* indicates equal contributions. See my <a href="#" class="black">Google Scholar</a> page for an
+                        up-to-date list.</p>
+                </div>
             </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">Something Cool in the works</p>
-                <p>
-                    <a href="#" class="black author-name">Author 1</a>,
-                    <a href="#" class="black other-author">Author 2</a>,
-                    <a href="#" class="black other-author">Author 3</a>,
-                    <a href="#" class="black other-author">Author 4</a>.
-                    <a style="font-style: italic;">Conference/Journal Name Year</a>
-                </p>
-                <p>
-                    <a href="#" class="publication_link">[Project]</a>
-                    <a href="#" class="publication_link">[Paper]</a>
-                    <a href="#" class="publication_link">[Code]</a>
-                </p>
+
+            <!-- Example Publication -->
+            <div class="section-item">
+                <div class="row align-items-center">
+                    <div class="col-xs-12 col-md-auto col-wrapper">
+                        <div class="figure">
+                            <a href="">
+                                <img src="image/catgod_small.png" alt="[Phys-Comp]">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md col-wrapper">
+                        <div class="title">
+                            <a href="https://gmh14.github.io/phys-comp/">In Submission </a>
+                        </div>
+                        <div class="authors">
+                            <a href="https://echen01.github.io/">Eric M. Chen</a>,
+                            <a href="https://zzigak.github.io/">Žiga Kovačič</a>,
+                            <a href="">Madhav Agrawal</a>,
+                            <a href="">Abe Davis</a>
+                        </div>
+                        <div class="link">
+                            <span class="venue"><a href="">Cool 2025</a></span>
+
+                            <a href="">Project Page</a>
+                            <a href="">Paper</a>
+                            <a href="">Code</a>
+                        </div>
+                        <!-- <div class="highlight">Spotlight Presentation</div> -->
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <img src="image/catgod_small.png" width="100%">
-            </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">Example Publication Title</p>
-                <p>
-                    <a href="#" class="black author-name">Author 1</a>,
-                    <a href="#" class="black other-author">Author 2</a>,
-                    <a href="#" class="black other-author">Author 3</a>,
-                    <a href="#" class="black other-author">Author 4</a>.
-                    <a style="font-style: italic;">Conference/Journal Name Year</a>
-                </p>
-                <p>
-                    <a href="#" class="publication_link">[Project]</a>
-                    <a href="#" class="publication_link">[Paper]</a>
-                    <a href="#" class="publication_link">[Code]</a>
-                </p>
-            </div>
-        </div> -->
 
 
         <br>
@@ -172,148 +160,145 @@
         <hr>
 
         <!-- Projects -->
-        <div class="row pt-2" id="projects">
-            <div class="col-md-12">
-                <h3>Projects</h3>
-                <p>Here are some of my research and engineering projects, or at least the ones that are not being
-                    prepped for publications...</p>
+        <div class="sec-wrapper pub-wrapper" id="projects">
+            <div class="row pt-2">
+                <div class="col-md-12">
+                    <h3>Projects</h3>
+                    <p>Here are some of my research and engineering projects, or at least the ones that are not being
+                        prepped for publications...</p>
+                </div>
             </div>
-        </div>
 
-
-        <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <video width="100%" controls autoplay muted style="object-fit: cover;">
-                    <source src="video/ismb_demo.mov" type="video/mp4">Your browser does not support the video tag.
-                </video>
+            <!-- Image Space Modal Basis -->
+            <div class="section-item">
+                <div class="row align-items-center">
+                    <div class="col-xs-12 col-md-auto col-wrapper">
+                        <div class="figure">
+                            <video width="100%" controls autoplay muted style="object-fit: cover;">
+                                <source src="video/ismb_demo.mov" type="video/mp4">Your browser does not support the
+                                video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md col-wrapper">
+                        <div class="title">
+                            <a>Image Space Modal Basis in JS and Python</a>
+                        </div>
+                        <div class="description">
+                            Implements the 2015 paper "Image-Space Modal Bases for Plausible Manipulation of Objects in
+                            Video"
+                            by Davis et al., extending the original work with modal warping. Developed modal analysis
+                            pipeline
+                            in Python and custom JavaScript rasterizer for real-time rendering.
+                        </div>
+                        <div class="link">
+                            <a href="https://github.com/zzigak/npz2ply" class="publication_link">GitHub (Coming
+                                Soon)</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">Image space Modal Basis in JS and Python </p>
-                <p>
-                    This project implements the 2015 paper "Image-Space Modal Bases for Plausible Manipulation of
-                    Objects in Video" by Davis et al., which extracts object vibration modes from video to simulate
-                    physically plausible deformations. I developed the modal analysis pipeline in Python and built a
-                    custom rasterizer in JavaScript for real-time rendering, extending the original work with
-                    <strong>modal
-                        warping.</strong>
-                </p>
-                <p>
-                    <a href="https://github.com/zzigak/npz2ply" class="publication_link">[GitHub (Coming Soon)]</a>
-                    <!-- <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link">[Video]</a> -->
-                </p>
+
+            <!-- Obstruction Removal -->
+            <div class="section-item">
+                <div class="row align-items-center">
+                    <div class="col-xs-12 col-md-auto col-wrapper">
+                        <div class="figure">
+                            <video width="100%" controls autoplay muted style="object-fit: cover;">
+                                <source src="video/obstruction_removal.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md col-wrapper">
+                        <div class="title">
+                            <a>Obstruction Removal - SliceSplatting</a>
+                        </div>
+                        <div class="description">
+                            Modifies Gaussian Splatting to remove obstructions blocking the view of objects of interest
+                            in 3D scene reconstruction.
+                        </div>
+                        <div class="link">
+                            <a href="https://github.com/zzigak/npz2ply" class="publication_link">GitHub (Coming
+                                Soon)</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <video width="100%" controls autoplay muted style="object-fit: cover;">
-                    <source src="video/obstruction_removal.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            <!-- Pen-2-Graph -->
+            <div class="section-item">
+                <div class="row align-items-center">
+                    <div class="col-xs-12 col-md-auto col-wrapper">
+                        <div class="figure">
+                            <img src="image/pen2graph.png" alt="Pen-2-Graph">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md col-wrapper">
+                        <div class="title">
+                            <a href="https://github.com/zzigak/Pen2Graph" class="publication_link">Pen-2-Graph</a>
+                        </div>
+                        <div class="description">
+                            Automates generation of node-edge graph programs from hand-drawn sketches using
+                            vision-language
+                            models and differential evolution. CS 6172 Final project.
+                        </div>
+                        <div class="link">
+                            <a href="https://github.com/zzigak/Pen2Graph" class="publication_link">GitHub Page</a>
+                            <a href="https://classes.cornell.edu/browse/roster/FA24/class/CS/6172"
+                                class="publication_link">Class Page</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">Obstruction Removal - SliceSplatting </p>
-                <p>
-                    This project modifies Gaussian Splatting to remove obstructions blocking the view of objects of
-                    interest in a 3D scene reconstruction.
-                </p>
-                <p>
-                    <a href="https://github.com/zzigak/npz2ply" class="publication_link">[GitHub (Coming Soon)]</a>
-                </p>
+
+            <!-- Gaussian Splatting Converter -->
+            <div class="section-item">
+                <div class="row align-items-center">
+                    <div class="col-xs-12 col-md-auto col-wrapper">
+                        <div class="figure">
+                            <img src="image/npz_to_ply.png" alt="Gaussian Splatting Converter">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md col-wrapper">
+                        <div class="title">
+                            <a>Gaussian Splatting Format Converter</a>
+                        </div>
+                        <div class="description">
+                            Conversion script for .ply based viewers from Inria's 3DGS implementation params.npz format.
+                        </div>
+                        <div class="link">
+                            <a href="https://github.com/zzigak/npz2ply" class="publication_link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Example Project 1 -->
-        <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <img src="image/pen2graph.png" width="100%">
-            </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">Pen-2-Graph</p>
-                <p>
-                    This project automates the generation of visually matching node-edge graph programs from hand-drawn
-                    sketches by
-                    leveraging vision-language models and differential evolution, combining visual input with
-                    mathematical constraints to guide program search.
-                    <a style="font-style: italic;">CS 6172 Final project</a>
-                </p>
-                <p>
-                    <a href="https://github.com/zzigak/Pen2Graph" class="publication_link">[GitHub Page]</a>
-                    <a href="https://classes.cornell.edu/browse/roster/FA24/class/CS/6172"
-                        class="publication_link">[Class Page]</a>
-                </p>
-            </div>
-        </div>
-
-        <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <img src="image/npz_to_ply.png" width="100%">
-
-            </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">Gaussian Splatting Format Converter </p>
-                <p>
-                    If you are trying to use .ply based viewers, but you're using a fork of Inria's implementation of
-                    3DGS, I made a little script that converts the params.npz into a viewable .ply.
-                </p>
-                <p>
-                    <a href="https://github.com/zzigak/npz2ply" class="publication_link">[GitHub]</a>
-                    <!-- <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link">[Video]</a> -->
-                </p>
-            </div>
-        </div>
-
-        <!-- Example Project 2 -->
-        <div class="row pt-4 publication-entry">
-            <div class="col-md-3">
-                <img src="image/melodyMesh.png" width="100%">
-
-            </div>
-            <div class="col-md-9">
-                <p class="bold_and_large">MelodyMesh</p>
-                <p>
-                    3D music visualizer that deforms a mesh based on dominant frequencies in a sound recording.
-                    <a style="font-style: italic;">CS 6682 Final project</a>
-                </p>
-                <p>
-                    <a href="https://github.com/zzigak/MelodyMesh" class="publication_link">[GitHub]</a>
-                    <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link">[Video]</a>
-                </p>
-            </div>
-        </div>
-
-
-        <br>
-
-
-        <hr>
-
-        <div class="row pt-2" id="experience">
-            <div class="col-md-12">
-                <h3>Teaching Experiences</h3>
-                <div>
-                    <p>
-                        <b>2025</b>: <i><span style="color: goldenrod;">Head TA</span></i> for <a href="#"
-                            class="black">CS 4782: Deep Learning</a> | Spring
-                        2025
-                        <br>
-
-                        <b>2024</b>: <i>TA</i> for <a href="#" class="black">CS 4620: Introduction to Computer
-                            Graphics</a> | Fall 2024
-                        <br>
-
-                        <b>2024</b>: <i>TA</i> for <a href="#" class="black">CS 4780: Introduction to Machine
-                            Learning</a> | Spring 2024 <span style="color: goldenrod;">(Teaching Excellence
-                            Award)</span>
-
-                        <br>
-
-                        <b>2023</b>: <i>TA</i> for <a href="#" class="black">CS 2110: Object-Oriented Programming and
-                            Data Structures</a> | Spring 2023
-                    </p>
+            <!-- MelodyMesh -->
+            <div class="section-item">
+                <div class="row align-items-center">
+                    <div class="col-xs-12 col-md-auto col-wrapper">
+                        <div class="figure">
+                            <img src="image/melodyMesh.png" alt="MelodyMesh">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md col-wrapper">
+                        <div class="title">
+                            <a>MelodyMesh</a>
+                        </div>
+                        <div class="description">
+                            3D music visualizer that deforms meshes based on audio frequencies. CS 6682 Final project.
+                        </div>
+                        <div class="link">
+                            <a href="https://github.com/zzigak/MelodyMesh" class="publication_link">GitHub</a>
+                            <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link">Video</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+
         <hr>
 
         <!-- Experiences
@@ -359,7 +344,7 @@
                 <h3>Personal</h3>
                 <div>
                     <p>
-                        In my free time I enjoy cooking, playing the guitar, and going to the gym.
+                        In my free time I enjoy cooking, climbing, and playing the guitar.
                     </p>
                 </div>
             </div>
@@ -371,7 +356,6 @@
         <!-- Friends' Personal Websites -->
         <div class="row pt-2" id="friends">
             <div class="col-md-12">
-                <h3>Friends' Personal Websites</h3>
                 <div>
                     <p>Personal websites of some friends/acquaintances you might find interesting:</p>
                     <p>
