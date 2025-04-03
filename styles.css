@@ -10,14 +10,14 @@
 
 body {
     color: black;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 24px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 /* Center the content and set max-width */
 .container {
-    max-width: 768px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
