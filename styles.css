@@ -184,6 +184,7 @@ a.footer {
 /* Default color for navigation links */
 .custom-navbar .navbar-nav .nav-link {
     color: #9d9d9d;
+    justify-content: center;
     /* Greyish text color */
     text-decoration: none;
     /* Remove underline */
@@ -192,6 +193,7 @@ a.footer {
 /* Default color for brand */
 .custom-navbar .navbar-brand {
     color: #9d9d9d;
+    justify-content: center;
     /* Greyish text color */
     text-decoration: none;
     /* Remove underline */
@@ -203,6 +205,7 @@ a.footer {
 .custom-navbar .navbar-brand:hover,
 .custom-navbar .navbar-brand:focus {
     color: #ffffff;
+    justify-content: center;
     /* Brighter white on hover/focus */
     text-decoration: none;
     /* Ensure no underline on hover/focus */
@@ -211,6 +214,7 @@ a.footer {
 /* --- Icon Styling --- */
 .custom-navbar .navbar-nav .nav-link .fa-fw {
     margin-right: 0.4em;
+    justify-content: center;
     /* Add space between icon and text */
     /* Icon color will inherit from the parent nav-link */
 }
@@ -233,6 +237,7 @@ a.footer {
 /* --- Dropdown Styling (if used) --- */
 .navbar-dark .navbar-nav .dropdown-menu {
     background-color: #222;
+    justify-content: center;
     /* Match navbar background */
     border-color: rgba(187, 194, 207, 0.2);
     /* Your chosen border color */
@@ -240,6 +245,7 @@ a.footer {
 
 .navbar-dark .navbar-nav .dropdown-item {
     color: #bbc2cf;
+    justify-content: center;
     /* Text color for dropdown items */
     text-decoration: none;
     /* Remove underline */
@@ -248,6 +254,7 @@ a.footer {
 .navbar-dark .navbar-nav .dropdown-item:hover,
 .navbar-dark .navbar-nav .dropdown-item:focus {
     color: #ffffff;
+    justify-content: center;
     /* Text color on hover/focus */
     background-color: rgba(187, 194, 207, 0.1);
     /* Subtle background on hover/focus */

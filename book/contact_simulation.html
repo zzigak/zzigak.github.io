@@ -1,72 +1,47 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
 
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-  <title>4&nbsp; Contact Simulation – Physical Simulations in Graphics</title>
-  <style>
-    code {
-      white-space: pre-wrap;
-    }
-
-    span.smallcaps {
-      font-variant: small-caps;
-    }
-
-    div.columns {
-      display: flex;
-      gap: min(4vw, 1.5em);
-    }
-
-    div.column {
-      flex: auto;
-      overflow-x: auto;
-    }
-
-    div.hanging-indent {
-      margin-left: 1.5em;
-      text-indent: -1.5em;
-    }
-
-    ul.task-list {
-      list-style: none;
-    }
-
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em;
-      /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
-      vertical-align: middle;
-    }
-  </style>
+<title>4&nbsp; Contact Simulation – Physical Simulations in Graphics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
 
 
-  <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="site_libs/quarto-nav/headroom.min.js"></script>
-  <script src="site_libs/clipboard/clipboard.min.js"></script>
-  <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-  <script src="site_libs/quarto-search/fuse.min.js"></script>
-  <script src="site_libs/quarto-search/quarto-search.js"></script>
-  <meta name="quarto:offset" content="./">
-  <link href="./deformations.html" rel="prev">
-  <script src="site_libs/quarto-html/quarto.js"></script>
-  <script src="site_libs/quarto-html/popper.min.js"></script>
-  <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="site_libs/quarto-html/anchor.min.js"></script>
-  <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet"
-    id="quarto-text-highlighting-styles">
-  <script src="site_libs/bootstrap/bootstrap.min.js"></script>
-  <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="site_libs/bootstrap/bootstrap-ee608d0993cfabc8b0fbe2c0a4f0c49d.min.css" rel="stylesheet"
-    append-hash="true" id="quarto-bootstrap" data-mode="light">
-  <script id="quarto-search-options" type="application/json">{
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mpm.html" rel="next">
+<link href="./deformations.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f822fcfeb115ad0347b6e54b64ebfd0f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -97,1486 +72,1021 @@
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-  <script type="text/javascript">
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
       }
     }
-    window.Quarto = {
-      typesetMath
-    };
-  </script>
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
 <body class="nav-sidebar floating">
 
-  <div id="quarto-search-results"></div>
+<div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="quarto-secondary-nav">
-      <div class="container-fluid d-flex">
-        <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button"
-          data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false"
-          aria-label="Toggle sidebar navigation"
-          onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-          <i class="bi bi-layout-text-sidebar-reverse"></i>
-        </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./contact_simulation.html"><span class="chapter-number">4</span>&nbsp;
-                <span class="chapter-title">Contact Simulation</span></a></li>
-          </ol>
-        </nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse"
-          data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false"
-          aria-label="Toggle sidebar navigation"
-          onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./contact_simulation.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Contact Simulation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-        <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-          <i class="bi bi-search"></i>
-        </button>
-      </div>
-    </nav>
-  </header>
-  <!-- content -->
-  <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-    <!-- sidebar -->
-    <nav id="quarto-sidebar"
-      class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-      <div class="pt-lg-2 mt-2 text-left sidebar-header">
-        <div class="sidebar-title mb-0 py-0">
-          <a href="./">Physical Simulations in Graphics</a>
-        </div>
-      </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-          <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
-      <div class="sidebar-menu-container">
-        <ul class="list-unstyled mt-1">
-          <li class="sidebar-item">
-            <div class="sidebar-item-container">
-              <a href="./index.html" class="sidebar-item-text sidebar-link">
-                <span class="menu-text">Preface</span></a>
-            </div>
-          </li>
-          <li class="sidebar-item">
-            <div class="sidebar-item-container">
-              <a href="./classical_mechanics.html" class="sidebar-item-text sidebar-link">
-                <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span
-                    class="chapter-title">Classical Mechanics: A brief Detour</span></span></a>
-            </div>
-          </li>
-          <li class="sidebar-item">
-            <div class="sidebar-item-container">
-              <a href="./rigid_body_dynamics.html" class="sidebar-item-text sidebar-link">
-                <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Rigid
-                    Body Dynamics</span></span></a>
-            </div>
-          </li>
-          <li class="sidebar-item">
-            <div class="sidebar-item-container">
-              <a href="./deformations.html" class="sidebar-item-text sidebar-link">
-                <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span
-                    class="chapter-title">Deformable Models in Graphics</span></span></a>
-            </div>
-          </li>
-          <li class="sidebar-item">
-            <div class="sidebar-item-container">
-              <a href="./contact_simulation.html" class="sidebar-item-text sidebar-link active">
-                <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Contact
-                    Simulation</span></span></a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse"
-      data-bs-target=".quarto-sidebar-collapse-item"></div>
-    <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-      <nav id="TOC" role="doc-toc" class="toc-active">
-        <h2 id="toc-title">Table of contents</h2>
-
-        <ul>
-          <li><a href="#basics-of-contact-simulation" id="toc-basics-of-contact-simulation" class="nav-link active"
-              data-scroll-target="#basics-of-contact-simulation"><span class="header-section-number">4.1</span> Basics
-              of Contact Simulation</a>
-            <ul class="collapse">
-              <li><a href="#basics-of-constraints" id="toc-basics-of-constraints" class="nav-link"
-                  data-scroll-target="#basics-of-constraints"><span class="header-section-number">4.1.1</span> Basics of
-                  Constraints</a></li>
-              <li><a href="#coulumnb-friction-model" id="toc-coulumnb-friction-model" class="nav-link"
-                  data-scroll-target="#coulumnb-friction-model"><span class="header-section-number">4.1.2</span>
-                  Coulumnb Friction Model</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact-generation" id="toc-contact-generation" class="nav-link"
-              data-scroll-target="#contact-generation"><span class="header-section-number">4.2</span> Contact
-              Generation</a></li>
-          <li><a href="#deformable-bodies-soft-body-contact" id="toc-deformable-bodies-soft-body-contact"
-              class="nav-link" data-scroll-target="#deformable-bodies-soft-body-contact"><span
-                class="header-section-number">4.3</span> Deformable Bodies / Soft Body Contact</a>
-            <ul class="collapse">
-              <li><a href="#time-discretization-for-deformables" id="toc-time-discretization-for-deformables"
-                  class="nav-link" data-scroll-target="#time-discretization-for-deformables"><span
-                    class="header-section-number">4.3.1</span> Time Discretization for Deformables</a></li>
-              <li><a href="#little-detour-incremental-potential" id="toc-little-detour-incremental-potential"
-                  class="nav-link" data-scroll-target="#little-detour-incremental-potential"><span
-                    class="header-section-number">4.3.2</span> Little Detour: Incremental Potential</a></li>
-            </ul>
-          </li>
-          <li><a href="#penalty-and-barrier-methods" id="toc-penalty-and-barrier-methods" class="nav-link"
-              data-scroll-target="#penalty-and-barrier-methods"><span class="header-section-number">4.4</span> Penalty
-              and Barrier Methods</a>
-            <ul class="collapse">
-              <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span
-                    class="header-section-number">4.4.1</span> Overview</a></li>
-            </ul>
-          </li>
-          <li><a href="#barrier-methods" id="toc-barrier-methods" class="nav-link"
-              data-scroll-target="#barrier-methods"><span class="header-section-number">4.5</span> Barrier Methods</a>
-            <ul class="collapse">
-              <li><a href="#ipc---incremental-potential-contact" id="toc-ipc---incremental-potential-contact"
-                  class="nav-link" data-scroll-target="#ipc---incremental-potential-contact"><span
-                    class="header-section-number">4.5.1</span> IPC - Incremental Potential Contact</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-    <!-- main -->
-    <main class="content" id="quarto-document-content">
-
-      <header id="title-block-header" class="quarto-title-block default">
-        <div class="quarto-title">
-          <h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Contact
-              Simulation</span></h1>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Physical Simulations in Graphics</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
-
-
-
-        <div class="quarto-title-meta">
-
-
-
-
         </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./classical_mechanics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Classical Mechanics: A brief Detour</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rigid_body_dynamics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Rigid Body Dynamics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./deformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deformable Models in Graphics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./contact_simulation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Contact Simulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mpm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Material Point Method: Graphics Perspective</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mpm_snow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MPM for snow simulation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./flip.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FLIP - Animating Sand As a Fluid</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./APIC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">APIC - Affine Particle-In-Cell</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#basics-of-contact-simulation" id="toc-basics-of-contact-simulation" class="nav-link active" data-scroll-target="#basics-of-contact-simulation"><span class="header-section-number">4.1</span> Basics of Contact Simulation</a>
+  <ul class="collapse">
+  <li><a href="#basics-of-constraints" id="toc-basics-of-constraints" class="nav-link" data-scroll-target="#basics-of-constraints"><span class="header-section-number">4.1.1</span> Basics of Constraints</a></li>
+  <li><a href="#coulumnb-friction-model" id="toc-coulumnb-friction-model" class="nav-link" data-scroll-target="#coulumnb-friction-model"><span class="header-section-number">4.1.2</span> Coulumnb Friction Model</a></li>
+  </ul></li>
+  <li><a href="#contact-generation" id="toc-contact-generation" class="nav-link" data-scroll-target="#contact-generation"><span class="header-section-number">4.2</span> Contact Generation</a></li>
+  <li><a href="#deformable-bodies-soft-body-contact" id="toc-deformable-bodies-soft-body-contact" class="nav-link" data-scroll-target="#deformable-bodies-soft-body-contact"><span class="header-section-number">4.3</span> Deformable Bodies / Soft Body Contact</a>
+  <ul class="collapse">
+  <li><a href="#time-discretization-for-deformables" id="toc-time-discretization-for-deformables" class="nav-link" data-scroll-target="#time-discretization-for-deformables"><span class="header-section-number">4.3.1</span> Time Discretization for Deformables</a></li>
+  <li><a href="#little-detour-incremental-potential" id="toc-little-detour-incremental-potential" class="nav-link" data-scroll-target="#little-detour-incremental-potential"><span class="header-section-number">4.3.2</span> Little Detour: Incremental Potential</a></li>
+  </ul></li>
+  <li><a href="#penalty-and-barrier-methods" id="toc-penalty-and-barrier-methods" class="nav-link" data-scroll-target="#penalty-and-barrier-methods"><span class="header-section-number">4.4</span> Penalty and Barrier Methods</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview"><span class="header-section-number">4.4.1</span> Overview</a></li>
+  </ul></li>
+  <li><a href="#barrier-methods" id="toc-barrier-methods" class="nav-link" data-scroll-target="#barrier-methods"><span class="header-section-number">4.5</span> Barrier Methods</a>
+  <ul class="collapse">
+  <li><a href="#ipc---incremental-potential-contact" id="toc-ipc---incremental-potential-contact" class="nav-link" data-scroll-target="#ipc---incremental-potential-contact"><span class="header-section-number">4.5.1</span> IPC - Incremental Potential Contact</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Contact Simulation</span></h1>
+</div>
 
 
 
-      </header>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
-      <p>When simulating any kinds of physical systems in graphics we often have to deal with contact. Contact is the
-        interaction between two objects that are in close proximity. The forces between these objects are called
-        <em>contact forces</em> and they are there to prevent the objects from interpenetrating. There are 3 rough types
-        of contact simulations: 1. constraint based methods, 2. penalty based methods, and 3. impulse based methods. We
-        will focus on the first two.</p>
-      <section id="basics-of-contact-simulation" class="level2" data-number="4.1">
-        <h2 data-number="4.1" class="anchored" data-anchor-id="basics-of-contact-simulation"><span
-            class="header-section-number">4.1</span> Basics of Contact Simulation</h2>
-        <p>Newton-Euler equations of motions that govern dynamics of physical systems as a 2nd order ODE is written as:
-        </p>
-        <p><span class="math display">\[ M(t) \dot u(t) = f(q(t), u(t),t),\]</span></p>
-        <p>where <span class="math inline">\(M(t)\)</span> is the mass matrix over time, <span
-            class="math inline">\(u(t)\)</span> is the velocity of the system, <span class="math inline">\(q(t)\)</span>
-          is the generalized position of the system, and <span class="math inline">\(f\)</span> is the external forces
-          acting on the system. The contact forces are a subset of these external forces. We can abbreviate the above
-          equation as:</p>
-        <p><span class="math display">\[M\dot u = f,\]</span></p>
-        <p>and we evaluate it using numerical integrators that take discrete steps in time. In this section we denote
-          explicit quantities with superscript <span class="math inline">\(\square^-\)</span> and implicit quantities
-          with <span class="math inline">\(\square^+\)</span>. In the implict setting the 1st order Taylor approximation
-          gives:</p>
-        <p><span class="math display">\[u^+ \approx u + h \dot u,\]</span> which when placed into the Newton-Euler
-          equation gives gives the following Euler update:</p>
-        <p><span class="math display">\[ Mu^+ = Mu + h f.\]</span></p>
-        <p>Here <span class="math inline">\(Mu\)</span> can be seen as the momentum term and <span
-            class="math inline">\(u^+\)</span> is the velocity determined <em>at the end</em> of the timestep. The form
-          of <span class="math inline">\(M\)</span> will depend on the type of representation we use for our body.</p>
-        <p>Now we can similiarly update the generalized positions:</p>
-        <p><span class="math display">\[q^+ = q + h \textbf{H} u^+,\]</span></p>
-        <p>where <span class="math inline">\(\textbf{H}\)</span> is the kinematic matrix that maps velocities to
-          positions.</p>
-        <p>Since most contant models are based on Coulomb model, we get limited performance boost from higher order
-          methods, so we just we assume planar surface at the contact points.</p>
-        <section id="basics-of-constraints" class="level3" data-number="4.1.1">
-          <h3 data-number="4.1.1" class="anchored" data-anchor-id="basics-of-constraints"><span
-              class="header-section-number">4.1.1</span> Basics of Constraints</h3>
-          <p>To restrict movement of bodies to some desired state we introduce kinematic constraints, specifically with
-            <span class="math inline">\(m\)</span> constraints functions we define the desired state as a manifold <span
-              class="math inline">\(\phi(q) \in \mathbb{R}^m\)</span> embeeded in <span
-              class="math inline">\(\mathbb{R}^n\)</span>.</p>
-          <p>Assuming constraints are initially satisfied, we can formulate constraints in terms of how fast they change
-            with respect to <span class="math inline">\(q\)</span>:</p>
-          <p><span class="math display">\[J = \frac{\partial \phi}{\partial q} \in \mathrm{R^{m \times n}}.\]</span> We
-            call <span class="math inline">\(J\)</span> the constraint Jacobian / gradient. It encodes the direction in
-            which bodies may be pushed or pulled without exerting any forces on the system while staying on the
-            manifold. With this the bilateral and unilateral constraints can be written as:</p>
-          <p><span class="math display">\[J \dot u = 0,\]</span> and <span class="math display">\[J \dot u \geq
-              0,\]</span> respectively. More generally the constraint forces are written as:</p>
-          <p><span class="math display">\[f_c = J^T \lambda,\]</span></p>
-          <p>where <span class="math inline">\(\lambda\)</span> is the vector of Lagrange multipliers. The multipliers
-            relate to the magnitudes of <span class="math inline">\(f_c\)</span> when the gradients / directions are
-            normalized. So <span class="math inline">\(J^\top\)</span> tells the force direction and <span
-              class="math inline">\(\lambda\)</span> tells the magnitude. The constraint forces can be thought of as the
-            forces that keep the system on the manifold.</p>
-          <p>To actually enforce that our system stays on the manifold we need to add the constraint forces to the
-            external forces acting on the system in the form of an impulse:</p>
-          <p><span class="math display">\[M u^+ = M u + h f + h J^T \lambda^+,\]</span> where the constraint forces are
-            evaluated explicity. If we just consider bilateral constraint and write this as a linear system, then we can
-            use <em>Shur complement</em> to reduce the system:</p>
-          <p><span class="math display">\[JM^{-1}J^\top J^\top (h \lambda^+) + JM^{-1} (Mu + hf) = 0\]</span></p>
-          <p>which is a linear system of the form <span class="math inline">\(A h \lambda^+ + b = 0.\)</span></p>
-          <section id="non-interpenetration-contact" class="level4" data-number="4.1.1.1">
-            <h4 data-number="4.1.1.1" class="anchored" data-anchor-id="non-interpenetration-contact"><span
-                class="header-section-number">4.1.1.1</span> Non-interpenetration Contact</h4>
-            <p>Unilateral constraints are only active when the bodies are in contact. We model the distnace between two
-              bodies with a <em>gap function</em> <span class="math inline">\(\phi\)</span>—i.e.&nbsp;a constraint
-              function that <span class="math inline">\(\phi = 0\)</span> when the bodies are in contact, <span
-                class="math inline">\(\phi &gt; 0\)</span> when bodes are separated, and <span
-                class="math inline">\(\phi &lt; 0\)</span> when bodies are interpenetrating.</p>
-            <p>If we make the gross assumption that surfaces are smooth, then we can imagine a plane at the contact
-              point and its normal vectors is parallel to surface normal. If the bodies are in contact, then an impulse
-              <span class="math inline">\(\lambda_{\hat n}\)</span> is applied at the contact location in the direction
-              of <span class="math inline">\(\hat n\)</span> (i.e.&nbsp;perpendicular to the contact plane).</p>
-            <p>As such we have 2 cases:</p>
-            <ol type="1">
-              <li>
-                <p><strong>No contact, No force.</strong> <span class="math inline">\(\phi &gt; 0\)</span> and <span
-                    class="math inline">\(\lambda_{\hat n} = 0\)</span>.</p>
-              </li>
-              <li>
-                <p><strong>Contact, Force applied.</strong> <span class="math inline">\(\phi \leq 0\)</span> and <span
-                    class="math inline">\(\lambda_{\hat n} &gt; 0\)</span>.</p>
-              </li>
-            </ol>
-            <p>Since they are independent we can write them as one “position level non-penetration complementary
-              condition”:</p>
-            <p><span class="math display">\[\phi \geq 0 \quad \bot \quad \lambda_{\hat n} \geq 0.\]</span></p>
-            <p>Since the contact is only when <span class="math inline">\(\phi =0\)</span> we can again think about it
-              in terms of velocities of bodies. In the implict setting, if bodies <span
-                class="math inline">\(A,B\)</span> are in contact at time <span class="math inline">\(t\)</span>, then
-              if <span class="math inline">\(\dot \phi &gt; 0\)</span>—that is the normal component of relative velocity
-              is positive—they will <em>not</em> be in contact at time <span class="math inline">\(t+h\)</span> (note
-              <span class="math inline">\(\phi^+ \approx \phi + h \dot \phi = h \dot \phi\)</span>), so <span
-                class="math inline">\(\lambda_{\hat n} = 0\)</span>. If <span class="math inline">\(\dot \phi \leq
-                0\)</span>—that is they have negative or 0 relative velocity—then they will be in contact at time <span
-                class="math inline">\(t+h\)</span>, so <span class="math inline">\(\lambda_{\hat n} &gt; 0\)</span>.
-              Combined we have the condition:</p>
-            <p><span class="math display">\[\dot \phi \geq 0 \quad \bot \quad \lambda_{\hat n} \geq 0.\]</span></p>
-            <p>We replace <span class="math inline">\(\dot \phi = v_{\hat n}\)</span>, since it is the relative velocity
-              of the contact points in the normal direction. If we want to anticipate the collision and avoid tunneling
-              effects we can replace <span class="math inline">\(\dot \phi\)</span> with <span
-                class="math inline">\(\phi + hv _{\hat n}\)</span>.</p>
-            <p><strong>Non-interpretation Jacobian.</strong> The question now is how do we compute <span
-                class="math inline">\(\dot \phi\)</span>? We can use the chain rule to get:</p>
-            <p><span class="math display">\[\dot \phi = \frac{\partial \phi}{\partial q} \dot q = J \dot q = J \dot H u
-                = J' u,\]</span></p>
-            <p>where <span class="math inline">\(J'\)</span> body-space Jacobian of the gap function.</p>
-            <p>How do we construct <span class="math inline">\(J'\)</span>? Let’s consider collision of two bodies <span
-                class="math inline">\(A,B\)</span> at contact point <span class="math inline">\(p\)</span> and centes of
-              mass <span class="math inline">\(m_A, m_B\)</span> respectively. Defining <span class="math inline">\(\hat
-                n\)</span> to point <span class="math inline">\(A \rightarrow B\)</span>, then by taking <span
-                class="math inline">\(r_A = p - x_A\)</span> and <span class="math inline">\(r_B = p - x_B\)</span> we
-              can write: <span class="math display">\[
-                % \begin{align}
-                v_{\hat n} = \hat n^\top \delta v \]</span> <span class="math display">\[ v_{\hat n} = \hat n^\top ((v_B
-                + \omega_B \times r_B) - (v_A + \omega_A \times r_A)),
-                % \end{align}
-                \]</span></p>
-            <p>where <span class="math inline">\(v_A, v_B\)</span> are linear velocities of <span
-                class="math inline">\(A,B\)</span> and <span class="math inline">\(\omega_A, \omega_B\)</span> are
-              angular velocities of <span class="math inline">\(A,B\)</span> respectively. Finally we see how to compute
-              <span class="math inline">\(J'\)</span>:</p>
-            <p><span class="math display">\[v _{\hat n} = \begin{bmatrix}-\hat n^\top&amp; \hat n r_A^\times &amp; \hat
-                n^\top &amp; -\hat n^\top r^\times_B \end{bmatrix} \begin{bmatrix} v_A \\ \omega_A \\ v_B \\ \omega_B
-                \end{bmatrix} = J' u.\]</span></p>
-            <p>To extend <span class="math inline">\(J'\)</span> to multiple contacts, we would just place a new row for
-              each contact point.</p>
-            <p><strong>Soft-Bodies Non-interpenetration Constraints.</strong> This is very similar to the rigid body
-              case we were considering. We usually use a mesh with nodes to represent a deforamble model.</p>
-            <p>Considering colliding tetrahedral elements of a mesh between <span class="math inline">\(A,B\)</span> we
-              can formulate the contact point using Barycentric coordinates:</p>
-            <p><span class="math display">\[p = w_i x_{i,B} + w_j x_{j,B}+ w_k x_{k,B} + w_m x_{m,B} = x_{l,A}.\]</span>
-            </p>
-            <p>The relative contact point velocity in the normal direction is then:</p>
-            <p><span class="math display">\[v_{\hat{n}} = \hat{n}^\top \left( \sum_{i=1}^4 w_{i,B} v_{i,B} -
-                \sum_{i=1}^4 w_{i,A} v_{i,A} \right) \]</span></p>
-            <p><span class="math display">\[ v_{\hat n} = \begin{bmatrix}
-                -\hat{n}^\top &amp; w_i \hat{n}^\top &amp; w_j \hat{n}^\top &amp; w_k \hat{n}^\top &amp; w_m
-                \hat{n}^\top
-                \end{bmatrix}
-                \begin{bmatrix}
-                v_{l,A} \\
-                v_{i,B} \\
-                v_{j,B} \\
-                v_{k,B} \\
-                v_{m,B}
-                \end{bmatrix}
-                = J' u.\]</span></p>
-          </section>
-        </section>
-        <section id="coulumnb-friction-model" class="level3" data-number="4.1.2">
-          <h3 data-number="4.1.2" class="anchored" data-anchor-id="coulumnb-friction-model"><span
-              class="header-section-number">4.1.2</span> Coulumnb Friction Model</h3>
-          <p>So far we assume that tangential movement between contacts was allowed and not opposed. In graphics we
-            often want to simulate friction as well. We can model friction as a force that opposes the relative
-            tangential velocity of the contact points. We can model this as a force that is proportional to the normal
-            force and the relative tangential velocity.</p>
-          <p>To describe this friction we think about a <em>local contact frame</em> for each contact point. The local
-            frame is defined by the normal vector <span class="math inline">\(\hat n\)</span> and two tangent vectors
-            <span class="math inline">\(\hat t, \hat b\)</span> that are orthogonal to <span class="math inline">\(\hat
-              n\)</span> and each other; <span class="math inline">\(\hat b, \hat t\)</span> define the shared contact
-            plane between the smooth surfaces.</p>
-          <p><span class="math inline">\(\hat n\)</span> can be defined from <span class="math inline">\(\partial
-              \phi\)</span>. Since we are discussing this in the local frame, we need to have relative velocity of the
-            two surfaces</p>
-          <p><span class="math display">\[v = [\hat n, \hat t, \hat b,]^\top \Delta v,\]</span></p>
-          <p>where <span class="math inline">\(\Delta v\)</span> is the world-space relative velocity. We rewrite the
-            context frame basis with <span class="math inline">\(C = [\hat n, \hat t, \hat b]\)</span>. Now recalling
-            the equation for the relative world velocity we can write:</p>
-          <p><span class="math display">\[v = C^\top [- I_{3\times 3}, r^{\times}_A I_{3\times 3}, -r_B^{\times}]
-              \begin{bmatrix}v_A \\ \omega_A \\ v_B \\ \omega_B\end{bmatrix} = Ju,\]</span></p>
-          <p>so <span class="math display">\[J_f = C^\top [-I_{3\times 3}, r_A^{\times} I_{3\times 3},
-              -r_B^{\times}].\]</span></p>
-          <p>To refelct we recall that in the non-friction case we actually had <span class="math inline">\(J' = \hat n
-              [-I_{3\times 3}, r_A^{\times} I_{3\times 3}, -r_B^{\times}]\)</span> so we indeed got the friction
-            Jacobian by just changing the normal vector to the contact frame basis!</p>
-          <p>We defined how we can compute the contact frame relative velocity, but to determine the impulses that
-            separate objects and the friction forces between the objects, we need to separate <span
-              class="math inline">\(v\)</span> into normal <span class="math inline">\(v_{\hat n}\)</span> and
-            tangential <span class="math inline">\(v_{\hat t}\)</span> components.</p>
-          <p><strong>Theory of Friction.</strong> Since Column force couples the normal and tangential impulses, we
-            restrict the tangential friction with a cone constraint. The cone constraint is defined by the friction
-            coefficient <span class="math inline">\(\mu\)</span> and the normal force <span
-              class="math inline">\(\lambda_{\hat n} \in \mathrm{R}\)</span>:</p>
-          <p><span class="math display">\[\| \lambda_{\hat t} \| \leq \mu \lambda_{\hat n},\]</span></p>
-          <p>where <span class="math inline">\(\lambda_{\hat t} \in \mathrm{R^2}\)</span>. Each <span
-              class="math inline">\(\mu \lambda_{\hat n}\)</span> corresponds to some slice of the cone and that slice
-            tells us all the possible tangential forces that can be applied given the normal force. The equation is
-            quadratic so the cone is a <em>quadratic cone.</em></p>
-          <p>We separate friction into 2 types: 1. slipping and 2. sticking. If the relative tangential velocity is less
-            than the threshold, then the contact is sticking and the tangential friction force can have <em>any</em>
-            direction. If the relative tangential velocity is greater than the threshold, then the contact is slipping
-            and the tangential friction force is is opposing the movement and has magnitude <span
-              class="math inline">\(\mu \lambda_{\hat n}\)</span>. We can write this as:</p>
-          <p><span class="math display">\[\mu \lambda_{\hat n} - \|\lambda_{\hat t}\| \geq 0, \]</span> <span
-              class="math display">\[\|v_{\hat t}\| (\mu \lambda_{\hat n} - \|\lambda_{\hat t}\|) = 0,\]</span> <span
-              class="math display">\[\|v_{\hat t}\| \|\lambda_{\hat t}\| = -v_{\hat t}^\top \lambda_{\hat t}.\]</span>
-          </p>
-          <p>The first condition is always active and tells us that the tangental impulse has to be in the quadratic
-            cone. If <span class="math inline">\(\|v_{\hat t}\| &gt; 0\)</span> then the other two conditions activate:
-            first tells us that <span class="math inline">\(\mu \lambda_{\hat n} = \|\lambda_{\hat t}\|\)</span>,
-            i.e.&nbsp;the impulse must be maximized in the cone, the last condition says that the tangential friction
-            impulse should oppose the relative tangential velocity. We call this a <em>(non-linear) complementary
-              problem.</em></p>
-          <p>To give more intuition on these conditions, we can think about the friciton force as maximally decreasing
-            energy of a system. If we define <span class="math inline">\(\mathcal{F}\)</span> to be the set of possible
-            friction forces, then the <em>principle of maximum dissipiation</em> gives:</p>
-          <p><span class="math display">\[\lambda_{\hat t} = \arg \min_{f \in \mathcal{F}} v_{\hat t}^\top f.\]</span>
-            Following this setup we can arrive to the <em>variational inequality (VI)</em> and you can read more about
-            it in [the notes].</p>
-          <section id="lcp---linear-complementary-problem" class="level4" data-number="4.1.2.1">
-            <h4 data-number="4.1.2.1" class="anchored" data-anchor-id="lcp---linear-complementary-problem"><span
-                class="header-section-number">4.1.2.1</span> LCP - Linear Complementary Problem</h4>
-            <p>We saw that our friction model is non-linear and can be hard to solve efficiently. We can linearize the
-              problem by creating a linear approximation of our friction cone. We call it a polyhedral cone and it is
-              given by the span of <span class="math inline">\(k+1\)</span> unit vectors <span
-                class="math inline">\(\{\hat n, \hat t_1, \dots, \hat t_{k}\}\)</span>. Each tangent vector has a twin
-              in the opposite direction, so we can write all friction forces with non-negative coefficients. This allows
-              us to re-write the quadratic constraint above as:</p>
-            <p><span class="math display">\[0 \leq \mu\lambda_{\hat n} - \sum_i \lambda_{\hat t_i}.\]</span></p>
-            <p>To form the stick-slip conditions we only need to know whether we are slipping or not. For this we can
-              measure the maximum slipping velocity along all of the tangential directions. Then for <span
-                class="math inline">\(\beta \geq 0\)</span>:</p>
-            <p><span class="math display">\[ 0 \leq \beta \textbf e + \textbf v_{\hat t}\]</span></p>
-            <p>where <span class="math inline">\(\textbf e\)</span> is the vector of all ones and <span
-                class="math inline">\(\textbf v_{\hat t}\)</span> is the relative tangential velocity along all
-              directions. <span class="math inline">\(\beta\)</span> is the maximum slipping velocity and can be 0 iff
-              <span class="math inline">\(\textbf v_{\hat t} = 0\)</span>, i.e.&nbsp;we are sticking. Otherwise <span
-                class="math inline">\(\beta = \max_{v \in \textbf v_{\hat t}} \|v\|\)</span>. We also sometimes call
-              <span class="math inline">\(\beta\)</span> the <em>slack</em> variable.</p>
-            <p>Again by principle of maximum dissipation we know that:</p>
-            <p><span class="math display">\[\beta &gt; 0 \implies \sum_{i}\lambda_{\hat t_i} = \mu \lambda_{\hat
-                n}.\]</span> To get the right direction of the friction force we let <span class="math inline">\(\beta
-                \textbf e = -\textbf v_{\hat t}\)</span>. Finally this gives a complete linear model for 1 contact
-              point:</p>
-            <p><span class="math display">\[0 &lt; v_{\hat n} \quad \bot \quad \lambda_n \geq 0\]</span></p>
-            <p><span class="math display">\[0 \leq \beta e + v_{\hat t} \quad \text{and} \quad \lambda_{\hat t} \geq
-                0\]</span></p>
-            <p><span class="math display">\[0 \leq \mu \lambda_{\hat n} - \sum_i \lambda_{\hat t_i} \quad \bot
-                \quad\beta \geq 0.\]</span></p>
-            <p><strong><span class="math inline">\(p\)</span> contact points.</strong> To generalize our system to
-              multiple contact points we need to assemble a <em>global Jacobian</em> containing non-penetration and
-              tangential friction constraints for all <span class="math inline">\(p\)</span> contact points. For the
-              non-penetration conditions each contact point we have a separate row:</p>
-            <p><span class="math display">\[J_{\hat n, i} = \begin{bmatrix} - \hat n_i^\top &amp; \hat n_{i}^{\top}
-                r_{i,A}^\times &amp; \hat n_i^\top &amp; - \hat n_i^\top r_{i,B}^\times\end{bmatrix},\]</span> <span
-                class="math display">\[J_{\hat n} = \begin{bmatrix} J_{\hat n, 1}^\top \\ \vdots \\ J_{\hat n, p}^\top
-                \end{bmatrix}.\]</span></p>
-            <p>For the friction Jacobian (tangential friction) we have a similar setup for all tangential directions:
-            </p>
-            <p><span class="math display">\[J_{\hat t} = [J_{\hat t, 1}^\top, \dots, J_{\hat t, p}^\top],\]</span> <span
-                class="math display">\[J_{\hat t,i} = \begin{bmatrix} - \hat t_i^\top &amp; \hat t_{i}^{\top}
-                r_{i,A}^\times &amp; \hat t_i^\top &amp; - \hat t_i^\top r_{i,B}^\times \\
-                \vdots &amp; \vdots &amp; \vdots &amp; \vdots\end{bmatrix}\]</span></p>
-            <p>where <span class="math inline">\(J_{\hat t, i}\)</span> is the Jacobian for the <span
-                class="math inline">\(i\)</span>-th contact point. The global Jacobian is then: <span
-                class="math display">\[
-                \begin{bmatrix}
-                M &amp; -J_{\hat{n}}^T &amp; -J_{\hat{t}}^T &amp; 0 \\
-                J_{\hat{n}} &amp; 0 &amp; 0 &amp; 0 \\
-                J_{\hat{t}} &amp; 0 &amp; 0 &amp; E \\
-                0 &amp; \bar{\mu} &amp; -E^T &amp; 0
-                \end{bmatrix}
-                \begin{bmatrix}
-                u^+ \\
-                \lambda_{\hat{n}}^+ \\
-                \lambda_{\hat{t}}^+ \\
-                \beta
-                \end{bmatrix}
-                +
-                \begin{bmatrix}
-                -Mu - hf \\
-                0 \\
-                0 \\
-                0
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                0 \\
-                s_n \\
-                s_\beta \\
-                s_\lambda
-                \end{bmatrix}
-                \]</span></p>
-            <p>subject to: <span class="math display">\[0 \leq s_n \perp \lambda_{\hat{n}}^+ \geq 0 \]</span> <span
-                class="math display">\[0 \leq s_\beta \perp \lambda_{\hat{t}}^+ \geq 0 \]</span> <span
-                class="math display">\[0 \leq s_\lambda \perp \beta \geq 0 \]</span></p>
-            <p>With rearamnging we can get the LCP form:</p>
-            <p><span class="math display">\[ Ax + b \geq 0 \quad \bot \quad x \geq 0.\]</span></p>
-            <p>After all this gargol we see that it really boils down to a nice and simple linear system!</p>
-          </section>
-          <section id="boxed-lcp" class="level4" data-number="4.1.2.2">
-            <h4 data-number="4.1.2.2" class="anchored" data-anchor-id="boxed-lcp"><span
-                class="header-section-number">4.1.2.2</span> Boxed LCP</h4>
-            <p>Another way to discretize the friction cone is by using only 2 orthogonal tangent directions and have
-              them limited:</p>
-            <p><span class="math display">\[-\mu \lambda_{\hat n} \leq \lambda_{\hat t_i} \leq \mu \lambda_{\hat
-                n}\]</span> for <span class="math inline">\(i\in \{1,2\}.\)</span></p>
-            <p>Note that to solve these discretizations we need more general algorithms than LCP solvers. One nice
-              benefit we get from writing our system this way is that we can run away from the whole mess of having
-              different constraints for friction and non-penetration and just use the same algebraic expression (with
-              different bounds) for both! Concretely, we can write:</p>
-            <p><span class="math display">\[v_i &gt; 0 \implies \lambda_i = -\mu \lambda_{\hat n} \]</span> <span
-                class="math display">\[v_i = 0 \implies \lambda_i \in [-\mu \lambda_{\hat n}, \mu \lambda_{\hat n}]
-                \]</span> <span class="math display">\[v_i &lt; 0 \implies \lambda_i = \mu \lambda_{\hat n}\]</span></p>
-            <p>We can further decompose the residual velocity as <span class="math inline">\(v_i = v_{i,+} -
-                v_{i,-}\)</span> and write BLCP as 3 separate LCPs:</p>
-            <p><span class="math display">\[ 0 \leq v_{i,+} \perp \lambda_i + \mu \lambda_{\hat n} \geq 0\]</span> <span
-                class="math display">\[ 0 \leq v_{i,-} \perp \lambda_i - \mu \lambda_{\hat n} \geq 0\]</span> <span
-                class="math display">\[ 0\leq v_{i,-} \perp v_{i,+} \geq 0.\]</span></p>
-            <p>To assmble the global Jacobian we recall the Jacobian for a single contact as:</p>
-            <p><span class="math display">\[J_i = C^\top [-I_{3\times 3}, r_A^{\times} I_{3\times 3},
-                -r_B^{\times}]\]</span></p>
-            <p>where we now replace <span class="math inline">\(C^\top\)</span> with <span class="math inline">\([\hat
-                n, \hat t_1, \hat t_2]\)</span>. Then the global Jacobian becomes: <span class="math inline">\(J = [J_1,
-                \dots, J_p]^\top\)</span> and the global BLCP for the constrainted equations of motion becomes:</p>
-            <p><span class="math display">\[
-                \underbrace{
-                \begin{bmatrix}
-                M &amp; -J^T \\
-                J &amp; 0
-                \end{bmatrix}
-                }_{\text{A}}
-                \begin{bmatrix}
-                u^+ \\
-                \lambda^+
-                \end{bmatrix}
-                +
-                \underbrace{
-                \begin{bmatrix}
-                -Mu - hf \\
-                0
-                \end{bmatrix}
-                }_{\text{b}}
-                =
-                \begin{bmatrix}
-                0 \\
-                v
-                \end{bmatrix},
-                \]</span></p>
-            <p><span class="math display">\[ 0 \leq {}^+v \perp \lambda^+ - \lambda^{\text{lo}} \geq 0, \]</span> <span
-                class="math display">\[ 0 \leq {}^-v \perp \lambda^{\text{hi}} - \lambda^+ \geq 0, \]</span> <span
-                class="math display">\[ 0 \leq {}^-v \perp {}^+v \geq 0\]</span></p>
-            <p>where <span class="math inline">\(\lambda = [\lambda_{\hat n_1}, \lambda_{\hat t_{1,1}}, \lambda_{\hat
-                t_{1,2}}, \dots]^\top.\)</span> We could again use Shur complement to reduce the system to a smaller one
-              and you can see that in [the notes].</p>
-            <p><strong>Numerical stabilization.</strong> Add springs, because we have numerical drift in linear
-              approximation.</p>
-          </section>
-          <section id="deformable-contact" class="level4" data-number="4.1.2.3">
-            <h4 data-number="4.1.2.3" class="anchored" data-anchor-id="deformable-contact"><span
-                class="header-section-number">4.1.2.3</span> Deformable Contact</h4>
-            <p>While most of the friction contact formulations above were derived from a rigid-body setting, we can
-              extend them to deformable bodies too. The main differneces are that there are more variables and we use
-              implicit discretization approaches in deformable objects.</p>
-            <p>If we first consider the <span class="math inline">\(k^{th}\)</span> contact between 2 rigid bodies, we
-              can write the relative contact point velocity as:</p>
-            <p><span class="math display">\[
-                \begin{bmatrix}
-                v_{\hat{n}_k} \\
-                v_{\hat{i}_k} \\
-                v_{\hat{b}_k} \\
-                v_{\hat{r}_k}
-                \end{bmatrix}
-                =
-                \begin{bmatrix}
-                -\mathbf{C}_k^T &amp; -(\mathbf{r}_{k_i} \times \mathbf{C}_k)^T &amp; \mathbf{C}_k^T &amp;
-                (\mathbf{r}_{k_j} \times \mathbf{C}_k)^T \\
-                \mathbf{0}^T &amp; -\hat{\mathbf{n}}_k^T &amp; \mathbf{0}^T &amp; \hat{\mathbf{n}}_k^T
-                \end{bmatrix}
-                \begin{bmatrix}
-                \mathbf{v}_i \\
-                \boldsymbol{\omega}_i \\
-                \mathbf{v}_j \\
-                \boldsymbol{\omega}_j
-                \end{bmatrix}.
-                \]</span></p>
-            <p>Most often we pick <span class="math inline">\(\hat t_k\)</span> to be the direction of sliding and <span
-                class="math inline">\(\hat b_k\)</span> to be orthogonal to <span class="math inline">\(\hat n_k, \hat
-                t_k\)</span>. We can combine all <span class="math inline">\(K\)</span> contacts and <span
-                class="math inline">\(N\)</span> bodes into one big system of the familiar form:</p>
-            <p><span class="math display">\[\textbf v = \textbf J \textbf u.\]</span> Finally we write the block <span
-                class="math inline">\(M\)</span> matrix, the external forces <span class="math inline">\(f\)</span>, and
-              the generalized coordinates <span class="math inline">\(q_i = [x_i^\top \quad Q_i^\top]^\top\)</span>.
-              Since we incorporate quaternions we have to change <span class="math inline">\(\dot q = u\)</span> using a
-              kinematic matrix <span class="math inline">\(\textbf H\)</span> (refer to the notes for the exact form).
-              Then <span class="math inline">\(q^+ = q + h \textbf H u^+\)</span> and <span class="math inline">\(M u^+
-                = M u + h f\)</span>, as we have seen before.</p>
-            <p>To change this to a deformable body we need to add elastic forces. Recall that applying FEM on a
-              deformable body results in a second order differential equation:</p>
-            <p><span class="math display">\[ M \ddot q + B \dot q + K u = f+ J^\top \lambda\]</span></p>
-            <p>where <span class="math inline">\(q\)</span> is all the nodes in the mesh, <span
-                class="math inline">\(K\)</span> is the stiffnes matrix, <span class="math inline">\(B\)</span> is the
-              damping matrix, and <span class="math inline">\(J^\top \lambda\)</span> is the contact forces. Observe
-              that we do not have any quaternions or angualr spin present anymore. Using Euler integration and finite
-              differences we get:</p>
-            <p><span class="math display">\[\dot u^+ \approx u + h\dot u \]</span></p>
-            <p>where <span class="math inline">\(u^+ = u^{t+h}, u=u^t\)</span>. Integrating genearlized poisitions we
-              get:</p>
-            <p><span class="math display">\[q^+ = q + h u^+.\]</span> Note: no <span class="math inline">\(\textbf
-                H\)</span>, because we are not dealing with quaternion rotations anymore. Now we can write a velocity
-              level dynamic equation for this system:</p>
-            <p><span class="math display">\[M \left(\frac{u^+ - u}{h}\right) + K (q^+ - q_0) +B u^+ = f + J^\top
-                \lambda\]</span> or equivalently in the impulse form:</p>
-            <p><span class="math display">\[ M u^+ + hBu^+ + h^2Ku^+ = Mu + hf - hKq^+ + hKq_0 + J^\top h\lambda,
-                \]</span> <span class="math display">\[ A u^+ = b + J^\top h\lambda.\]</span></p>
-            <p>Here <span class="math inline">\(A\)</span> is sparse, block-symmetric, and positive definite. That’s
-              every numerical analysit wet dream. We can now easily solve the system using Conjugate Gradients or any
-              other iterative solver to get <span class="math inline">\(u^+\)</span>, then <span
-                class="math inline">\(q^+\)</span>, and repeat.</p>
-            <p><strong>Note:</strong> Deformable objects make numerics easier compared to rigid bodies.</p>
-          </section>
-        </section>
-      </section>
-      <section id="contact-generation" class="level2" data-number="4.2">
-        <h2 data-number="4.2" class="anchored" data-anchor-id="contact-generation"><span
-            class="header-section-number">4.2</span> Contact Generation</h2>
-        <p>We talked about how to simulate contact, but we did not talk about how to generate it, based on the
-          representation of the objects. We will focus on the most common representation: tetrahedral meshes. First we
-          define some terms: the contact position / point will be denoted as <span class="math inline">\(p\)</span>
-          w.r.t points <span class="math inline">\(p_A,p_B\)</span> on the surfaces of objects <span
-            class="math inline">\(A,B\)</span>. At the exact time of contact they obey <span class="math inline">\(p =
-            p_A = p_B\)</span>, but since we are doing discreitzation in time, this is not guaranteed to happen. That
-          said, we will still apply forces at <span class="math inline">\(p_A, p_B\)</span>. We will define for
-          simplicty the contact normal <span class="math inline">\(\hat n\)</span> to be the normal of the surface at
-          <span class="math inline">\(p_A\)</span>. Again, note that <span class="math inline">\(\hat{n_A}\)</span>
-          might not be equal to <span class="math inline">\(\hat{n_B}\)</span> if the surfaces are non-smooth. We also
-          introduce a measure of penetration <span class="math inline">\(\phi\)</span> (same convention as the gap
-          function); it tells how much we have to move along <span class="math inline">\(\hat n\)</span> to get to <span
-            class="math inline">\(p = p_A = p_B\)</span>.</p>
-        <p>When dealing with mesh-based collisions, we recognize 2 types of collisions: 1. vertex-face <span
-            class="math inline">\((V,E)\)</span> and 2. edge-edge <span class="math inline">\((E,E)\)</span>. Since we
-          are timestepping, we should expect to the detect the collision when the objects are interpenetrating.</p>
-        <p><strong>Continuous Collisoin Detection (CCD).</strong> Rather then trying to reason about when a collision
-          will happen in our descretized setting, we can think about it in a continuous setting. CCD processes all the
-          possible collisions that might occur from <span class="math inline">\(t_{now}\)</span> to <span
-            class="math inline">\(t_{later}\)</span> (e.g.&nbsp;<span class="math inline">\(t\)</span> to <span
-            class="math inline">\(t+h\)</span>). To do so we can either <em>look forward in time</em> and look for the
-          time when a collision <em>will</em> happen or <em>look backward in time</em> and find a time just before the
-          collision happend. We can pefrorm CCD with a course-to-fine approach to speed it up.</p>
-        <p>To prevent collisions we can either set a large enough time-step based on CCD or we can warp points to the
-          start of the timestep based on the computed normal.</p>
-        <p>To compute a <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span> at the contact
-          we will make the assumption that when <span class="math inline">\(h \approx 0\)</span>, then motion between
-          time-steps can be considered linear, while the error increases with <span
-            class="math inline">\(\mathcal{O}(h)\)</span>. We can “sweep” a triangle over the time-step to get the
-          “swept-volume.” We can then compute the time of collision by finding the intersection of the swept-volume with
-          the other object. Using the forward prediction approach we get candidate positions at the next timestep for
-          one of the triangles as:</p>
-        <p><span class="math display">\[x_i' = x_0 + h u_i\]</span> for <span class="math inline">\(i\in
-            \{0,1,2\}\)</span>. For the backward formulatoin we get:</p>
-        <p><span class="math display">\[x_i' = x_i - hu_i.\]</span> In fact for the backward formulation we already have
-          the exact candidates for the previous timestep. We can instaed compute <em>linear velocity</em> as <span
-            class="math inline">\(u_i = \frac{x_i - x_i'}{h}.\)</span> Using bounding boxes around previous and next
-          timestpe we can see whether there might exist a collision or not.</p>
-        <p><strong>CCD for <span class="math inline">\((V,F)\)</span> contact.</strong> The idea is to use 3 nodes <span
-            class="math inline">\(\{x_1,x_2,x_3\}\)</span> from one triangle to get the surface normal <span
-            class="math inline">\(\hat p_n\)</span> and another node to check whether it is in the plane of <span
-            class="math inline">\(\hat p_n\)</span>. First we get <span class="math inline">\(\hat p_n = (x_2 -
-            x_1)\times (x_3 - x_1)\)</span>. Distance to the origina is <span class="math inline">\(\hat p_n^\top
-            x_1\)</span>.</p>
-        <p>For a new point <span class="math inline">\(x_4\)</span> to lie in the triangle we need:</p>
-        <p><span class="math display">\[\hat p_n ^\top x_4 - d = 0,\]</span> <span class="math display">\[((x_2 -
-            x_1)\times (x_3 - x_1))^\top (x_4 - x_1) = 0.\]</span> Now introducing time-dependence and linear motion
-          equations from beofre into the test we get:</p>
-        <p><span class="math display">\[(((x_2 - x_1) + (u_2 - u_1)t)\times ((x_3 - x_1) + (u_3-u_1)t))^\top ((x_4 -
-            x_1) + (u_4 -u_1)t) = 0\]</span></p>
-        <p>and we want to determine the minmial non-negative such <span class="math inline">\(t&lt; h\)</span> s.t. the
-          above is true. This is a <span class="math inline">\(P^3\)</span> polynomial so we can find these values using
-          a root-finding algorithms. This gives the <em>point of contact</em> <span class="math inline">\(p = x_4 + u_4
-            t\)</span>.</p>
-        <p><strong>CCD for <span class="math inline">\((E,E)\)</span> contact.</strong> We can use the same approach as
-          above, but we need to consider the edges as well. We must check if the edges are parallel:</p>
-        <p><span class="math display">\[(x_2 - x_1 )\ times (x_4 - x_3) \leq \varepsilon .\]</span> If this is a case we
-          can project vertices on the line through the other edge and check for intersection.</p>
-        <p>When the two edges are not parallel—possibly touching at only 1 point—then we can reparametrize the edges as
-          line equations:</p>
-        <p><span class="math display">\[E_1: x_1 + \alpha (x_2 -x_1),\]</span> <span class="math display">\[E_2: x_3 +
-            \beta (x_4 - x_3).\]</span></p>
-        <p>Then the contact point must also be the closest point between these two lines:</p>
-        <p><span class="math display">\[a,b, \arg\min_{a,b \in[0,1] }\|x_1 + \alpha (x_2 -x_1) - (x_3 + \beta (x_4 -
-            x_3))\|_2.\]</span></p>
-        <p>From preschool we know that we can solve this in the normal equations form:</p>
-        <p><span class="math display">\[\begin{bmatrix} (x_2 - x_1)^\top (x_2 - x_1) &amp; -(x_2 - x_1)^\top (x_4 - x_3)
-            \\ -(x_2 - x_1)^\top (x_4 - x_3) &amp; (x_4 - x_3)^\top (x_4 - x_3) \end{bmatrix} \begin{bmatrix} \alpha \\
-            \beta \end{bmatrix} = \begin{bmatrix} (x_2 - x_1)^\top (x_3 -x_1)\\ -(x_4 -x_3)^\top (x_3
-            -x_1)\end{bmatrix}.\]</span></p>
-        <p>The <span class="math inline">\((\alpha,\beta)\)</span> solutions give the candidate closest point. If <span
-            class="math inline">\(\alpha,\beta \in [0,1]\)</span> we can simply write the point as:</p>
-        <p><span class="math display">\[p = (x_1 -x_3) + \alpha (x_2 -x_1) - \beta (x_4 -x_3).\]</span></p>
-        <p>If we really want to get sweaty, we can write this using Barycentric coordinates:</p>
-        <p><span class="math display">\[((1- i - v) x_1(t) + ux_2(t) + vx_3(t)) - x_4(t))) = 0\]</span> where <span
-            class="math inline">\(t\in[0,1]\)</span> and <span class="math inline">\(u,v\)</span> are Barycentric
-          coordinates for the traingle.</p>
-      </section>
-      <section id="deformable-bodies-soft-body-contact" class="level2" data-number="4.3">
-        <h2 data-number="4.3" class="anchored" data-anchor-id="deformable-bodies-soft-body-contact"><span
-            class="header-section-number">4.3</span> Deformable Bodies / Soft Body Contact</h2>
-        <p>While we did discuss how to frame contact simulation for deformable bodies briefly, we will now give a more
-          nuanced discussion of the topic.</p>
-        <p>First, reacall the DiffEq that govers dynamics of a deformable body:</p>
-        <p><span class="math display">\[M \ddot{q} = f_{ext} + f_d(u) + f_e(q) - f_c(q, u)\]</span></p>
-        <p>where <span class="math inline">\(f_d\)</span> is the damping force, <span class="math inline">\(f_e\)</span>
-          is the (internal) elastic force, and <span class="math inline">\(f_c\)</span> is the contact force. The first
-          conceptual shift we will do is to consider a system of deformables as one global tetrahedral mesh, so
-          e.g.&nbsp;<span class="math inline">\(q,u,f_{ext}, \dots \in \mathrm{R}^{3 |V|}\)</span> where <span
-            class="math inline">\(|V|\)</span> is the number of vertices in the “mesh soup” of our system. From a
-          numerical standpoint this view is no differnet from before, but it will give us some benefits when computing
-          contact forces.</p>
-        <p>With this in mind let us turn to computing contact forces, specifically how rewrite the constraint Jacobian
-          <span class="math inline">\(J\)</span> for constrain-based approaches:</p>
-        <p><span class="math display">\[f_c(q,u) = J(q)^\top \lambda(u)\]</span></p>
-        <p>where <span class="math inline">\(\lambda\)</span> containts the Lagrange multipliers of all the contact
-          forces. Consider two tetrahedral elements <span class="math inline">\(A,B\)</span> defined by <span
-            class="math inline">\(\{x\}_{\{i,j,k,m\}}, \{x\}_{\{n,o,p,r\}}\)</span>, respectively. Then the point of
-          contact is</p>
-        <p><span class="math display">\[p_A = w_i x_i + w_j x_j + w_k x_k + w_m x_m = p_B = w_n x_n + w_o x_o + w_p x_p
-            + w_r x_r,\]</span></p>
-        <p>again through our favourite Barycentric coordinates. At the time of contact we have <span
-            class="math inline">\(p_A = p_B\)</span> and <span class="math inline">\(\hat n\)</span> is the normal to
-          the surface at <span class="math inline">\(p_A\)</span>. As we did many times before, we now need to compute
-          the relative velocity of the contact point:</p>
-        <p><span class="math display">\[\Delta v = \left( \partial_t p^B - \partial_t p^A\right),\]</span></p>
-        <p>which is expressed in world space. To convert it into contact space:</p>
-        <p><span class="math display">\[v = C^\top \Delta v, \]</span></p>
-        <p>where <span class="math inline">\(C\)</span> is the contact space coordinate system from before. This
-          expression projects relative velocity onto <span class="math inline">\(C\)</span>. But since <span
-            class="math inline">\(w_i\)</span> are not time-dependent we can rewrite:</p>
-        <p><span class="math display">\[v = C^\top [-w_{\{i,j,k,m\}} I_{3\times 3}, w_{\{o,p,q,r\}}I_{3\times
-            3}]\begin{bmatrix} v_{\{i,j,k,m\}} \\ v_{o,p,q,r}\end{bmatrix} = Ju,\]</span></p>
-        <p>and please bear with me as I use <span class="math inline">\(v_{\{i,j,k,m\}}\)</span> to denote a vector of
-          velocities <span class="math inline">\(v_i, v_j, v_k, v_m\)</span>. To construct the global Jacobian we can
-          combine these local Jacobians for all the contact points to get <span class="math inline">\(J\in\mathrm{R}^{3K
-            \times 3|V|}\)</span>.</p>
-        <div class="quarto-figure quarto-figure-center">
-          <figure class="figure">
-            <p><img src="images/assembleDeformableJacobian.png" class="img-fluid figure-img"></p>
-            <figcaption>Global J assembly</figcaption>
-          </figure>
-        </div>
-        <section id="time-discretization-for-deformables" class="level3" data-number="4.3.1">
-          <h3 data-number="4.3.1" class="anchored" data-anchor-id="time-discretization-for-deformables"><span
-              class="header-section-number">4.3.1</span> Time Discretization for Deformables</h3>
-          <p>Instead of using semi-implicit integrators we usually gravitate towards implicit schemes, because stiff
-            elasticity limits time-step sizes.</p>
-          <p>The first way to solve implicit formulations is using <em>root-finding</em> which gives time-updated state
-            vectors. The second popular way is by <em>minimizing an energy potential</em> using a first-order optimizer.
-            The minimization approaches can be broken into position and velocity-level methods and we will very briefyl
-            discuss them after we introduct root-finding methods.</p>
-          <p><strong>Root-finding.</strong> Rewrite <span class="math inline">\(2^{nd}\)</span> order ODE as a system of
-            coupled <span class="math inline">\(1^{st}\)</span> order ODEs:</p>
-          <p><span class="math display">\[M\dot u = f_{ext} + f_d(u) + f_e(q) + f_c(q,u),\]</span> <span
-              class="math display">\[\dot q = u.\]</span></p>
-          <p>For why we do this, refer to [notes]. We can now formulate root finding using the following (rough) steps:
-          </p>
-          <ol type="1">
-            <li>Write primary or dual form of the system of equations.</li>
-            <li>Use finite differences to compute time-derivatives.</li>
-            <li>Derive Newton’s method equation by plugging in <span class="math inline">\(1^{st}\)</span> order Taylor
-              approximations. This should give us a linear system which can be solved using different methods (Schur
-              complement, etc.).</li>
-            <li>Iterate until convergence.</li>
-          </ol>
-          <p>We derive the Primary form of the system. Assume for the moment that contact forces are <span
-              class="math inline">\(f_c(q,u) = -\nabla_q\mathcal{E}_c(q,u)\)</span> where <span
-              class="math inline">\(\mathcal{E}_c\)</span> is a contact potential function. Then the descretized
-            equations of motion in Euler method are:</p>
-          <p><span class="math display">\[M (u^{t+h} -u^t)/h = f_{ext} + f_d(u^{t+h}) + f_e(q^{t+h}) - \nabla_q
-              \mathcal{E}_c(q^{t+h}, u^{t+h}),\]</span></p>
-          <p>which can be rewritten in matrix form as a homogeneous system:</p>
-          <p><span class="math display">\[F_{primary} = 0.\]</span> This gives a rootfinding problem:</p>
-          <p><span class="math display">\[\text{compute } q^{t+h}, u^{t+h} \text{ s.t. } F_{primary}(u^{t+h}, u^{t+h}) =
-              0,\]</span> which can be solved using Newton’s method. Assuming <span class="math inline">\(q^{t},
-              u^{t}\)</span> are known we want the updates:</p>
-          <p><span class="math display">\[q^{k+1} = q^k + \Delta q, \quad u^{k+1} = u^k + \Delta u,\]</span></p>
-          <p>where <span class="math inline">\(\Delta q, \Delta u\)</span> are the updates. We can incorporate
-            line-search into the Newton’s method to ensure convergence by ading a step-length parameter. Next step is to
-            compute <span class="math inline">\(1^{st}\)</span> order Taylor approximations of <span
-              class="math inline">\(F_{primary}\)</span> elements. First we note that <span class="math inline">\(B^k =
-              \partial_{u}f_d(u^k)\)</span>, <span class="math inline">\(K^k = \partial_{q}f_e(q^k)\)</span>, <span
-              class="math inline">\(H_q^k= \partial_{q^2} \mathcal{E}_c(q^k,u^k)\)</span>, <span
-              class="math inline">\(H_u^k = \partial_{q u} \mathcal{E}_c(q^k,u^k)\)</span>, where <span
-              class="math inline">\(B,K\)</span> are the dambing and stifness matrices. Particularly we have:</p>
-          <p><span class="math display">\[M u^{k+1}\approx M u^{k}+M\Delta u\]</span></p>
-          <p><span class="math display">\[h f_{d}(u^{k+1})\approx h f_{d}(u^{k})+h B^{k}\Delta u\]</span></p>
-          <p><span class="math display">\[h f_{e}(q^{k+1})\approx h f_{d}(q^{k})+h K^{k}\Delta q\]</span></p>
-          <p><span class="math display">\[h f_{c}(q^{k+1}, u^{k+1})\approx h f_{c}(q^{k}, u^{k})-h H_{q}^{k}\Delta q-h
-              H_{u}^{k}\Delta u\]</span></p>
-          <p>which by noting <span class="math inline">\(\Delta q = h \Delta u\)</span> we can write as:</p>
-          <p><span class="math display">\[\begin{bmatrix}
-              M - h B^k - h^2 K^k + h H_u^k + h^2 H_q^k &amp; 0 \\
-              0 &amp; -h
-              \end{bmatrix}
-              \begin{bmatrix}
-              \Delta u \\
-              \Delta q
-              \end{bmatrix}
-              =
-              \begin{bmatrix}
-              M (u^t - u^k) + h (f_d^k + f_e^k + f_c^k + f_{\text{ext}})
-              \\
-              q^t - q^k + h u^k
-              \end{bmatrix}\]</span></p>
-          <p>A solution can be obtained by solving 1st row for <span class="math inline">\(\Delta u\)</span>, then 2nd
-            row to solve for <span class="math inline">\(\Delta q\)</span>. We can then update <span
-              class="math inline">\(q^{k+1} = q^k + \Delta q\)</span> and <span class="math inline">\(u^{k+1} = u^k +
-              \Delta u\)</span> and repeat until convergence.</p>
-          <p><strong>Dual.</strong></p>
-          <p><strong>Position-level Minimization.</strong> We rewrite the time-integration as a minimizatoin problem:
-          </p>
-          <p><span class="math display">\[q^{t+h} = f(q,u) = \arg \min _{q,\phi(q)\geq 0}\frac{1}{2}(q-\hat q)^\top
-              M(q-\hat q) + h^2 \mathcal{E}_e(q) - q^\top h^2 f_d(u)\]</span></p>
-          <p>is a solution to implicit Euler formulation. The first part is the <em>momentum potential</em> where <span
-              class="math inline">\(\hat q = q^\top + h u^\top + h^2 M^{-1}f_{ext}\)</span>, the second term minimizes
-            the <em>energy potential</em> of elastic strain <span class="math inline">\(\mathcal{E}_e\)</span>, and the
-            third minimizes work done by <span class="math inline">\(f_d\)</span>.</p>
-          <p>To actually solve it we need to form the optimality conditions, i.e.&nbsp;a Lagrangian function:</p>
-          <p><span class="math display">\[L(q,u) = f(q,u) - \gamma^\top \phi(q),\]</span></p>
-          <p>where <span class="math inline">\(\gamma\geq 0\)</span> are Lagrange multipliers for constraints <span
-              class="math inline">\(\phi(q) \geq 0\)</span>. We can then compute the gradient of the Lagrangian and set
-            it to zero to get the (<span class="math inline">\(1^{st}\)</span> order) optimality conditions:</p>
-          <p><span class="math display">\[\nabla_q L(q^{h+t},u^{t+h}) = \nabla_q f(q^{h+t},u^{t+h}) -
-              \partial_{q}\phi(q^{h+t})^top \gamma = 0,\]</span> <span class="math display">\[ \gamma \geq 0,\]</span>
-            <span class="math display">\[\phi(q^{t+h}) \geq 0,\]</span> <span class="math display">\[\gamma^\top
-              \phi(q^{t+h}) = 0.\]</span></p>
-          <p>With expanding <span class="math inline">\(f\)</span> and using some tricks (refer to the [notes] ) we get
-            the minimization problem equivalent to the primal form:</p>
-          <p><span class="math display">\[q^{t+h} = \arg \min_q \frac{1}{2}(q-\hat q)^\top M(q-\hat q) + h^2
-              \mathcal{E}_e(q) + h^2 \mathcal{E}_c(q,u) - q^\top h^2 f_d(u)\]</span></p>
-          <p>where <span class="math inline">\(\mathcal{E}_c\)</span> is the contact potential.</p>
-          <p><strong>Velocity-level Minimization.</strong> Before we talk about this, note that velocity-level
-            minimization is not that popular for deformable somulations. That said, it is very similar to the
-            position-level minimization, we get the optimization problem:</p>
-          <p><span class="math display">\[u^{t+h} = \arg \min_{u, Ju\geq 0} \frac{1}{2} (u-\hat u)^\top M(u-\hat u) + h
-              \mathcal{E}_e(q),\]</span></p>
-          <p>where <span class="math inline">\(\hat u = u^\top + h M^{-1}f_{ext}\)</span>, ignoring the damping forces
-            and <span class="math inline">\(\phi(q)\)</span> constraint is approximated to first order as <span
-              class="math inline">\(\approx \phi(q^t) + hJu \implies Ju \geq 0\)</span>. Looking at <span
-              class="math inline">\(q\)</span> as function of <span class="math inline">\(u\)</span>:</p>
-          <p><span class="math display">\[\nabla_u\mathcal{E}_e(q) = \frac{1}{h}\partial_{q}\mathcal{E}_e(q).\]</span>
-          </p>
-        </section>
-        <section id="little-detour-incremental-potential" class="level3" data-number="4.3.2">
-          <h3 data-number="4.3.2" class="anchored" data-anchor-id="little-detour-incremental-potential"><span
-              class="header-section-number">4.3.2</span> Little Detour: Incremental Potential</h3>
-          <p>We will do something very similar to above, but with more standard notation that we will later use when
-            covering IPC. We start with Backward Euler discretization of the equations of motion and reformulate them as
-            an optimization problem.</p>
-          <p><span class="math display">\[M \dot u = - \nabla_q U(q) = f,\]</span></p>
-          <p>which is a conservative system. Using Beckward Euler discretization of the continuous system and
-            approximation of <span class="math inline">\(q\)</span> with previous two time-steps we get:</p>
-          <p><span class="math display">\[M\frac{q_{n+1}-2q_n +q_{n-1}}{h^2} = -\nabla_q U(q_{n+1}) = f_{n+1},\]</span>
-          </p>
-          <p>and by rearranging with <span class="math inline">\(\tilde q = 2q_n - q_{n-1}\)</span> we get:</p>
-          <p><span class="math display">\[M\frac{q_{n+1}-\tilde q}{h^2} = -\nabla_q U(q_{n+1}).\]</span></p>
-          <p>Seeing the above as a <em>gradient</em> of an expression, we see:</p>
-          <p><span class="math display">\[\nabla \left[ \frac{1}{2h^2} \|q - \tilde q_n\|_M^2 + U(q)\right] =
-              0,\]</span></p>
-          <p>so the minimizer prediction of the next node position becomes:</p>
-          <p><span class="math display">\[q_{n+1} = \arg\min_q \left[\frac{1}{2h^2} \|q - \tilde q_n\|_M^2 + U(q)\right]
-              = \arg\min_{q} E(q),\]</span></p>
-          <p>where <span class="math inline">\(E(q)\)</span> is the <strong>incremental potential</strong> of the
-            system. This is a very useful concept in contact simulation, because it allows us to write the equations of
-            motion as a minimization problem. The first term of <span class="math inline">\(E\)</span> is the
-            <em>inertia term</em>, which is the energy of the system if it was at rest. The second term is the
-            <em>potential energy</em> (e.g.&nbsp;elastic potential) of the system. The minimization problem is then to
-            find the configuration of the system that minimizes the energy. For example, in context of elastic
-            deformables we will have this optimization as:</p>
-          <p><span class="math display">\[q_{n+1} = \arg\min_q \left[\frac{1}{2} \|q - \tilde q_n\|_M^2 +
-              h^2\psi(q)\right] ,\]</span></p>
-          <p>where note that since I multiplied the second term by <span class="math inline">\(h^2\)</span> I can drop
-            the <span class="math inline">\(1/h^2\)</span> in the first term, since the minimizer will be the same. Here
-            <span class="math inline">\(\psi(q) = -\int f(x) dx\)</span> is the elastic potential of the system.</p>
-          <p>Recall, we want to solve the above minimization problem w.r.t to the constraint that <span
-              class="math inline">\(\phi(q) \geq 0\)</span>, i.e.&nbsp;interpenetration free! This is very nonlinear,
-            nonconvex, and hard to solve. In the next section we will see how to solve this using penalty and barrier
-            methods.</p>
-        </section>
-      </section>
-      <section id="penalty-and-barrier-methods" class="level2" data-number="4.4">
-        <h2 data-number="4.4" class="anchored" data-anchor-id="penalty-and-barrier-methods"><span
-            class="header-section-number">4.4</span> Penalty and Barrier Methods</h2>
-        <p>This is a completely different approach to handling contact than the constraint-based approaches we have been
-          talking about so far. The idea is to use a potential function to penalize the interpenetration of objects. The
-          potential function is a function of the penetration depth <span class="math inline">\(\phi\)</span> and the
-          normal force <span class="math inline">\(\lambda_{\hat n}\)</span>:</p>
-        <section id="overview" class="level3" data-number="4.4.1">
-          <h3 data-number="4.4.1" class="anchored" data-anchor-id="overview"><span
-              class="header-section-number">4.4.1</span> Overview</h3>
-          <p>The methods we have covered so far attempted to remove interpenetration of objects by either shifting
-            objects apart or applying impulses to them at the point of contact. In contrast, in penalty based methods,
-            we use a spring-mass system to prevent / penalize interpenetration. The idea is that if we model the forces
-            due to penetration as a* spring force with rest length of <span class="math inline">\(0\)</span>*, then we
-            can find a force <span class="math inline">\(f\)</span> (and torque <span
-              class="math inline">\(\tau\)</span>)—external forces—s.t. at some <span class="math inline">\(t\)</span>
-            we can use them in the equations of motion to perform integration.</p>
-          <p>If a rigid body <span class="math inline">\(A\)</span> penetrates <span class="math inline">\(B\)</span>,
-            then for the <span class="math inline">\(k^{th}\)</span> contact points we have a force <span
-              class="math inline">\(f_{k,spring}\)</span> gives rise to a torque term <span
-              class="math inline">\(\tau_{k,spring}\)</span> that is applied at the contact point. If the vectorf rom
-            the center of mass of <span class="math inline">\(A\)</span> to the contact point is <span
-              class="math inline">\(r_{k,A}\)</span>, then the torque is <span class="math inline">\(\tau_{k,spring} =
-              r_{k,A} \times f_{k,spring}\)</span>. To create a “penalty method” affected external force vector we can
-            sum all the force and torque vectors:</p>
-          <p><span class="math display">\[\textbf{f} = \begin{bmatrix} f_{ext} + \sum_{k} f_{k,spring} \\ \tau_{ext} +
-              \sum_k \tau_{k,spring}\end{bmatrix}.\]</span> Then in the simulation loop we would: 1. find contact points
-            (collision detection) 2. compute and accumulate spring forces 3. integrate equations of motion foward in
-            time.</p>
-          <p><strong>Contact Spring Forces.</strong> Considering the <span class="math inline">\(k^{th}\)</span> contact
-            at <span class="math inline">\(p_k\)</span> between <span class="math inline">\(A,B\)</span> with a contact
-            normal <span class="math inline">\(\hat n\)</span> and a measure of penetration depth <span
-              class="math inline">\(\phi_k\)</span> we can write the force exerted by body <span
-              class="math inline">\(A\)</span> onto <span class="math inline">\(B\)</span> as a spring force:</p>
-          <p><span class="math display">\[ f_{B,spring} = (-k_s \phi_k - b v_k^\top \hat n_k)\hat n_k \]</span></p>
-          <p>where <span class="math inline">\(k_s\)</span> is the spring constant, <span
-              class="math inline">\(v_k\)</span> is the relative velocity of the contact points, and <span
-              class="math inline">\(b\)</span> is the damping constant. The force exerted by <span
-              class="math inline">\(B\)</span> onto <span class="math inline">\(A\)</span> is then <span
-              class="math inline">\(-f_{B,spring}\)</span>. The torque is then <span
-              class="math inline">\(\tau_{k,spring} = r_{k,A} \times f_{k,spring}\)</span>. The <span
-              class="math inline">\(\hat n_k\)</span> is in the paranthesses because we only really care about relative
-            velocity in the normal direction.</p>
-          <p>Now recall how we computed relative velocity <span class="math inline">\(v_k = \dot \phi_{k}\)</span>:</p>
-          <p><span class="math display">\[\dot\phi_k = \hat n_k \cdot ((v_A + \omega_A \times r_{k,A}) -(v_B +
-              \omega_B\times r_{k,B})),\]</span> <span class="math display">\[ = \hat n_k^\top [I_{3\times 3},
-              -r_{k,A}^\times, -I_{3\times 3}, r_{k,B}^\times] \begin{bmatrix} v_A\\ \omega_A \\ v_B \\ \omega_B
-              \end{bmatrix} = J_k u,\]</span></p>
-          <p>which we have seen before. Looking back at <span class="math inline">\(f_{B,spring}\)</span> we find its
-            magnitude to be: <span class="math display">\[|f_{B,spring}| = -k_s\phi_k - b\dot \phi_{k}.\]</span></p>
-          <p>HOWWWWWW IS THIS A MAGNITUDE???????????????????/ IT SHOULD HAVE A SIGN</p>
-          <p>Now we can write the forces on the whole system due to contact <span class="math inline">\(k\)</span> as:
-          </p>
-          <p><span class="math display">\[\begin{bmatrix}f_{A,spring } \\ \tau_A \\ f_{B,spring} \\ \tau_B \end{bmatrix}
-              = \begin{bmatrix} -\hat n_k |f_{B,s}| \\ - r_{k,A}\times \hat n_k |f_{B,S}| \\ \hat n_k |f_{B,S}| \\
-              r_{k,B}\times \hat n_k |f_{B,S}|\end{bmatrix} = -J_{k}^\top |f_{B,s}|.\]</span></p>
-          <p>For all the contacts we can generalize as:</p>
-          <p><span class="math display">\[\dot \phi = Ju,\]</span> <span class="math display">\[ \lambda = - K\phi -
-              \dot \phi,\]</span> <span class="math display">\[M\dot u = f + J^\top \lambda\]</span></p>
-          <p>where <span class="math inline">\(K\)</span> is a diagonal matrix with <span
-              class="math inline">\(k_s\)</span> on the diagonal. If we have <span class="math inline">\(K\)</span>
-            contacts and <span class="math inline">\(N\)</span> bodies we have dimensions <span
-              class="math inline">\(J\in R^{K\times 6N}\)</span> and <span class="math inline">\(f,u \in R^{6N}\)</span>
-            and <span class="math inline">\(\phi, \dot \phi, \lambda \in R^{K}\)</span>.</p>
-          <p><strong>Soft Bodies.</strong> If we want to generalize this to soft bodies, we will replace the <span
-              class="math inline">\(6N\)</span> dimension into <span class="math inline">\(3\times |V|\)</span>
-            dimension and remove <span class="math inline">\(\tau\)</span>, since there will be no torque component to
-            the spring force. If the contact does not fall onto a specific node, then we distribute the penalty force on
-            the enclosing nodes of the element, using some weighing method like Barycentric coordinates.</p>
-          <p>Finally, we can use the above general system, discretize it and perform timestepping. Xu [2014] shows an
-            implict time-stepping scheme.</p>
-          <p><strong>Penalty based friction.</strong> We will also use a spring system to model the friction in our
-            simulator. Usually, we denote the first point of contact as <span class="math inline">\(a\)</span> (anchor)
-            and then track the actual point of contact <span class="math inline">\(p\)</span> through time. If the
-            coefficient of the spring from <span class="math inline">\(a\)</span> to <span
-              class="math inline">\(p\)</span> is <span class="math inline">\(k_f\)</span> and its rest length is 0,
-            then the friction force is:</p>
-          <p><span class="math display">\[f_{f,s} = k_f(a-p).\]</span> If <span class="math display">\[\|f_{f,s}\| \leq
-              \mu f^{spring}_{interpenetration},\]</span> where <span class="math inline">\(\mu\)</span> is the Coulomb
-            coefficient of friction, then we have static friction. If not, then we are dealing with dynamic friction
-            (objects are sliding relative to each other). In the latter case, we move <span
-              class="math inline">\(a\)</span> to the new contact point <span class="math inline">\(p'\)</span> so that
-            the condition above is true.</p>
-          <p>Alternative way of computing the friction force is to relate it to the relative tangential velocity:</p>
-          <p><span class="math display">\[f_{f,s} = -\mu\|f_{spring}\| \textbf{v}_{\hat t}/\|v_{\hat t}\|\]</span> but
-            this model ignores static friction.</p>
-          <p>One problem with penalty based methods is that we have a tradeoff between having a stiff, difficult problem
-            to solve for a high <span class="math inline">\(k\)</span> and an easy system to solve with small <span
-              class="math inline">\(k\)</span>, that causes tunneling. The alternative is to use barrier methods.</p>
-        </section>
-      </section>
-      <section id="barrier-methods" class="level2" data-number="4.5">
-        <h2 data-number="4.5" class="anchored" data-anchor-id="barrier-methods"><span
-            class="header-section-number">4.5</span> Barrier Methods</h2>
-        <p>The core idea of barrier methods is to prevent interpenetration by adding a barrier function to the potential
-          function. These barrier functions diverge as we get closer to the object. Again, we have to be careful how to
-          solve this stiff problem.</p>
-        <p>One simple method is called <strong>asynchronous contact mechanics.</strong> We start with a quadratic
-          penality:</p>
-        <p><span class="math display">\[g(q,\nu) = \|x_b - x_a\| - \nu\]</span>,</p>
-        <p>where $is the thickness of th esurface and <span class="math inline">\(x_a,x_b\)</span> are the closest
-          points on the surfaces of the objects. We can then write the contact potential as:</p>
-        <p><span class="math display">\[V(q,\nu,k) = 1/2 kg^2(q,\nu)\]</span> if <span class="math inline">\(g \leq
-            0\)</span>, else 0, where <span class="math inline">\(k\)</span> is the penalty barrier stiffness. Some
-          suggested we can stack these barriers as a sequence of quadratic barrier functions where <span
-            class="math inline">\(k\)</span>s are increasing and <span class="math inline">\(\nu\)</span>s are
-          decreasing. Then their sum will just converge to <span class="math inline">\(\infty\)</span>. That said, these
-          methods are too computationally intesive.</p>
-        <p>While well-suited for small time-step explicit methods, the incremental construction of the barriers
-          challenge application in implicit time integration with Newton-type optimization.</p>
-        <section id="ipc---incremental-potential-contact" class="level3" data-number="4.5.1">
-          <h3 data-number="4.5.1" class="anchored" data-anchor-id="ipc---incremental-potential-contact"><span
-              class="header-section-number">4.5.1</span> IPC - Incremental Potential Contact</h3>
-          <p>Another way to achieve robust contact handling is by using <em>barrier potentials</em> within an
-            optimization-based implicit time integration. As you can recall, we saw that implict time integration can be
-            reframed as an optimization over nodal positions <span class="math inline">\(q\)</span> and velocities <span
-              class="math inline">\(u\)</span>:</p>
-          <p><span class="math display">\[q^{t+h} = \arg \min_{q} f(q,q^t, u^t) \quad s.t. \quad \phi_k(q) \geq 0 \quad
-              \forall k \in \mathcal{C}.\]</span> Here <span class="math inline">\(\mathcal{C}\)</span> is set of all
-            contacts that are active at time <span class="math inline">\(t\)</span>. So far we treated contacts as
-            inequality constraints, but we can also turn those constraints into <em>barrier potentials</em>. This is
-            exactly what IPC does. This transforms our objective to:</p>
-          <p><span class="math display">\[q^{t+h} = \arg \min_{q} f(q,q^t, u^t) + \mathcal{k} \sum_{k\in
-              \mathcal{C}}b(d_k(q),\hat d),\]</span> where <span class="math inline">\(b\)</span> is the barrier
-            function, <span class="math inline">\(d_k\)</span> is the unsigned distance between the objects. We can
-            define the barrier function:</p>
-          <p><span class="math display">\[b(d,\hat d) = -(d-\hat d)^2\ln (\frac{d}{\hat d}), 0 &lt; d &lt; \hat
-              d\]</span> if <span class="math inline">\(0&lt;d&lt;\hat d\)</span>, else <span
-              class="math inline">\(0\)</span>. Here <span class="math inline">\(b\)</span> is smoothly clamed barrier
-            that goes to 0 as <span class="math inline">\(d \rightarrow \hat d\)</span>. Now we can use <span
-              class="math inline">\(\hat d\)</span> to trade-off accuracy and performance. The smaller <span
-              class="math inline">\(\hat d\)</span> makes the barrier thinner and the simulation more realistic, but
-            harder to optimizer. The larger <span class="math inline">\(\hat d\)</span> makes the barrier thicker and
-            the simulation less realistic, but easier to optimize.</p>
-          <p>We could say all constraints are active, but becuase we have local support from the clamed barrier
-            function, we can use a data structure like spatial hasing to not consider contacts with 0 force.</p>
-          <p>The main benefit of IPC approach is that it’s an unconstrained minimization, which can be robustly solved
-            using Newton’s method with line search. By using CCD within the extend of line-search we can get a guarantee
-            that for every step we will have no collisions independent of the parameter choices.</p>
-          <p>The limitatoin here is that we have to make sure that the input geometry and <span
-              class="math inline">\(\hat d\)</span> do not cause interpenetration in the initial state.</p>
-          <p><strong>(Consistent) Distance Functions.</strong> Commonly with distance-based constraints we use a measure
-            like <span class="math inline">\(d(q) \geq 0\)</span> using a SDF. But under large dispalcements, this
-            constraint can be violated <em>without</em> interpenetration.</p>
-          <p>IPC on the other hand uses an <em>unsigned distnace</em> function. This gives a consisten constraint
-            measure as the contact moves through time. In 3D this boils down to computing minimal distance between 2
-            triangles; as long as the triangles do not interesect, the distance is positive. In tha case we can
-            formulate the problem as minimum distance between vertices and triangles as well as between edges and edges.
-          </p>
-          <p>First, the distance between a point and triangle as we have allready seen can be expressed using
-            Barycentric coordinates <em>u,v</em>:</p>
-          <p><span class="math display">\[d_{PT}(x_1,x_2,x_3,p) = \min_{\alpha,\beta}\|((1-u-v)x_1 + ux_2 + vx_3) -
-              p\|\]</span></p>
-          <p>s.t. <span class="math inline">\(u\geq 0, v\geq 0, u+v\leq 1\)</span>. The distance between two edges
-            parametrized with <span class="math inline">\(a,b\)</span> can be expressed as:</p>
-          <p><span class="math display">\[d_{EE}(x_1,x_2,x_3,x_4) = \min_{a,b} \|(x_1 + a(x_2-x1)) - (x_3 + b(x_4 -
-              x_3))\|\]</span></p>
-          <p>s.t. <span class="math inline">\(0 \leq a,b \leq 1\)</span>. The best thing is that <span
-              class="math inline">\(d_{PT},d_{EE}\)</span> both have closed form solutions.</p>
+</header>
 
 
-        </section>
-      </section>
+<p>When simulating any kinds of physical systems in graphics we often have to deal with contact. Contact is the interaction between two objects that are in close proximity. The forces between these objects are called <em>contact forces</em> and they are there to prevent the objects from interpenetrating. There are 3 rough types of contact simulations: 1. constraint based methods, 2. penalty based methods, and 3. impulse based methods. We will focus on the first two.</p>
+<section id="basics-of-contact-simulation" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="basics-of-contact-simulation"><span class="header-section-number">4.1</span> Basics of Contact Simulation</h2>
+<p>Newton-Euler equations of motions that govern dynamics of physical systems as a 2nd order ODE is written as:</p>
+<p><span class="math display">\[ M(t) \dot u(t) = f(q(t), u(t),t),\]</span></p>
+<p>where <span class="math inline">\(M(t)\)</span> is the mass matrix over time, <span class="math inline">\(u(t)\)</span> is the velocity of the system, <span class="math inline">\(q(t)\)</span> is the generalized position of the system, and <span class="math inline">\(f\)</span> is the external forces acting on the system. The contact forces are a subset of these external forces. We can abbreviate the above equation as:</p>
+<p><span class="math display">\[M\dot u = f,\]</span></p>
+<p>and we evaluate it using numerical integrators that take discrete steps in time. In this section we denote explicit quantities with superscript <span class="math inline">\(\square^-\)</span> and implicit quantities with <span class="math inline">\(\square^+\)</span>. In the implict setting the 1st order Taylor approximation gives:</p>
+<p><span class="math display">\[u^+ \approx u + h \dot u,\]</span> which when placed into the Newton-Euler equation gives gives the following Euler update:</p>
+<p><span class="math display">\[ Mu^+ = Mu + h f.\]</span></p>
+<p>Here <span class="math inline">\(Mu\)</span> can be seen as the momentum term and <span class="math inline">\(u^+\)</span> is the velocity determined <em>at the end</em> of the timestep. The form of <span class="math inline">\(M\)</span> will depend on the type of representation we use for our body.</p>
+<p>Now we can similiarly update the generalized positions:</p>
+<p><span class="math display">\[q^+ = q + h \textbf{H} u^+,\]</span></p>
+<p>where <span class="math inline">\(\textbf{H}\)</span> is the kinematic matrix that maps velocities to positions.</p>
+<p>Since most contant models are based on Coulomb model, we get limited performance boost from higher order methods, so we just we assume planar surface at the contact points.</p>
+<section id="basics-of-constraints" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="basics-of-constraints"><span class="header-section-number">4.1.1</span> Basics of Constraints</h3>
+<p>To restrict movement of bodies to some desired state we introduce kinematic constraints, specifically with <span class="math inline">\(m\)</span> constraints functions we define the desired state as a manifold <span class="math inline">\(\phi(q) \in \mathbb{R}^m\)</span> embeeded in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>Assuming constraints are initially satisfied, we can formulate constraints in terms of how fast they change with respect to <span class="math inline">\(q\)</span>:</p>
+<p><span class="math display">\[J = \frac{\partial \phi}{\partial q} \in \mathrm{R^{m \times n}}.\]</span> We call <span class="math inline">\(J\)</span> the constraint Jacobian / gradient. It encodes the direction in which bodies may be pushed or pulled without exerting any forces on the system while staying on the manifold. With this the bilateral and unilateral constraints can be written as:</p>
+<p><span class="math display">\[J \dot u = 0,\]</span> and <span class="math display">\[J \dot u \geq 0,\]</span> respectively. More generally the constraint forces are written as:</p>
+<p><span class="math display">\[f_c = J^T \lambda,\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is the vector of Lagrange multipliers. The multipliers relate to the magnitudes of <span class="math inline">\(f_c\)</span> when the gradients / directions are normalized. So <span class="math inline">\(J^\top\)</span> tells the force direction and <span class="math inline">\(\lambda\)</span> tells the magnitude. The constraint forces can be thought of as the forces that keep the system on the manifold.</p>
+<p>To actually enforce that our system stays on the manifold we need to add the constraint forces to the external forces acting on the system in the form of an impulse:</p>
+<p><span class="math display">\[M u^+ = M u + h f + h J^T \lambda^+,\]</span> where the constraint forces are evaluated explicity. If we just consider bilateral constraint and write this as a linear system, then we can use <em>Shur complement</em> to reduce the system:</p>
+<p><span class="math display">\[JM^{-1}J^\top J^\top (h \lambda^+) + JM^{-1} (Mu + hf) = 0\]</span></p>
+<p>which is a linear system of the form <span class="math inline">\(A h \lambda^+ + b = 0.\)</span></p>
+<section id="non-interpenetration-contact" class="level4" data-number="4.1.1.1">
+<h4 data-number="4.1.1.1" class="anchored" data-anchor-id="non-interpenetration-contact"><span class="header-section-number">4.1.1.1</span> Non-interpenetration Contact</h4>
+<p>Unilateral constraints are only active when the bodies are in contact. We model the distnace between two bodies with a <em>gap function</em> <span class="math inline">\(\phi\)</span>—i.e.&nbsp;a constraint function that <span class="math inline">\(\phi = 0\)</span> when the bodies are in contact, <span class="math inline">\(\phi &gt; 0\)</span> when bodes are separated, and <span class="math inline">\(\phi &lt; 0\)</span> when bodies are interpenetrating.</p>
+<p>If we make the gross assumption that surfaces are smooth, then we can imagine a plane at the contact point and its normal vectors is parallel to surface normal. If the bodies are in contact, then an impulse <span class="math inline">\(\lambda_{\hat n}\)</span> is applied at the contact location in the direction of <span class="math inline">\(\hat n\)</span> (i.e.&nbsp;perpendicular to the contact plane).</p>
+<p>As such we have 2 cases:</p>
+<ol type="1">
+<li><p><strong>No contact, No force.</strong> <span class="math inline">\(\phi &gt; 0\)</span> and <span class="math inline">\(\lambda_{\hat n} = 0\)</span>.</p></li>
+<li><p><strong>Contact, Force applied.</strong> <span class="math inline">\(\phi \leq 0\)</span> and <span class="math inline">\(\lambda_{\hat n} &gt; 0\)</span>.</p></li>
+</ol>
+<p>Since they are independent we can write them as one “position level non-penetration complementary condition”:</p>
+<p><span class="math display">\[\phi \geq 0 \quad \bot \quad \lambda_{\hat n} \geq 0.\]</span></p>
+<p>Since the contact is only when <span class="math inline">\(\phi =0\)</span> we can again think about it in terms of velocities of bodies. In the implict setting, if bodies <span class="math inline">\(A,B\)</span> are in contact at time <span class="math inline">\(t\)</span>, then if <span class="math inline">\(\dot \phi &gt; 0\)</span>—that is the normal component of relative velocity is positive—they will <em>not</em> be in contact at time <span class="math inline">\(t+h\)</span> (note <span class="math inline">\(\phi^+ \approx \phi + h \dot \phi = h \dot \phi\)</span>), so <span class="math inline">\(\lambda_{\hat n} = 0\)</span>. If <span class="math inline">\(\dot \phi \leq 0\)</span>—that is they have negative or 0 relative velocity—then they will be in contact at time <span class="math inline">\(t+h\)</span>, so <span class="math inline">\(\lambda_{\hat n} &gt; 0\)</span>. Combined we have the condition:</p>
+<p><span class="math display">\[\dot \phi \geq 0 \quad \bot \quad \lambda_{\hat n} \geq 0.\]</span></p>
+<p>We replace <span class="math inline">\(\dot \phi  = v_{\hat n}\)</span>, since it is the relative velocity of the contact points in the normal direction. If we want to anticipate the collision and avoid tunneling effects we can replace <span class="math inline">\(\dot \phi\)</span> with <span class="math inline">\(\phi + hv _{\hat n}\)</span>.</p>
+<p><strong>Non-interpretation Jacobian.</strong> The question now is how do we compute <span class="math inline">\(\dot \phi\)</span>? We can use the chain rule to get:</p>
+<p><span class="math display">\[\dot \phi = \frac{\partial \phi}{\partial q} \dot q = J \dot q = J \dot H u = J' u,\]</span></p>
+<p>where <span class="math inline">\(J'\)</span> body-space Jacobian of the gap function.</p>
+<p>How do we construct <span class="math inline">\(J'\)</span>? Let’s consider collision of two bodies <span class="math inline">\(A,B\)</span> at contact point <span class="math inline">\(p\)</span> and centes of mass <span class="math inline">\(m_A, m_B\)</span> respectively. Defining <span class="math inline">\(\hat n\)</span> to point <span class="math inline">\(A \rightarrow B\)</span>, then by taking <span class="math inline">\(r_A = p - x_A\)</span> and <span class="math inline">\(r_B = p - x_B\)</span> we can write: <span class="math display">\[
+% \begin{align}
+v_{\hat n} = \hat n^\top \delta v \]</span> <span class="math display">\[ v_{\hat n} = \hat n^\top ((v_B + \omega_B \times r_B) - (v_A + \omega_A \times r_A)),
+% \end{align}
+\]</span></p>
+<p>where <span class="math inline">\(v_A, v_B\)</span> are linear velocities of <span class="math inline">\(A,B\)</span> and <span class="math inline">\(\omega_A, \omega_B\)</span> are angular velocities of <span class="math inline">\(A,B\)</span> respectively. Finally we see how to compute <span class="math inline">\(J'\)</span>:</p>
+<p><span class="math display">\[v _{\hat n} = \begin{bmatrix}-\hat n^\top&amp; \hat n r_A^\times &amp; \hat n^\top &amp; -\hat n^\top r^\times_B  \end{bmatrix} \begin{bmatrix} v_A \\ \omega_A \\ v_B \\ \omega_B \end{bmatrix} = J' u.\]</span></p>
+<p>To extend <span class="math inline">\(J'\)</span> to multiple contacts, we would just place a new row for each contact point.</p>
+<p><strong>Soft-Bodies Non-interpenetration Constraints.</strong> This is very similar to the rigid body case we were considering. We usually use a mesh with nodes to represent a deforamble model.</p>
+<p>Considering colliding tetrahedral elements of a mesh between <span class="math inline">\(A,B\)</span> we can formulate the contact point using Barycentric coordinates:</p>
+<p><span class="math display">\[p = w_i x_{i,B} + w_j x_{j,B}+ w_k x_{k,B} + w_m x_{m,B} = x_{l,A}.\]</span></p>
+<p>The relative contact point velocity in the normal direction is then:</p>
+<p><span class="math display">\[v_{\hat{n}} = \hat{n}^\top \left( \sum_{i=1}^4 w_{i,B} v_{i,B} - \sum_{i=1}^4 w_{i,A} v_{i,A} \right) \]</span></p>
+<p><span class="math display">\[ v_{\hat n} = \begin{bmatrix}
+-\hat{n}^\top &amp; w_i \hat{n}^\top &amp; w_j \hat{n}^\top &amp; w_k \hat{n}^\top &amp; w_m \hat{n}^\top
+\end{bmatrix}
+\begin{bmatrix}
+v_{l,A} \\
+v_{i,B} \\
+v_{j,B} \\
+v_{k,B} \\
+v_{m,B}
+\end{bmatrix}
+= J' u.\]</span></p>
+</section>
+</section>
+<section id="coulumnb-friction-model" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="coulumnb-friction-model"><span class="header-section-number">4.1.2</span> Coulumnb Friction Model</h3>
+<p>So far we assume that tangential movement between contacts was allowed and not opposed. In graphics we often want to simulate friction as well. We can model friction as a force that opposes the relative tangential velocity of the contact points. We can model this as a force that is proportional to the normal force and the relative tangential velocity.</p>
+<p>To describe this friction we think about a <em>local contact frame</em> for each contact point. The local frame is defined by the normal vector <span class="math inline">\(\hat n\)</span> and two tangent vectors <span class="math inline">\(\hat t, \hat b\)</span> that are orthogonal to <span class="math inline">\(\hat n\)</span> and each other; <span class="math inline">\(\hat b, \hat t\)</span> define the shared contact plane between the smooth surfaces.</p>
+<p><span class="math inline">\(\hat n\)</span> can be defined from <span class="math inline">\(\partial \phi\)</span>. Since we are discussing this in the local frame, we need to have relative velocity of the two surfaces</p>
+<p><span class="math display">\[v = [\hat n, \hat t, \hat b,]^\top \Delta v,\]</span></p>
+<p>where <span class="math inline">\(\Delta v\)</span> is the world-space relative velocity. We rewrite the context frame basis with <span class="math inline">\(C = [\hat n, \hat t, \hat b]\)</span>. Now recalling the equation for the relative world velocity we can write:</p>
+<p><span class="math display">\[v = C^\top [- I_{3\times 3}, r^{\times}_A I_{3\times 3}, -r_B^{\times}] \begin{bmatrix}v_A \\ \omega_A \\ v_B \\ \omega_B\end{bmatrix} = Ju,\]</span></p>
+<p>so <span class="math display">\[J_f = C^\top [-I_{3\times 3}, r_A^{\times} I_{3\times 3}, -r_B^{\times}].\]</span></p>
+<p>To refelct we recall that in the non-friction case we actually had <span class="math inline">\(J' = \hat n [-I_{3\times 3}, r_A^{\times} I_{3\times 3}, -r_B^{\times}]\)</span> so we indeed got the friction Jacobian by just changing the normal vector to the contact frame basis!</p>
+<p>We defined how we can compute the contact frame relative velocity, but to determine the impulses that separate objects and the friction forces between the objects, we need to separate <span class="math inline">\(v\)</span> into normal <span class="math inline">\(v_{\hat n}\)</span> and tangential <span class="math inline">\(v_{\hat t}\)</span> components.</p>
+<p><strong>Theory of Friction.</strong> Since Column force couples the normal and tangential impulses, we restrict the tangential friction with a cone constraint. The cone constraint is defined by the friction coefficient <span class="math inline">\(\mu\)</span> and the normal force <span class="math inline">\(\lambda_{\hat n} \in \mathrm{R}\)</span>:</p>
+<p><span class="math display">\[\| \lambda_{\hat t} \| \leq \mu \lambda_{\hat n},\]</span></p>
+<p>where <span class="math inline">\(\lambda_{\hat t} \in \mathrm{R^2}\)</span>. Each <span class="math inline">\(\mu \lambda_{\hat n}\)</span> corresponds to some slice of the cone and that slice tells us all the possible tangential forces that can be applied given the normal force. The equation is quadratic so the cone is a <em>quadratic cone.</em></p>
+<p>We separate friction into 2 types: 1. slipping and 2. sticking. If the relative tangential velocity is less than the threshold, then the contact is sticking and the tangential friction force can have <em>any</em> direction. If the relative tangential velocity is greater than the threshold, then the contact is slipping and the tangential friction force is is opposing the movement and has magnitude <span class="math inline">\(\mu \lambda_{\hat n}\)</span>. We can write this as:</p>
+<p><span class="math display">\[\mu \lambda_{\hat n} - \|\lambda_{\hat t}\| \geq 0, \]</span> <span class="math display">\[\|v_{\hat t}\| (\mu \lambda_{\hat n} - \|\lambda_{\hat t}\|) = 0,\]</span> <span class="math display">\[\|v_{\hat t}\| \|\lambda_{\hat t}\| = -v_{\hat t}^\top \lambda_{\hat t}.\]</span></p>
+<p>The first condition is always active and tells us that the tangental impulse has to be in the quadratic cone. If <span class="math inline">\(\|v_{\hat t}\| &gt; 0\)</span> then the other two conditions activate: first tells us that <span class="math inline">\(\mu \lambda_{\hat n} = \|\lambda_{\hat t}\|\)</span>, i.e.&nbsp;the impulse must be maximized in the cone, the last condition says that the tangential friction impulse should oppose the relative tangential velocity. We call this a <em>(non-linear) complementary problem.</em></p>
+<p>To give more intuition on these conditions, we can think about the friciton force as maximally decreasing energy of a system. If we define <span class="math inline">\(\mathcal{F}\)</span> to be the set of possible friction forces, then the <em>principle of maximum dissipiation</em> gives:</p>
+<p><span class="math display">\[\lambda_{\hat t} = \arg \min_{f \in \mathcal{F}} v_{\hat t}^\top f.\]</span> Following this setup we can arrive to the <em>variational inequality (VI)</em> and you can read more about it in [the notes].</p>
+<section id="lcp---linear-complementary-problem" class="level4" data-number="4.1.2.1">
+<h4 data-number="4.1.2.1" class="anchored" data-anchor-id="lcp---linear-complementary-problem"><span class="header-section-number">4.1.2.1</span> LCP - Linear Complementary Problem</h4>
+<p>We saw that our friction model is non-linear and can be hard to solve efficiently. We can linearize the problem by creating a linear approximation of our friction cone. We call it a polyhedral cone and it is given by the span of <span class="math inline">\(k+1\)</span> unit vectors <span class="math inline">\(\{\hat n, \hat t_1, \dots, \hat t_{k}\}\)</span>. Each tangent vector has a twin in the opposite direction, so we can write all friction forces with non-negative coefficients. This allows us to re-write the quadratic constraint above as:</p>
+<p><span class="math display">\[0 \leq \mu\lambda_{\hat n} - \sum_i \lambda_{\hat t_i}.\]</span></p>
+<p>To form the stick-slip conditions we only need to know whether we are slipping or not. For this we can measure the maximum slipping velocity along all of the tangential directions. Then for <span class="math inline">\(\beta \geq 0\)</span>:</p>
+<p><span class="math display">\[ 0 \leq \beta \textbf e + \textbf v_{\hat t}\]</span></p>
+<p>where <span class="math inline">\(\textbf e\)</span> is the vector of all ones and <span class="math inline">\(\textbf v_{\hat t}\)</span> is the relative tangential velocity along all directions. <span class="math inline">\(\beta\)</span> is the maximum slipping velocity and can be 0 iff <span class="math inline">\(\textbf v_{\hat t} = 0\)</span>, i.e.&nbsp;we are sticking. Otherwise <span class="math inline">\(\beta = \max_{v \in \textbf v_{\hat t}} \|v\|\)</span>. We also sometimes call <span class="math inline">\(\beta\)</span> the <em>slack</em> variable.</p>
+<p>Again by principle of maximum dissipation we know that:</p>
+<p><span class="math display">\[\beta &gt; 0 \implies \sum_{i}\lambda_{\hat t_i} = \mu \lambda_{\hat n}.\]</span> To get the right direction of the friction force we let <span class="math inline">\(\beta \textbf e = -\textbf v_{\hat t}\)</span>. Finally this gives a complete linear model for 1 contact point:</p>
+<p><span class="math display">\[0 &lt; v_{\hat n} \quad \bot \quad \lambda_n \geq 0\]</span></p>
+<p><span class="math display">\[0 \leq \beta e + v_{\hat t} \quad \text{and} \quad \lambda_{\hat t} \geq 0\]</span></p>
+<p><span class="math display">\[0 \leq \mu \lambda_{\hat n} - \sum_i \lambda_{\hat t_i} \quad \bot \quad\beta \geq 0.\]</span></p>
+<p><strong><span class="math inline">\(p\)</span> contact points.</strong> To generalize our system to multiple contact points we need to assemble a <em>global Jacobian</em> containing non-penetration and tangential friction constraints for all <span class="math inline">\(p\)</span> contact points. For the non-penetration conditions each contact point we have a separate row:</p>
+<p><span class="math display">\[J_{\hat n, i} = \begin{bmatrix} - \hat n_i^\top &amp; \hat n_{i}^{\top} r_{i,A}^\times &amp; \hat n_i^\top &amp; - \hat n_i^\top r_{i,B}^\times\end{bmatrix},\]</span> <span class="math display">\[J_{\hat n} = \begin{bmatrix} J_{\hat n, 1}^\top \\ \vdots \\ J_{\hat n, p}^\top \end{bmatrix}.\]</span></p>
+<p>For the friction Jacobian (tangential friction) we have a similar setup for all tangential directions:</p>
+<p><span class="math display">\[J_{\hat t} = [J_{\hat t, 1}^\top, \dots, J_{\hat t, p}^\top],\]</span> <span class="math display">\[J_{\hat t,i} = \begin{bmatrix}  - \hat t_i^\top &amp; \hat t_{i}^{\top} r_{i,A}^\times &amp; \hat t_i^\top &amp; - \hat t_i^\top r_{i,B}^\times  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots\end{bmatrix}\]</span></p>
+<p>where <span class="math inline">\(J_{\hat t, i}\)</span> is the Jacobian for the <span class="math inline">\(i\)</span>-th contact point. The global Jacobian is then: <span class="math display">\[
+\begin{bmatrix}
+M &amp; -J_{\hat{n}}^T &amp; -J_{\hat{t}}^T &amp; 0 \\
+J_{\hat{n}} &amp; 0 &amp; 0 &amp; 0 \\
+J_{\hat{t}} &amp; 0 &amp; 0 &amp; E \\
+0 &amp; \bar{\mu} &amp; -E^T &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+u^+ \\
+\lambda_{\hat{n}}^+ \\
+\lambda_{\hat{t}}^+ \\
+\beta
+\end{bmatrix}
++
+\begin{bmatrix}
+-Mu - hf \\
+0 \\
+0 \\
+0
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 \\
+s_n \\
+s_\beta \\
+s_\lambda
+\end{bmatrix}
+\]</span></p>
+<p>subject to: <span class="math display">\[0 \leq s_n \perp \lambda_{\hat{n}}^+ \geq 0 \]</span> <span class="math display">\[0 \leq s_\beta \perp \lambda_{\hat{t}}^+ \geq 0 \]</span> <span class="math display">\[0 \leq s_\lambda \perp \beta \geq 0 \]</span></p>
+<p>With rearamnging we can get the LCP form:</p>
+<p><span class="math display">\[ Ax + b \geq 0 \quad \bot \quad x \geq 0.\]</span></p>
+<p>After all this gargol we see that it really boils down to a nice and simple linear system!</p>
+</section>
+<section id="boxed-lcp" class="level4" data-number="4.1.2.2">
+<h4 data-number="4.1.2.2" class="anchored" data-anchor-id="boxed-lcp"><span class="header-section-number">4.1.2.2</span> Boxed LCP</h4>
+<p>Another way to discretize the friction cone is by using only 2 orthogonal tangent directions and have them limited:</p>
+<p><span class="math display">\[-\mu \lambda_{\hat n} \leq \lambda_{\hat t_i} \leq \mu \lambda_{\hat n}\]</span> for <span class="math inline">\(i\in \{1,2\}.\)</span></p>
+<p>Note that to solve these discretizations we need more general algorithms than LCP solvers. One nice benefit we get from writing our system this way is that we can run away from the whole mess of having different constraints for friction and non-penetration and just use the same algebraic expression (with different bounds) for both! Concretely, we can write:</p>
+<p><span class="math display">\[v_i &gt; 0 \implies \lambda_i = -\mu \lambda_{\hat n} \]</span> <span class="math display">\[v_i = 0 \implies \lambda_i \in [-\mu \lambda_{\hat n}, \mu \lambda_{\hat n}] \]</span> <span class="math display">\[v_i &lt; 0 \implies \lambda_i = \mu \lambda_{\hat n}\]</span></p>
+<p>We can further decompose the residual velocity as <span class="math inline">\(v_i = v_{i,+} - v_{i,-}\)</span> and write BLCP as 3 separate LCPs:</p>
+<p><span class="math display">\[ 0 \leq v_{i,+} \perp \lambda_i + \mu \lambda_{\hat n} \geq 0\]</span> <span class="math display">\[ 0 \leq v_{i,-} \perp \lambda_i - \mu \lambda_{\hat n} \geq 0\]</span> <span class="math display">\[ 0\leq v_{i,-} \perp v_{i,+} \geq 0.\]</span></p>
+<p>To assmble the global Jacobian we recall the Jacobian for a single contact as:</p>
+<p><span class="math display">\[J_i = C^\top [-I_{3\times 3}, r_A^{\times} I_{3\times 3}, -r_B^{\times}]\]</span></p>
+<p>where we now replace <span class="math inline">\(C^\top\)</span> with <span class="math inline">\([\hat n, \hat t_1, \hat t_2]\)</span>. Then the global Jacobian becomes: <span class="math inline">\(J = [J_1, \dots, J_p]^\top\)</span> and the global BLCP for the constrainted equations of motion becomes:</p>
+<p><span class="math display">\[
+\underbrace{
+\begin{bmatrix}
+M &amp; -J^T \\
+J &amp; 0
+\end{bmatrix}
+}_{\text{A}}
+\begin{bmatrix}
+u^+ \\
+\lambda^+
+\end{bmatrix}
++
+\underbrace{
+\begin{bmatrix}
+-Mu - hf \\
+0
+\end{bmatrix}
+}_{\text{b}}
+=
+\begin{bmatrix}
+0 \\
+v
+\end{bmatrix},
+\]</span></p>
+<p><span class="math display">\[ 0  \leq {}^+v \perp \lambda^+ - \lambda^{\text{lo}} \geq 0, \]</span> <span class="math display">\[ 0  \leq {}^-v \perp \lambda^{\text{hi}} - \lambda^+ \geq 0, \]</span> <span class="math display">\[ 0  \leq {}^-v \perp {}^+v \geq 0\]</span></p>
+<p>where <span class="math inline">\(\lambda = [\lambda_{\hat n_1}, \lambda_{\hat t_{1,1}}, \lambda_{\hat t_{1,2}}, \dots]^\top.\)</span> We could again use Shur complement to reduce the system to a smaller one and you can see that in [the notes].</p>
+<p><strong>Numerical stabilization.</strong> Add springs, because we have numerical drift in linear approximation.</p>
+</section>
+<section id="deformable-contact" class="level4" data-number="4.1.2.3">
+<h4 data-number="4.1.2.3" class="anchored" data-anchor-id="deformable-contact"><span class="header-section-number">4.1.2.3</span> Deformable Contact</h4>
+<p>While most of the friction contact formulations above were derived from a rigid-body setting, we can extend them to deformable bodies too. The main differneces are that there are more variables and we use implicit discretization approaches in deformable objects.</p>
+<p>If we first consider the <span class="math inline">\(k^{th}\)</span> contact between 2 rigid bodies, we can write the relative contact point velocity as:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+v_{\hat{n}_k} \\
+v_{\hat{i}_k} \\
+v_{\hat{b}_k} \\
+v_{\hat{r}_k}
+\end{bmatrix}
+=
+\begin{bmatrix}
+-\mathbf{C}_k^T &amp; -(\mathbf{r}_{k_i} \times \mathbf{C}_k)^T &amp; \mathbf{C}_k^T &amp; (\mathbf{r}_{k_j} \times \mathbf{C}_k)^T \\
+\mathbf{0}^T &amp; -\hat{\mathbf{n}}_k^T &amp; \mathbf{0}^T &amp; \hat{\mathbf{n}}_k^T
+\end{bmatrix}
+\begin{bmatrix}
+\mathbf{v}_i \\
+\boldsymbol{\omega}_i \\
+\mathbf{v}_j \\
+\boldsymbol{\omega}_j
+\end{bmatrix}.
+\]</span></p>
+<p>Most often we pick <span class="math inline">\(\hat t_k\)</span> to be the direction of sliding and <span class="math inline">\(\hat b_k\)</span> to be orthogonal to <span class="math inline">\(\hat n_k, \hat t_k\)</span>. We can combine all <span class="math inline">\(K\)</span> contacts and <span class="math inline">\(N\)</span> bodes into one big system of the familiar form:</p>
+<p><span class="math display">\[\textbf v = \textbf J \textbf u.\]</span> Finally we write the block <span class="math inline">\(M\)</span> matrix, the external forces <span class="math inline">\(f\)</span>, and the generalized coordinates <span class="math inline">\(q_i = [x_i^\top \quad Q_i^\top]^\top\)</span>. Since we incorporate quaternions we have to change <span class="math inline">\(\dot q = u\)</span> using a kinematic matrix <span class="math inline">\(\textbf H\)</span> (refer to the notes for the exact form). Then <span class="math inline">\(q^+ = q + h \textbf H u^+\)</span> and <span class="math inline">\(M u^+ = M u + h f\)</span>, as we have seen before.</p>
+<p>To change this to a deformable body we need to add elastic forces. Recall that applying FEM on a deformable body results in a second order differential equation:</p>
+<p><span class="math display">\[ M \ddot q + B \dot q + K u = f+ J^\top \lambda\]</span></p>
+<p>where <span class="math inline">\(q\)</span> is all the nodes in the mesh, <span class="math inline">\(K\)</span> is the stiffnes matrix, <span class="math inline">\(B\)</span> is the damping matrix, and <span class="math inline">\(J^\top \lambda\)</span> is the contact forces. Observe that we do not have any quaternions or angualr spin present anymore. Using Euler integration and finite differences we get:</p>
+<p><span class="math display">\[\dot u^+ \approx u + h\dot u \]</span></p>
+<p>where <span class="math inline">\(u^+ = u^{t+h}, u=u^t\)</span>. Integrating genearlized poisitions we get:</p>
+<p><span class="math display">\[q^+ = q + h u^+.\]</span> Note: no <span class="math inline">\(\textbf H\)</span>, because we are not dealing with quaternion rotations anymore. Now we can write a velocity level dynamic equation for this system:</p>
+<p><span class="math display">\[M \left(\frac{u^+ - u}{h}\right) + K (q^+ - q_0) +B u^+ = f + J^\top \lambda\]</span> or equivalently in the impulse form:</p>
+<p><span class="math display">\[ M u^+ + hBu^+ + h^2Ku^+ = Mu + hf - hKq^+  + hKq_0  + J^\top h\lambda, \]</span> <span class="math display">\[ A u^+ = b + J^\top h\lambda.\]</span></p>
+<p>Here <span class="math inline">\(A\)</span> is sparse, block-symmetric, and positive definite. That’s every numerical analysit wet dream. We can now easily solve the system using Conjugate Gradients or any other iterative solver to get <span class="math inline">\(u^+\)</span>, then <span class="math inline">\(q^+\)</span>, and repeat.</p>
+<p><strong>Note:</strong> Deformable objects make numerics easier compared to rigid bodies.</p>
+</section>
+</section>
+</section>
+<section id="contact-generation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="contact-generation"><span class="header-section-number">4.2</span> Contact Generation</h2>
+<p>We talked about how to simulate contact, but we did not talk about how to generate it, based on the representation of the objects. We will focus on the most common representation: tetrahedral meshes. First we define some terms: the contact position / point will be denoted as <span class="math inline">\(p\)</span> w.r.t points <span class="math inline">\(p_A,p_B\)</span> on the surfaces of objects <span class="math inline">\(A,B\)</span>. At the exact time of contact they obey <span class="math inline">\(p = p_A = p_B\)</span>, but since we are doing discreitzation in time, this is not guaranteed to happen. That said, we will still apply forces at <span class="math inline">\(p_A, p_B\)</span>. We will define for simplicty the contact normal <span class="math inline">\(\hat n\)</span> to be the normal of the surface at <span class="math inline">\(p_A\)</span>. Again, note that <span class="math inline">\(\hat{n_A}\)</span> might not be equal to <span class="math inline">\(\hat{n_B}\)</span> if the surfaces are non-smooth. We also introduce a measure of penetration <span class="math inline">\(\phi\)</span> (same convention as the gap function); it tells how much we have to move along <span class="math inline">\(\hat n\)</span> to get to <span class="math inline">\(p = p_A = p_B\)</span>.</p>
+<p>When dealing with mesh-based collisions, we recognize 2 types of collisions: 1. vertex-face <span class="math inline">\((V,E)\)</span> and 2. edge-edge <span class="math inline">\((E,E)\)</span>. Since we are timestepping, we should expect to the detect the collision when the objects are interpenetrating.</p>
+<p><strong>Continuous Collisoin Detection (CCD).</strong> Rather then trying to reason about when a collision will happen in our descretized setting, we can think about it in a continuous setting. CCD processes all the possible collisions that might occur from <span class="math inline">\(t_{now}\)</span> to <span class="math inline">\(t_{later}\)</span> (e.g.&nbsp;<span class="math inline">\(t\)</span> to <span class="math inline">\(t+h\)</span>). To do so we can either <em>look forward in time</em> and look for the time when a collision <em>will</em> happen or <em>look backward in time</em> and find a time just before the collision happend. We can pefrorm CCD with a course-to-fine approach to speed it up.</p>
+<p>To prevent collisions we can either set a large enough time-step based on CCD or we can warp points to the start of the timestep based on the computed normal.</p>
+<p>To compute a <span class="math inline">\(t\)</span> and <span class="math inline">\(p\)</span> at the contact we will make the assumption that when <span class="math inline">\(h \approx 0\)</span>, then motion between time-steps can be considered linear, while the error increases with <span class="math inline">\(\mathcal{O}(h)\)</span>. We can “sweep” a triangle over the time-step to get the “swept-volume.” We can then compute the time of collision by finding the intersection of the swept-volume with the other object. Using the forward prediction approach we get candidate positions at the next timestep for one of the triangles as:</p>
+<p><span class="math display">\[x_i' = x_0 + h u_i\]</span> for <span class="math inline">\(i\in \{0,1,2\}\)</span>. For the backward formulatoin we get:</p>
+<p><span class="math display">\[x_i' = x_i - hu_i.\]</span> In fact for the backward formulation we already have the exact candidates for the previous timestep. We can instaed compute <em>linear velocity</em> as <span class="math inline">\(u_i = \frac{x_i - x_i'}{h}.\)</span> Using bounding boxes around previous and next timestpe we can see whether there might exist a collision or not.</p>
+<p><strong>CCD for <span class="math inline">\((V,F)\)</span> contact.</strong> The idea is to use 3 nodes <span class="math inline">\(\{x_1,x_2,x_3\}\)</span> from one triangle to get the surface normal <span class="math inline">\(\hat p_n\)</span> and another node to check whether it is in the plane of <span class="math inline">\(\hat p_n\)</span>. First we get <span class="math inline">\(\hat p_n = (x_2 - x_1)\times (x_3 - x_1)\)</span>. Distance to the origina is <span class="math inline">\(\hat p_n^\top x_1\)</span>.</p>
+<p>For a new point <span class="math inline">\(x_4\)</span> to lie in the triangle we need:</p>
+<p><span class="math display">\[\hat p_n ^\top x_4 - d = 0,\]</span> <span class="math display">\[((x_2 - x_1)\times (x_3 - x_1))^\top (x_4 - x_1) = 0.\]</span> Now introducing time-dependence and linear motion equations from beofre into the test we get:</p>
+<p><span class="math display">\[(((x_2 - x_1) + (u_2 - u_1)t)\times ((x_3 - x_1) + (u_3-u_1)t))^\top ((x_4 - x_1) + (u_4 -u_1)t) = 0\]</span></p>
+<p>and we want to determine the minmial non-negative such <span class="math inline">\(t&lt; h\)</span> s.t. the above is true. This is a <span class="math inline">\(P^3\)</span> polynomial so we can find these values using a root-finding algorithms. This gives the <em>point of contact</em> <span class="math inline">\(p = x_4 + u_4 t\)</span>.</p>
+<p><strong>CCD for <span class="math inline">\((E,E)\)</span> contact.</strong> We can use the same approach as above, but we need to consider the edges as well. We must check if the edges are parallel:</p>
+<p><span class="math display">\[(x_2 - x_1 )\ times (x_4 - x_3) \leq \varepsilon .\]</span> If this is a case we can project vertices on the line through the other edge and check for intersection.</p>
+<p>When the two edges are not parallel—possibly touching at only 1 point—then we can reparametrize the edges as line equations:</p>
+<p><span class="math display">\[E_1: x_1 + \alpha (x_2 -x_1),\]</span> <span class="math display">\[E_2: x_3 + \beta (x_4 - x_3).\]</span></p>
+<p>Then the contact point must also be the closest point between these two lines:</p>
+<p><span class="math display">\[a,b, \arg\min_{a,b \in[0,1] }\|x_1 + \alpha (x_2 -x_1) - (x_3 + \beta (x_4 - x_3))\|_2.\]</span></p>
+<p>From preschool we know that we can solve this in the normal equations form:</p>
+<p><span class="math display">\[\begin{bmatrix} (x_2 - x_1)^\top (x_2 - x_1) &amp; -(x_2 - x_1)^\top (x_4 - x_3) \\ -(x_2 - x_1)^\top (x_4 - x_3) &amp; (x_4 - x_3)^\top (x_4 - x_3) \end{bmatrix} \begin{bmatrix} \alpha \\ \beta \end{bmatrix} = \begin{bmatrix} (x_2 - x_1)^\top (x_3 -x_1)\\ -(x_4 -x_3)^\top (x_3 -x_1)\end{bmatrix}.\]</span></p>
+<p>The <span class="math inline">\((\alpha,\beta)\)</span> solutions give the candidate closest point. If <span class="math inline">\(\alpha,\beta \in [0,1]\)</span> we can simply write the point as:</p>
+<p><span class="math display">\[p = (x_1 -x_3) + \alpha (x_2 -x_1) - \beta (x_4 -x_3).\]</span></p>
+<p>If we really want to get sweaty, we can write this using Barycentric coordinates:</p>
+<p><span class="math display">\[((1- i - v) x_1(t) + ux_2(t) + vx_3(t)) - x_4(t))) = 0\]</span> where <span class="math inline">\(t\in[0,1]\)</span> and <span class="math inline">\(u,v\)</span> are Barycentric coordinates for the traingle.</p>
+</section>
+<section id="deformable-bodies-soft-body-contact" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="deformable-bodies-soft-body-contact"><span class="header-section-number">4.3</span> Deformable Bodies / Soft Body Contact</h2>
+<p>While we did discuss how to frame contact simulation for deformable bodies briefly, we will now give a more nuanced discussion of the topic.</p>
+<p>First, reacall the DiffEq that govers dynamics of a deformable body:</p>
+<p><span class="math display">\[M \ddot{q} = f_{ext} + f_d(u) + f_e(q) - f_c(q, u)\]</span></p>
+<p>where <span class="math inline">\(f_d\)</span> is the damping force, <span class="math inline">\(f_e\)</span> is the (internal) elastic force, and <span class="math inline">\(f_c\)</span> is the contact force. The first conceptual shift we will do is to consider a system of deformables as one global tetrahedral mesh, so e.g.&nbsp;<span class="math inline">\(q,u,f_{ext}, \dots \in \mathrm{R}^{3 |V|}\)</span> where <span class="math inline">\(|V|\)</span> is the number of vertices in the “mesh soup” of our system. From a numerical standpoint this view is no differnet from before, but it will give us some benefits when computing contact forces.</p>
+<p>With this in mind let us turn to computing contact forces, specifically how rewrite the constraint Jacobian <span class="math inline">\(J\)</span> for constrain-based approaches:</p>
+<p><span class="math display">\[f_c(q,u) = J(q)^\top \lambda(u)\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> containts the Lagrange multipliers of all the contact forces. Consider two tetrahedral elements <span class="math inline">\(A,B\)</span> defined by <span class="math inline">\(\{x\}_{\{i,j,k,m\}}, \{x\}_{\{n,o,p,r\}}\)</span>, respectively. Then the point of contact is</p>
+<p><span class="math display">\[p_A = w_i x_i + w_j x_j + w_k x_k + w_m x_m = p_B = w_n x_n + w_o x_o + w_p x_p + w_r x_r,\]</span></p>
+<p>again through our favourite Barycentric coordinates. At the time of contact we have <span class="math inline">\(p_A = p_B\)</span> and <span class="math inline">\(\hat n\)</span> is the normal to the surface at <span class="math inline">\(p_A\)</span>. As we did many times before, we now need to compute the relative velocity of the contact point:</p>
+<p><span class="math display">\[\Delta v = \left( \partial_t p^B - \partial_t p^A\right),\]</span></p>
+<p>which is expressed in world space. To convert it into contact space:</p>
+<p><span class="math display">\[v = C^\top \Delta v, \]</span></p>
+<p>where <span class="math inline">\(C\)</span> is the contact space coordinate system from before. This expression projects relative velocity onto <span class="math inline">\(C\)</span>. But since <span class="math inline">\(w_i\)</span> are not time-dependent we can rewrite:</p>
+<p><span class="math display">\[v = C^\top [-w_{\{i,j,k,m\}} I_{3\times 3}, w_{\{o,p,q,r\}}I_{3\times 3}]\begin{bmatrix} v_{\{i,j,k,m\}} \\ v_{o,p,q,r}\end{bmatrix} = Ju,\]</span></p>
+<p>and please bear with me as I use <span class="math inline">\(v_{\{i,j,k,m\}}\)</span> to denote a vector of velocities <span class="math inline">\(v_i, v_j, v_k, v_m\)</span>. To construct the global Jacobian we can combine these local Jacobians for all the contact points to get <span class="math inline">\(J\in\mathrm{R}^{3K \times 3|V|}\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/assembleDeformableJacobian.png" class="img-fluid figure-img"></p>
+<figcaption>Global J assembly</figcaption>
+</figure>
+</div>
+<section id="time-discretization-for-deformables" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="time-discretization-for-deformables"><span class="header-section-number">4.3.1</span> Time Discretization for Deformables</h3>
+<p>Instead of using semi-implicit integrators we usually gravitate towards implicit schemes, because stiff elasticity limits time-step sizes.</p>
+<p>The first way to solve implicit formulations is using <em>root-finding</em> which gives time-updated state vectors. The second popular way is by <em>minimizing an energy potential</em> using a first-order optimizer. The minimization approaches can be broken into position and velocity-level methods and we will very briefyl discuss them after we introduct root-finding methods.</p>
+<p><strong>Root-finding.</strong> Rewrite <span class="math inline">\(2^{nd}\)</span> order ODE as a system of coupled <span class="math inline">\(1^{st}\)</span> order ODEs:</p>
+<p><span class="math display">\[M\dot u = f_{ext} + f_d(u) + f_e(q) + f_c(q,u),\]</span> <span class="math display">\[\dot q = u.\]</span></p>
+<p>For why we do this, refer to [notes]. We can now formulate root finding using the following (rough) steps:</p>
+<ol type="1">
+<li>Write primary or dual form of the system of equations.</li>
+<li>Use finite differences to compute time-derivatives.</li>
+<li>Derive Newton’s method equation by plugging in <span class="math inline">\(1^{st}\)</span> order Taylor approximations. This should give us a linear system which can be solved using different methods (Schur complement, etc.).</li>
+<li>Iterate until convergence.</li>
+</ol>
+<p>We derive the Primary form of the system. Assume for the moment that contact forces are <span class="math inline">\(f_c(q,u) = -\nabla_q\mathcal{E}_c(q,u)\)</span> where <span class="math inline">\(\mathcal{E}_c\)</span> is a contact potential function. Then the descretized equations of motion in Euler method are:</p>
+<p><span class="math display">\[M (u^{t+h} -u^t)/h = f_{ext} + f_d(u^{t+h}) + f_e(q^{t+h}) - \nabla_q \mathcal{E}_c(q^{t+h}, u^{t+h}),\]</span></p>
+<p>which can be rewritten in matrix form as a homogeneous system:</p>
+<p><span class="math display">\[F_{primary} = 0.\]</span> This gives a rootfinding problem:</p>
+<p><span class="math display">\[\text{compute } q^{t+h}, u^{t+h} \text{ s.t. } F_{primary}(u^{t+h}, u^{t+h}) = 0,\]</span> which can be solved using Newton’s method. Assuming <span class="math inline">\(q^{t}, u^{t}\)</span> are known we want the updates:</p>
+<p><span class="math display">\[q^{k+1} = q^k + \Delta q, \quad u^{k+1} = u^k + \Delta u,\]</span></p>
+<p>where <span class="math inline">\(\Delta q, \Delta u\)</span> are the updates. We can incorporate line-search into the Newton’s method to ensure convergence by ading a step-length parameter. Next step is to compute <span class="math inline">\(1^{st}\)</span> order Taylor approximations of <span class="math inline">\(F_{primary}\)</span> elements. First we note that <span class="math inline">\(B^k = \partial_{u}f_d(u^k)\)</span>, <span class="math inline">\(K^k = \partial_{q}f_e(q^k)\)</span>, <span class="math inline">\(H_q^k= \partial_{q^2} \mathcal{E}_c(q^k,u^k)\)</span>, <span class="math inline">\(H_u^k = \partial_{q u} \mathcal{E}_c(q^k,u^k)\)</span>, where <span class="math inline">\(B,K\)</span> are the dambing and stifness matrices. Particularly we have:</p>
+<p><span class="math display">\[M u^{k+1}\approx M u^{k}+M\Delta u\]</span></p>
+<p><span class="math display">\[h f_{d}(u^{k+1})\approx h f_{d}(u^{k})+h B^{k}\Delta u\]</span></p>
+<p><span class="math display">\[h f_{e}(q^{k+1})\approx h f_{d}(q^{k})+h K^{k}\Delta q\]</span></p>
+<p><span class="math display">\[h f_{c}(q^{k+1}, u^{k+1})\approx h f_{c}(q^{k}, u^{k})-h H_{q}^{k}\Delta q-h H_{u}^{k}\Delta u\]</span></p>
+<p>which by noting <span class="math inline">\(\Delta q = h \Delta u\)</span> we can write as:</p>
+<p><span class="math display">\[\begin{bmatrix}
+M - h B^k - h^2 K^k + h H_u^k + h^2 H_q^k &amp; 0 \\
+0 &amp; -h
+\end{bmatrix}
+\begin{bmatrix}
+\Delta u \\
+\Delta q
+\end{bmatrix}
+=
+\begin{bmatrix}
+M (u^t - u^k) + h (f_d^k + f_e^k + f_c^k + f_{\text{ext}})
+\\
+q^t - q^k + h u^k
+\end{bmatrix}\]</span></p>
+<p>A solution can be obtained by solving 1st row for <span class="math inline">\(\Delta u\)</span>, then 2nd row to solve for <span class="math inline">\(\Delta q\)</span>. We can then update <span class="math inline">\(q^{k+1} = q^k + \Delta q\)</span> and <span class="math inline">\(u^{k+1} = u^k + \Delta u\)</span> and repeat until convergence.</p>
+<p><strong>Dual.</strong></p>
+<p><strong>Position-level Minimization.</strong> We rewrite the time-integration as a minimizatoin problem:</p>
+<p><span class="math display">\[q^{t+h} = f(q,u) = \arg \min _{q,\phi(q)\geq 0}\frac{1}{2}(q-\hat q)^\top M(q-\hat q) + h^2 \mathcal{E}_e(q) - q^\top h^2 f_d(u)\]</span></p>
+<p>is a solution to implicit Euler formulation. The first part is the <em>momentum potential</em> where <span class="math inline">\(\hat q = q^\top + h u^\top + h^2 M^{-1}f_{ext}\)</span>, the second term minimizes the <em>energy potential</em> of elastic strain <span class="math inline">\(\mathcal{E}_e\)</span>, and the third minimizes work done by <span class="math inline">\(f_d\)</span>.</p>
+<p>To actually solve it we need to form the optimality conditions, i.e.&nbsp;a Lagrangian function:</p>
+<p><span class="math display">\[L(q,u)  = f(q,u) - \gamma^\top \phi(q),\]</span></p>
+<p>where <span class="math inline">\(\gamma\geq 0\)</span> are Lagrange multipliers for constraints <span class="math inline">\(\phi(q) \geq 0\)</span>. We can then compute the gradient of the Lagrangian and set it to zero to get the (<span class="math inline">\(1^{st}\)</span> order) optimality conditions:</p>
+<p><span class="math display">\[\nabla_q L(q^{h+t},u^{t+h}) = \nabla_q f(q^{h+t},u^{t+h}) - \partial_{q}\phi(q^{h+t})^top \gamma = 0,\]</span> <span class="math display">\[ \gamma \geq 0,\]</span> <span class="math display">\[\phi(q^{t+h}) \geq 0,\]</span> <span class="math display">\[\gamma^\top \phi(q^{t+h}) = 0.\]</span></p>
+<p>With expanding <span class="math inline">\(f\)</span> and using some tricks (refer to the [notes] ) we get the minimization problem equivalent to the primal form:</p>
+<p><span class="math display">\[q^{t+h} = \arg \min_q \frac{1}{2}(q-\hat q)^\top M(q-\hat q) + h^2 \mathcal{E}_e(q) + h^2 \mathcal{E}_c(q,u) - q^\top h^2 f_d(u)\]</span></p>
+<p>where <span class="math inline">\(\mathcal{E}_c\)</span> is the contact potential.</p>
+<p><strong>Velocity-level Minimization.</strong> Before we talk about this, note that velocity-level minimization is not that popular for deformable somulations. That said, it is very similar to the position-level minimization, we get the optimization problem:</p>
+<p><span class="math display">\[u^{t+h} = \arg \min_{u, Ju\geq 0} \frac{1}{2} (u-\hat u)^\top M(u-\hat u) + h \mathcal{E}_e(q),\]</span></p>
+<p>where <span class="math inline">\(\hat u = u^\top + h M^{-1}f_{ext}\)</span>, ignoring the damping forces and <span class="math inline">\(\phi(q)\)</span> constraint is approximated to first order as <span class="math inline">\(\approx \phi(q^t) + hJu \implies Ju \geq 0\)</span>. Looking at <span class="math inline">\(q\)</span> as function of <span class="math inline">\(u\)</span>:</p>
+<p><span class="math display">\[\nabla_u\mathcal{E}_e(q) = \frac{1}{h}\partial_{q}\mathcal{E}_e(q).\]</span></p>
+</section>
+<section id="little-detour-incremental-potential" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="little-detour-incremental-potential"><span class="header-section-number">4.3.2</span> Little Detour: Incremental Potential</h3>
+<p>We will do something very similar to above, but with more standard notation that we will later use when covering IPC. We start with Backward Euler discretization of the equations of motion and reformulate them as an optimization problem.</p>
+<p><span class="math display">\[M \dot u = - \nabla_q U(q) = f,\]</span></p>
+<p>which is a conservative system. Using Beckward Euler discretization of the continuous system and approximation of <span class="math inline">\(q\)</span> with previous two time-steps we get:</p>
+<p><span class="math display">\[M\frac{q_{n+1}-2q_n +q_{n-1}}{h^2} = -\nabla_q U(q_{n+1}) = f_{n+1},\]</span></p>
+<p>and by rearranging with <span class="math inline">\(\tilde q = 2q_n - q_{n-1}\)</span> we get:</p>
+<p><span class="math display">\[M\frac{q_{n+1}-\tilde q}{h^2} = -\nabla_q U(q_{n+1}).\]</span></p>
+<p>Seeing the above as a <em>gradient</em> of an expression, we see:</p>
+<p><span class="math display">\[\nabla \left[ \frac{1}{2h^2} \|q - \tilde q_n\|_M^2 + U(q)\right] = 0,\]</span></p>
+<p>so the minimizer prediction of the next node position becomes:</p>
+<p><span class="math display">\[q_{n+1} = \arg\min_q \left[\frac{1}{2h^2} \|q - \tilde q_n\|_M^2 + U(q)\right] = \arg\min_{q} E(q),\]</span></p>
+<p>where <span class="math inline">\(E(q)\)</span> is the <strong>incremental potential</strong> of the system. This is a very useful concept in contact simulation, because it allows us to write the equations of motion as a minimization problem. The first term of <span class="math inline">\(E\)</span> is the <em>inertia term</em>, which is the energy of the system if it was at rest. The second term is the <em>potential energy</em> (e.g.&nbsp;elastic potential) of the system. The minimization problem is then to find the configuration of the system that minimizes the energy. For example, in context of elastic deformables we will have this optimization as:</p>
+<p><span class="math display">\[q_{n+1} = \arg\min_q \left[\frac{1}{2} \|q - \tilde q_n\|_M^2 + h^2\psi(q)\right] ,\]</span></p>
+<p>where note that since I multiplied the second term by <span class="math inline">\(h^2\)</span> I can drop the <span class="math inline">\(1/h^2\)</span> in the first term, since the minimizer will be the same. Here <span class="math inline">\(\psi(q) = -\int f(x) dx\)</span> is the elastic potential of the system.</p>
+<p>Recall, we want to solve the above minimization problem w.r.t to the constraint that <span class="math inline">\(\phi(q) \geq 0\)</span>, i.e.&nbsp;interpenetration free! This is very nonlinear, nonconvex, and hard to solve. In the next section we will see how to solve this using penalty and barrier methods.</p>
+</section>
+</section>
+<section id="penalty-and-barrier-methods" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="penalty-and-barrier-methods"><span class="header-section-number">4.4</span> Penalty and Barrier Methods</h2>
+<p>This is a completely different approach to handling contact than the constraint-based approaches we have been talking about so far. The idea is to use a potential function to penalize the interpenetration of objects. The potential function is a function of the penetration depth <span class="math inline">\(\phi\)</span> and the normal force <span class="math inline">\(\lambda_{\hat n}\)</span>:</p>
+<section id="overview" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="overview"><span class="header-section-number">4.4.1</span> Overview</h3>
+<p>The methods we have covered so far attempted to remove interpenetration of objects by either shifting objects apart or applying impulses to them at the point of contact. In contrast, in penalty based methods, we use a spring-mass system to prevent / penalize interpenetration. The idea is that if we model the forces due to penetration as a* spring force with rest length of <span class="math inline">\(0\)</span>*, then we can find a force <span class="math inline">\(f\)</span> (and torque <span class="math inline">\(\tau\)</span>)—external forces—s.t. at some <span class="math inline">\(t\)</span> we can use them in the equations of motion to perform integration.</p>
+<p>If a rigid body <span class="math inline">\(A\)</span> penetrates <span class="math inline">\(B\)</span>, then for the <span class="math inline">\(k^{th}\)</span> contact points we have a force <span class="math inline">\(f_{k,spring}\)</span> gives rise to a torque term <span class="math inline">\(\tau_{k,spring}\)</span> that is applied at the contact point. If the vectorf rom the center of mass of <span class="math inline">\(A\)</span> to the contact point is <span class="math inline">\(r_{k,A}\)</span>, then the torque is <span class="math inline">\(\tau_{k,spring} = r_{k,A} \times f_{k,spring}\)</span>. To create a “penalty method” affected external force vector we can sum all the force and torque vectors:</p>
+<p><span class="math display">\[\textbf{f} = \begin{bmatrix} f_{ext} + \sum_{k} f_{k,spring} \\ \tau_{ext} + \sum_k \tau_{k,spring}\end{bmatrix}.\]</span> Then in the simulation loop we would: 1. find contact points (collision detection) 2. compute and accumulate spring forces 3. integrate equations of motion foward in time.</p>
+<p><strong>Contact Spring Forces.</strong> Considering the <span class="math inline">\(k^{th}\)</span> contact at <span class="math inline">\(p_k\)</span> between <span class="math inline">\(A,B\)</span> with a contact normal <span class="math inline">\(\hat n\)</span> and a measure of penetration depth <span class="math inline">\(\phi_k\)</span> we can write the force exerted by body <span class="math inline">\(A\)</span> onto <span class="math inline">\(B\)</span> as a spring force:</p>
+<p><span class="math display">\[ f_{B,spring} = (-k_s \phi_k - b v_k^\top \hat n_k)\hat n_k \]</span></p>
+<p>where <span class="math inline">\(k_s\)</span> is the spring constant, <span class="math inline">\(v_k\)</span> is the relative velocity of the contact points, and <span class="math inline">\(b\)</span> is the damping constant. The force exerted by <span class="math inline">\(B\)</span> onto <span class="math inline">\(A\)</span> is then <span class="math inline">\(-f_{B,spring}\)</span>. The torque is then <span class="math inline">\(\tau_{k,spring} = r_{k,A} \times f_{k,spring}\)</span>. The <span class="math inline">\(\hat n_k\)</span> is in the paranthesses because we only really care about relative velocity in the normal direction.</p>
+<p>Now recall how we computed relative velocity <span class="math inline">\(v_k = \dot \phi_{k}\)</span>:</p>
+<p><span class="math display">\[\dot\phi_k = \hat n_k \cdot ((v_A + \omega_A \times r_{k,A}) -(v_B + \omega_B\times r_{k,B})),\]</span> <span class="math display">\[ = \hat n_k^\top [I_{3\times 3}, -r_{k,A}^\times, -I_{3\times 3}, r_{k,B}^\times] \begin{bmatrix} v_A\\ \omega_A \\ v_B \\ \omega_B \end{bmatrix} = J_k u,\]</span></p>
+<p>which we have seen before. Looking back at <span class="math inline">\(f_{B,spring}\)</span> we find its magnitude to be: <span class="math display">\[|f_{B,spring}| = -k_s\phi_k - b\dot \phi_{k}.\]</span></p>
+<p>HOWWWWWW IS THIS A MAGNITUDE???????????????????/ IT SHOULD HAVE A SIGN</p>
+<p>Now we can write the forces on the whole system due to contact <span class="math inline">\(k\)</span> as:</p>
+<p><span class="math display">\[\begin{bmatrix}f_{A,spring } \\ \tau_A \\ f_{B,spring} \\ \tau_B \end{bmatrix} = \begin{bmatrix} -\hat n_k |f_{B,s}| \\ - r_{k,A}\times \hat n_k |f_{B,S}| \\ \hat n_k |f_{B,S}| \\ r_{k,B}\times \hat n_k |f_{B,S}|\end{bmatrix} = -J_{k}^\top |f_{B,s}|.\]</span></p>
+<p>For all the contacts we can generalize as:</p>
+<p><span class="math display">\[\dot \phi = Ju,\]</span> <span class="math display">\[ \lambda = - K\phi - \dot \phi,\]</span> <span class="math display">\[M\dot u = f + J^\top \lambda\]</span></p>
+<p>where <span class="math inline">\(K\)</span> is a diagonal matrix with <span class="math inline">\(k_s\)</span> on the diagonal. If we have <span class="math inline">\(K\)</span> contacts and <span class="math inline">\(N\)</span> bodies we have dimensions <span class="math inline">\(J\in R^{K\times 6N}\)</span> and <span class="math inline">\(f,u \in R^{6N}\)</span> and <span class="math inline">\(\phi, \dot \phi, \lambda \in R^{K}\)</span>.</p>
+<p><strong>Soft Bodies.</strong> If we want to generalize this to soft bodies, we will replace the <span class="math inline">\(6N\)</span> dimension into <span class="math inline">\(3\times |V|\)</span> dimension and remove <span class="math inline">\(\tau\)</span>, since there will be no torque component to the spring force. If the contact does not fall onto a specific node, then we distribute the penalty force on the enclosing nodes of the element, using some weighing method like Barycentric coordinates.</p>
+<p>Finally, we can use the above general system, discretize it and perform timestepping. Xu [2014] shows an implict time-stepping scheme.</p>
+<p><strong>Penalty based friction.</strong> We will also use a spring system to model the friction in our simulator. Usually, we denote the first point of contact as <span class="math inline">\(a\)</span> (anchor) and then track the actual point of contact <span class="math inline">\(p\)</span> through time. If the coefficient of the spring from <span class="math inline">\(a\)</span> to <span class="math inline">\(p\)</span> is <span class="math inline">\(k_f\)</span> and its rest length is 0, then the friction force is:</p>
+<p><span class="math display">\[f_{f,s} = k_f(a-p).\]</span> If <span class="math display">\[\|f_{f,s}\| \leq \mu f^{spring}_{interpenetration},\]</span> where <span class="math inline">\(\mu\)</span> is the Coulomb coefficient of friction, then we have static friction. If not, then we are dealing with dynamic friction (objects are sliding relative to each other). In the latter case, we move <span class="math inline">\(a\)</span> to the new contact point <span class="math inline">\(p'\)</span> so that the condition above is true.</p>
+<p>Alternative way of computing the friction force is to relate it to the relative tangential velocity:</p>
+<p><span class="math display">\[f_{f,s} = -\mu\|f_{spring}\| \textbf{v}_{\hat t}/\|v_{\hat t}\|\]</span> but this model ignores static friction.</p>
+<p>One problem with penalty based methods is that we have a tradeoff between having a stiff, difficult problem to solve for a high <span class="math inline">\(k\)</span> and an easy system to solve with small <span class="math inline">\(k\)</span>, that causes tunneling. The alternative is to use barrier methods.</p>
+</section>
+</section>
+<section id="barrier-methods" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="barrier-methods"><span class="header-section-number">4.5</span> Barrier Methods</h2>
+<p>The core idea of barrier methods is to prevent interpenetration by adding a barrier function to the potential function. These barrier functions diverge as we get closer to the object. Again, we have to be careful how to solve this stiff problem.</p>
+<p>One simple method is called <strong>asynchronous contact mechanics.</strong> We start with a quadratic penality:</p>
+<p><span class="math display">\[g(q,\nu) = \|x_b - x_a\| - \nu\]</span>,</p>
+<p>where $is the thickness of th esurface and <span class="math inline">\(x_a,x_b\)</span> are the closest points on the surfaces of the objects. We can then write the contact potential as:</p>
+<p><span class="math display">\[V(q,\nu,k) = 1/2 kg^2(q,\nu)\]</span> if <span class="math inline">\(g \leq 0\)</span>, else 0, where <span class="math inline">\(k\)</span> is the penalty barrier stiffness. Some suggested we can stack these barriers as a sequence of quadratic barrier functions where <span class="math inline">\(k\)</span>s are increasing and <span class="math inline">\(\nu\)</span>s are decreasing. Then their sum will just converge to <span class="math inline">\(\infty\)</span>. That said, these methods are too computationally intesive.</p>
+<p>While well-suited for small time-step explicit methods, the incremental construction of the barriers challenge application in implicit time integration with Newton-type optimization.</p>
+<section id="ipc---incremental-potential-contact" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="ipc---incremental-potential-contact"><span class="header-section-number">4.5.1</span> IPC - Incremental Potential Contact</h3>
+<p>Another way to achieve robust contact handling is by using <em>barrier potentials</em> within an optimization-based implicit time integration. As you can recall, we saw that implict time integration can be reframed as an optimization over nodal positions <span class="math inline">\(q\)</span> and velocities <span class="math inline">\(u\)</span>:</p>
+<p><span class="math display">\[q^{t+h} = \arg \min_{q} f(q,q^t, u^t) \quad s.t. \quad \phi_k(q) \geq 0 \quad \forall k \in \mathcal{C}.\]</span> Here <span class="math inline">\(\mathcal{C}\)</span> is set of all contacts that are active at time <span class="math inline">\(t\)</span>. So far we treated contacts as inequality constraints, but we can also turn those constraints into <em>barrier potentials</em>. This is exactly what IPC does. This transforms our objective to:</p>
+<p><span class="math display">\[q^{t+h} = \arg \min_{q} f(q,q^t, u^t) + \mathcal{k} \sum_{k\in \mathcal{C}}b(d_k(q),\hat d),\]</span> where <span class="math inline">\(b\)</span> is the barrier function, <span class="math inline">\(d_k\)</span> is the unsigned distance between the objects. We can define the barrier function:</p>
+<p><span class="math display">\[b(d,\hat d) = -(d-\hat d)^2\ln (\frac{d}{\hat d}), 0 &lt; d &lt; \hat d\]</span> if <span class="math inline">\(0&lt;d&lt;\hat d\)</span>, else <span class="math inline">\(0\)</span>. Here <span class="math inline">\(b\)</span> is smoothly clamed barrier that goes to 0 as <span class="math inline">\(d \rightarrow \hat d\)</span>. Now we can use <span class="math inline">\(\hat d\)</span> to trade-off accuracy and performance. The smaller <span class="math inline">\(\hat d\)</span> makes the barrier thinner and the simulation more realistic, but harder to optimizer. The larger <span class="math inline">\(\hat d\)</span> makes the barrier thicker and the simulation less realistic, but easier to optimize.</p>
+<p>We could say all constraints are active, but becuase we have local support from the clamed barrier function, we can use a data structure like spatial hasing to not consider contacts with 0 force.</p>
+<p>The main benefit of IPC approach is that it’s an unconstrained minimization, which can be robustly solved using Newton’s method with line search. By using CCD within the extend of line-search we can get a guarantee that for every step we will have no collisions independent of the parameter choices.</p>
+<p>The limitatoin here is that we have to make sure that the input geometry and <span class="math inline">\(\hat d\)</span> do not cause interpenetration in the initial state.</p>
+<p><strong>(Consistent) Distance Functions.</strong> Commonly with distance-based constraints we use a measure like <span class="math inline">\(d(q) \geq 0\)</span> using a SDF. But under large dispalcements, this constraint can be violated <em>without</em> interpenetration.</p>
+<p>IPC on the other hand uses an <em>unsigned distnace</em> function. This gives a consisten constraint measure as the contact moves through time. In 3D this boils down to computing minimal distance between 2 triangles; as long as the triangles do not interesect, the distance is positive. In tha case we can formulate the problem as minimum distance between vertices and triangles as well as between edges and edges.</p>
+<p>First, the distance between a point and triangle as we have allready seen can be expressed using Barycentric coordinates <em>u,v</em>:</p>
+<p><span class="math display">\[d_{PT}(x_1,x_2,x_3,p) = \min_{\alpha,\beta}\|((1-u-v)x_1 + ux_2 + vx_3) - p\|\]</span></p>
+<p>s.t. <span class="math inline">\(u\geq 0, v\geq 0, u+v\leq 1\)</span>. The distance between two edges parametrized with <span class="math inline">\(a,b\)</span> can be expressed as:</p>
+<p><span class="math display">\[d_{EE}(x_1,x_2,x_3,x_4) = \min_{a,b} \|(x_1 + a(x_2-x1)) - (x_3 + b(x_4 - x_3))\|\]</span></p>
+<p>s.t. <span class="math inline">\(0 \leq a,b \leq 1\)</span>. The best thing is that <span class="math inline">\(d_{PT},d_{EE}\)</span> both have closed form solutions.</p>
 
-    </main> <!-- /main -->
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const toggleBodyColorMode = (bsSheetEl) => {
-          const mode = bsSheetEl.getAttribute("data-mode");
-          const bodyEl = window.document.querySelector("body");
-          if (mode === "dark") {
-            bodyEl.classList.add("quarto-dark");
-            bodyEl.classList.remove("quarto-light");
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
           } else {
-            bodyEl.classList.add("quarto-light");
-            bodyEl.classList.remove("quarto-dark");
+            container.appendChild(child.cloneNode(true));
+            break;
           }
         }
-        const toggleBodyColorPrimary = () => {
-          const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-          if (bsSheetEl) {
-            toggleBodyColorMode(bsSheetEl);
-          }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
-        toggleBodyColorPrimary();
-        const icon = "";
-        const anchorJS = new window.AnchorJS();
-        anchorJS.options = {
-          placement: 'right',
-          icon: icon
-        };
-        anchorJS.add('.anchored');
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {
-              return true;
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
             }
-          }
-          return false;
-        }
-        const onCopySuccess = function (e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button,
-              {
-                trigger: "manual",
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]
-              });
-            tooltip.show();
-          }
-          setTimeout(function () {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
-        }
-        const getTextToCopy = function (trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
         });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-        var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i = 0; i < links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
-            }
-          }
-        }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function (el) {
-              return el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'quarto',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-          window.tippy(el, config);
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i = 0; i < noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function () {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch { }
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
-            } else {
-              return "";
-            }
-          });
-        }
-        const xrefs = window.document.querySelectorAll('a.quarto-xref');
-        const processXRef = (id, note) => {
-          // Strip column container classes
-          const stripColumnClz = (el) => {
-            el.classList.remove("page-full", "page-columns");
-            if (el.children) {
-              for (const child of el.children) {
-                stripColumnClz(child);
-              }
-            }
-          }
-          stripColumnClz(note)
-          if (id === null || id.startsWith('sec-')) {
-            // Special case sections, only their first couple elements
-            const container = document.createElement("div");
-            if (note.children && note.children.length > 2) {
-              container.appendChild(note.children[0].cloneNode(true));
-              for (let i = 1; i < note.children.length; i++) {
-                const child = note.children[i];
-                if (child.tagName === "P" && child.innerText === "") {
-                  continue;
-                } else {
-                  container.appendChild(child.cloneNode(true));
-                  break;
-                }
-              }
-              if (window.Quarto?.typesetMath) {
-                window.Quarto.typesetMath(container);
-              }
-              return container.innerHTML
-            } else {
-              if (window.Quarto?.typesetMath) {
-                window.Quarto.typesetMath(note);
-              }
-              return note.innerHTML;
-            }
-          } else {
-            // Remove any anchor links if they are present
-            const anchorLink = note.querySelector('a.anchorjs-link');
-            if (anchorLink) {
-              anchorLink.remove();
-            }
-            if (window.Quarto?.typesetMath) {
-              window.Quarto.typesetMath(note);
-            }
-            if (note.classList.contains("callout")) {
-              return note.outerHTML;
-            } else {
-              return note.innerHTML;
-            }
-          }
-        }
-        for (var i = 0; i < xrefs.length; i++) {
-          const xref = xrefs[i];
-          tippyHover(xref, undefined, function (instance) {
-            instance.disable();
-            let url = xref.getAttribute('href');
-            let hash = undefined;
-            if (url.startsWith('#')) {
-              hash = url;
-            } else {
-              try { hash = new URL(url).hash; } catch { }
-            }
-            if (hash) {
-              const id = hash.replace(/^#\/?/, "");
-              const note = window.document.getElementById(id);
-              if (note !== null) {
-                try {
-                  const html = processXRef(id, note.cloneNode(true));
-                  instance.setContent(html);
-                } finally {
-                  instance.enable();
-                  instance.show();
-                }
-              } else {
-                // See if we can fetch this
-                fetch(url.split('#')[0])
-                  .then(res => res.text())
-                  .then(html => {
-                    const parser = new DOMParser();
-                    const htmlDoc = parser.parseFromString(html, "text/html");
-                    const note = htmlDoc.getElementById(id);
-                    if (note !== null) {
-                      const html = processXRef(id, note);
-                      instance.setContent(html);
-                    }
-                  }).finally(() => {
-                    instance.enable();
-                    instance.show();
-                  });
-              }
-            } else {
-              // See if we can fetch a full url (with no hash to target)
-              // This is a special case and we should probably do some content thinning / targeting
-              fetch(url)
-                .then(res => res.text())
-                .then(html => {
-                  const parser = new DOMParser();
-                  const htmlDoc = parser.parseFromString(html, "text/html");
-                  const note = htmlDoc.querySelector('main.content');
-                  if (note !== null) {
-                    // This should only happen for chapter cross references
-                    // (since there is no id in the URL)
-                    // remove the first header
-                    if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                      note.children[0].remove();
-                    }
-                    const html = processXRef(null, note);
-                    instance.setContent(html);
-                  }
-                }).finally(() => {
-                  instance.enable();
-                  instance.show();
-                });
-            }
-          }, function (instance) {
-          });
-        }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = (cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' + annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
             //compute the position of the single el (top and bottom and make a div)
             const el = window.document.getElementById(lineIds[0]);
             top = el.offsetTop;
             height = el.offsetHeight;
             parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
           }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-          });
-          selectedAnnoteEl = undefined;
-        };
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
         // Handle positioning of the toggle
-        window.addEventListener(
-          "resize",
-          throttle(() => {
-            elRect = undefined;
-            if (selectedAnnoteEl) {
-              selectCodeLines(selectedAnnoteEl);
-            }
-          }, 10)
-        );
-        function throttle(fn, ms) {
-          let throttle = false;
-          let timer;
-          return (...args) => {
-            if (!throttle) { // first call gets through
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
               fn.apply(this, args);
-              throttle = true;
-            } else { // all the others get throttled
-              if (timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-            }
-          };
+              timer = throttle = false;
+            }, ms);
         }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
             }
-          });
-        }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
-            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
           } else {
-            return undefined;
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
           }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
         };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i = 0; i < bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function () {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function (cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
-            });
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
           }
-        }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-    </script>
-    <nav class="page-navigation">
-      <div class="nav-page nav-page-previous">
-        <a href="./deformations.html" class="pagination-link" aria-label="Deformable Models in Graphics">
-          <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp;
-            <span class="chapter-title">Deformable Models in Graphics</span></span>
-        </a>
-      </div>
-      <div class="nav-page nav-page-next">
-      </div>
-    </nav>
-  </div> <!-- /content -->
-  <footer class="footer">
-    <div class="nav-footer">
-      <div class="nav-footer-left">
-        &nbsp;
-      </div>
-      <div class="nav-footer-center">
-        <p>Copyright 2025, Žiga Kovačič</p>
-      </div>
-      <div class="nav-footer-right">
-        &nbsp;
-      </div>
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./deformations.html" class="pagination-link" aria-label="Deformable Models in Graphics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Deformable Models in Graphics</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./mpm.html" class="pagination-link" aria-label="Material Point Method: Graphics Perspective">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Material Point Method: Graphics Perspective</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2025, Žiga Kovačič</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
     </div>
-  </footer>
+  </div>
+</footer>
 
 
 
 
-</body>
-
-</html>
+</body></html>

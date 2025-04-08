@@ -1,0 +1,310 @@
+/* Gruvbox Dark Theme - Refined */
+:root {
+    /* Gruvbox Dark Palette - based on https://github.com/morhetz/gruvbox-contrib/blob/master/color.table */
+    --gruv-bg0: #282828;      /* Background */
+    --gruv-bg1: #3c3836;      /* Lighter Background (e.g., elements) */
+    --gruv-bg2: #504945;
+    --gruv-bg3: #665c54;
+    --gruv-bg4: #7c6f64;
+
+    --gruv-fg0: #fbf1c7;      /* Primary Foreground */
+    --gruv-fg1: #ebdbb2;      /* Default Foreground */
+    --gruv-fg2: #d5c4a1;
+    --gruv-fg3: #bdae93;
+    --gruv-fg4: #a89984;      /* Dimmer Foreground / Comments */
+
+    --gruv-red-bright: #fb4934;
+    --gruv-red-neutral: #cc241d;
+    --gruv-green-bright: #b8bb26;
+    --gruv-green-neutral: #98971a;
+    --gruv-yellow-bright: #fabd2f;
+    --gruv-yellow-neutral: #d79921;
+    --gruv-blue-bright: #83a598;
+    --gruv-blue-neutral: #458588;
+    --gruv-purple-bright: #d3869b;
+    --gruv-purple-neutral: #b16286;
+    --gruv-aqua-bright: #8ec07c;
+    --gruv-aqua-neutral: #689d6a;
+    --gruv-orange-bright: #fe8019;
+    --gruv-orange-neutral: #d65d0e;
+
+    --gruv-gray: #928374;
+}
+
+body {
+    background-color: var(--gruv-bg0);
+    color: var(--gruv-fg1); /* Use default foreground for body text */
+    font-size: 16px;
+    line-height: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--gruv-fg0); /* Brighter foreground for headers */
+    font-weight: 600;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem;
+    color: var(--gruv-yellow-neutral);
+
+ } /* Adjusted from original */
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+
+/* --- Links - Refined Visibility --- */
+a {
+    /* text-decoration: underline; */ /* Removed default underline */
+    text-decoration: none; /* No underline by default */
+    color: var(--gruv-aqua-bright); /* Use bright aqua for default links */
+    /* Optional: Slightly bolder */
+    /* font-weight: 500; */
+}
+
+a:hover {
+    color: var(--gruv-aqua-neutral); /* Slightly darker aqua on hover */
+    text-decoration: underline; /* Add underline on hover only */
+}
+
+/* Update for links previously styled as 'black' */
+a.black,
+a.black_underline {
+    color: var(--gruv-aqua-bright); /* Use the same aqua as default links */
+    font-weight: 400; /* Keep normal weight */
+    text-decoration: none; /* No underline by default */
+}
+
+a.black:hover,
+a.black_underline:hover {
+    color: var(--gruv-aqua-neutral); /* Darker aqua on hover */
+    text-decoration: underline; /* Underline on hover */
+    font-weight: 400; /* Keep normal weight on hover too, or adjust if needed */
+}
+
+a.publication_link {
+    color: var(--gruv-blue-bright); /* Use bright blue now */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a.publication_link:hover {
+    color: var(--gruv-blue-neutral); /* Darker blue on hover */
+    text-decoration: underline;
+}
+
+/* Horizontal Rule */
+hr {
+    border-top: 1px solid var(--gruv-bg4); /* Use a background shade for the rule */
+}
+
+/* --- Profile Image Style --- */
+.profile-image {
+    border: 1px solid var(--gruv-bg4); /* Add a subtle border */
+    border-radius: 5px; /* Keep the rounding consistent */
+    /* Optional: Subtle shadow instead of border */
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */ /* Use with care for minimalism */
+    /* Ensure max-width and width are applied if needed */
+     width: 100%;
+     max-width: 220px;
+}
+
+/* Navbar Styles */
+.custom-navbar {
+    background-color: var(--gruv-bg1); /* Slightly lighter background */
+    border-bottom: 1px solid var(--gruv-bg3); /* Add subtle border */
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .navbar-nav .nav-link {
+    color: var(--gruv-fg2); /* Dimmer text for navbar */
+    text-decoration: none;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+
+.custom-navbar .navbar-brand:hover,
+.custom-navbar .navbar-brand:focus,
+.custom-navbar .navbar-nav .nav-link:hover,
+.custom-navbar .navbar-nav .nav-link:focus {
+    color: var(--gruv-fg0); /* Bright text on hover/focus */
+    text-decoration: none;
+}
+
+.custom-navbar .navbar-nav .nav-link .fa-fw {
+    margin-right: 0.4em;
+}
+
+/* Navbar Toggler (Mobile) */
+.navbar-dark .navbar-toggler {
+    border-color: var(--gruv-bg4); /* Use a background shade for border */
+}
+/* Toggler icon color can be adjusted via SVG background-image if needed */
+
+/* Publications / Projects Section */
+.pub-wrapper .section-item {
+    margin-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.pub-wrapper .title a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.25em;
+    color: var(--gruv-fg1);
+/*    color: var(--gruv-yellow-bright); /* Yellow for titles */*/
+}
+.pub-wrapper .title a:hover {
+     color: var(--gruv-orange-bright);
+     text-decoration: underline; /* Add underline on hover */
+}
+
+.pub-wrapper .description {
+    font-size: 0.95em;
+    color: var(--gruv-fg4);
+}
+
+.pub-wrapper .authors {
+    color: var(--gruv-fg4); /* Dimmer text for authors */
+    font-size: 0.95em;
+    margin: 0.3em 0;
+}
+
+.pub-wrapper .authors a {
+    color: var(--gruv-fg3); /* Slightly brighter for author links */
+    text-decoration: none;
+}
+.pub-wrapper .authors a:hover {
+    color: var(--gruv-fg1);
+    text-decoration: underline;
+}
+
+/* Style for your name */
+.pub-wrapper .authors a.me { /* Add class="me" to your name in HTML */
+    font-weight: bold;
+    /* text-decoration: underline; */ /* Removed underline */
+    color: var(--gruv-fg1); /* Make your name stand out more */
+}
+.pub-wrapper .authors a.me:hover {
+     color: var(--gruv-fg0);
+     text-decoration: underline; /* Add underline on hover */
+}
+
+
+/* Images and Videos */
+.pub-wrapper .figure img,
+.pub-wrapper .figure video {
+    max-width: 240px;
+    width: 100%;
+    display: block;
+    border-radius: 4px; /* Subtler radius */
+    border: 1px solid var(--gruv-bg3); /* Add subtle border */
+    box-shadow: none; /* Remove shadow for flatter look */
+    object-fit: cover;
+}
+
+.pub-wrapper .figure video {
+    background-color: var(--gruv-bg0); /* Match background */
+}
+
+/* Minimalistic buttons for links */
+.pub-wrapper .link {
+    margin-top: 0.5em;
+}
+
+.pub-wrapper .link a,
+.pub-wrapper .link .venue a
+ {
+    display: inline-block;
+    padding: 0.2em 0.7em;
+    margin: 0.2em 0.4em 0.2em 0;
+    border: 1px solid var(--gruv-bg4);
+    border-radius: 4px;
+    font-size: 0.85em;
+    line-height: 1.4;
+    background-color: var(--gruv-bg1);
+    text-decoration: none;
+/*    color: var(--gruv-orange-bright); */
+    color: var(--gruv-blue-bright);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.pub-wrapper .link a:hover,
+.pub-wrapper .link a:focus,
+.pub-wrapper .link .venue a:hover,
+.pub-wrapper .link .venue a:focus {
+    background-color: var(--gruv-bg2);
+    border-color: var(--gruv-bg4);
+    color: var(--gruv-orange-neutral); /* Darker orange on hover */
+    text-decoration: none; /* Keep no underline */
+}
+.pub-wrapper p {
+/*    font-size: 0.95em;*/
+}
+
+.pub-wrapper .link .venue {
+    font-weight: bold;
+/*    color: var(--gruv-orange-bright); */
+        color: var(--gruv-red-bright);
+}
+/* Specific overrides */
+.author-name {
+    font-weight: 600;
+    text-decoration: underline;
+    color: var(--gruv-fg1);
+}
+.author-name:hover {
+    color: var(--gruv-fg0);
+}
+
+.other-author {
+    font-weight: normal;
+    color: var(--gruv-fg3);
+    text-decoration: none;
+}
+.other-author:hover {
+    color: var(--gruv-fg1);
+    text-decoration: underline;
+}
+
+.journal-name {
+    margin-top: 5px;
+    font-style: italic;
+    display: block;
+    color: var(--gruv-gray);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    .profile-image {
+        display: block; /* Ensure block display for margin auto */
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1rem; /* Add space below image on mobile */
+    }
+    .mobile-spacing { /* Apply spacing using profile-image class now */
+         /* margin-bottom: 1rem; */
+    }
+    .pub-wrapper .figure {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .pub-wrapper .figure img,
+    .pub-wrapper .figure video {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

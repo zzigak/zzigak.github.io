@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gruvbox.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -20,29 +20,30 @@
 
     <!-- <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light"> -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-navbar">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Žiga Kovačič</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#bio"><i class="fas fa-user fa-fw"></i> Bio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#publication"><i class="fas fa-book-open fa-fw"></i> Publications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#experience"><i class="fas fa-briefcase fa-fw"></i> Experiences</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#personal"><i class="fas fa-bowl-food fa-fw"></i> Personal</a>
-                    </li>
-                </ul>
-            </div>
+<div class="container d-flex justify-content-start align-items-center">
+    <div class="d-flex align-items-center">
+        <a class="navbar-brand me-4" href="#">Žiga Kovačič</a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav d-flex flex-row gap-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="#bio"><i class="fas fa-user fa-fw"></i> About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#publication"><i class="fas fa-book-open fa-fw"></i> Publications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects"><i class="fas fa-briefcase fa-fw"></i> Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#experience"><i class="fas fa-briefcase fa-fw"></i> Experiences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#personal"><i class="fas fa-bowl-food fa-fw"></i> Personal</a>
+                </li>
+            </ul>
         </div>
+    </div>
+</div>
     </nav>
 
 
@@ -54,7 +55,7 @@
         <div class="row align-items-center">
             <div class="col-md-3">
                 <img src="image/mit_1.gif" alt="animated portrait"
-                    style="width: 100%; max-width: 220px; border-radius: 5px; " class="mobile-spacing">
+                    style="width: 100%; max-width: 220px; border-radius: 5px; " class="profile-image mobile-spacing">
             </div>
             <div class="col-md-9">
                 <h3>Žiga Kovačič</h3>
@@ -100,7 +101,7 @@
                     </p>
 
                     <p>I've recenly started writing summaries of my readings on physical simulation
-                        <a href="https://zzigak.github.io/book/contact_simulation.html" class="black">here</a>.
+                        <a href="https://zzigak.github.io/book/index.html" class="black">here</a>.
 
                     </p>
                 </div>
@@ -301,19 +302,61 @@
 
         <hr>
 
-        <!-- Experiences
-        <div class="row pt-2" id="experience">
-            <div class="col-md-12">
-                <h3>Experiences</h3>
-                <div>
-                    <p>
-                        <b>Experience 1</b>: Description of your experience.
-                        <br>
-                        <b>Experience 2</b>: Description of your experience.
-                    </p>
-                </div>
-            </div>
-        </div> -->
+        <!-- Experience -->
+<div class="sec-wrapper exp-wrapper" id="experience">
+  <div class="row section-head">
+    <div class="col col-wrapper">
+      <h3 class="section-title">Experience</h3>
+    </div>
+  </div>
+
+  <!-- OpenAI -->
+  <div class="section-item">
+    <div class="row align-items-center">
+      <div class="col col-wrapper title">
+        <a href="https://www.cs.cornell.edu/~ellisk/">Recursion and Learning Lab</a>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-md-9 col-wrapper info">
+        Undergraduate Researcher
+      </div>
+      <div class="col-md-3 col-wrapper time text-md-right">
+        Mar. 2025 – Present
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col col-wrapper location">
+        Cornell University
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <!-- MIT CSAIL -->
+  <div class="section-item">
+    <div class="row align-items-center">
+      <div class="col col-wrapper title">
+        <a href="https://www.cs.cornell.edu/abe/group/members">Graphics & Vision Lab</a>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-md-9 col-wrapper info">
+        Undergraduate Researcher </a>
+      </div>
+      <div class="col-md-3 col-wrapper time text-md-right">
+        May 2023 - Mar 2023
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col col-wrapper location">
+Cornell University      </div>
+    </div>
+  </div>
+</div>
+<hr>
+
+      
 
 
         <!-- 

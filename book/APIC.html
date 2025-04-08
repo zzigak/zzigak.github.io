@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Žiga Kovačič">
-<meta name="dcterms.date" content="2025-02-18">
 
-<title>Physical Simulations in Graphics</title>
+<title>8&nbsp; APIC - Affine Particle-In-Cell – Physical Simulations in Graphics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./classical_mechanics.html" rel="next">
+<link href="./flip.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./APIC.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">APIC - Affine Particle-In-Cell</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -157,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./APIC.html" class="sidebar-item-text sidebar-link">
+  <a href="./APIC.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">APIC - Affine Particle-In-Cell</span></span></a>
   </div>
 </li>
@@ -171,7 +198,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#rpic" id="toc-rpic" class="nav-link active" data-scroll-target="#rpic"><span class="header-section-number">8.0.1</span> RPIC</a></li>
+  <li><a href="#apic" id="toc-apic" class="nav-link" data-scroll-target="#apic"><span class="header-section-number">8.1</span> APIC</a></li>
+  <li><a href="#fluids-mac-grids" id="toc-fluids-mac-grids" class="nav-link" data-scroll-target="#fluids-mac-grids"><span class="header-section-number">8.2</span> Fluids (MAC grids)</a></li>
+  <li><a href="#lagrangian-forces" id="toc-lagrangian-forces" class="nav-link" data-scroll-target="#lagrangian-forces"><span class="header-section-number">8.3</span> Lagrangian Forces</a></li>
   </ul>
 </nav>
     </div>
@@ -180,26 +210,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Physical Simulations in Graphics</h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">APIC - Affine Particle-In-Cell</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Žiga Kovačič </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 18, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -209,9 +227,159 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>These are my notes on physical simulation. They are a colmulation of my attempt at capturing my reading on physical simulation. As my fiddly mind cannot always find the will to write these notes, they are not exhaustive.</p>
+<p>APIC is another hybrid Lagrange-Euler method that improves upon FLIP.</p>
+<p>A Lagrangian/Eulerian hybrid simulation time step follows a similar pattern regardless of whether one is simulating fluids with incompressible [[FLIP - Animating sand as fluid]] or solids with [[MPM and Hybrid Euler - Lagrange simulations]].</p>
+<p>Abstractly, <em>kinematic steps are done on particles</em> and <em>dynamic steps are done on the grid.</em></p>
+<p>Hybrid particle-grid methods like PIC (Particle-In-Cell) and FLIP (Fluid Implicit Particle) come with tradeoffs:</p>
+<ul>
+<li><strong>PIC</strong> is stable but overly <em>dissipative</em> (i.e., loses kinetic and angular energy).
+<ul>
+<li>e.g.&nbsp;<span class="math inline">\(L_{TOT}\)</span> is not conserved</li>
+</ul></li>
+<li><strong>FLIP</strong> preserves energy better but introduces <strong>instabilities</strong> (especially noise and “ringing”).</li>
+</ul>
+<blockquote class="blockquote">
+<p>[!Note] Main observation is that these issues largely arise from <strong>information loss during particle-grid transfers</strong>.</p>
+</blockquote>
+<p>Key differences between all these methods lie in <strong>grid ↔︎ particle transfer</strong>:</p>
+<ul>
+<li><strong>PIC</strong>: full filtering → stability, but loss of energy.</li>
+<li><strong>FLIP</strong>: adds grid increments → less dissipation, but unstable.</li>
+<li><strong>APIC</strong>: like PIC, but adds local affine matrix per particle to avoid loss. That is, it represents velocity locally as <strong>affine</strong> (not constant).</li>
+</ul>
+<p><strong>PIC recall:</strong></p>
+<p><span class="math display">\[ m_i v_i = \sum_p w_{ip}m_p v_p\]</span> <span class="math display">\[v_p = \sum_i w_{ip}\tilde{v_i}\]</span> Again, in PIC, <strong>Linear momentum</strong> conserved, but <strong>angular momentum is not</strong> → rotation damping.</p>
+<p>Now we will discuss the 2 methods they proposed to address this problem.</p>
+<section id="rpic" class="level3" data-number="8.0.1">
+<h3 data-number="8.0.1" class="anchored" data-anchor-id="rpic"><span class="header-section-number">8.0.1</span> RPIC</h3>
+<p>While mutliple grid nodes can store angular momentum, a single particle can’t, so the information is lost in the transfer.</p>
+<blockquote class="blockquote">
+<p>Fix the <strong>angular momentum loss</strong> in PIC by <strong>augmenting each particle with angular momentum</strong> <span class="math inline">\(L_p\)</span>​, capturing rigid rotational motion, and inertia <span class="math inline">\(K_p\)</span>.</p>
+</blockquote>
+<p>In RPIC, particles are treated like <strong>tiny rigid bodies</strong>:</p>
+<ul>
+<li>Each stores <strong>linear velocity</strong></li>
+<li>And <strong>angular momentum</strong></li>
+<li>The particle velocity at a nearby grid node becomes:</li>
+</ul>
+<p><span class="math display">\[v_i = v_p + \omega_p \times (x_i - x_p)\]</span> where <span class="math inline">\(\omega_p  = K_{p}^{-1} L_p\)</span>. Note that in classic mechanics we compute:</p>
+<p><span class="math display">\[I = \sum_j m_j r_j^{*} {r_j^{*}}^\top\]</span> but during the transfer we have to weight the mass of each node by <span class="math inline">\(w_{j,p}\)</span> . Since <span class="math inline">\(r_j = (x_j - x_p)\)</span> we get:</p>
+<p><span class="math display">\[K_p =\sum_j w_{jp}m_p (x_j - x_p)^* (x_j-x_p)^{*\top}.\]</span> With this out of the way we can formalize the transfer:</p>
+<p><strong>P2G</strong> 1. Grid mass: <span class="math inline">\(m_i = \sum_p w_{ip}m_p\)</span> 2. Inertia: <span class="math inline">\(K_p = \sum_j w_{jp}m_p (x_j -x_p)^{*}(x_j - x_p)^{*\top}\)</span> 3. Momentum: <span class="math inline">\(m_iv_i = \sum_p w_{ip}m_p [v_p + (K_p^{-1}L_p)\times (x_i - x_p)]\)</span></p>
+<blockquote class="blockquote">
+<p>One may imagine this transfer as distributing the masses <span class="math inline">\(w_{ip}m_p\)</span> from the rigid body to the grid node i.</p>
+</blockquote>
+<p><strong>G2P</strong>: 1. Update velocity: <span class="math inline">\(v_p = \sum_i w_{ip}\tilde v_i\)</span> 2. <span class="math inline">\(L_p = \sum_i w_{ip}(x_i - x_p)\times m_p\tilde{v_i}\)</span></p>
+<p>This gives the total conserved angular momentum of particles:</p>
+<p><span class="math display">\[L_{TOT}^{P,n} = \sum_p (x_p \times m_pv_p + L_p^n)\]</span></p>
+<section id="guarantees" class="level4" data-number="8.0.1.1">
+<h4 data-number="8.0.1.1" class="anchored" data-anchor-id="guarantees"><span class="header-section-number">8.0.1.1</span> Guarantees</h4>
+<ul>
+<li>Preserves <strong>rigid motion</strong> fields (Prop. 4.1)</li>
+<li>Conserves <strong>linear</strong> (Props. 4.2–4.3) and <strong>angular momentum</strong> (Props. 4.4–4.5)</li>
+</ul>
+<p>Okay, so why do we need anything else? Well, RPIC still <strong>doesn’t capture shear/stretch</strong>, i.e., only rigid rotation is encoded. That’s what leads us to APIC.</p>
+</section>
+</section>
+<section id="apic" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="apic"><span class="header-section-number">8.1</span> APIC</h2>
+<p>RPIC only handles rigid rotation, not <strong>shear/stretch</strong>. APIC introduces <strong>local affine velocity field</strong> per particle to capture <strong>shear, scale, and more general local flow</strong>.</p>
+<p>Instead of representing each particle’s <span class="math inline">\(v_p\)</span> as a <strong>constant vector</strong>, APIC represents it as a <strong>locally affine velocity field:</strong></p>
+<p><span class="math display">\[v(x) = v_p + C_p (x-x_p)\]</span></p>
+<p>where <span class="math inline">\(C_p\)</span> should capture local velocity derivatives (including rotation, shear, etc.). We define:</p>
+<p><span class="math display">\[C_p = B_p D_p^{-1}\]</span></p>
+<p>Rather than explicitly trying to conserve angular momentum in the transfer from grid to particles, we seek to preserve affine velocity fields across both transfers. It turns out this also conserves angular momentum!</p>
+<p><strong>P2G.</strong> - momentum tensor: <span class="math inline">\(D_p = \sum_i w_{ip}(x_i-x_p)(x_i-x_p)^\top\)</span> - momentum: <span class="math inline">\(m_i v_i = \sum_p w_{ip}m_p (v_p + B_pD_{p}^{-1}(x_i - x_p))\)</span></p>
+<p>The expression for <span class="math inline">\(D_p^n\)</span> is derived by preserving affine motion during the transfers.</p>
+<p><strong>G2P.</strong></p>
+<ul>
+<li>Transfer velocity: <span class="math inline">\(v_p = \sum_i w_{ip}\tilde{v_i}\)</span></li>
+<li>Compute affine matrix: <span class="math inline">\(B_p =\sum_i w_{ip}\tilde{v_i}(x_i - x_p)^\top\)</span></li>
+</ul>
+<p>For intuition, we can think about: - <span class="math inline">\(D_p\)</span> captures local geometry / distribution of grid points that influence the particle. - <span class="math inline">\(B_p\)</span> stores the grid velocity variation observed at grid nodes around the particles (local velocity variation). It encodes both <strong>translational</strong> and <strong>rotational</strong> components of motion.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/apic_pipeline.png" class="img-fluid figure-img"></p>
+<figcaption>Pipeline</figcaption>
+</figure>
+</div>
+<p><strong>Note:</strong> skew-symmetric part of <span class="math inline">\(B_p^n\)</span> contains all ang. mom. information (encodes rotation, just like <span class="math inline">\(L_p\)</span>). As such it seems to be analogous to <span class="math inline">\(L_p^n = K_p^n \omega_p^n\)</span>, since <span class="math inline">\(B_p^n = C_p^n D_p^n\)</span>. We see that <span class="math inline">\(D_p\)</span> is analogous to the inertia tensor.</p>
+<ul>
+<li><p>For common <strong>[[Interpolation stencils]]</strong> used in MPM, <span class="math inline">\(\mathbf{D}_p^n\)</span> simplifies to scaled identity matrices:</p>
+<ul>
+<li><strong>Quadratic stencil:</strong> <span class="math inline">\(\mathbf{D}_p^n = \frac{1}{4} \Delta x^2 \mathbf{I}\)</span></li>
+<li><strong>Cubic stencil:</strong> <span class="math inline">\(\mathbf{D}_p^n = \frac{1}{3} \Delta x^2 \mathbf{I}\)</span></li>
+</ul></li>
+<li><p>Since these are scalar multiples of the identity, their inverse is trivial: <span class="math display">\[(\mathbf{D}_p^n)^{-1} = \frac{1}{c \Delta x^2} \mathbf{I}\]</span> for a known constant <span class="math inline">\(c\)</span>. So, <strong>no matrix inversion is actually needed</strong>.</p></li>
+<li><p>For <strong>trilinear interpolation</strong>, however, <span class="math inline">\(\mathbf{D}_p^n\)</span> can be <strong>singular</strong> if the particle lies exactly on a grid face, edge, or node.</p></li>
+<li><p>But, there’s a key identity that avoids this problem entirely: <span class="math display">\[w_{ip} (\mathbf{D}_p^n)^{-1} (\mathbf{x}_i - \mathbf{x}_p) = \nabla w_{ip}\]</span> This means <strong>you never need to explicitly compute or invert <span class="math inline">\(\mathbf{D}_p^n\)</span></strong> when using [[Trilinear interpolation]].</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>We show that angular momentum is conserved during the transfer from grid to particle in a supplementary document.</p>
+</blockquote>
+</section>
+<section id="fluids-mac-grids" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="fluids-mac-grids"><span class="header-section-number">8.2</span> Fluids (MAC grids)</h2>
+<p>Similar to FLIP and PIC, we want to use APIC for fluid simulation, so we formulate a set of transfers between particles and MAC faces.</p>
+<p>Besides a velocity, each particle stores <span class="math inline">\(c_{pa}\)</span> for each grid direction <span class="math inline">\((x,y,z)\)</span> (instead of the whole <span class="math inline">\(B_p\)</span>).</p>
+<p>We perform the <strong>P2G (face transfer):</strong></p>
+<ol type="1">
+<li>Mass: <span class="math inline">\(m_{ai} = \sum_p m_p w_{aip}\)</span></li>
+<li>Momentum: <span class="math inline">\(m_{ai}v_{ai} = \sum_p m_p w_{aip}(e_a^\top v_p + c_{pa}^\top (x_{ai}-x_p))\)</span></li>
+</ol>
+<p><strong>G2P:</strong> 1. Velocity: <span class="math inline">\(v_p = \sum_{a,i} w_{aip} \tilde{v_{ai}} e_a\)</span> 2. Affine <span class="math inline">\(c\)</span>: <span class="math inline">\(c_{pa} = \sum_i \nabla w_{aip}\tilde{v_{ai}}\)</span></p>
+<p>This allows us to recover the velocity from the grid in all directions <span class="math inline">\((x,y,z)\)</span>. Above the weights are just <span class="math inline">\(w_{aip} = N(x_{ai} -x_p)\)</span>, where <span class="math inline">\(N\)</span> is [[Trilinear interpolation]].</p>
+<p>Incompressibility is forced on the standard way.</p>
+</section>
+<section id="lagrangian-forces" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="lagrangian-forces"><span class="header-section-number">8.3</span> Lagrangian Forces</h2>
+<p>We can use APIC in MPM force computation, that is how to couple MPM with Lagrangian meshes.</p>
+<p>The question is how do we apply <span class="math inline">\(f\)</span> to grid? We can relate <span class="math inline">\(x_p\)</span> to “moving grid nodes” <span class="math inline">\(x_i\)</span> so that we can eval forces <span class="math inline">\(f_i\)</span> from <span class="math inline">\(f_p\)</span>.</p>
+<p>The idea is to apply forces defined on particles, but we route them through the grid for consistency and collisions:</p>
+<ol type="1">
+<li>Assume we have some potential energy <span class="math inline">\(\Phi(x_p)\)</span> over particles</li>
+<li>Then <span class="math inline">\(f_p = - \partial_{x_p}\Phi\)</span></li>
+<li>Applied to grid nodes <span class="math inline">\(f_i = \sum_p w_{ip}f_p\)</span></li>
+<li>(implicit integration) can linearize:
+<ol type="1">
+<li><span class="math inline">\(\delta f_p = \sum_q \partial_{x_q}f_p \delta u_q\)</span></li>
+<li><span class="math inline">\(\delta f_i = \sum_{p,q,j}w_{ip}\partial_{x_q}f_p w_{jq}\delta u_j\)</span> Since these forces are applied to the grid, both the MPM and Lagrangian approaches can be employed in the same simulation. Each particle is labeled as an MPM particle or a meshed particle.</li>
+</ol></li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Dissipation</th>
+<th>Stability</th>
+<th>Angular Momentum</th>
+<th>Noise</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PIC</td>
+<td>High</td>
+<td>✅ Stable</td>
+<td>❌ Lost</td>
+<td>✅ Clean</td>
+</tr>
+<tr class="even">
+<td>FLIP</td>
+<td>❌ Low</td>
+<td>❌ Noisy</td>
+<td>✅ Better</td>
+<td>❌ Noisy</td>
+</tr>
+<tr class="odd">
+<td>APIC</td>
+<td>✅ Low</td>
+<td>✅ Stable</td>
+<td>✅ Conserved</td>
+<td>✅ Clean</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
@@ -636,11 +804,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./flip.html" class="pagination-link" aria-label="FLIP - Animating Sand As a Fluid">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FLIP - Animating Sand As a Fluid</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./classical_mechanics.html" class="pagination-link" aria-label="Classical Mechanics: A brief Detour">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Classical Mechanics: A brief Detour</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

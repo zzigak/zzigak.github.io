@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Classical Mechanics: A brief Detour – Physical Simulations in Graphics</title>
+<title>6&nbsp; MPM for snow simulation – Physical Simulations in Graphics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./rigid_body_dynamics.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./flip.html" rel="next">
+<link href="./mpm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +110,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./classical_mechanics.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Classical Mechanics: A brief Detour</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mpm_snow.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MPM for snow simulation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -143,7 +143,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./classical_mechanics.html" class="sidebar-item-text sidebar-link active">
+  <a href="./classical_mechanics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Classical Mechanics: A brief Detour</span></span></a>
   </div>
 </li>
@@ -173,7 +173,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./mpm_snow.html" class="sidebar-item-text sidebar-link">
+  <a href="./mpm_snow.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MPM for snow simulation</span></span></a>
   </div>
 </li>
@@ -199,10 +199,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#newtonian-mechanics" id="toc-newtonian-mechanics" class="nav-link active" data-scroll-target="#newtonian-mechanics"><span class="header-section-number">1.1</span> Newtonian Mechanics</a></li>
-  <li><a href="#lagrangian-mechanics" id="toc-lagrangian-mechanics" class="nav-link" data-scroll-target="#lagrangian-mechanics"><span class="header-section-number">1.2</span> Lagrangian Mechanics</a></li>
-  <li><a href="#hamiltonian-mechanics" id="toc-hamiltonian-mechanics" class="nav-link" data-scroll-target="#hamiltonian-mechanics"><span class="header-section-number">1.3</span> Hamiltonian Mechanics</a></li>
-  <li><a href="#ok-but-when-do-we-use-which" id="toc-ok-but-when-do-we-use-which" class="nav-link" data-scroll-target="#ok-but-when-do-we-use-which"><span class="header-section-number">1.4</span> Ok, but when do we use which?</a></li>
+  <li><a href="#overview-of-mpm" id="toc-overview-of-mpm" class="nav-link active" data-scroll-target="#overview-of-mpm"><span class="header-section-number">6.1</span> Overview of MPM</a></li>
+  <li><a href="#deformation-mapping" id="toc-deformation-mapping" class="nav-link" data-scroll-target="#deformation-mapping"><span class="header-section-number">6.2</span> Deformation Mapping</a>
+  <ul class="collapse">
+  <li><a href="#governing-equations" id="toc-governing-equations" class="nav-link" data-scroll-target="#governing-equations"><span class="header-section-number">6.2.1</span> Governing Equations</a></li>
+  <li><a href="#mpm-core-idea" id="toc-mpm-core-idea" class="nav-link" data-scroll-target="#mpm-core-idea"><span class="header-section-number">6.2.2</span> MPM Core Idea</a></li>
+  </ul></li>
+  <li><a href="#mpm-algorithm-overview" id="toc-mpm-algorithm-overview" class="nav-link" data-scroll-target="#mpm-algorithm-overview"><span class="header-section-number">6.3</span> MPM algorithm overview</a></li>
+  <li><a href="#constituitive-model" id="toc-constituitive-model" class="nav-link" data-scroll-target="#constituitive-model"><span class="header-section-number">6.4</span> Constituitive model</a></li>
+  <li><a href="#stress-based-forces" id="toc-stress-based-forces" class="nav-link" data-scroll-target="#stress-based-forces"><span class="header-section-number">6.5</span> Stress Based forces</a></li>
+  <li><a href="#semi-implicit-update" id="toc-semi-implicit-update" class="nav-link" data-scroll-target="#semi-implicit-update"><span class="header-section-number">6.6</span> Semi-Implicit Update</a>
+  <ul class="collapse">
+  <li><a href="#linear-system" id="toc-linear-system" class="nav-link" data-scroll-target="#linear-system"><span class="header-section-number">6.6.1</span> Linear System</a></li>
+  <li><a href="#deformation-gradient-update" id="toc-deformation-gradient-update" class="nav-link" data-scroll-target="#deformation-gradient-update"><span class="header-section-number">6.6.2</span> Deformation Gradient Update</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -211,7 +221,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Classical Mechanics: A brief Detour</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MPM for snow simulation</span></h1>
 </div>
 
 
@@ -228,44 +238,298 @@ window.Quarto = {
 </header>
 
 
-<p>This chapter introduces Newtonian, Lagrangian, and Hamiltonian mechanics—three equivalent frameworks for describing physical systems—and explains their relevance to simulations in graphics.</p>
-<section id="newtonian-mechanics" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="newtonian-mechanics"><span class="header-section-number">1.1</span> Newtonian Mechanics</h2>
-<p>Newtonian mechanics describes motion using forces and vector quantities. Its foundation is Newton’s second law:</p>
-<p><span class="math display">\[ F = \partial_{t}p = m \ddot x\]</span></p>
-<p>where <span class="math inline">\(F\)</span> is the force, <span class="math inline">\(p\)</span> is the momentum, <span class="math inline">\(m\)</span> is the mass, and <span class="math inline">\(x\)</span> is the position. This equation is a second-order ordinary differential equation (ODE) that relates the force acting on an object to its acceleration. To solve these problem formulations we identify all forces acting on each object, break them into components, and then solve the 2nd order ODE in each direction.</p>
-<p>While intuitive for simple systems, Newtonian mechanics becomes cumbersome for complex constraints.</p>
-</section>
-<section id="lagrangian-mechanics" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="lagrangian-mechanics"><span class="header-section-number">1.2</span> Lagrangian Mechanics</h2>
-<p>Lagrangian mechanics uses energy (kinetic <span class="math inline">\(T\)</span> and potential <span class="math inline">\(V\)</span>) and generalized coordinates (e.g., angles, lengths) to bypass forces. Lagrangian is defined as:</p>
-<p><span class="math display">\[ L = T - V.\]</span></p>
-<p>This is a reformulation of classical mechanics that focuses on the energy of the system rather than forces. It is based on the <em>principle of least action</em>, which states that the path taken by a system between two states is the one that minimizes the* action *<span class="math inline">\(S\)</span>. The action is defined as the integral of the Lagrangian <span class="math inline">\(L\)</span> over time:</p>
-<p><span class="math display">\[ S = \int_{t_0}^{t_1} L(q, \dot q, t) dt\]</span></p>
-<p>where <span class="math inline">\(q\)</span> is the generalized coordinate, <span class="math inline">\(\dot q\)</span> is the derivative of <span class="math inline">\(q\)</span> with respect to time, and <span class="math inline">\(t\)</span> is time. The principle of least action implies that the system evolves in such a way that the action is stationary. This leads to the <strong>Euler-Lagrange equations</strong>, which are derived by requiring that the variation of the action <span class="math inline">\(\delta S\)</span> is zero:</p>
-<p><span class="math display">\[\frac{d}{dt}\left(\partial_{\dot q_i} L\right) - \partial_{q_i} L = 0,\]</span></p>
-<p>The first term is the time <em>derivative of the generalized momentum</em> and the second term is the <em>generalized force</em>. This means that when you want to find a function that minimizes and integral, you can find it by solving Euler-Lagrange equations. This setting works in any coordinate system and is particularly useful for systems with constraints, such as deformable objects.</p>
-<p><strong>Generalized Equations of Motion.</strong> We sometimes also see EL equations in the form of: <span class="math display">\[\frac{d}{dt}\left(\partial_{\dot q_i} K\right)  - \partial_{q_i} K = - \partial_{q}V.\]</span> This form is specific to conservative systems where the forces are derived from a potential energy function. To generalize this to include non-conservative forces, we introduce <em>D’Alembert’s principle,</em> which states that the virtual work done by the sum of all forces (including the inertial forces) on a system during a virtual displacement is zero. This gives generalized equations of motion for non-conservative systems:</p>
-<p><span class="math display">\[\frac{d}{dt}\left(\partial_{\dot q_i} K\right)  - \partial_{q_i} K = -\partial_q{V} + f_i,\]</span></p>
-<p>where <span class="math inline">\(f_i\)</span> is the non-conservative force acting on the system and <span class="math inline">\(Q_i = -\partial_q{V} + f_i\)</span> is the * generalized force.*</p>
-</section>
-<section id="hamiltonian-mechanics" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="hamiltonian-mechanics"><span class="header-section-number">1.3</span> Hamiltonian Mechanics</h2>
-<p>Hamiltonian mechanics is another reformulation of classical mechanics that uses the <em>Hamiltonian</em> <span class="math inline">\(H\)</span>, which is the <em>total energy</em> of the system expressed in terms of generalized coordinates <span class="math inline">\(q\)</span> and generalized momenta <span class="math inline">\(p\)</span>:</p>
-<p><span class="math display">\[ H = T + V = \sum_i p_i \dot q_i - L.\]</span></p>
-<p>The equations of motion can then be derived from the Hamiltonian using the <strong>Hamiltonian equations</strong>:</p>
-<p><span class="math display">\[\dot q_i = \partial_{p_i} H, \quad \dot p_i = -\partial_{q_i} H.\]</span></p>
-<p>For more, you can read this nice blog https://rhettallain.com/2018/10/31/classical-mechanics-newtonian-lagrangian-and-hamiltonian/.</p>
-</section>
-<section id="ok-but-when-do-we-use-which" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="ok-but-when-do-we-use-which"><span class="header-section-number">1.4</span> Ok, but when do we use which?</h2>
+<p>&nbsp;Interpolating functions over this grid are used to discretize the <span class="math inline">\(\nabla \sigma\)</span> terms in the standard FEM manner using the weak form.</p>
+<section id="overview-of-mpm" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="overview-of-mpm"><span class="header-section-number">6.1</span> Overview of MPM</h2>
+<p>The <strong>Material Point Method (MPM)</strong> is a hybrid Lagrangian-Eulerian method:</p>
 <ul>
-<li><strong>Newtonian mechanics</strong> is the most intuitive and is used for simple systems with few constraints.</li>
-<li><strong>Lagrangian mechanics</strong> is used for systems with complex constraints, such as deformable objects.</li>
-<li><strong>Hamiltonian mechanics</strong> is used for systems with conserved quantities, such as energy, and is particularly useful in quantum mechanics.</li>
+<li><strong>Lagrangian particles</strong> track:
+<ul>
+<li>Mass</li>
+<li>Momentum</li>
+<li>Deformation gradient</li>
+</ul></li>
+<li>A <strong>background Eulerian grid</strong> is used to:
+<ul>
+<li>Compute spatial derivatives (e.g., divergence of stress)</li>
+<li>Handle collisions and topological changes (e.g., fracture)</li>
+</ul></li>
+</ul>
+<p>This allows MPM to simulate deformable materials undergoing large strains and discontinuities.</p>
+<hr>
+</section>
+<section id="deformation-mapping" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="deformation-mapping"><span class="header-section-number">6.2</span> Deformation Mapping</h2>
+<p>A body’s deformation is represented as:</p>
+<p><span class="math display">\[
+\mathbf{x} = \boldsymbol{\phi}(\mathbf{X})
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\mathbf{X}\)</span>: undeformed (material) coordinate<br>
+</li>
+<li><span class="math inline">\(\mathbf{x}\)</span>: deformed (spatial) coordinate<br>
+</li>
+<li><strong>Deformation gradient</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{F} = \frac{\partial \boldsymbol{\phi}}{\partial \mathbf{X}}
+\]</span></p>
+<hr>
+<section id="governing-equations" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="governing-equations"><span class="header-section-number">6.2.1</span> Governing Equations</h3>
+<p><strong>Continuum mechanics equations</strong> used in MPM:</p>
+<ul>
+<li><p><strong>Conservation of mass</strong>: <span class="math display">\[
+\frac{D\rho}{Dt} = 0
+\]</span></p></li>
+<li><p><strong>Conservation of momentum</strong>: <span class="math display">\[
+\rho \frac{D\mathbf{v}}{Dt} = \nabla \cdot \boldsymbol{\sigma} + \rho \mathbf{g}
+\]</span></p></li>
+<li><p><strong>Constitutive relation (Cauchy stress)</strong>: <span class="math display">\[
+\boldsymbol{\sigma} = \frac{1}{J} \frac{\partial \Psi}{\partial \mathbf{F}_E} \mathbf{F}_E^T
+\]</span></p></li>
+</ul>
+<p>Where: - <span class="math inline">\(\rho\)</span>: density<br>
+- <span class="math inline">\(\mathbf{v}\)</span>: velocity<br>
+- <span class="math inline">\(\boldsymbol{\sigma}\)</span>: Cauchy stress<br>
+- <span class="math inline">\(\mathbf{g}\)</span>: gravity<br>
+- <span class="math inline">\(\Psi\)</span>: elasto-plastic potential energy density<br>
+- <span class="math inline">\(\mathbf{F}_E\)</span>: elastic part of the deformation gradient<br>
+- <span class="math inline">\(J = \det(\mathbf{F})\)</span></p>
+<hr>
+</section>
+<section id="mpm-core-idea" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="mpm-core-idea"><span class="header-section-number">6.2.2</span> MPM Core Idea</h3>
+<blockquote class="blockquote">
+<p>Use particles (material points) to <strong>track</strong>: - mass $m_p $ - velocity <span class="math inline">\(\mathbf{v}_p\)</span> - position <span class="math inline">\(\mathbf{x}_p\)</span> - deformation gradient <span class="math inline">\(\mathbf{F}_p\)</span></p>
+</blockquote>
+<p>This <strong>Lagrangian approach</strong> simplifies mass and momentum updates.</p>
+<p>However, since particles have <strong>no mesh connectivity</strong>, it is <strong>hard to compute derivatives</strong> like <span class="math inline">\(\nabla \cdot \boldsymbol{\sigma}\)</span></p>
+<section id="eulerian-grid-for-derivatives" class="level4" data-number="6.2.2.1">
+<h4 data-number="6.2.2.1" class="anchored" data-anchor-id="eulerian-grid-for-derivatives"><span class="header-section-number">6.2.2.1</span> Eulerian Grid for Derivatives</h4>
+<p>To handle this: - Use a <strong>background Eulerian grid</strong>. - Interpolate between particles and grid using basis functions. - Discretize the divergence terms <span class="math inline">\(\nabla \cdot \boldsymbol{\sigma}\)</span> using <strong>Finite Element Method (FEM)</strong> in its <strong>weak form</strong>.</p>
+</section>
+<section id="interpolation-weights" class="level4" data-number="6.2.2.2">
+<h4 data-number="6.2.2.2" class="anchored" data-anchor-id="interpolation-weights"><span class="header-section-number">6.2.2.2</span> Interpolation Weights</h4>
+<p>They use <strong>dyadic products</strong> of 1D <strong>cubic B-spline basis functions</strong>:</p>
+<p><span class="math display">\[N^h_i(\mathbf{x}_p) = N\left( \frac{x_p - ih}{h} \right) N\left( \frac{y_p - jh}{h} \right) N\left( \frac{z_p - kh}{h} \right)
+\]</span></p>
+<p>These weights <span class="math inline">\(w_{ip} = N^h_i(\mathbf{x}_p)\)</span>are used for: - Transferring data <strong>from particles to grid</strong> - Interpolating results <strong>from grid back to particles</strong></p>
+<p>These interpolation functions naturally compute forces <em>at the nodes of the Eulerian grid.</em> Therefore, we must first <em>transfer the mass and momentum from the particles to the grid</em> (P2G).</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="mpm-algorithm-overview" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="mpm-algorithm-overview"><span class="header-section-number">6.3</span> MPM algorithm overview</h2>
+<ol type="1">
+<li><strong>Rasterize particle data to the grid</strong></li>
+</ol>
+<ul>
+<li>Transfer <strong>mass</strong> to grid nodes:</li>
+</ul>
+<p><span class="math display">\[
+m_i^n = \sum_p m_p w_{ip}^n
+\]</span></p>
+<ul>
+<li>Transfer <strong>velocity</strong> to grid using mass-weighted average to ensure <strong>momentum conservation</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{v}_i^n = \frac{ \sum_p \mathbf{v}_p^n m_p w_{ip}^n }{ m_i^n }
+\]</span></p>
+<blockquote class="blockquote">
+<p>⚠️ Note: Unlike FLIP for incompressible fluids, we use <strong>normalized</strong> weights for velocity.</p>
+</blockquote>
+<hr>
+<ol start="2" type="1">
+<li><strong>Compute particle volumes and densities (first step only)</strong></li>
+</ol>
+<ul>
+<li>Estimate <strong>grid cell density</strong>: <span class="math display">\[
+\rho_i^0 = \frac{m_i^0}{h^3}
+\]</span></li>
+<li>Weight back to particle: <span class="math display">\[
+\rho_p^0 = \sum_i \frac{m_i^0}{h^3} w_{ip}^0
+\]</span></li>
+<li>Estimate <strong>particle volume</strong>: <span class="math display">\[
+V_p^0 = \frac{m_p}{\rho_p^0}
+\]</span></li>
+</ul>
+<hr>
+<ol start="3" type="1">
+<li><strong>Compute grid forces</strong></li>
+</ol>
+<p>Use the stress-based force formula (Equation 6) with:</p>
+<p><span class="math display">\[
+\hat{\mathbf{x}}_i = \mathbf{x}_i
+\]</span></p>
+<hr>
+<ol start="4" type="1">
+<li><strong>Update velocities on the grid</strong></li>
+</ol>
+<p>Apply explicit or semi-implicit update (Equation 10):</p>
+<p><span class="math display">\[
+\mathbf{v}_i^* = \mathbf{v}_i^n + \Delta t \cdot \frac{1}{m_i} \mathbf{f}_i^n
+\]</span></p>
+<hr>
+<ol start="5" type="1">
+<li><strong>Grid-based body collisions</strong></li>
+</ol>
+<p>Handle collisions for <span class="math inline">\(\mathbf{v}_i^*\)</span> using level sets as described later.</p>
+<hr>
+<ol start="6" type="1">
+<li><strong>Solve the linear system</strong></li>
+</ol>
+<p>For semi-implicit integration (Equation 9): <span class="math display">\[
+\sum_j \left( \delta_{ij} + \beta \Delta t^2 \frac{1}{m_i} \frac{\partial^2 \Phi^n}{\partial \hat{x}_i \partial \hat{x}_j} \right) \mathbf{v}_j^{n+1} = \mathbf{v}_i^*
+\]</span> - Use <span class="math inline">\(\beta = 1\)</span> for backward Euler. - For explicit updates, just set: <span class="math display">\[
+\mathbf{v}_i^{n+1} = \mathbf{v}_i^*
+\]</span></p>
+<hr>
+<ol start="7" type="1">
+<li><strong>Update deformation gradient</strong></li>
+</ol>
+<p>Compute new deformation gradient for each particle: <span class="math display">\[
+\mathbf{F}_p^{n+1} = \left( \mathbf{I} + \Delta t \nabla \mathbf{v}_p^{n+1} \right) \mathbf{F}_p^n
+\]</span></p>
+<p>Where: <span class="math display">\[
+\nabla \mathbf{v}_p^{n+1} = \sum_i \mathbf{v}_i^{n+1} \left( \nabla w_{ip}^n \right)^T
+\]</span></p>
+<hr>
+<ol start="8" type="1">
+<li><strong>Update particle velocities</strong></li>
+</ol>
+<p>Use a <strong>PIC/FLIP blend</strong> (typically <span class="math inline">\(\alpha = 0.95\)</span>):</p>
+<p><span class="math display">\[
+\mathbf{v}_p^{n+1} = (1 - \alpha) \mathbf{v}_{\text{PIC}, p}^{n+1} + \alpha \mathbf{v}_{\text{FLIP}, p}^{n+1}
+\]</span></p>
+<ul>
+<li><strong>PIC part</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{v}_{\text{PIC}, p}^{n+1} = \sum_i \mathbf{v}_i^{n+1} w_{ip}^n
+\]</span></p>
+<ul>
+<li><strong>FLIP part</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\mathbf{v}_{\text{FLIP}, p}^{n+1} = \mathbf{v}_p^n + \sum_i (\mathbf{v}_i^{n+1} - \mathbf{v}_i^n) w_{ip}^n
+\]</span></p>
+<hr>
+<ol start="9" type="1">
+<li><strong>Particle-based collisions</strong></li>
+</ol>
+<p>Resolve body collisions again on updated particle velocities <span class="math inline">\(\mathbf{v}_p^{n+1}\)</span>.</p>
+<hr>
+<ol start="10" type="1">
+<li><strong>Update particle positions</strong></li>
+</ol>
+<p>Move particles forward in time: <span class="math display">\[
+\mathbf{x}_p^{n+1} = \mathbf{x}_p^n + \Delta t \cdot \mathbf{v}_p^{n+1}
+\]</span></p>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mpm-method.png" class="img-fluid figure-img"></p>
+<figcaption>MPM pipeline</figcaption>
+</figure>
+</div>
+</section>
+<section id="constituitive-model" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="constituitive-model"><span class="header-section-number">6.4</span> Constituitive model</h2>
+<p><strong>Simplifications of the constituitive model:</strong> - use of principal stretches rather than principal stresses in defining our plastic yield criteria - a simplification of hardening behavior that only requires modification of the Lame parameters in the hyperelastic energy density.</p>
+<p>In multiplicative plasticity theory we do:</p>
+<p><span class="math display">\[F = F_E F_P\]</span> and we define the model in terms of elasto-plastic energy density:</p>
+<p><span class="math display">\[\Psi(F_E, F_P) = \mu (F_p) \|F_E - R_E\|^2_F + \frac{\lambda(F_p)}{2} (J_E - 1)^2\]</span> where - &nbsp;elastic part is given by the fixed <em>corotated energy density</em> - Lame parameters are function of <span class="math inline">\(F_P\)</span>: - <span class="math inline">\(\mu(F_P) = \mu_
+    0 e^{\eta (1-J_P)} \quad \lambda(F_P) = \lambda_0 e^{\eta (1-J_P)}\)</span></p>
+<p>where <span class="math inline">\(J_X = det(X)\)</span> and <span class="math inline">\(F_E = R_ES_E\)</span>. Here <span class="math inline">\(\eta\)</span> is the dimensionless plastic hardening parameter.</p>
+<p>We define the portion of deformation that is elastic and plastic using the <strong>singular values of the deformation gradient.</strong> We define a critical compression <span class="math inline">\(\theta_c\)</span> and stretch <span class="math inline">\(\theta_s\)</span> as the thresholds to start plastic deformation (or fracture). These two determine <em>when</em> the material starts breaking and the hardening coefficient tells us <em>how fast</em> it breaks.</p>
+<blockquote class="blockquote">
+<p>The deformation as such is elastic for some small deformations around the rest state, dictate by <span class="math inline">\(F_E\)</span>. After it surpasses some critical treshold the plastic regime kicks in. This makes the material <em>stronger under compression</em> (packing) and <em>weaker under stretch</em> (fracture).</p>
+</blockquote>
+</section>
+<section id="stress-based-forces" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="stress-based-forces"><span class="header-section-number">6.5</span> Stress Based forces</h2>
+<p>Using our defined energy density we can define the total elastic potential energy:</p>
+<p><span class="math display">\[\int_{\Omega^0} \Psi(F_E(X),F_P(X))dX.\]</span></p>
+<p>MPM spatial <em>discretization of the stress-based forces</em> is equivalent to differentiation of a <em>discrete approximation</em> of this energy with respect to the <em>Eulerian grid node</em> material positions. That said, we do not actually <em>deform the Eulerian grid</em> so we can think of the change in the grid node locations as being determined by the <em>grid node velocities.</em> If <span class="math inline">\(x_i\)</span> is the position of grid node <span class="math inline">\(i\)</span>, then <span class="math inline">\(\hat x_i = x_i +\Delta t v_i\)</span> is the deformed location of that grid node.</p>
+<p>Then the MPM approximation to <em>total elastic potential</em> from above can be written as:</p>
+<p><span class="math display">\[\Phi(\hat x) = \sum_p V_p^0 \Psi(\hat F_{E_p}(\hat x), F_{P_P}^n)\]</span> where:</p>
+<ul>
+<li><p><span class="math inline">\(V^0_p\)</span> is volume occupied by MP in rest state</p></li>
+<li><p><span class="math inline">\(F_{P_p}^n\)</span> is the plastic part of <span class="math inline">\(F\)</span> at particle <span class="math inline">\(p\)</span> at time <span class="math inline">\(t^n\)</span></p></li>
+<li><p><span class="math inline">\(\hat F_{E_p}(\hat x)\)</span> is the elastic part at <span class="math inline">\(p\)</span> . We compute it as: <span class="math display">\[\hat F_{E_p}(\hat x) = \left(I \sum_i (\hat x_i -x_i)(\nabla w_{ip})^n)^\top\right)F_{E_p}^n\]</span></p></li>
+<li><p><span class="math inline">\(\hat x\)</span> is the vector of all <span class="math inline">\(\hat x_i\)</span>.</p></li>
+</ul>
+<p>This gives us <strong>MPM spatial discretization of the stress-based forces</strong>, specifically the force on grid node <span class="math inline">\(i\)</span> resulting from elastic stresses is:</p>
+<p><span class="math display">\[f_i(\hat x) = -\partial_{\hat x_i}\Phi(\hat x) =- \sum_p V_p^0 \partial_{F_E}\Psi(\hat F_{E_p}(\hat x), F_{P_p}^n) (F_{E_p}^n)^\top \nabla w_{ip}^n,\]</span><span class="math display">\[ = - \sum_p V_p^0 \partial_{F_E}\Psi {F_{E_p}^n}^\top \nabla w_{ip}^n.\]</span></p>
+<p>Recall that elastic stress can be related to Cauchy stress so we can write:</p>
+<p><span class="math display">\[f_i(\hat x) = -\sum_p V_p^n \sigma_p \nabla w_{ip}^n\]</span> where <span class="math inline">\(V^n_p = J_p^n V_p^0\)</span> and the stress is:</p>
+<p><span class="math display">\[\sigma_p = (J_p^n)^{-1} \partial_{F_E}\Psi (F_{E_p^n})^\top.\]</span> This formulation will help us evolve our grid velocities <span class="math inline">\(v_i\)</span> implicitly in time.</p>
+<blockquote class="blockquote">
+<p>We can take an implicit step on the elastic part of the update by utilizing the Hessian of the potential with respect to <span class="math inline">\(\hat x\)</span></p>
+</blockquote>
+<p>The action of the hessian on some increment <span class="math inline">\(\delta u\)</span> is:</p>
+<p><span class="math display">\[\delta f_i = - \sum_j \frac{\partial^{2}\Phi}{\partial \hat x_i \partial \hat x_j} (\hat x) \delta u_j = - \sum_p V_p^0A_p (F_{E_p}^n)^\top \nabla w_{ip}^n\]</span> where</p>
+<p><span class="math display">\[A_p = \frac{\partial^2 \Psi}{\partial F_E \partial F_E}(F_E(\hat x), F_{P_p}^n) : \left(\sum_j \delta u_j (\nabla w_{jp^n}^\top F_{E_p}^n\right).\]</span></p>
+</section>
+<section id="semi-implicit-update" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="semi-implicit-update"><span class="header-section-number">6.6</span> Semi-Implicit Update</h2>
+<p>We define the updated grid node positions as: <span class="math display">\[
+\hat{\mathbf{x}}_i = \mathbf{x}_i + \Delta t\, \mathbf{v}_i
+\]</span> Since we never actually deform the grid, we consider <span class="math inline">\(\hat{\mathbf{x}}\)</span> as a function of the grid velocity <span class="math inline">\(\mathbf{v}\)</span>, i.e.&nbsp;<span class="math inline">\(\hat x(v)\)</span>.</p>
+<p>Let: - <span class="math inline">\(\mathbf{f}_i^n = \mathbf{f}_i(\hat{\mathbf{x}}(0))\)</span> - <span class="math inline">\(\mathbf{f}_i^{n+1} = \mathbf{f}_i(\hat{\mathbf{x}}(\mathbf{v}^{n+1}))\)</span></p>
+<p>which gives us <span class="math inline">\(\frac{\partial^2 \Phi^n}{\partial \hat x_i \partial \hat x_j} = - \partial_{\hat x_j}f_i^n\)</span></p>
+<p>We approximate the time evolution of velocity with a <em>semi-implicit integration</em> scheme: <span class="math display">\[
+\mathbf{v}_i^{n+1} = \mathbf{v}_i^n + \Delta t\, m_i^{-1} \left[ (1 - \beta)\mathbf{f}_i^n + \beta\mathbf{f}_i^{n+1} \right]
+\]</span> Now use a <em>Taylor expansiom</em> for <span class="math inline">\(\mathbf{f}_i^{n+1}\)</span>:</p>
+<p><span class="math display">\[
+\mathbf{f}_i^{n+1} \approx \mathbf{f}_i^n + \sum_j \frac{\partial \mathbf{f}_i^n}{\partial \hat{\mathbf{x}}_j} \Delta t\, \mathbf{v}_j^{n+1}
+\]</span> Substituting this approximation gives the <strong>update for grid velocities:</strong> <span class="math display">\[
+\mathbf{v}_i^{n+1} \approx \mathbf{v}_i^n + \Delta t\, m_i^{-1} \left( \mathbf{f}_i^n + \beta \Delta t \sum_j \frac{\partial \mathbf{f}_i^n}{\partial \hat{\mathbf{x}}_j} \mathbf{v}_j^{n+1} \right)
+\]</span></p>
+<hr>
+<section id="linear-system" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1" class="anchored" data-anchor-id="linear-system"><span class="header-section-number">6.6.1</span> Linear System</h3>
+<p>To solve for <span class="math inline">\(\mathbf{v}^{n+1}\)</span>, we rearrange terms into a linear system: <span class="math display">\[
+\sum_j \left( \delta_{ij} \mathbf{I} + \beta \Delta t^2 m_i^{-1} \frac{\partial^2 \Phi^n}{\partial \hat{\mathbf{x}}_i \partial \hat{\mathbf{x}}_j} \right) \mathbf{v}_j^{n+1} = \mathbf{v}_i^\star
+\]</span> where: <span class="math display">\[
+\mathbf{v}_i^\star = \mathbf{v}_i^n + \Delta t\, m_i^{-1} \mathbf{f}_i^n
+\]</span> - Matrix is <strong>symmetric and positive definite</strong> - Solved efficiently with <strong>Conjugate Residual method</strong> - Requires ~10–30 iterations per time step</p>
+</section>
+<section id="deformation-gradient-update" class="level3" data-number="6.6.2">
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="deformation-gradient-update"><span class="header-section-number">6.6.2</span> Deformation Gradient Update</h3>
+<p><strong>Step 1:</strong> Predict Elastic Deformation</p>
+<p>We compute an initial <strong>trial elastic gradient from the velocity gradient:</strong> <span class="math display">\[
+\hat{F}_{E_p}^{n+1} = \left( \mathbf{I} + \Delta t\, \nabla \mathbf{v}_p^{n+1} \right) F_{E_p}^n
+\]</span> Set: <span class="math display">\[
+\hat{F}_{P_p}^{n+1} = F_{P_p}^n
+\]</span> So: <span class="math display">\[
+F_p^{n+1} = \hat{F}_{E_p}^{n+1} \hat{F}_{P_p}^{n+1}
+\]</span> <strong>Step 2: Clamp Excess Deformation</strong> Now &nbsp;we take the part of the elastic <span class="math inline">\(F\)</span> that exceeds the critical deformation threshold and push it into plastic <span class="math inline">\(F\)</span>. We perform SVD on the trial elastic part: <span class="math display">\[
+\hat{F}_{E_p}^{n+1} = U_p \hat{\Sigma}_p V_p^T
+\]</span> Clamp singular values to the allowed range: <span class="math display">\[
+\Sigma_p = \text{clamp}(\hat{\Sigma}_p, [1 - \theta_c, 1 + \theta_s])
+\]</span> <strong>Step 3: Redistribute Deformation</strong></p>
+<p>We update the elastic and plastic parts as:</p>
+<p><span class="math display">\[
+F_{E_p}^{n+1} = U_p \Sigma_p V_p^T
+\]</span></p>
+<p><span class="math display">\[
+F_{P_p}^{n+1} = V_p \Sigma_p^{-1} U_p^T F_p^{n+1}
+\]</span></p>
+<p>So the decomposition satisfies:</p>
+<p><span class="math display">\[
+F_p^{n+1} = F_{E_p}^{n+1} F_{P_p}^{n+1}
+\]</span></p>
+<ul>
+<li>Excess deformation (beyond yield) is moved from elastic to plastic part</li>
+<li>Guarantees energy is dissipated through plastic flow</li>
+<li>Keeps elastic stress in a physically valid range</li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -688,13 +952,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./mpm.html" class="pagination-link" aria-label="Material Point Method: Graphics Perspective">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Material Point Method: Graphics Perspective</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rigid_body_dynamics.html" class="pagination-link" aria-label="Rigid Body Dynamics">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Rigid Body Dynamics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./flip.html" class="pagination-link" aria-label="FLIP - Animating Sand As a Fluid">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FLIP - Animating Sand As a Fluid</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

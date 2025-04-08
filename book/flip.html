@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Žiga Kovačič">
-<meta name="dcterms.date" content="2025-02-18">
 
-<title>Physical Simulations in Graphics</title>
+<title>7&nbsp; FLIP - Animating Sand As a Fluid – Physical Simulations in Graphics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./classical_mechanics.html" rel="next">
+<link href="./APIC.html" rel="next">
+<link href="./mpm_snow.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,6 +103,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./flip.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FLIP - Animating Sand As a Fluid</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -109,7 +171,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -151,7 +213,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./flip.html" class="sidebar-item-text sidebar-link">
+  <a href="./flip.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FLIP - Animating Sand As a Fluid</span></span></a>
   </div>
 </li>
@@ -171,7 +233,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#simplification" id="toc-simplification" class="nav-link active" data-scroll-target="#simplification"><span class="header-section-number">7.0.1</span> Simplification</a></li>
+  <li><a href="#flip-algorithm" id="toc-flip-algorithm" class="nav-link" data-scroll-target="#flip-algorithm"><span class="header-section-number">7.0.2</span> FLIP Algorithm:</a></li>
+  <li><a href="#frictional-boundary-conditions" id="toc-frictional-boundary-conditions" class="nav-link" data-scroll-target="#frictional-boundary-conditions"><span class="header-section-number">7.0.3</span> Frictional Boundary Conditions</a></li>
+  <li><a href="#optional-enhancement-of-the-model" id="toc-optional-enhancement-of-the-model" class="nav-link" data-scroll-target="#optional-enhancement-of-the-model"><span class="header-section-number">7.0.4</span> (optional) Enhancement of the model</a></li>
+  <li><a href="#fluid-simulation" id="toc-fluid-simulation" class="nav-link" data-scroll-target="#fluid-simulation"><span class="header-section-number">7.0.5</span> FLUID simulation</a></li>
+  <li><a href="#flip-for-incompressible-fluids" id="toc-flip-for-incompressible-fluids" class="nav-link" data-scroll-target="#flip-for-incompressible-fluids"><span class="header-section-number">7.0.6</span> FLIP for incompressible fluids!</a></li>
+  <li><a href="#reconstructing-the-surface" id="toc-reconstructing-the-surface" class="nav-link" data-scroll-target="#reconstructing-the-surface"><span class="header-section-number">7.0.7</span> Reconstructing the surface</a></li>
   </ul>
 </nav>
     </div>
@@ -180,26 +248,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Physical Simulations in Graphics</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">FLIP - Animating Sand As a Fluid</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Žiga Kovačič </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 18, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -209,9 +265,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>These are my notes on physical simulation. They are a colmulation of my attempt at capturing my reading on physical simulation. As my fiddly mind cannot always find the will to write these notes, they are not exhaustive.</p>
+<p>We can simulate sand using a fluid simulator by accounting for <em>inter-grain interactions</em> (friction / boundary friction).</p>
+<p>We will use <em>particles for advection</em> and the <em>grid for spatial interactions</em> (incompressibility, friction forces, boundary conditions).</p>
+<p><strong>Background</strong>: Previous methods for fluid simulation, particularly [[PIC]] had a problem with <em>numerical dissipation</em> . This was later fixed by [[FLIP - Animating sand as fluid]]. Some time after it was extended to a elasto-plastic finite element formulation, which became [[MPM and Hybrid Euler - Lagrange simulations]].</p>
+<blockquote class="blockquote">
+<p>To better understand why PIC leads to dissipation, note that since grid has a smaller number of DOF for velocity than particles, the <span class="math inline">\(v\)</span> at particles gets smoothed out! This looses information. In FLIP, we <em>save</em> the old velocities and add to them the differential from the new velocity.</p>
+</blockquote>
+<p>I like the following visualization of the FLIP method: <img src="images/flip.png" class="img-fluid" alt="Flip pipeline"></p>
+<p>With this out of the way, lets dive into how this paper simulates sand using fluid simulators! ## Modelling Sand</p>
+<p>When simulating sand, an important thing to consider is frictional plasticity.</p>
+<blockquote class="blockquote">
+<p><strong>Frictional plasticity</strong> describes the behavior of materials, especially soils and rocks, under stress, where <em>permanent deformation</em> occurs due to friction between grains or surfaces, rather than purely elastic behavior.</p>
+</blockquote>
+<p>We define the mean stress term <span class="math inline">\(\sigma_\mu = tr(\sigma)/3\)</span> and a Von-Mises [[shear]] [[stress]] <span class="math inline">\(\tilde\sigma = |\sigma-\sigma_{\mu}\delta |_F / \sqrt{2}\)</span>.</p>
+<p>Mohr-Coulumb law tells us that a material will not yield as long as the following condition holds:</p>
+<p><span class="math display">\[\sqrt{3} \tilde\sigma &lt; \sin(\phi)\sigma_\mu\]</span></p>
+<p>where <span class="math inline">\(\phi\)</span> is the friction angle.</p>
+<blockquote class="blockquote">
+<p>Intuitively, the LHS is the <em>“shear force trying to make the sand to slide.”</em> The&nbsp;<span class="math inline">\(\sqrt{3}\)</span>​&nbsp;comes from the geometry of 3D stress (it ensures the condition works in all directions). The RHS is the <em>“resistance to failure.”</em> It depends on the <span class="math inline">\(\sigma_\mu\)</span> which represents the “pressure” acting equally in all directions, making it harder for sand to move, and <span class="math inline">\(\sin(\phi))\)</span> accounts for higher friction angle making it harder for grains to slide.</p>
+</blockquote>
+<p>If this condition is <strong>broken</strong>, then material flow starts. The direction of the flow is <span class="math inline">\((\tilde\sigma -\sigma_\mu \delta)\)</span> (not equal to the gradient of yield condition!)</p>
+<p>Note: sand does dialate as it flows, but we will ignore that. We also want to avoid FEM implicit solving so we will make some further simplications.</p>
+<section id="simplification" class="level3" data-number="7.0.1">
+<h3 data-number="7.0.1" class="anchored" data-anchor-id="simplification"><span class="header-section-number">7.0.1</span> Simplification</h3>
+<p>We will ignore elastic deformations and volume changes during flow. This allows us to <em>decompose regions</em> of sand into those that move rigidly and those that move based on incompressible shearing flow.</p>
+<p>Assume that that the pressure required to make the entire velocity field incompressible will be similar to the true pressure in the sand (which is actually false, but works well in our case).</p>
+<p>So since we are ignoring elastic deformations we can describe <em>frictional stress</em> in the regions where the sand is flowing with:</p>
+<p><span class="math display">\[\sigma_f = - \sin(\phi)p \frac{D}{\sqrt{1/3} |D|_F}\]</span></p>
+<p>where <span class="math inline">\(D\)</span> is the strain rate and is expressed in terms of the velocity <span class="math inline">\(u\)</span> as <span class="math inline">\(D = (\nabla u + \nabla u^\top)/2\)</span>. <span class="math inline">\(\sigma_f\)</span> can be thought of as the point on the <em>yield surface</em> that <em>most directly resists sliding</em>.</p>
+<p>Given the frictional stress in the regions that flow, we need to find a way to determine the <em>yield conditions without tracking stress / strain.</em> So consider a 1-grid cell with side-length <span class="math inline">\(\Delta x\)</span>. The relative sliding velocity b/w opposing faces is: <img src="images/1-cell.png" class="img-fluid" alt="1-cell diagram"></p>
+<p><span class="math display">\[V_r = \Delta x D\]</span> and the mass is:</p>
+<p><span class="math display">\[M = \rho \Delta x^3.\]</span></p>
+<p>Ignore other cells. the <span class="math inline">\(f\)</span> required to stop ALL sliding motion within 1-timestep is:</p>
+<p><span class="math display">\[ f = - V_r M / \Delta t = -\frac{(\Delta x D) (\rho \Delta x^3)}{\Delta t}\]</span></p>
+<p>which gives the new velocity as <span class="math inline">\(v^{new} = v + \Delta t (F/M)\)</span>. Recall that stress is defined as force per cross-sectional area:</p>
+<p><span class="math display">\[\sigma_{rigid} = -\frac{\rho D \Delta x^2}{\Delta t}\]</span> If <span class="math inline">\(\sigma_{rigid}\)</span> satisfies the yield condition (that is it can resist the shearing), then the material in that cell will be rigid, else it will be flowing . With this we can consider the FLIP algorithm applied to this simulation.</p>
+</section>
+<section id="flip-algorithm" class="level3" data-number="7.0.2">
+<h3 data-number="7.0.2" class="anchored" data-anchor-id="flip-algorithm"><span class="header-section-number">7.0.2</span> FLIP Algorithm:</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Each step:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    Advect fluid</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Fluid solver steps (gravity, boundary, pressure <span class="cf">for</span> incrompressiblity)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> each cell</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        Evaluate <span class="op">*</span>strain rate tensor D<span class="op">*</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> \sigma_rigid satisfies <span class="op">*</span><span class="cf">yield</span> condition<span class="op">*</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        rigid cell</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        \sigma_f used <span class="cf">for</span> direction of flow</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    find <span class="bu">all</span> connected groups of rigid cells, <span class="kw">and</span> project the velocity field</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">in</span> each separate group to the space of rigid body motions (i.e. find translational <span class="kw">and</span> rotational velocity which preserve the total linear <span class="kw">and</span> angular momentum of the group). </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    The remaining velocity values we update <span class="cf">with</span> the frictional stress, using standard central differences </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The last velocity update step is performed as:</p>
+<p><span class="math display">\[u^+ = u^- + \Delta t / \rho \nabla \cdot \sigma_f.\]</span></p>
+</section>
+<section id="frictional-boundary-conditions" class="level3" data-number="7.0.3">
+<h3 data-number="7.0.3" class="anchored" data-anchor-id="frictional-boundary-conditions"><span class="header-section-number">7.0.3</span> Frictional Boundary Conditions</h3>
+<p>So far we have only considered friction within the sand, we now consider friction with the boundaries.</p>
+<p><strong>Idea:</strong> friction formulation enforces <span class="math inline">\(u \cdot n \geq 0\)</span> condition on the grid.</p>
+<p><span class="math display">\[u_T = \max \left(0, 1- \frac{\mu|u \cdot n|)}{|\mu_T|}\right)u_T\]</span></p>
+<p>which is the tangential component of velocity. It is 0 for static friction, in which case the sand will stick even to vertical surfaces. <span class="math inline">\(\mu\)</span> is the Coulomb friction coefficient.</p>
+</section>
+<section id="optional-enhancement-of-the-model" class="level3" data-number="7.0.4">
+<h3 data-number="7.0.4" class="anchored" data-anchor-id="optional-enhancement-of-the-model"><span class="header-section-number">7.0.4</span> (optional) Enhancement of the model</h3>
+<p>We enhance our MC condition using <em>cohesion:</em></p>
+<p><span class="math display">\[\sqrt{\tilde \sigma} &lt; \sin (\phi) \sigma_{\mu} + c\]</span></p>
+<p>where <span class="math inline">\(c\)</span> is the cohesion term. This allows us to model slightly sticky solids and allows the material to support some tension before yielding.</p>
+</section>
+<section id="fluid-simulation" class="level3" data-number="7.0.5">
+<h3 data-number="7.0.5" class="anchored" data-anchor-id="fluid-simulation"><span class="header-section-number">7.0.5</span> FLUID simulation</h3>
+<p>Problem with PIC is that numerical dissipation arises from repeated averaging and interpolation. FLIP fixes this with the following insight:</p>
+<blockquote class="blockquote">
+<p>Particles are the main representation of the fluid and we only use the grid to <em>increment particle variables</em> according to change <span class="math inline">\(\Delta\)</span> computed on the grid</p>
+</blockquote>
+</section>
+<section id="flip-for-incompressible-fluids" class="level3" data-number="7.0.6">
+<h3 data-number="7.0.6" class="anchored" data-anchor-id="flip-for-incompressible-fluids"><span class="header-section-number">7.0.6</span> FLIP for incompressible fluids!</h3>
+<p>Here is how we can adapt FLIP to incompressible fluid simulation:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Init {p} <span class="cf">with</span> v <span class="kw">and</span> x</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> For each t</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">1.</span> at each (MAC) grid point (i,j)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="fl">1.</span> weighted avg of nerby v of {p}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fl">2.</span> (FLIP) save grid velocities v_old</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fl">3.</span> non<span class="op">-</span>advection updates on the grid</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fl">4.</span> (FLIP) $\Delta$ <span class="op">=</span> u_new <span class="op">-</span> u_old. Add to {p}</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fl">5.</span> (PIC) interpolate u_new <span class="cf">for</span> {p}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fl">6.</span> Move particles using new velocity (<span class="kw">and</span> account <span class="cf">for</span> boundary conditions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For the 2.3. ) step, we first add the <span class="math inline">\(\ddot{x}\)</span> due to <span class="math inline">\(g\)</span> to the grid velocities. Then construct a distance field <span class="math inline">\(\phi(x)\)</span> in the non-fluid part of the grid using fast sweeping and use that to extend the velocity field outside the fluid with the PDE <span class="math inline">\(\nabla u \cdot \nabla \phi= 0\)</span>.</p>
+<p>They enforce boundary conditions and incompressibility as in Enright et al.[2002b].</p>
+<p>For 2.6 at each particle, they trilinearly interpolate either the velocity (PIC) or the change in velocity (FLIP) recorded at the surrounding eight grid points.</p>
+</section>
+<section id="reconstructing-the-surface" class="level3" data-number="7.0.7">
+<h3 data-number="7.0.7" class="anchored" data-anchor-id="reconstructing-the-surface"><span class="header-section-number">7.0.7</span> Reconstructing the surface</h3>
+<p>All this time we have been talking about how to simulate <em>particles</em>. But if we want to simulate a continuum, we need to reconstruct the surface from those particles.</p>
+<p>We could use [[Marching cubes]], but that will result in “blobby” appearance. Instead, we use a different approach:</p>
+<blockquote class="blockquote">
+<p>we exactly reconstruct the signed distance field of an isolated particle.</p>
+</blockquote>
+<p>For <span class="math inline">\(p\)</span> at <span class="math inline">\(x_0\)</span> with radius <span class="math inline">\(r\)</span> we have the SDF:</p>
+<p><span class="math display">\[ \phi(x) = |x - x_0 | + r\]</span> We can generalize this by replacing <span class="math inline">\(x_0\)</span> with <span class="math inline">\(\sum_i  w_ix_i\)</span> where <span class="math inline">\(\sum_i w_i  = 1\)</span>, and similarly for <span class="math inline">\(r\)</span>. This gives:</p>
+<p><span class="math display">\[\phi(x) = |x - \bar x| + \bar r.\]</span> We define <span class="math inline">\(w_i\)</span> using a kernel function that smoothly drops to 0 (see the paper for more details).</p>
 
 
 </section>
@@ -636,10 +790,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./mpm_snow.html" class="pagination-link" aria-label="MPM for snow simulation">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">MPM for snow simulation</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./classical_mechanics.html" class="pagination-link" aria-label="Classical Mechanics: A brief Detour">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Classical Mechanics: A brief Detour</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./APIC.html" class="pagination-link" aria-label="APIC - Affine Particle-In-Cell">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">APIC - Affine Particle-In-Cell</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
