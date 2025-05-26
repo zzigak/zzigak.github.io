@@ -53,9 +53,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem;
-    color: var(--gruv-yellow-neutral);
-
- } /* Adjusted from original */
+    color: var(--gruv-yellow-neutral); /* Reverted back to yellow */
+ }
 h4 { font-size: 1.5rem; }
 h5 { font-size: 1.25rem; }
 h6 { font-size: 1rem; }
@@ -63,35 +62,32 @@ h6 { font-size: 1rem; }
 
 /* --- Links - Refined Visibility --- */
 a {
-    /* text-decoration: underline; */ /* Removed default underline */
-    text-decoration: none; /* No underline by default */
-    color: var(--gruv-aqua-bright); /* Use bright aqua for default links */
-    /* Optional: Slightly bolder */
-    /* font-weight: 500; */
+    text-decoration: none;
+    color: var(--gruv-aqua-bright); /* Changed back to aqua for better visibility */
 }
 
 a:hover {
-    color: var(--gruv-aqua-neutral); /* Slightly darker aqua on hover */
-    text-decoration: underline; /* Add underline on hover only */
+    color: var(--gruv-aqua-neutral); /* Darker aqua on hover */
+    text-decoration: underline;
 }
 
 /* Update for links previously styled as 'black' */
 a.black,
 a.black_underline {
-    color: var(--gruv-aqua-bright); /* Use the same aqua as default links */
-    font-weight: 400; /* Keep normal weight */
-    text-decoration: none; /* No underline by default */
+    color: var(--gruv-aqua-bright); /* Changed back to aqua */
+    font-weight: 400;
+    text-decoration: none;
 }
 
 a.black:hover,
 a.black_underline:hover {
     color: var(--gruv-aqua-neutral); /* Darker aqua on hover */
-    text-decoration: underline; /* Underline on hover */
-    font-weight: 400; /* Keep normal weight on hover too, or adjust if needed */
+    text-decoration: underline;
+    font-weight: 400;
 }
 
 a.publication_link {
-    color: var(--gruv-blue-bright); /* Use bright blue now */
+    color: var(--gruv-blue-bright); /* Changed to blue for distinction */
     font-weight: bold;
     text-decoration: none;
 }
@@ -163,11 +159,11 @@ hr {
     text-decoration: none;
     font-size: 1.25em;
     color: var(--gruv-fg1);
-/*    color: var(--gruv-yellow-bright); /* Yellow for titles */*/
+    /* color: var(--gruv-yellow-bright); */ /* Yellow for titles */
 }
 .pub-wrapper .title a:hover {
-     color: var(--gruv-orange-bright);
-     text-decoration: underline; /* Add underline on hover */
+    color: var(--gruv-aqua-bright); /* Changed from orange to aqua to match our color scheme */
+    text-decoration: underline;
 }
 
 .pub-wrapper .description {
@@ -224,40 +220,40 @@ hr {
 }
 
 .pub-wrapper .link a,
-.pub-wrapper .link .venue a
- {
+.pub-wrapper .link .venue a {
     display: inline-block;
     padding: 0.2em 0.7em;
     margin: 0.2em 0.4em 0.2em 0;
-    border: 1px solid var(--gruv-bg4);
+    border: 1px solid var(--gruv-bg3);
     border-radius: 4px;
     font-size: 0.85em;
     line-height: 1.4;
-    background-color: var(--gruv-bg1);
+    background-color: var(--gruv-bg2);
+    color: var(--gruv-fg);
     text-decoration: none;
-/*    color: var(--gruv-orange-bright); */
-    color: var(--gruv-blue-bright);
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .pub-wrapper .link a:hover,
 .pub-wrapper .link a:focus,
 .pub-wrapper .link .venue a:hover,
 .pub-wrapper .link .venue a:focus {
-    background-color: var(--gruv-bg2);
+    background-color: var(--gruv-bg3);
     border-color: var(--gruv-bg4);
-    color: var(--gruv-orange-neutral); /* Darker orange on hover */
-    text-decoration: none; /* Keep no underline */
-}
-.pub-wrapper p {
-/*    font-size: 0.95em;*/
+    color: var(--gruv-aqua-bright); /* Changed from yellow to aqua for consistency */
+    transform: translateY(-1px);
+    text-decoration: none;
 }
 
 .pub-wrapper .link .venue {
     font-weight: bold;
-/*    color: var(--gruv-orange-bright); */
-        color: var(--gruv-red-bright);
+    color: var(--gruv-purple-bright); /* Keeping purple for venue names */
 }
+
+.pub-wrapper p {
+/*    font-size: 0.95em;*/
+}
+
 /* Specific overrides */
 .author-name {
     font-weight: 600;
@@ -293,9 +289,11 @@ hr {
         margin-right: auto;
         margin-bottom: 1rem; /* Add space below image on mobile */
     }
+    
     .mobile-spacing { /* Apply spacing using profile-image class now */
-         /* margin-bottom: 1rem; */
+        margin-bottom: 1rem;
     }
+    
     .pub-wrapper .figure {
         margin-bottom: 15px;
         text-align: center;

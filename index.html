@@ -10,13 +10,50 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="gruvbox.css">
+    <link rel="stylesheet" href="light-mode.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="icon" type="image/png" href="image/brain.png">
+    <style>
+        /* Theme switch button styles */
+        .theme-switch {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1100;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 50%;
+            background: var(--gruv-bg1);
+            border: 1px solid var(--gruv-bg3);
+        }
+
+        .theme-switch:hover {
+            transform: translateY(-1px);
+        }
+
+        .theme-switch i {
+            font-size: 1.2rem;
+            color: var(--gruv-fg2);
+        }
+
+        .theme-switch:hover i {
+            color: var(--gruv-fg0);
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Theme switch button -->
+    <div class="theme-switch" onclick="toggleTheme()">
+        <i class="fas fa-sun"></i>
+    </div>
 
     <!-- <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light"> -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-navbar">
@@ -82,8 +119,7 @@
                     <p>
                         I currently pursing my B.A. in Mathematics and CS, through the <a
                             href="https://as.cornell.edu/education/college-scholar-program" class="black">College
-                            Scholars</a> program at <a href=# class="black">Cornell
-                            University</a>. At Cornell I'm fortunate to work with <a
+                            Scholars</a> program at Cornell University. At Cornell I'm fortunate to work with <a
                             href="https://www.cs.cornell.edu/~ellisk/" class="black">Kevin Ellis</a>. I previously worked with
                         <a href="https://www.cs.cornell.edu/abe/group/" class="black">Abe
                             Davis</a> on time-lapse generation and modal analysis for resimulation.
@@ -303,7 +339,7 @@
             </div>
         </div>
 
-            <!-- Gaussian Splatting Converter -->
+            <!-- Gaussian Splatting Converter
             <div class="section-item">
                 <div class="row align-items-center">
                     <div class="col-xs-12 col-md-auto col-wrapper">
@@ -323,7 +359,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
 
@@ -448,6 +484,47 @@
 
     <br>
 
+    <script>
+        // Theme switching functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeSwitch = document.querySelector('.theme-switch i');
+            
+            if (body.classList.contains('light-mode')) {
+                // Switch to dark mode
+                body.classList.remove('light-mode');
+                themeSwitch.classList.remove('fa-moon');
+                themeSwitch.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                // Switch to light mode
+                body.classList.add('light-mode');
+                themeSwitch.classList.remove('fa-sun');
+                themeSwitch.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Check for saved theme preference and system preference
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const themeSwitch = document.querySelector('.theme-switch i');
+            
+            // Check system preference if no saved theme
+            if (!savedTheme) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (!prefersDark) {
+                    document.body.classList.add('light-mode');
+                    themeSwitch.classList.remove('fa-sun');
+                    themeSwitch.classList.add('fa-moon');
+                }
+            } else if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeSwitch.classList.remove('fa-sun');
+                themeSwitch.classList.add('fa-moon');
+            }
+        });
+    </script>
 </body>
 
 </html>
