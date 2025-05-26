@@ -202,7 +202,7 @@ hr {
 .pub-wrapper .figure img,
 .pub-wrapper .figure video {
     max-width: 240px;
-    width: 100%;
+    width: auto;
     display: block;
     border-radius: 4px; /* Subtler radius */
     border: 1px solid var(--gruv-bg3); /* Add subtle border */
