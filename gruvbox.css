@@ -31,9 +31,10 @@
     --gruv-gray: #928374;
 }
 
-body {
+/* Dark mode styles (default) */
+body:not(.light-mode) {
     background-color: var(--gruv-bg0);
-    color: var(--gruv-fg1); /* Use default foreground for body text */
+    color: var(--gruv-fg1);
     font-size: 16px;
     line-height: 24px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -46,15 +47,15 @@ body {
 
 /* Headers */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--gruv-fg0); /* Brighter foreground for headers */
+    color: var(--gruv-fg0);
     font-weight: 600;
 }
 
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem;
-    color: var(--gruv-yellow-neutral); /* Reverted back to yellow */
- }
+    color: var(--gruv-yellow-neutral);
+}
 h4 { font-size: 1.5rem; }
 h5 { font-size: 1.25rem; }
 h6 { font-size: 1rem; }
@@ -99,18 +100,47 @@ a.publication_link:hover {
 
 /* Horizontal Rule */
 hr {
-    border-top: 1px solid var(--gruv-bg4); /* Use a background shade for the rule */
+    border-top: 1px solid var(--gruv-bg4);
 }
 
 /* --- Profile Image Style --- */
 .profile-image {
-    border: 1px solid var(--gruv-bg4); /* Add a subtle border */
-    border-radius: 5px; /* Keep the rounding consistent */
-    /* Optional: Subtle shadow instead of border */
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */ /* Use with care for minimalism */
-    /* Ensure max-width and width are applied if needed */
-     width: 100%;
-     max-width: 220px;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 220px;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(139, 192, 124, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(139, 192, 124, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.profile-image:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(139, 192, 124, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.profile-image:hover::before {
+    opacity: 1;
 }
 
 /* Navbar Styles */
@@ -159,10 +189,9 @@ hr {
     text-decoration: none;
     font-size: 1.25em;
     color: var(--gruv-fg1);
-    /* color: var(--gruv-yellow-bright); */ /* Yellow for titles */
 }
 .pub-wrapper .title a:hover {
-    color: var(--gruv-aqua-bright); /* Changed from orange to aqua to match our color scheme */
+    color: var(--gruv-aqua-bright);
     text-decoration: underline;
 }
 
@@ -305,4 +334,31 @@ hr {
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+.research-interests-header {
+    color: var(--gruv-purple-bright);
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.notes-header {
+    color: var(--gruv-purple-bright);
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.pub-wrapper .title .year {
+    color: var(--gruv-fg4);
+    font-weight: normal;
+    font-size: 0.9em;
+    margin-left: 0.5em;
+}
+
+/* Main name styling */
+.main-name {
+    color: var(--gruv-yellow-bright);
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 0.3rem;
 }
