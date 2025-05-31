@@ -18,7 +18,9 @@ body.light-mode {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 0.95em;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 300;
 }
 
 body.light-mode h1,
@@ -123,4 +125,42 @@ body.light-mode .theme-switch i {
 
 body.light-mode .theme-switch:hover i {
     color: var(--link-color);
+}
+
+/* Light mode sidebar styles */
+body.light-mode .left-sidebar {
+    background: var(--bg-color);
+    border-right: 1px solid var(--border-color);
+}
+
+body.light-mode .sidebar-name {
+    color: var(--link-color);
+}
+
+body.light-mode .sidebar-info {
+    color: var(--text-color);
+}
+
+body.light-mode .sidebar-links a {
+    color: var(--link-color);
+}
+
+body.light-mode .sidebar-links a:hover {
+    color: var(--link-hover-color);
+}
+
+body.light-mode .main-name {
+    color: var(--link-color);
+}
+
+/* Light mode responsive adjustments */
+@media (max-width: 1023.98px) {
+    body.light-mode .mobile-header {
+        background-color: var(--bg-color);
+    }
+    
+    body.light-mode .main-content {
+        margin-left: 0;
+        max-width: 100%;
+    }
 } 

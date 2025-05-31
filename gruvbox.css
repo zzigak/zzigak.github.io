@@ -35,8 +35,9 @@
 body:not(.light-mode) {
     background-color: var(--gruv-bg0);
     color: var(--gruv-fg1);
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 300;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -48,13 +49,13 @@ body:not(.light-mode) {
 /* Headers */
 h1, h2, h3, h4, h5, h6 {
     color: var(--gruv-fg0);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 h1 { font-size: 2.5rem; }
 h2 { font-size: 2rem; }
 h3 { font-size: 1.5rem;
-    color: var(--gruv-yellow-neutral);
+    color: var(--gruv-yellow-bright);
 }
 h4 { font-size: 1.5rem; }
 h5 { font-size: 1.25rem; }
@@ -63,7 +64,7 @@ h6 { font-size: 1rem; }
 
 /* --- Links - Refined Visibility --- */
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--gruv-aqua-bright); /* Changed back to aqua for better visibility */
 }
 
@@ -77,7 +78,7 @@ a.black,
 a.black_underline {
     color: var(--gruv-aqua-bright); /* Changed back to aqua */
     font-weight: 400;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 a.black:hover,
@@ -179,15 +180,15 @@ hr {
 
 /* Publications / Projects Section */
 .pub-wrapper .section-item {
-    margin-top: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .pub-wrapper .title a {
     font-weight: bold;
     text-decoration: none;
-    font-size: 1.25em;
+    font-size: 1.1em;
     color: var(--gruv-fg1);
 }
 .pub-wrapper .title a:hover {
@@ -311,7 +312,7 @@ hr {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 767.98px) {
+@media (max-width: 1023.98px) {
     .profile-image {
         display: block; /* Ensure block display for margin auto */
         margin-left: auto;
@@ -330,9 +331,14 @@ hr {
 
     .pub-wrapper .figure img,
     .pub-wrapper .figure video {
-        max-width: 100%;
+        max-width: 200px; /* Updated to match desktop */
+        width: auto !important; /* Prevent stretching */
+        height: auto;
+        aspect-ratio: 16/9;
+        object-fit: contain; /* Maintain aspect ratio */
         margin-left: auto;
         margin-right: auto;
+        display: block;
     }
 }
 
@@ -358,7 +364,8 @@ hr {
 /* Main name styling */
 .main-name {
     color: var(--gruv-yellow-bright);
-    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
     font-size: 2.2rem;
     margin-bottom: 0.3rem;
 }

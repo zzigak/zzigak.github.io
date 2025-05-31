@@ -46,6 +46,125 @@
         .theme-switch:hover i {
             color: var(--gruv-fg0);
         }
+
+        /* Ensure strong tags are bold */
+        strong {
+            font-weight: 600;
+        }
+
+        /* Desktop Layout */
+        @media (min-width: 1024px) {
+            .main-layout {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding-top: 80px; /* Account for navbar */
+                display: flex;
+                gap: 2rem;
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+            
+            .left-sidebar {
+                position: sticky;
+                top: 100px; /* Stick to top with some offset for navbar */
+                width: 280px;
+                min-width: 280px;
+                height: fit-content;
+                max-height: calc(100vh - 120px);
+                padding: 2rem 1.5rem;
+                border-right: 1px solid var(--gruv-bg3);
+                background: var(--gruv-bg0);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                overflow-y: auto;
+            }
+            
+            .main-content {
+                flex: 1;
+                padding: 2rem 0;
+                min-height: 100vh;
+            }
+            
+            .sidebar-image {
+                width: 100%;
+                max-width: 160px;
+                border-radius: 5px;
+                margin-bottom: 1rem;
+            }
+            
+            .sidebar-name {
+                color: var(--gruv-yellow-bright);
+                font-weight: 500;
+                font-size: 1.8rem;
+                margin-bottom: 0.5rem;
+                text-align: center;
+            }
+            
+            .sidebar-info {
+                margin-bottom: 1.5rem;
+                color: var(--gruv-fg);
+                text-align: center;
+                font-style: italic;
+            }
+            
+            .sidebar-links {
+                margin-top: 1rem;
+                text-align: left;
+            }
+            
+            .sidebar-links a {
+                color: var(--gruv-aqua-bright);
+                font-weight: 400;
+                display: block;
+                margin-bottom: 0.5rem;
+                text-decoration: none;
+                text-align: left;
+            }
+            
+            .sidebar-links a i {
+                margin-right: 0.5rem;
+                width: 1rem;
+            }
+            
+            .sidebar-links a:hover {
+                color: var(--gruv-aqua-neutral);
+                text-decoration: none;
+            }
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 1023.98px) {
+            .left-sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+            
+            .mobile-header {
+                display: block;
+            }
+            
+            /* Fix video stretching on mobile - maintain aspect ratio and original sizing */
+            .pub-wrapper .figure img,
+            .pub-wrapper .figure video {
+                max-width: 200px !important;
+                height: auto;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .mobile-header {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -59,7 +178,6 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-navbar">
         <div class="container d-flex justify-content-start align-items-center">
             <div class="d-flex align-items-center">
-                <a class="navbar-brand me-4" href="#">Žiga Kovačič</a>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav d-flex flex-row gap-3">
                         <li class="nav-item">
@@ -85,433 +203,440 @@
         </div>
     </nav>
 
-
-
-
-
-    <!-- Main page -->
-    <div class="container pt-5 mt-5">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <!-- <img src="image/mit_1.gif" alt="animated portrait"
-                    style="width: 100%; max-width: 220px; border-radius: 5px; " class="profile-image mobile-spacing"> -->
-                <img src="image/pfp1_out.png" alt="profile picture"
-                    style="width: 100%; max-width: 220px; border-radius: 5px; " class="profile-image mobile-spacing">
-            </div>
-            <div class="col-md-9">
-                <h2 class="main-name">Žiga Kovačič</h2>
-                <div>Undergraduate Student</div>
-                <!-- <div>Computer Science and Math</div> -->
-                <div>Cornell University</div>
-                <div><a href="mailto: zk66@cornell.edu" class="black"> Email</a> |
-                    <a href="#" class="black">Google Scholar</a> |
-                    <a href="https://github.com/zzigak" class="black">GitHub</a> |
-                    <!-- <a href="#" class="black">OpenReview</a> -->
-                    <a href="pdf/Resume.pdf" target="_blank" class="black">Resume</a>
-                </div>
+    <div class="main-layout">
+        <!-- Fixed Left Sidebar for Desktop -->
+        <div class="left-sidebar">
+            <img src="image/pfp1_out.png" alt="profile picture" class="sidebar-image">
+            <h2 class="sidebar-name">Žiga Kovačič</h2>
+            <div class="sidebar-info">Slovenian, born and raised</div>
+            <div class="sidebar-links">
+                <a href="mailto: zk66@cornell.edu"><i class="fas fa-envelope"></i> Email</a>
+                <a href="#"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
+                <a href="pdf/Resume.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</a>
             </div>
         </div>
-        <br>
 
-        <!-- About me -->
-        <div class="row pt-4" id="bio">
-            <div class="col-md-12">
-                <h3>About Me</h3>
-                <div>
-                    <p>
-                        I currently pursing my B.A. in Mathematics and CS, through the <a
-                            href="https://as.cornell.edu/education/college-scholar-program" class="black">College
-                            Scholars</a> program at Cornell University. At Cornell I'm fortunate to work with <a
-                            href="https://www.cs.cornell.edu/~ellisk/" class="black">Kevin Ellis</a>. I previously worked with
-                        <a href="https://www.cs.cornell.edu/abe/group/" class="black">Abe
-                            Davis</a> on time-lapse generation and modal analysis for resimulation.
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Mobile Header (only shown on mobile) -->
+            <div class="mobile-header">
+                <div class="container pt-5 mt-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <img src="image/pfp1_out.png" alt="profile picture"
+                                style="width: 100%; max-width: 220px; border-radius: 5px; " class="profile-image mobile-spacing">
+                        </div>
+                        <div class="col-md-9">
+                            <h2 class="main-name">Žiga Kovačič</h2>
+                            <div style="font-style: italic; margin-bottom: 0.5rem;">Slovenian, born and raised</div>
+                            <div><a href="mailto: zk66@cornell.edu" class="black"><i class="fas fa-envelope"></i> Email</a> |
+                                <a href="#" class="black"><i class="fas fa-graduation-cap"></i> Google Scholar</a> |
+                                <a href="https://github.com/zzigak" class="black"><i class="fab fa-github"></i> GitHub</a> |
+                                <a href="pdf/Resume.pdf" target="_blank" class="black"><i class="fas fa-file-pdf"></i> Resume</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="container">
+                <!-- About me -->
+                <div class="row pt-4" id="bio">
+                    <div class="col-md-12">
+                        <div>
+                            <p>
+                                I'm currently pursing my B.A. in Mathematics and CS, through the <a
+                                    href="https://as.cornell.edu/education/college-scholar-program" class="black">College
+                                    Scholars</a> program at Cornell University. 
+                                </p>
+                                <p>
+                                    I'm extremely fortunate to work with professor <a
+                                    href="https://www.cs.cornell.edu/~ellisk/" class="black">Kevin Ellis</a>. I previously worked with
+                                    <a href="https://www.cs.cornell.edu/abe/group/" class="black">Abe
+                                    Davis</a> on time-lapse generation and modal analysis for resimulation.
+                                </p>
+
+                            <p>
+                                <!-- <span class="research-interests-header">Research Interests.</span> -->
+                                I'm interested in the intersection of physical simulation, machine learning (code generation), and tools for computer graphics.
+                                Currently I'm working refactoring and code generation for physical simulation. 
                             </p>
 
-                    <p>
-                        <span class="research-interests-header">Research Interests.</span>
-                        I'm broadly interested in the intersection of physical simulation, machine learning, and computer graphics.
-                        Currently I'm focusing on refactoring and code generation for physical simulation. Previously I dabbled in physically
-                        plausible re-simulations.
-                    </p>
+                            <p> I've recenly started writing summaries of my <a href="https://zzigak.github.io/book/index.html" class="black">readings on physical simulation.</a>
 
-                    <!-- <p> I'm also a co-president of Cornell University Artificial Intelligence (<a
-                            href="https://cuai.github.io/" class="black">CUAI</a>).</p> -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                    <p><span class="notes-header">Physical Simulation Notes.</span> I've recenly started writing summaries of my readings on physical simulation
-                        <a href="https://zzigak.github.io/book/index.html" class="black">here</a>.
+                <hr>
 
-                    </p>
+                <!-- Publications -->
+                <div class="sec-wrapper pub-wrapper" id="publication">
+                    <div class="row pt-2" id="publication">
+                        <div class="col-md-12">
+                            <h3>Publications</h3>
+                            <p>* indicates equal contributions. See my <a href="#" class="black">Google Scholar</a> page for an
+                                up-to-date list.</p>
+                        </div>
+                    </div>
+
+                    <!-- Refactoring Codebases -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <img src="image/refactor.png" alt="Refactoring Codebases">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a href="https://code-refactor.github.io/">Refactoring Codebases through Library Design</a>
+                                    <span class="year">(2025)</span>
+                                </div>
+                                <div class="authors">
+                                    <a href="https://zzigak.github.io/"><strong>Žiga Kovačič</strong></a><sup>*</sup>,
+                                    <a href="https://celine-lee.github.io/">Celine Lee</a><sup>*</sup>,
+                                    <a href="https://justinchiu.netlify.app/">Justin T Chiu</a><sup>*</sup>,
+                                    <a href="https://wenting-zhao.github.io/">Wenting Zhao</a>,
+                                    <a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a>
+                                </div>
+                                <div class="link">
+                                    <span class="venue"><a href="">In submission</a></span>
+                                    <a href="https://code-refactor.github.io/"><i class="fas fa-globe"></i> Project Page</a>
+                                    <a href="https://github.com/zzigak/Librarian"><i class="fab fa-github"></i> Code</a>
+                                    <a href="https://github.com/zzigak?tab=repositories"><i class="fas fa-code"></i> Scoring Library (Coming Soon)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pocket Time-Lapse -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                               <div class="figure">
+                                    <video controls autoplay muted loop>
+                                        <source src="video/ptl.mp4" type="video/mp4">Your browser does not support the
+                                        video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a href="">Pocket Time-Lapse</a>
+                                    <span class="year">(2025)</span>
+                                </div>
+                                <div class="authors">
+                                    <a href="https://echen01.github.io/">Eric M. Chen</a>,
+                                    <a href="https://zzigak.github.io/"><strong>Žiga Kovačič</strong></a>,
+                                    <a href="">Madhav Agrawal</a>,
+                                    <a href="">Abe Davis</a>
+                                </div>
+                                <div class="link">
+                                    <span class="venue"><a href="">SIGGRAPH 2025</a></span>
+
+                                    <a href="https://pocket-timelapse.github.io/"><i class="fas fa-globe"></i> Project Page</a>
+                                    <a href=""><i class="fas fa-file-pdf"></i> Paper</a>
+                                    <a href=""><i class="fab fa-github"></i> Code</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <hr>
+
+                <!-- Projects -->
+                <div class="sec-wrapper pub-wrapper" id="projects">
+                    <div class="row pt-2">
+                        <div class="col-md-12">
+                            <h3>Projects</h3>
+                            <p>Here are some of my research and engineering projects, or at least the ones that are not being
+                                prepped for publications...</p>
+                        </div>
+                    </div>
+
+                    <!-- MLS-MPM and CPIC -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <video controls autoplay muted loop>
+                                        <source src="video/mls-mpm.mp4" type="video/mp4">Your browser does not support the
+                                        video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a href="https://github.com/zzigak/MPM-MLS-CPIC" class="publication_link">MLS-MPM and CPIC</a>
+                                    <span class="year">(2025)</span>
+                                </div>
+                                <div class="description">
+                                    Implemented the Moving Least Squared Material Point Method, CPIC, various materials, as well as mesh extraction, both in 2D and 3D.
+                                </div>
+                                <div class="link">
+                                    <a href="https://github.com/zzigak/MPM-MLS-CPIC" class="publication_link"><i class="fab fa-github"></i> GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Space Modal Basis -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <video controls autoplay muted loop>
+                                        <source src="video/ismb_demo.mov" type="video/mp4">Your browser does not support the
+                                        video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a>Image Space Modal Basis in JS and Python</a>
+                                    <span class="year">(2024)</span>
+                                </div>
+                                <div class="description">
+                                    Implements the 2015 paper "Image-Space Modal Bases for Plausible Manipulation of Objects in
+                                    Video"
+                                    by Davis et al., extending the original work with modal warping. Developed modal analysis
+                                    pipeline
+                                    in Python and custom JavaScript rasterizer for real-time rendering.
+                                </div>
+                                <div class="link">
+                                    <a href="https://github.com/zzigak/npz2ply" class="publication_link"><i class="fab fa-github"></i> GitHub (Coming
+                                        Soon)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Obstruction Removal -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <video controls autoplay muted loop>
+                                        <source src="video/obstruction_removal.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a>Obstruction Removal - SliceSplatting</a>
+                                    <span class="year">(2024)</span>
+                                </div>
+                                <div class="description">
+                                    Modifies Gaussian Splatting to remove obstructions blocking the view of objects of interest
+                                    in 3D scene reconstruction.
+                                </div>
+                                <div class="link">
+                                    <a href="https://github.com/zzigak/npz2ply" class="publication_link"><i class="fab fa-github"></i> GitHub (Coming
+                                        Soon)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pen-2-Graph -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <img src="image/pen2graph.png" alt="Pen-2-Graph">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a href="https://github.com/zzigak/Pen2Graph" class="publication_link">Pen-2-Graph</a>
+                                    <span class="year">(2024)</span>
+                                </div>
+                                <div class="description">
+                                    Automates generation of node-edge graph programs from hand-drawn sketches using
+                                    vision-language
+                                    models and differential evolution. CS 6172 Final project.
+                                </div>
+                                <div class="link">
+                                    <a href="https://github.com/zzigak/Pen2Graph" class="publication_link"><i class="fab fa-github"></i> GitHub Page</a>
+                                    <a href="https://classes.cornell.edu/browse/roster/FA24/class/CS/6172"
+                                        class="publication_link"><i class="fas fa-graduation-cap"></i> Class Page</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <video controls autoplay muted loop>
+                                        <source src="video/path_tracing.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a>Path Tracing in OCaml</a>
+                                    <span class="year">(2025)</span>
+                                </div>
+                                <div class="description">
+                                    Implementation of path tracer in OCaml. Includes volumetric elements, refraction, BVH, lights, etc.
+                                </div>
+                                <div class="link">
+                                    <a href="" class="publication_link"><i class="fab fa-github"></i> GitHub (Coming Soon)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MelodyMesh -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-md-auto col-wrapper">
+                                <div class="figure">
+                                    <img src="image/melodyMesh.png" alt="MelodyMesh">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md col-wrapper">
+                                <div class="title">
+                                    <a>MelodyMesh</a>
+                                    <span class="year">(2023)</span>
+                                </div>
+                                <div class="description">
+                                    3D music visualizer that deforms meshes based on audio frequencies. CS 6682 Final project.
+                                </div>
+                                <div class="link">
+                                    <a href="https://github.com/zzigak/MelodyMesh" class="publication_link"><i class="fab fa-github"></i> GitHub</a>
+                                    <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link"><i class="fab fa-youtube"></i> Video</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gaussian Splatting Converter
+                <div class="section-item">
+                    <div class="row align-items-center">
+                        <div class="col-xs-12 col-md-auto col-wrapper">
+                            <div class="figure">
+                                <img src="image/npz_to_ply.png" alt="Gaussian Splatting Converter">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md col-wrapper">
+                            <div class="title">
+                                <a>Gaussian Splatting Format Converter</a>
+                            </div>
+                            <div class="description">
+                                Conversion script for .ply based viewers from Inria's 3DGS implementation params.npz format.
+                            </div>
+                            <div class="link">
+                                <a href="https://github.com/zzigak/npz2ply" class="publication_link">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <hr>
+
+                <!-- Experience -->
+                <div class="sec-wrapper exp-wrapper" id="experience">
+                    <div class="row section-head">
+                        <div class="col col-wrapper">
+                            <h3 class="section-title">Experience</h3>
+                        </div>
+                    </div>
+
+                    <!-- OpenAI -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col col-wrapper title">
+                                <a href="https://www.cs.cornell.edu/~ellisk/">Recursion and Learning Lab</a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-9 col-wrapper info">
+                                Undergraduate Researcher
+                            </div>
+                            <div class="col-md-3 col-wrapper time text-md-right">
+                                Mar. 2025 – Present
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col col-wrapper location">
+                                Cornell University
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- MIT CSAIL -->
+                    <div class="section-item">
+                        <div class="row align-items-center">
+                            <div class="col col-wrapper title">
+                                <a href="https://www.cs.cornell.edu/abe/group/members">Graphics & Vision Lab</a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-9 col-wrapper info">
+                                Undergraduate Researcher </a>
+                            </div>
+                            <div class="col-md-3 col-wrapper time text-md-right">
+                                May 2023 - Mar 2023
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col col-wrapper location">
+                                Cornell University </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <!-- Personal -->
+                <div class="row pt-2" id="personal">
+                    <div class="col-md-12">
+                        <h3>Personal</h3>
+                        <div>
+                            <p>
+                                In my free time I enjoy cooking, climbing, and playing the guitar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!-- Friends' Personal Websites -->
+                <div class="row pt-2" id="friends">
+                    <div class="col-md-12">
+                        <div>
+                            <p>Personal websites of some friends/acquaintances you might find interesting:</p>
+                            <p>
+                                <a href="https://echen01.github.io/" target="_blank" class="black">echen01.github.io</a> |
+                                <a href="https://jasonklein.dev" target="_blank" class="black">jasonklein.dev</a> |
+                                <a href="https://www.trannhan.com/" target="_blank" class="black">trannhan.com</a> |
+                                <a href="https://jren03.github.io/" target="_blank" class="black">jren03.github.io</a> |
+                                <a href="https://shamus.li/" target="_blank" class="black">shamus.li</a> |
+                                <a href="https://atikshb.github.io/" target="_blank" class="black">atikshb.github.io</a> |
+                                <a href="https://jeremykubenjet.com" target="_blank" class="black">jeremykubenjet.com</a> |
+                                <a href="https://www.jonochen.net/" target="_blank" class="black">www.jonochen.net</a> |
+                                <a href="https://kabirsamsi.com/" target="_blank" class="black">kabirsamsi.com</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <hr>
-
-
-
-        <!-- Publications -->
-        <div class="sec-wrapper pub-wrapper" id="publication">
-            <div class="row pt-2" id="publication">
-                <div class="col-md-12">
-                    <h3>Publications</h3>
-                    <p>* indicates equal contributions. See my <a href="#" class="black">Google Scholar</a> page for an
-                        up-to-date list.</p>
-                </div>
-            </div>
-
-            <!-- Refactoring Codebases -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <img src="image/refactor.png" alt="Refactoring Codebases" style="width: 240px;">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a href="https://code-refactor.github.io/">Refactoring Codebases through Library Design</a>
-                            <span class="year">(2025)</span>
-                        </div>
-                        <div class="authors">
-                            <a href="https://zzigak.github.io/"><strong>Žiga Kovačič</strong></a><sup>*</sup>,
-                            <a href="https://celine-lee.github.io/">Celine Lee</a><sup>*</sup>,
-                            <a href="https://justinchiu.netlify.app/">Justin T Chiu</a><sup>*</sup>,
-                            <a href="https://wenting-zhao.github.io/">Wenting Zhao</a>,
-                            <a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a>
-                        </div>
-                        <div class="link">
-                            <span class="venue"><a href="">In submission</a></span>
-                            <a href="https://code-refactor.github.io/"><i class="fas fa-globe"></i> Project Page</a>
-                            <a href="https://github.com/zzigak/Librarian"><i class="fab fa-github"></i> Code</a>
-                            <a href="https://github.com/zzigak?tab=repositories"><i class="fas fa-code"></i> Scoring Library (Coming Soon)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pocket Time-Lapse -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                       <div class="figure">
-                            <video width="100%" controls autoplay muted style="object-fit: cover;">
-                                <source src="video/ptl.mp4" type="video/mp4">Your browser does not support the
-                                video tag.
-                            </video>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a href="">Pocket Time-Lapse</a>
-                            <span class="year">(2025)</span>
-                        </div>
-                        <div class="authors">
-                            <a href="https://echen01.github.io/">Eric M. Chen</a>,
-                            <a href="https://zzigak.github.io/"><strong>Žiga Kovačič</strong></a>,
-                            <a href="">Madhav Agrawal</a>,
-                            <a href="">Abe Davis</a>
-                        </div>
-                        <div class="link">
-                            <span class="venue"><a href="">SIGGRAPH 2025</a></span>
-
-                            <a href="https://pocket-timelapse.github.io/"><i class="fas fa-globe"></i> Project Page</a>
-                            <a href=""><i class="fas fa-file-pdf"></i> Paper</a>
-                            <a href=""><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <br>
-
-        <hr>
-
-        <!-- Projects -->
-        <div class="sec-wrapper pub-wrapper" id="projects">
-            <div class="row pt-2">
-                <div class="col-md-12">
-                    <h3>Projects</h3>
-                    <p>Here are some of my research and engineering projects, or at least the ones that are not being
-                        prepped for publications...</p>
-                </div>
-            </div>
-
-            <!-- Image Space Modal Basis -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <video width="100%" controls autoplay muted style="object-fit: cover;">
-                                <source src="video/ismb_demo.mov" type="video/mp4">Your browser does not support the
-                                video tag.
-                            </video>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a>Image Space Modal Basis in JS and Python</a>
-                        </div>
-                        <div class="description">
-                            Implements the 2015 paper "Image-Space Modal Bases for Plausible Manipulation of Objects in
-                            Video"
-                            by Davis et al., extending the original work with modal warping. Developed modal analysis
-                            pipeline
-                            in Python and custom JavaScript rasterizer for real-time rendering.
-                        </div>
-                        <div class="link">
-                            <a href="https://github.com/zzigak/npz2ply" class="publication_link"><i class="fab fa-github"></i> GitHub (Coming
-                                Soon)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Obstruction Removal -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <video width="100%" controls autoplay muted style="object-fit: cover;">
-                                <source src="video/obstruction_removal.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a>Obstruction Removal - SliceSplatting</a>
-                        </div>
-                        <div class="description">
-                            Modifies Gaussian Splatting to remove obstructions blocking the view of objects of interest
-                            in 3D scene reconstruction.
-                        </div>
-                        <div class="link">
-                            <a href="https://github.com/zzigak/npz2ply" class="publication_link"><i class="fab fa-github"></i> GitHub (Coming
-                                Soon)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- Pen-2-Graph -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <img src="image/pen2graph.png" alt="Pen-2-Graph">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a href="https://github.com/zzigak/Pen2Graph" class="publication_link">Pen-2-Graph</a>
-                        </div>
-                        <div class="description">
-                            Automates generation of node-edge graph programs from hand-drawn sketches using
-                            vision-language
-                            models and differential evolution. CS 6172 Final project.
-                        </div>
-                        <div class="link">
-                            <a href="https://github.com/zzigak/Pen2Graph" class="publication_link"><i class="fab fa-github"></i> GitHub Page</a>
-                            <a href="https://classes.cornell.edu/browse/roster/FA24/class/CS/6172"
-                                class="publication_link"><i class="fas fa-graduation-cap"></i> Class Page</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <video width="100%" controls autoplay muted loop style="object-fit: cover;">
-                                <source src="video/path_tracing.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a>Path Tracing in OCaml</a>
-                        </div>
-                        <div class="description">
-                            Implementation of path tracer in OCaml. Includes volumetric elements, refraction, BVH, lights, etc.
-                        </div>
-                        <div class="link">
-                            <a href="" class="publication_link"><i class="fab fa-github"></i> GitHub (Coming Soon)</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MelodyMesh -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <img src="image/melodyMesh.png" alt="MelodyMesh">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a>MelodyMesh</a>
-                        </div>
-                        <div class="description">
-                            3D music visualizer that deforms meshes based on audio frequencies. CS 6682 Final project.
-                        </div>
-                        <div class="link">
-                            <a href="https://github.com/zzigak/MelodyMesh" class="publication_link"><i class="fab fa-github"></i> GitHub</a>
-                            <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o" class="publication_link"><i class="fab fa-youtube"></i> Video</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-            <!-- Gaussian Splatting Converter
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col-xs-12 col-md-auto col-wrapper">
-                        <div class="figure">
-                            <img src="image/npz_to_ply.png" alt="Gaussian Splatting Converter">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md col-wrapper">
-                        <div class="title">
-                            <a>Gaussian Splatting Format Converter</a>
-                        </div>
-                        <div class="description">
-                            Conversion script for .ply based viewers from Inria's 3DGS implementation params.npz format.
-                        </div>
-                        <div class="link">
-                            <a href="https://github.com/zzigak/npz2ply" class="publication_link">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-
-
-
-        <hr>
-
-        <!-- Experience -->
-        <div class="sec-wrapper exp-wrapper" id="experience">
-            <div class="row section-head">
-                <div class="col col-wrapper">
-                    <h3 class="section-title">Experience</h3>
-                </div>
-            </div>
-
-            <!-- OpenAI -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col col-wrapper title">
-                        <a href="https://www.cs.cornell.edu/~ellisk/">Recursion and Learning Lab</a>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-md-9 col-wrapper info">
-                        Undergraduate Researcher
-                    </div>
-                    <div class="col-md-3 col-wrapper time text-md-right">
-                        Mar. 2025 – Present
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col col-wrapper location">
-                        Cornell University
-                    </div>
-                </div>
-            </div>
-            <br>
-
-            <!-- MIT CSAIL -->
-            <div class="section-item">
-                <div class="row align-items-center">
-                    <div class="col col-wrapper title">
-                        <a href="https://www.cs.cornell.edu/abe/group/members">Graphics & Vision Lab</a>
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col-md-9 col-wrapper info">
-                        Undergraduate Researcher </a>
-                    </div>
-                    <div class="col-md-3 col-wrapper time text-md-right">
-                        May 2023 - Mar 2023
-                    </div>
-                </div>
-                <div class="row align-items-center">
-                    <div class="col col-wrapper location">
-                        Cornell University </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-
-
-
-
-        <!--
-        <div class="row pt-2">
-            <div class="col-md-12">
-                <h3>Service</h3>
-                <div>
-                    <p>
-                        <b>Program Committee</b>:
-                        Conference 1, Conference 2
-                        <br>
-                        <b>Journal paper reviewer</b>:
-                        Journal 1, Journal 2
-                        <br>
-                        <b>Conference paper reviewer</b>:
-                        Conference 1, Conference 2
-                        <br>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <hr> -->
-
-        <!-- Personal -->
-        <div class="row pt-2" id="personal">
-            <div class="col-md-12">
-                <h3>Personal</h3>
-                <div>
-                    <p>
-                        In my free time I enjoy cooking, climbing, and playing the guitar.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-
-        <!-- Friends' Personal Websites -->
-        <div class="row pt-2" id="friends">
-            <div class="col-md-12">
-                <div>
-                    <p>Personal websites of some friends/acquaintances you might find interesting:</p>
-                    <p>
-                        <a href="https://echen01.github.io/" target="_blank" class="black">echen01.github.io</a> |
-                        <a href="https://jasonklein.dev" target="_blank" class="black">jasonklein.dev</a> |
-                        <a href="https://www.trannhan.com/" target="_blank" class="black">trannhan.com</a> |
-                        <a href="https://jren03.github.io/" target="_blank" class="black">jren03.github.io</a> |
-                        <a href="https://shamus.li/" target="_blank" class="black">shamus.li</a> |
-                        <a href="https://atikshb.github.io/" target="_blank" class="black">atikshb.github.io</a> |
-                        <a href="https://jeremykubenjet.com" target="_blank" class="black">jeremykubenjet.com</a> |
-                        <a href="https://www.jonochen.net/" target="_blank" class="black">www.jonochen.net</a> |
-                        <a href="https://kabirsamsi.com/" target="_blank" class="black">kabirsamsi.com</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <br>
