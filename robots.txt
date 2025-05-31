@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://zzigak.github.io/sitemap.xml
+
+# Disallow crawling of any temporary or development files
+Disallow: /.*
+Disallow: /_*
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.pdf
+Allow: /*.mp4
+Allow: /*.mov 
