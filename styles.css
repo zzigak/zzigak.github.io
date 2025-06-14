@@ -1,484 +1,252 @@
+/* Color Palettes Reference */
 :root {
+    /* Nord Light Palette */
+    --nord0: #2E3440;  /* Darkest Gray (Headings) */
+    --nord1: #3B4252;  /* Dark Gray */
+    --nord3: #4C566A;  /* Gray (Muted Text) */
+    --nord4: #D8DEE9;  /* Light Gray (Borders) */
+    --nord5: #E5E9F0;  /* Lighter Gray (Alt BG) */
+    --nord6: #ECEFF4;  /* Lightest Gray (Main BG) */
+    --nord9: #81A1C8;  /* Blue (Link Hover) */
+    --nord10: #5E81AC; /* Darker Blue (Links) */
+    --nord12: #D08770; /* Orange */
+    --nord13: #EBCB8B; /* Yellow */
+    --nord14: #A3BE8C; /* Green */ /* Added Nord Green */
+    --nord15: #b48ead; /* Purple */
 
-    --very-light-gray: #f1f1f1;
-    --light-gray: #c2c0bf;
-    --dark-gray: #8a8b8c;
-    --very-dark-gray: #2d2d2d;
-
+    /* Gruvbox Dark Palette */
+    --gruv-bg0: #282828; --gruv-bg1: #3c3836; --gruv-bg3: #665c54; --gruv-bg4: #7c6f64;
+    --gruv-fg0: #fbf1c7; --gruv-fg1: #ebdbb2; --gruv-fg2: #d5c4a1; --gruv-fg3: #bdae93; --gruv-fg4: #a89984;
+    --gruv-red-bright: #fb4934; --gruv-yellow-bright: #fabd2f; --gruv-blue-bright: #83a598; --gruv-blue-neutral: #458588;
+    --gruv-aqua-bright: #8ec07c; --gruv-aqua-neutral: #689d6a; --gruv-orange-bright: #fe8019;
+    --gruv-green-bright: #b8bb26; /* Added Gruvbox Green */
 }
 
+/* 
+=====================================================
+    DEFAULT LIGHT THEME (NORD) + FONT STYLES
+=====================================================
+*/
 
+/* Base Styles */
 body {
-    color: black;
+    font-family: 'Noto Serif', Georgia, serif; /* NEW: Noto Serif for body */
     font-size: 16px;
-    line-height: 24px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    font-weight: 400;
+    background-color: var(--nord6);
+    color: var(--nord1);
 }
+.container { max-width: 1000px; margin: 0 auto; }
+hr { border-top: 1px solid var(--nord4); }
 
-/* Center the content and set max-width */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Make headers thicker and smaller */
-h1 {
-    font-size: 2.5rem;
-    /* 40px */
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans', sans-serif; /* NEW: Noto Sans for headers */
     font-weight: 600;
+    color: var(--nord0);
 }
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; color: var(--nord10)}
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+strong { font-weight: 700; } /* Bolder than header */
 
-h2 {
-    font-size: 2rem;
-    /* 32px */
-    font-weight: 600;
-}
-
-h3 {
-    font-size: 1.5rem;
-    /* 28px */
-    font-weight: 600;
-}
-
-h4 {
-    font-size: 1.5rem;
-    /* 24px */
-    font-weight: 600;
-}
-
-h5 {
-    font-size: 1.25rem;
-    /* 20px */
-    font-weight: 600;
-}
-
-h6 {
-    font-size: 1rem;
-    /* 16px */
-    font-weight: 600;
-}
-
+/* Links */
 a {
+    color: var(--nord10);
     text-decoration: underline;
-    color: #007BFF;
 }
-
-/* Hover effect for default links */
 a:hover {
-    color: #0056b3;
-    /* Darker shade of blue */
-    text-decoration: underline;
+    color: var(--nord9);
 }
+a.black, a.black_underline { color: var(--nord10); }
+a.black:hover, a.black_underline:hover { color: var(--nord9); }
+a.publication_link {
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--nord10);
+}
+a.publication_link:hover { color: var(--nord9); }
 
-a.black {
-    color: black;
+/* Navbar */
+.custom-navbar {
+    padding-top: 0.7rem; padding-bottom: 0.7rem;
+    background-color: var(--nord6);
+    border-bottom: 1px solid var(--nord4);
+    font-family: 'Noto Sans', sans-serif;
+}
+.custom-navbar .navbar-brand, .custom-navbar .navbar-nav .nav-link {
+    padding-top: 0.2rem; padding-bottom: 0.2rem;
+    text-decoration: none; color: var(--nord3);
+}
+.custom-navbar .navbar-nav .nav-link .fa-fw { margin-right: 0.4em; }
+.custom-navbar .navbar-brand:hover, .custom-navbar .navbar-nav .nav-link:hover { color: var(--nord10); }
+
+/* Publications & Projects Section */
+.pub-wrapper .section-item { margin-top: 10px; padding: 5px 0; }
+.pub-wrapper .title a {
+    font-weight: bold; text-decoration: none; font-size: 1.1em;
+    color: var(--nord0);
+}
+.pub-wrapper .title a:hover { color: var(--nord10); }
+.pub-wrapper .description { font-size: 0.95em; color: var(--nord3); }
+.pub-wrapper .authors { 
+    font-size: 0.95em; 
+    margin: 0.3em 0; 
+    color: var(--nord3); 
+    font-family: 'Noto Sans', sans-serif; 
     font-weight: 400;
 }
-
-/* Hover effect for black links */
-a.black:hover {
-    color: #333;
-    /* Slightly lighter black */
-    text-decoration: underline;
-    font-weight: 600;
+.pub-wrapper .authors a { 
+    text-decoration: none; 
+    color: var(--nord3);
 }
-
-a.black_underline {
-    color: black;
-    text-decoration-line: underline;
+.pub-wrapper .authors a:hover { color: var(--nord10); }
+.pub-wrapper .figure img, .pub-wrapper .figure video {
+    max-width: 240px; width: auto; display: block; border-radius: 4px;
+    object-fit: cover; border: 1px solid var(--nord4);
 }
-
-a.black_underline:hover {
-    color: #333;
-    text-decoration-line: underline;
-    font-weight: 600;
+.pub-wrapper .link { margin-top: 0.5em; font-family: 'Noto Sans', sans-serif; }
+.pub-wrapper .link a, .pub-wrapper .link .venue a {
+    display: inline-block; padding: 0.2em 0.7em; margin: 0.2em 0.4em 0.2em 0;
+    border-radius: 4px; font-size: 0.85em; line-height: 1.4; text-decoration: none;
+    transition: all 0.2s ease; background-color: var(--nord5);
+    border: 1px solid var(--nord4); color: var(--nord10);
 }
-
-a.publication_link {
-    /* color: #007BFF; */
-    color: #505050;
-    font-weight: bold;
-    text-decoration: none;
+.pub-wrapper .link a:hover, .pub-wrapper .link .venue a:hover {
+    background-color: var(--nord4); color: var(--nord9); transform: translateY(-1px);
 }
-
-a.publication_link:hover {
-    color: #333;
-    text-decoration: underline;
-}
-
-.publication-entry p {
-    margin-bottom: 0.8rem;
-    /* Adjust this value to control spacing */
-}
-
-p.bold {
-    font-weight: bold;
-}
-
-p.bold_and_large {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-p.bold_and_italic {
-    font-weight: bold;
-    font-style: italic;
-}
-
-a.footer {
-    color: black;
-    font-style: italic;
-}
-
-.author-name {
-    /* Make your name bold */
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-.other-author {
-    font-weight: normal;
-    /* Make other authors' names normal weight */
-    color: black;
-    /* Optional: Add a color to make it stand out */
-    text-decoration: none;
-}
-
-.journal-name {
-    margin-top: 5px;
-    /* Add some space above the journal name */
-    font-style: italic;
-    /* Italicize the journal name */
-    display: block;
-    /* Ensure it appears on a new line */
-}
-
-
-
-/*------------------
- * Navbar Styles
- *------------------*/
-
-/* --- Base Navbar & Size Adjustments --- */
-.custom-navbar {
-    background-color: #222;
-    /* Dark background */
-    border-color: #080808;
-    /* Border color (often subtle/unused unless border is added) */
-    padding-top: 0.7rem;
-    /* Overall vertical padding */
-    padding-bottom: 0.7rem;
-}
-
-.custom-navbar .navbar-brand,
-.custom-navbar .navbar-nav .nav-link {
-    padding-top: 0.2rem;
-    /* Vertical padding for brand & links */
-    padding-bottom: 0.2rem;
-    /* Optional: Slightly smaller font */
-    /* font-size: 0.9rem; */
-}
-
-/* --- Link & Brand Colors & Styling --- */
-
-/* Default color for navigation links */
-.custom-navbar .navbar-nav .nav-link {
-    color: #9d9d9d;
-    justify-content: center;
-    /* Greyish text color */
-    text-decoration: none;
-    /* Remove underline */
-}
-
-/* Default color for brand */
-.custom-navbar .navbar-brand {
-    color: #9d9d9d;
-    justify-content: center;
-    /* Greyish text color */
-    text-decoration: none;
-    /* Remove underline */
-}
-
-/* Hover/Focus color for links and brand */
-.custom-navbar .navbar-nav .nav-link:hover,
-.custom-navbar .navbar-nav .nav-link:focus,
-.custom-navbar .navbar-brand:hover,
-.custom-navbar .navbar-brand:focus {
-    color: #ffffff;
-    justify-content: center;
-    /* Brighter white on hover/focus */
-    text-decoration: none;
-    /* Ensure no underline on hover/focus */
-}
-
-/* --- Icon Styling --- */
-.custom-navbar .navbar-nav .nav-link .fa-fw {
-    margin-right: 0.4em;
-    justify-content: center;
-    /* Add space between icon and text */
-    /* Icon color will inherit from the parent nav-link */
-}
-
-
-/* --- Toggler Styling (for mobile view) --- */
-.navbar-dark .navbar-toggler {
-    border-color: rgba(187, 194, 207, 0.5);
-    /* Your chosen light grey border */
-}
-
-/* Ensure the toggler icon itself is visible (Bootstrap default for navbar-dark is usually fine) */
-.navbar-dark .navbar-toggler-icon {
-    /* Default white SVG icon from Bootstrap navbar-dark should work. */
-    /* If you need to force a specific color (e.g., #9d9d9d), uncomment and modify below */
-    /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(157, 157, 157, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); */
-}
-
-
-/* --- Dropdown Styling (if used) --- */
-.navbar-dark .navbar-nav .dropdown-menu {
-    background-color: #222;
-    justify-content: center;
-    /* Match navbar background */
-    border-color: rgba(187, 194, 207, 0.2);
-    /* Your chosen border color */
-}
-
-.navbar-dark .navbar-nav .dropdown-item {
-    color: #bbc2cf;
-    justify-content: center;
-    /* Text color for dropdown items */
-    text-decoration: none;
-    /* Remove underline */
-}
-
-.navbar-dark .navbar-nav .dropdown-item:hover,
-.navbar-dark .navbar-nav .dropdown-item:focus {
-    color: #ffffff;
-    justify-content: center;
-    /* Text color on hover/focus */
-    background-color: rgba(187, 194, 207, 0.1);
-    /* Subtle background on hover/focus */
-}
-
-
-.highlight {
-    color: #ffcc00;
-    font-weight: bold;
-}
-
-/*------------------
- * Publications
- * (Light Mode Only)
- *------------------*/
-.pub-wrapper .section-item {
-    margin-top: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-/* Base link styling in publications section */
-.pub-wrapper a {
-    color: var(--text);
-    /* Assumes --text is defined for light mode (e.g., dark grey/black) */
-    text-decoration: none;
-    transition: color 0.2s ease;
-    /* Smooth color transition */
-}
-
-/* Publication title */
-.pub-wrapper .title a {
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.25em;
-    /* Increased font size */
-    /* color: inherit; */
-    /* Ensure color is inherited or set explicitly if needed */
-}
-
-/* Styling for the venue container */
-.pub-wrapper .link .venue {
-    /* Styles the container span */
-    font-weight: bold;
-}
-
-/* Keep venue link looking like text (overrides button style below) */
-/* If you WANT the venue to be a button too, comment out or remove this block */
+.pub-wrapper .link .venue { font-weight: bold; color: var(--nord10); }
 .pub-wrapper .link .venue a {
-    display: inline;
-    padding: 0;
-    margin: 0;
-    border: none;
-    font-size: 1em;
-    /* Reset font size */
-    line-height: inherit;
-    background-color: transparent;
-    font-weight: bold;
-    /* Ensure it stays bold */
-    /* color: var(--text); */
-    /* Explicitly set color if needed */
+    display: inline-block; padding: 0.2em 0.7em; margin: 0.2em 0.4em 0.2em 0;
+    border-radius: 4px; font-size: 0.85em; line-height: 1.4; text-decoration: none;
+    transition: all 0.2s ease; background-color: var(--nord5);
+    border: 1px solid var(--nord4); color: var(--nord15);
+    background-color: rgba(180, 142, 173, 0.15); /* Slightly stronger purple tint */
+}
+.pub-wrapper .link .venue a:hover {
+    background-color: rgba(180, 142, 173, 0.25); /* Slightly stronger purple tint on hover */
+    color: var(--nord15); transform: translateY(-1px);
 }
 
-.pub-wrapper .link .venue a:hover,
-.pub-wrapper .link .venue a:focus {
-    background-color: transparent;
-    /* No background hover */
-    /* color: var(--link-hover-color); */
-    /* Optional: Define hover color */
-    /* text-decoration: underline; */
-    /* Optional: Add underline on hover */
+/* Profile & Name */
+.profile-image { border: 2px solid var(--nord4); border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 1.5rem; }
+.main-name { font-family: 'Noto Serif', Georgia, serif; font-weight: 550; font-size: 2.2rem; margin-bottom: 0.3rem; color: var(--nord10); }
+.sidebar-name { color: var(--nord10); font-family: 'Noto Serif', Georgia, serif; font-weight: 550; font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center; }
+
+/* Theme Switch Button */
+.theme-switch {
+    position: fixed; top: 1.5rem; right: 1.5rem; z-index: 1100;
+    width: 2.5rem; height: 2.5rem; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; transition: all 0.2s ease;
+    border-radius: 50%; background: var(--nord5); border: 1px solid var(--nord4);
 }
+.theme-switch:hover { transform: translateY(-1px); }
+.theme-switch i { font-size: 1.2rem; color: var(--nord3); }
+.theme-switch:hover i { color: var(--nord10); }
 
-
-/* Styling for authors */
-.pub-wrapper .authors {
-    color: var(--dark-gray);
-    /* Assumes --dark-gray is suitable for light mode */
-    font-size: 0.95em;
-    /* Slightly smaller */
-    margin: 0.3em 0;
-}
-
-.pub-wrapper .authors a {
-    color: var(--dark-gray);
-    /* Match author text color */
-    text-decoration: none;
-}
-
-/* Style for your name - NOTE: use class="me" in HTML */
-.pub-wrapper .authors a.me {
-    font-weight: bold;
-    text-decoration: none;
-    /* color: inherit; or specific color */
-}
-
-/* Image styling */
-.pub-wrapper .figure img {
-    max-width: 240px;
-    width: 100%;
-    display: block;
-    /* Ensures shadow and radius apply correctly */
-    border-radius: 8px;
-    /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    /* Drop shadow */
-    transition: box-shadow 0.3s ease;
-    /* Smooth transition for hover */
-}
-
-/* Optional: Enhance shadow on image hover */
-.pub-wrapper .figure img:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-
-/* Responsive adjustment for figure margin */
-@media (max-width: 767.98px) {
-    .pub-wrapper .figure {
-        margin-bottom: 15px;
-        /* Increased margin slightly */
-        text-align: center;
-        /* Center image on small screens */
+/* Desktop Sidebar & Layout */
+@media (min-width: 1024px) {
+    .main-layout {
+        max-width: 1400px; margin: 0 auto; padding-top: 80px;
+        display: flex; gap: 2rem; padding-left: 2rem; padding-right: 2rem;
     }
+    .left-sidebar {
+        position: sticky; top: 100px; width: 280px; min-width: 280px;
+        height: fit-content; max-height: calc(100vh - 120px);
+        padding: 2rem 1.5rem; border-right: 1px solid var(--nord4);
+        background: var(--nord6); display: flex; flex-direction: column;
+        align-items: center; text-align: center; overflow-y: auto;
+    }
+    .main-content { flex: 1; padding: 2rem 0; min-height: 100vh; }
+    .sidebar-image { width: 100%; max-width: 160px; border-radius: 5px; margin-bottom: 1rem; }
+    .sidebar-info { margin-bottom: 1.5rem; color: var(--nord1); text-align: center; font-style: italic; font-family: 'Noto Serif', serif; }
+    .sidebar-links { margin-top: 1rem; text-align: left; font-family: 'Noto Sans', sans-serif;}
+    .sidebar-links a {
+        color: var(--nord10); font-weight: 400; display: block;
+        margin-bottom: 0.5rem; text-decoration: none; text-align: left;
+    }
+    .sidebar-links a i { margin-right: 0.5rem; width: 1rem; }
+    .sidebar-links a:hover { color: var(--nord9); text-decoration: none; }
+    .mobile-header { display: none; }
+}
 
-    .pub-wrapper .figure img {
-        margin-left: auto;
-        margin-right: auto;
+/* Mobile Layout */
+@media (max-width: 1023.98px) {
+    .left-sidebar { display: none; }
+    .main-content { margin-left: 0; max-width: 100%; }
+    .mobile-header { display: block; }
+    .mobile-spacing { margin-bottom: 1rem; }
+    .pub-wrapper .figure { margin-bottom: 15px; text-align: center; }
+    .pub-wrapper .figure img, .pub-wrapper .figure video {
+        max-width: 200px !important; height: auto; margin-left: auto;
+        margin-right: auto; display: block;
     }
 }
 
-
-/* Minimalistic buttons for links */
-.pub-wrapper .link {
-    margin-top: 0.5em;
-    /* Add some space above the buttons */
-}
-
-.pub-wrapper .link a {
-    /* Styles applied here affect ALL links in .link unless overridden */
-    /* (like the .venue a override block above) */
-    display: inline-block;
-    padding: 0.2em 0.7em;
-    /* Padding inside button */
-    margin: 0.2em 0.4em 0.2em 0;
-    /* Space between buttons */
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    /* Subtle dark border for light mode */
-    border-radius: 4px;
-    /* Slightly rounded button corners */
-    font-size: 0.85em;
-    /* Smaller text for buttons */
-    line-height: 1.4;
-    /* Adjust line height if padding causes issues */
-    background-color: transparent;
-    text-decoration: none;
-    /* Ensure no underline */
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-    /* color: var(--text); */
-    /* Ensure button text color is correct */
-}
-
-/* Hover/focus state for buttons */
-.pub-wrapper .link a:hover,
-.pub-wrapper .link a:focus {
-    background-color: rgba(0, 0, 0, 0.05);
-    /* Subtle dark background for light mode hover */
-    border-color: rgba(0, 0, 0, 0.3);
-    /* Darker border on hover */
-    /* color: var(--link-hover-color); */
-    /* Define hover text color if needed */
-    text-decoration: none;
-}
-
-
-/* Modify the existing image styling rule to include videos */
-.pub-wrapper .figure img,
-.pub-wrapper .figure video {
-    max-width: 240px;
-    width: 100%;
-    display: block;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease;
-    object-fit: cover;
-    /* Add this to maintain aspect ratio */
-}
-
-/* Add video-specific styling if needed */
-.pub-wrapper .figure video {
-    background-color: #000;
-    /* Black background for video elements */
-}
-
-/* Optional: Enhance shadow on hover for both */
-.pub-wrapper .figure img:hover,
-.pub-wrapper .figure video:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Responsive adjustments */
-@media (max-width: 767.98px) {
-    .pub-wrapper .figure {
-        margin-bottom: 15px;
-        text-align: center;
-    }
-
-    .pub-wrapper .figure img,
-    .pub-wrapper .figure video {
-        max-width: 100%;
-        /* Allow full width on mobile */
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-
-/* Row styling (Bootstrap compatible) */
-/* No need to redeclare .row styles if using standard Bootstrap */
-/* If custom row behavior is needed, style carefully */
-/*
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 1rem;
-}
+/* 
+=====================================================
+    DARK MODE OVERRIDES (GRUVBOX)
+=====================================================
 */
+body.dark-mode {
+    background-color: var(--gruv-bg0);
+    color: var(--gruv-fg1);
+}
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 { color: var(--gruv-fg0); }
+body.dark-mode h3 { color: var(--gruv-yellow-bright); }
+body.dark-mode a { color: var(--gruv-aqua-bright); }
+body.dark-mode a:hover { color: var(--gruv-aqua-neutral); }
+body.dark-mode a.black, body.dark-mode a.black_underline { color: var(--gruv-aqua-bright); }
+body.dark-mode a.black:hover, body.dark-mode a.black_underline:hover { color: var(--gruv-aqua-neutral); }
+body.dark-mode a.publication_link { color: var(--gruv-blue-bright); }
+body.dark-mode a.publication_link:hover { color: var(--gruv-blue-neutral); }
+body.dark-mode hr { border-top: 1px solid var(--gruv-bg4); }
+body.dark-mode .profile-image { border: 2px solid var(--gruv-bg3); }
+body.dark-mode .custom-navbar { background-color: var(--gruv-bg1); border-bottom: 1px solid var(--gruv-bg3); }
+body.dark-mode .custom-navbar .navbar-brand, body.dark-mode .custom-navbar .navbar-nav .nav-link { color: var(--gruv-fg2); }
+body.dark-mode .custom-navbar .navbar-brand:hover, body.dark-mode .custom-navbar .navbar-nav .nav-link:hover { color: var(--gruv-fg0); }
+body.dark-mode .pub-wrapper .title a { color: var(--gruv-fg1); }
+body.dark-mode .pub-wrapper .title a:hover { color: var(--gruv-aqua-bright); }
+body.dark-mode .pub-wrapper .description { color: var(--gruv-fg4); }
+body.dark-mode .pub-wrapper .authors { 
+    color: var(--gruv-fg3); /* Lighter color in dark mode */
+}
+body.dark-mode .pub-wrapper .authors a { 
+    color: var(--gruv-fg3); /* Lighter color in dark mode */
+}
+body.dark-mode .pub-wrapper .authors a:hover { 
+    color: var(--gruv-fg1); 
+}
+body.dark-mode .pub-wrapper .figure img, body.dark-mode .pub-wrapper .figure video { border: 1px solid var(--gruv-bg3); box-shadow: none; }
+body.dark-mode .pub-wrapper .figure video { background-color: var(--gruv-bg0); }
+body.dark-mode .pub-wrapper .link a, body.dark-mode .pub-wrapper .link .venue a {
+    background-color: var(--gruv-bg1); border: 1px solid var(--gruv-bg3); color: var(--gruv-fg2);
+}
+body.dark-mode .pub-wrapper .link a:hover, body.dark-mode .pub-wrapper .link .venue a:hover {
+    background-color: var(--gruv-bg3); border-color: var(--gruv-bg4); color: var(--gruv-aqua-bright);
+}
+body.dark-mode .pub-wrapper .link .venue { color: var(--gruv-yellow-bright); }
+body.dark-mode .main-name { color: var(--gruv-yellow-bright); }
+body.dark-mode .theme-switch { background: var(--gruv-bg1); border: 1px solid var(--gruv-bg3); }
+body.dark-mode .theme-switch i { color: var(--gruv-fg2); }
+body.dark-mode .theme-switch:hover i { color: var(--gruv-fg0); }
+body.dark-mode .left-sidebar { background: var(--gruv-bg0); border-right: 1px solid var(--gruv-bg3); }
+body.dark-mode .sidebar-info { color: var(--gruv-fg1); }
+body.dark-mode .sidebar-links a { color: var(--gruv-aqua-bright); }
+body.dark-mode .sidebar-links a:hover { color: var(--gruv-aqua-neutral); }
+body.dark-mode [style*="--gruv-yellow-bright"] { color: var(--gruv-yellow-bright) !important; }
+body.dark-mode [style*="--gruv-orange-bright"] { color: var(--gruv-orange-bright) !important; }
+body.dark-mode .pub-wrapper .link .venue a {
+    background-color: rgba(180, 142, 173, 0.2); /* Slightly stronger purple tint for dark mode */
+    border: 1px solid var(--gruv-bg3);
+    color: var(--nord15);
+}
+body.dark-mode .pub-wrapper .link .venue a:hover {
+    background-color: rgba(180, 142, 173, 0.3); /* Slightly stronger purple tint on hover in dark mode */
+    border-color: var(--gruv-bg4);
+    color: var(--nord15);
+}

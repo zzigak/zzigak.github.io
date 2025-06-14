@@ -42,13 +42,11 @@ body.light-mode a:hover {
     text-decoration: none;
 }
 
-body.light-mode a.black,
-body.light-mode a.black_underline {
+body.light-mode a.black {
     color: var(--link-color);
 }
 
-body.light-mode a.black:hover,
-body.light-mode a.black_underline:hover {
+body.light-mode a.black:hover {
     color: var(--link-hover-color);
 }
 

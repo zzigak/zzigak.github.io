@@ -60,180 +60,37 @@
     }
     </script>
     
+    <!-- Google Fonts: Noto Sans & Noto Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="gruvbox.css">
-    <link rel="stylesheet" href="light-mode.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="icon" type="image/png" href="image/brain.png">
     <style>
-        /* Theme switch button styles */
-        .theme-switch {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 1100;
-            width: 2.5rem;
-            height: 2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 50%;
-            background: var(--gruv-bg1);
-            border: 1px solid var(--gruv-bg3);
-        }
-
-        .theme-switch:hover {
-            transform: translateY(-1px);
-        }
-
-        .theme-switch i {
-            font-size: 1.2rem;
-            color: var(--gruv-fg2);
-        }
-
-        .theme-switch:hover i {
-            color: var(--gruv-fg0);
-        }
-
-        /* Ensure strong tags are bold */
-        strong {
-            font-weight: 600;
-        }
-
-        /* Desktop Layout */
-        @media (min-width: 1024px) {
-            .main-layout {
-                max-width: 1400px;
-                margin: 0 auto;
-                padding-top: 80px; /* Account for navbar */
-                display: flex;
-                gap: 2rem;
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-            
-            .left-sidebar {
-                position: sticky;
-                top: 100px; /* Stick to top with some offset for navbar */
-                width: 280px;
-                min-width: 280px;
-                height: fit-content;
-                max-height: calc(100vh - 120px);
-                padding: 2rem 1.5rem;
-                border-right: 1px solid var(--gruv-bg3);
-                background: var(--gruv-bg0);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                overflow-y: auto;
-            }
-            
-            .main-content {
-                flex: 1;
-                padding: 2rem 0;
-                min-height: 100vh;
-            }
-            
-            .sidebar-image {
-                width: 100%;
-                max-width: 160px;
-                border-radius: 5px;
-                margin-bottom: 1rem;
-            }
-            
-            .sidebar-name {
-                color: var(--gruv-yellow-bright);
-                font-weight: 500;
-                font-size: 1.8rem;
-                margin-bottom: 0.5rem;
-                text-align: center;
-            }
-            
-            .sidebar-info {
-                margin-bottom: 1.5rem;
-                color: var(--gruv-fg);
-                text-align: center;
-                font-style: italic;
-            }
-            
-            .sidebar-links {
-                margin-top: 1rem;
-                text-align: left;
-            }
-            
-            .sidebar-links a {
-                color: var(--gruv-aqua-bright);
-                font-weight: 400;
-                display: block;
-                margin-bottom: 0.5rem;
-                text-decoration: none;
-                text-align: left;
-            }
-            
-            .sidebar-links a i {
-                margin-right: 0.5rem;
-                width: 1rem;
-            }
-            
-            .sidebar-links a:hover {
-                color: var(--gruv-aqua-neutral);
-                text-decoration: none;
-            }
-        }
-
-        /* Mobile Layout */
-        @media (max-width: 1023.98px) {
-            .left-sidebar {
-                display: none;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                max-width: 100%;
-            }
-            
-            .mobile-header {
-                display: block;
-            }
-            
-            /* Fix video stretching on mobile - maintain aspect ratio and original sizing */
-            .pub-wrapper .figure img,
-            .pub-wrapper .figure video {
-                max-width: 200px !important;
-                height: auto;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .mobile-header {
-                display: none;
-            }
-        }
+        /* All styles from here have been moved to styles.css */
     </style>
 </head>
 
 <body>
     <!-- Theme switch button -->
     <div class="theme-switch" onclick="toggleTheme()">
-        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
     </div>
 
-    <!-- <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light"> -->
+    <!-- Navbar -->
+    <!--
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-navbar">
         <div class="container d-flex justify-content-start align-items-center">
             <div class="d-flex align-items-center">
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                
                     <ul class="navbar-nav d-flex flex-row gap-3">
                         <li class="nav-item">
                             <a class="nav-link" href="#bio"><i class="fas fa-user fa-fw"></i> About</a>
@@ -257,6 +114,7 @@
             </div>
         </div>
     </nav>
+    -->
 
     <div class="main-layout">
         <!-- Fixed Left Sidebar for Desktop -->
@@ -579,28 +437,6 @@
                     </div>
                 </div>
 
-                <!-- Gaussian Splatting Converter
-                <div class="section-item">
-                    <div class="row align-items-center">
-                        <div class="col-xs-12 col-md-auto col-wrapper">
-                            <div class="figure">
-                                <img src="image/npz_to_ply.png" alt="Gaussian Splatting Converter">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md col-wrapper">
-                            <div class="title">
-                                <a>Gaussian Splatting Format Converter</a>
-                            </div>
-                            <div class="description">
-                                Conversion script for .ply based viewers from Inria's 3DGS implementation params.npz format.
-                            </div>
-                            <div class="link">
-                                <a href="https://github.com/zzigak/npz2ply" class="publication_link">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
                 <hr>
 
                 <!-- Experience -->
@@ -669,7 +505,7 @@
                     <div class="section-item" style="margin-top: 5px; padding-top: 2px; padding-bottom: 2px;">
                         <div class="row align-items-center">
                             <div class="col-md-7 col-wrapper">
-                                <strong>CS 4787:</strong> Large Scale Machine Learning | <span style="color: var(--gruv-yellow-bright); font-weight: 600;">Head TA</span>
+                                <strong>CS 4787:</strong> Large Scale Machine Learning | <span style="color: var(--nord12); font-weight: 600;">Head TA</span>
                             </div>
                             <div class="col-md-5 col-wrapper time text-md-right">
                                 Cornell University, Fall 2025
@@ -681,7 +517,7 @@
                     <div class="section-item" style="margin-top: 5px; padding-top: 2px; padding-bottom: 2px;">
                         <div class="row align-items-center">
                             <div class="col-md-7 col-wrapper">
-                                <strong>CS 4782:</strong> Introduction to Deep Learning | <span style="color: var(--gruv-yellow-bright); font-weight: 600;">Head TA</span>, Made autograder for 200+ students
+                                <strong>CS 4782:</strong> Introduction to Deep Learning | <span style="color: var(--nord12); font-weight: 600;">Head TA</span>, Made autograder for 200+ students
                             </div>
                             <div class="col-md-5 col-wrapper time text-md-right">
                                 Cornell University, Spring 2025
@@ -705,7 +541,7 @@
                     <div class="section-item" style="margin-top: 5px; padding-top: 2px; padding-bottom: 2px;">
                         <div class="row align-items-center">
                             <div class="col-md-7 col-wrapper">
-                                <strong>CS 4780:</strong> Introduction to Machine Learning | TA, <span style="color: var(--gruv-orange-bright); font-weight: 600;">TA Award</span>
+                                <strong>CS 4780:</strong> Introduction to Machine Learning | TA, <span style="color: var(--nord12); font-weight: 600;">TA Award</span>
                             </div>
                             <div class="col-md-5 col-wrapper time text-md-right">
                                 Cornell University, Spring 2024
@@ -771,35 +607,39 @@
         // Theme switching functionality
         function toggleTheme() {
             const body = document.body;
-            const themeSwitch = document.querySelector('.theme-switch i');
+            const themeSwitchIcon = document.querySelector('.theme-switch i');
             
-            if (body.classList.contains('light-mode')) {
-                // Switch to dark mode
-                body.classList.remove('light-mode');
-                themeSwitch.classList.remove('fa-moon');
-                themeSwitch.classList.add('fa-sun');
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                // Switched to dark mode
+                themeSwitchIcon.classList.remove('fa-moon');
+                themeSwitchIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'dark');
             } else {
-                // Switch to light mode
-                body.classList.add('light-mode');
-                themeSwitch.classList.remove('fa-sun');
-                themeSwitch.classList.add('fa-moon');
+                // Switched to light mode
+                themeSwitchIcon.classList.remove('fa-sun');
+                themeSwitchIcon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
             }
         }
 
-        // Check for saved theme preference and system preference
+        // Check for saved theme preference
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme');
-            const themeSwitch = document.querySelector('.theme-switch i');
+            const themeSwitchIcon = document.querySelector('.theme-switch i');
             
-            // Default to dark mode (Gruvbox) unless explicitly set to light
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-mode');
-                themeSwitch.classList.remove('fa-sun');
-                themeSwitch.classList.add('fa-moon');
+            // If saved theme is dark, apply it on load
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeSwitchIcon.classList.remove('fa-moon');
+                themeSwitchIcon.classList.add('fa-sun');
+            } else {
+                // Default to light mode
+                document.body.classList.remove('dark-mode');
+                themeSwitchIcon.classList.remove('fa-sun');
+                themeSwitchIcon.classList.add('fa-moon');
             }
-            // If no saved theme or savedTheme is 'dark', stay in dark mode (default)
         });
     </script>
 </body>
