@@ -629,7 +629,7 @@
             const savedTheme = localStorage.getItem('theme');
             const themeSwitchIcon = document.querySelector('.theme-switch i');
             
-            // If saved theme is dark, apply it on load
+            // Only apply dark mode if it was explicitly set by the user
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-mode');
                 themeSwitchIcon.classList.remove('fa-moon');
