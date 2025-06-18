@@ -76,6 +76,31 @@
     <link rel="icon" type="image/png" href="image/brain.png">
     <style>
         /* All styles from here have been moved to styles.css */
+        /* .sidebar-name, .main-name {
+            color: var(--nord2);
+        }
+         */
+        .sidebar-image {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .sidebar-image:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-image {
+            border-radius: 12px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .profile-image:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 
@@ -119,7 +144,7 @@
     <div class="main-layout">
         <!-- Fixed Left Sidebar for Desktop -->
         <div class="left-sidebar">
-            <img src="image/pfp1_out.png" alt="profile picture" class="sidebar-image">
+            <img src="image/headshot_square.png" alt="profile picture" class="sidebar-image">
             <h2 class="sidebar-name">Žiga Kovačič</h2>
             <div class="sidebar-info" style="white-space: nowrap;">[ZHEE-gah&nbsp;KOH-vah-cheech]</div>
             <div class="sidebar-links">
@@ -137,7 +162,7 @@
                 <div class="container pt-5 mt-5">
                     <div class="row align-items-center">
                         <div class="col-md-3">
-                            <img src="image/pfp1_out.png" alt="profile picture"
+                            <img src="image/headshot_square.png" alt="profile picture"
                                 style="width: 100%; max-width: 220px; border-radius: 5px; " class="profile-image mobile-spacing">
                         </div>
                         <div class="col-md-9">
@@ -220,8 +245,9 @@
                                 <div class="link">
                                     <span class="venue"><a href="">In submission</a></span>
                                     <a href="https://code-refactor.github.io/"><i class="fas fa-globe"></i> Project Page</a>
-                                    <a href="https://github.com/zzigak/Librarian"><i class="fab fa-github"></i> Code</a>
-                                    <a href="https://github.com/zzigak?tab=repositories"><i class="fas fa-code"></i> Scoring Library (Coming Soon)</a>
+                                    <a href="https://arxiv.org/abs/2506.11058"><i class="fas fa-file-alt"></i> arXiv</a>
+                                    <a href="https://github.com/code-refactor/Librarian"><i class="fab fa-github"></i> Method</a>
+                                    <a href="https://github.com/code-refactor/minicode"><i class="fas fa-code"></i> Benchmark</a>
                                 </div>
                             </div>
                         </div>
