@@ -148,8 +148,8 @@
             <h2 class="sidebar-name">Žiga Kovačič</h2>
             <div class="sidebar-info" style="white-space: nowrap;">[ZHEE-gah&nbsp;KOH-vah-cheech]</div>
             <div class="sidebar-links">
-                <a href="mailto: zk66@cornell.edu"><i class="fas fa-envelope"></i> Email</a>
-                <a href="#"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="#" onclick="decodeEmail('ems2NkBjb3JuZWxsLmVkdQ==', this)"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&authuser=1&gmla=AH8HC4xCUcHBMEcCA4TAkDPWOng5X4FONi4wXC8pdiCQEsPRr00Br9cVTMGOO6nCHVfJrqUduvdrLyFUxiyJCQ&user=EgGCu2wAAAAJ"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
                 <a href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
                 <a href="pdf/Resume.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</a>
             </div>
@@ -168,8 +168,8 @@
                         <div class="col-md-9">
                             <h2 class="main-name">Žiga Kovačič</h2>
                             <div style="font-style: italic; margin-bottom: 0.5rem; white-space: nowrap;">[ZHEE-gah&nbsp;KOH-vah-cheech]</div>
-                            <div><a href="mailto: zk66@cornell.edu" class="black"><i class="fas fa-envelope"></i> Email</a> |
-                                <a href="#" class="black"><i class="fas fa-graduation-cap"></i> Google Scholar</a> |
+                            <div><a href="#" onclick="decodeEmail('emswNkBjb3JuZWxsLmVkdQ==', this)" class="black"><i class="fas fa-envelope"></i> Email</a> |
+                                <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&authuser=1&gmla=AH8HC4xCUcHBMEcCA4TAkDPWOng5X4FONi4wXC8pdiCQEsPRr00Br9cVTMGOO6nCHVfJrqUduvdrLyFUxiyJCQ&user=EgGCu2wAAAAJ" class="black"><i class="fas fa-graduation-cap"></i> Google Scholar</a> |
                                 <a href="https://github.com/zzigak" class="black"><i class="fab fa-github"></i> GitHub</a> |
                                 <a href="pdf/Resume.pdf" target="_blank" class="black"><i class="fas fa-file-pdf"></i> Resume</a>
                             </div>
@@ -667,6 +667,20 @@
                 themeSwitchIcon.classList.add('fa-moon');
             }
         });
+
+        function decodeEmail(encodedEmail, linkElement) {
+            // Decode the base64 encoded email address
+            const decodedEmail = atob(encodedEmail);
+            
+            // Set the href to mailto link
+            linkElement.href = 'mailto:' + decodedEmail;
+            
+            // Update the text content to show the email
+            const icon = linkElement.querySelector('i');
+            linkElement.innerHTML = '';
+            linkElement.appendChild(icon);
+            linkElement.appendChild(document.createTextNode(' ' + decodedEmail));
+        }
     </script>
 </body>
 
