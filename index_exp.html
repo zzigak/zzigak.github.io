@@ -73,8 +73,49 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="shader.js"></script>
     <link rel="icon" type="image/png" href="image/brain.png">
     <style>
+        /* Shader Canvas Background */
+        #shader-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Make content backgrounds semi-transparent to show shader */
+        body {
+            background-color: transparent !important;
+        }
+        
+        .main-content {
+            background-color: transparent;
+            backdrop-filter: blur(2px);
+            border-radius: 15px;
+            margin: 20px;
+            padding: 30px !important;
+        }
+        
+        .left-sidebar {
+            background-color: transparent !important;
+            backdrop-filter: blur(2px);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        /* Dark mode adjustments */
+        body.dark-mode .main-content {
+            background-color: transparent;
+        }
+        
+        body.dark-mode .left-sidebar {
+            background-color: transparent !important;
+        }
+        
         /* All styles from here have been moved to styles.css */
         /* .sidebar-name, .main-name {
             color: var(--nord2);
@@ -105,6 +146,8 @@
 </head>
 
 <body>
+    <canvas id="shader-canvas"></canvas>
+    
     <!-- Theme switch button -->
     <div class="theme-switch" onclick="toggleTheme()">
         <i class="fas fa-moon"></i>
@@ -149,7 +192,6 @@
             <div class="sidebar-info" style="white-space: nowrap;">[ZHEE-gah&nbsp;KOH-vah-cheech]</div>
             <div class="sidebar-links">
                 <a href="#" onclick="decodeEmail('ems2NkBjb3JuZWxsLmVkdQ==', this)"><i class="fas fa-envelope"></i> Email</a>
-                <a href="https://x.com/zzigakovacic"><i class="fab fa-x-twitter"></i> Twitter</a>
                 <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&authuser=1&gmla=AH8HC4xCUcHBMEcCA4TAkDPWOng5X4FONi4wXC8pdiCQEsPRr00Br9cVTMGOO6nCHVfJrqUduvdrLyFUxiyJCQ&user=EgGCu2wAAAAJ"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
                 <a href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
                 <a href="pdf/Resume.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Resume</a>
@@ -170,7 +212,6 @@
                             <h2 class="main-name">Žiga Kovačič</h2>
                             <div style="font-style: italic; margin-bottom: 0.5rem; white-space: nowrap;">[ZHEE-gah&nbsp;KOH-vah-cheech]</div>
                             <div><a href="#" onclick="decodeEmail('emswNkBjb3JuZWxsLmVkdQ==', this)" class="black"><i class="fas fa-envelope"></i> Email</a> |
-                                <a href="https://x.com/zzigakovacic" class="black"><i class="fab fa-x-twitter"></i> Twitter</a> |
                                 <a href="https://scholar.google.com/citations?hl=en&view_op=list_works&authuser=1&gmla=AH8HC4xCUcHBMEcCA4TAkDPWOng5X4FONi4wXC8pdiCQEsPRr00Br9cVTMGOO6nCHVfJrqUduvdrLyFUxiyJCQ&user=EgGCu2wAAAAJ" class="black"><i class="fas fa-graduation-cap"></i> Google Scholar</a> |
                                 <a href="https://github.com/zzigak" class="black"><i class="fab fa-github"></i> GitHub</a> |
                                 <a href="pdf/Resume.pdf" target="_blank" class="black"><i class="fas fa-file-pdf"></i> Resume</a>
@@ -209,10 +250,6 @@
 
                             <p> I've recenly started writing summaries of my <a href="https://zzigak.github.io/book/index.html" class="black">readings on physical simulation.</a>
 
-                            </p>
-
-                            <p style="color: #b48ead; font-weight: 500;">
-                                I will be applying for PhD programs in Fall 2025!
                             </p>
                         </div>
                     </div>
@@ -692,4 +729,4 @@
     </script>
 </body>
 
-</html>
+</html> 
