@@ -1,0 +1,286 @@
+body {
+    background-color: #FFFFFF;
+    /* Body text is now a softer gray to increase contrast with titles */
+    color: #4e5051;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: auto;
+    padding: 100px;
+}
+
+.content {
+    flex: 3;
+}
+
+.entry {
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.entry-content {
+    padding-left: 170px;
+}
+
+.entry p {
+    line-height: 1.5em;
+}
+
+.paper-title {
+    /* color: #fff; */
+    font-weight: bold;
+    color: #0066cc;
+}
+
+.link {
+    /* Links now use a more vibrant, classic blue to stand out. */
+    color: #0066cc;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.highlighted_link {
+    /* Highlighted links are a stronger, darker shade of the link blue. */
+    color: #004c99;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.link:hover,
+.highlighted_link:hover {
+    text-decoration: underline;
+}
+
+.doi {
+    text-decoration: none;
+    color: inherit;
+}
+
+.doi:hover {
+    text-decoration: underline;
+}
+
+.bibToggle {
+    cursor: pointer;
+}
+
+.bibliography {
+    /* The BibTeX box now has a solid, very light gray background and a clearer border. */
+    word-wrap: break-word;
+    font-family: monospace;
+    color: #5a6268;
+    font-size: 9pt;
+    background: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    border-radius: 6pt;
+    line-height: 125%;
+    display: none;
+    margin-left: 40px;
+    padding: 8px 12px;
+    /* Added some internal padding */
+}
+
+.contact-info {
+    /* The main contact name is now pure black to match the titles. */
+    flex: 1;
+    align-self: flex-start;
+    text-align: left;
+    color: #000000;
+    margin-top: 15px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.contact-info p:first-child {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact-info p:nth-child(3) {
+    /* The secondary contact text uses the softer body text color. */
+    color: #5a6268;
+}
+
+.email-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+}
+
+#shader-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .content {
+        order: 2;
+        width: 100%;
+    }
+
+    .contact-info {
+        order: 1;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .container {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+
+    .content-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.error-code {
+    color: #cd5c5c;
+}
+
+.home-link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.home-link:hover {
+    text-decoration: underline;
+}
+
+.contact-info .link {
+    margin-left: 0;
+    margin-right: 20px;
+}
+
+.contact-info .link:last-child {
+    margin-right: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    margin: 32px 0 16px 0;
+}
+
+.section-title span {
+    font-size: 1em;
+    font-weight: bold;
+    /* all caps */
+    text-transform: uppercase;
+    color: #404040;
+    margin-right: 16px;
+    white-space: nowrap;
+}
+
+.section-line {
+    flex: 1;
+    height: 1px;
+    background: #404040;
+    opacity: 0.7;
+}
+
+/* Restore default underline for normal links in text */
+.content a:not(.link):not(.highlighted_link):not(.doi) {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.content a:not(.link):not(.highlighted_link):not(.doi):hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Remove underline for author links in publications section only */
+.section-title span:contains('Publications') ~ .entry a:not(.link):not(.highlighted_link):not(.doi) {
+    text-decoration: none;
+}
+.section-title span:contains('Publications') ~ .entry a:not(.link):not(.highlighted_link):not(.doi):hover {
+    text-decoration: underline;
+}
+
+.bibliography a {
+    text-decoration: none;
+}
+.bibliography a:hover {
+    text-decoration: underline;
+}
+
+.entry a.doi {
+    text-decoration: none;
+}
+.entry a.doi:hover {
+    text-decoration: underline;
+}
+
+.entry img {
+    border: 2px solid;
+    width: 150px;
+    height: 60px;
+    float: left;
+    object-fit: cover;
+    object-position: center;
+    background: #eee;
+    margin-right: 20px;
+    aspect-ratio: 15 / 6;
+    display: block;
+}
+
+.entry video {
+    border: 2px solid;
+    width: 150px;
+    height: 80px;
+    float: left;
+    object-fit: cover;
+    object-position: center;
+    background: #eee;
+    margin-right: 20px;
+    aspect-ratio: 15 / 6;
+    display: block;
+}
+
+.entry video::-webkit-media-controls {
+    display: none !important;
+}
+.entry video {
+    pointer-events: none;
+    user-select: none;
+}
+
+/* .entry, .entry-content, .entry p {
+    color: #8484a1;
+}
+ */
+
+.paper-meta {
+    color: #6c6c81;
+}
