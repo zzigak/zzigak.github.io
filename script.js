@@ -971,91 +971,201 @@ function initShaderBackground() {
 // }
 // `;
 
-// // The GLSL code for the "Glimmering Current" effect.
+// // The GLSL code for the "Glimmering Current" effect. (COMMENTED OUT)
+// const fragmentSrc = `
+// precision highp float;
+
+// uniform vec2 iResolution;
+// uniform float iTime;
+// uniform float uSeed;
+
+// // --- CONFIGURATION (Unchanged) ---
+// #define OCTAVES 10
+// const float SEED = 43758.5453;
+// const float SPEED = 0.15;
+// const float ZOOM = 1.2;
+// const float BUMP_STRENGTH = 30.0;
+
+// // --- COLOR PALETTE: COMPRESSED & LUMINOUS ---
+// const vec3 COLOR1 = vec3(0.88, 0.92, 0.98);
+// const vec3 COLOR2 = vec3(0.98, 0.99, 1.0);
+// const vec3 COLOR3 = vec3(1.0, 1.0, 1.0);
+
+// // --- FUNCTIONS (hash, noise, fbm) are unchanged ---
+// vec2 hash(vec2 p) {
+//     p = vec2(dot(p, vec2(127.1, 311.7)),
+//              dot(p, vec2(269.5, 183.3)));
+//     return -1.0 + 2.0 * fract(sin(p) * SEED);
+// }
+// float noise(in vec2 p) {
+//     const float K1 = 0.366025404;
+//     const float K2 = 0.211324865;
+//     vec2 i = floor(p + (p.x + p.y) * K1);
+//     vec2 a = p - i + (i.x + i.y) * K2;
+//     float m = step(a.y, a.x);
+//     vec2 o = vec2(m, 1.0 - m);
+//     vec2 b = a - o + K2;
+//     vec2 c = a - 1.0 + 2.0 * K2;
+//     vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
+//     vec3 n = h * h * h * h * vec3(dot(a, hash(i + 0.0)), dot(b, hash(i + o)), dot(c, hash(i + 1.0)));
+//     return dot(n, vec3(70.0));
+// }
+// float fbm(in vec2 p) {
+//     float total = 0.0;
+//     float amplitude = 0.5;
+//     for (int i = 0; i < OCTAVES; i++) {
+//         total += noise(p) * amplitude;
+//         p *= 2.0;
+//         amplitude *= 0.5;
+//     }
+//     return total;
+// }
+
+// void main() {
+//     vec2 uv = gl_FragCoord.xy / iResolution.xy;
+//     uv.x *= iResolution.x / iResolution.y;
+//     uv *= ZOOM;
+
+//     float time = iTime * SPEED + uSeed * 100.0;
+
+//     vec2 steering_direction = vec2(cos(time * 0.05), sin(time * 0.08));
+//     vec2 q = vec2(fbm(uv + time),
+//                   fbm(uv + vec2(5.2, 1.3) + time * 0.5));
+//     vec2 final_uv = uv + q * 0.3 + steering_direction * 0.3;
+//     float height = 0.5 + 0.5 * fbm(final_uv);
+
+//     // --- Coloring ---
+//     vec3 color = mix(COLOR1, COLOR2, smoothstep(0.3, 0.7, height));
+//     color = mix(color, COLOR3, smoothstep(0.65, 0.8, height));
+
+//     // --- Faked Lighting (Unchanged) ---
+//     float epsilon = 0.0075;
+//     float h_x = 0.5 + 0.5 * fbm(final_uv + vec2(epsilon, 0.0));
+//     float h_y = 0.5 + 0.5 * fbm(final_uv + vec2(0.0, epsilon));
+//     vec3 normal = normalize(vec3( (height - h_x) * BUMP_STRENGTH, (height - h_y) * BUMP_STRENGTH, 1.0));
+
+//     vec3 lightDir = normalize(vec3(1.0, 1.0, 1.0));
+//     float diffuse = clamp(dot(normal, lightDir), 0.0, 1.0);
+    
+//     float specular_power = 32.0;
+//     float specular = pow(diffuse, specular_power);
+
+//     // *** MODIFIED LINE ***
+//     // Use mix() to blend the highlight in. This prevents color values from
+//     // exceeding 1.0, which was causing the blown-out white spot.
+//     vec3 final_color = mix(color, vec3(1.0), specular * 0.8);
+
+//     gl_FragColor = vec4(final_color, 1.0);
+// }
+// `;
+
+// Light/inverted version of the original shader (COMMENTED OUT)
+// const fragmentSrc = `precision highp float;uniform vec2 iResolution;uniform float iTime;const mat3 K=mat3(127.1,311.7,74.7,269.5,183.3,246.1,113.5,271.9,314.3);float w(vec3 s){vec3 i=floor(s),f=fract(s);float m=1.;for(int Z=-1;Z<=1;Z++)for(int Y=-1;Y<=1;Y++)for(int X=-1;X<=1;X++){vec3 o=vec3(X,Y,Z),p=fract(sin((i+o)*K)*43758.5453);m=min(m,length(o+p-f));}return m;}float f(vec2 u,float t){float S=0.,A=.8,F=5.;for(int I=0;I<3;I++){float n=w(vec3(u*F,t));S+=n*n*n*A;F*=100.;A*=.5;}return pow(S,1.5);}void main(){vec2 u=gl_FragCoord.xy/iResolution;float t=iTime*.15,d_s=.05;vec2 d=vec2(sin(u.x*10.+t)*cos(u.y*8.+t*.5),cos(u.y*10.-t)*sin(u.x*8.-t*.5))*.5+.5;u+=(d*2.-1.)*d_s;float n=f(u*3.,t);gl_FragColor=vec4(mix(mix(vec3(1.),vec3(0.85,0.9,1.),clamp(n*2.,0.,1.)),mix(vec3(0.85,0.9,1.),vec3(0.7,0.8,0.95),clamp(n*2.-1.,0.,1.)),step(.5,n)),1.);}`;
+
+// Voronoi with organic noise texture inside cells (light version)
 const fragmentSrc = `
 precision highp float;
-
 uniform vec2 iResolution;
 uniform float iTime;
-uniform float uSeed;
 
-// --- CONFIGURATION (Unchanged) ---
-#define OCTAVES 10
-const float SEED = 43758.5453;
-const float SPEED = 0.15;
-const float ZOOM = 1.2;
-const float BUMP_STRENGTH = 30.0;
+// Matrix for 3D Voronoi (from original)
+const mat3 K = mat3(127.1, 311.7, 74.7, 269.5, 183.3, 246.1, 113.5, 271.9, 314.3);
 
-// --- COLOR PALETTE: COMPRESSED & LUMINOUS ---
-const vec3 COLOR1 = vec3(0.78, 0.84, 0.97);
-const vec3 COLOR2 = vec3(0.97, 0.98, 1.0);
-const vec3 COLOR3 = vec3(1.0, 1.0, 1.0);
+// 3D Voronoi from original shader
+float w(vec3 s) {
+    vec3 i = floor(s), f = fract(s);
+    float m = 1.;
+    for(int Z = -1; Z <= 1; Z++)
+    for(int Y = -1; Y <= 1; Y++)
+    for(int X = -1; X <= 1; X++) {
+        vec3 o = vec3(X, Y, Z);
+        vec3 p = fract(sin((i + o) * K) * 43758.5453);
+        m = min(m, length(o + p - f));
+    }
+    return m;
+}
 
-// --- FUNCTIONS (hash, noise, fbm) are unchanged ---
-vec2 hash(vec2 p) {
+// Layered noise function from original
+float f(vec2 u, float t) {
+    float S = 0., A = .8, F = 5.;
+    for(int I = 0; I < 3; I++) {
+        float n = w(vec3(u * F, t));
+        S += n * n * n * A;
+        F *= 100.;
+        A *= .5;
+    }
+    return pow(S, 1.5);
+}
+
+// 2D Voronoi for cell boundaries
+vec2 hash2(vec2 p) {
     p = vec2(dot(p, vec2(127.1, 311.7)),
              dot(p, vec2(269.5, 183.3)));
-    return -1.0 + 2.0 * fract(sin(p) * SEED);
+    return fract(sin(p) * 43758.5453);
 }
-float noise(in vec2 p) {
-    const float K1 = 0.366025404;
-    const float K2 = 0.211324865;
-    vec2 i = floor(p + (p.x + p.y) * K1);
-    vec2 a = p - i + (i.x + i.y) * K2;
-    float m = step(a.y, a.x);
-    vec2 o = vec2(m, 1.0 - m);
-    vec2 b = a - o + K2;
-    vec2 c = a - 1.0 + 2.0 * K2;
-    vec3 h = max(0.5 - vec3(dot(a, a), dot(b, b), dot(c, c)), 0.0);
-    vec3 n = h * h * h * h * vec3(dot(a, hash(i + 0.0)), dot(b, hash(i + o)), dot(c, hash(i + 1.0)));
-    return dot(n, vec3(70.0));
-}
-float fbm(in vec2 p) {
-    float total = 0.0;
-    float amplitude = 0.5;
-    for (int i = 0; i < OCTAVES; i++) {
-        total += noise(p) * amplitude;
-        p *= 2.0;
-        amplitude *= 0.5;
+
+vec2 voronoi2D(vec2 p) {
+    vec2 n = floor(p);
+    vec2 f = fract(p);
+    
+    float minDist = 10.0;
+    float secondMin = 10.0;
+    
+    for(int j = -1; j <= 1; j++) {
+        for(int i = -1; i <= 1; i++) {
+            vec2 neighbor = vec2(float(i), float(j));
+            vec2 point = hash2(n + neighbor);
+            point = 0.5 + 0.5 * sin(iTime * 0.3 + 6.2831 * point);
+            
+            vec2 diff = neighbor + point - f;
+            float dist = length(diff);
+            
+            if(dist < minDist) {
+                secondMin = minDist;
+                minDist = dist;
+            } else if(dist < secondMin) {
+                secondMin = dist;
+            }
+        }
     }
-    return total;
+    
+    return vec2(minDist, secondMin);
 }
 
 void main() {
-    vec2 uv = gl_FragCoord.xy / iResolution.xy;
-    uv.x *= iResolution.x / iResolution.y;
-    uv *= ZOOM;
-
-    float time = iTime * SPEED + uSeed * 100.0;
-
-    vec2 steering_direction = vec2(cos(time * 0.05), sin(time * 0.08));
-    vec2 q = vec2(fbm(uv + time),
-                  fbm(uv + vec2(5.2, 1.3) + time * 0.5));
-    vec2 final_uv = uv + q * 0.3 + steering_direction * 0.3;
-    float height = 0.5 + 0.5 * fbm(final_uv);
-
-    // --- Coloring ---
-    vec3 color = mix(COLOR1, COLOR2, smoothstep(0.3, 0.7, height));
-    color = mix(color, COLOR3, smoothstep(0.65, 0.8, height));
-
-    // --- Faked Lighting (Unchanged) ---
-    float epsilon = 0.0075;
-    float h_x = 0.5 + 0.5 * fbm(final_uv + vec2(epsilon, 0.0));
-    float h_y = 0.5 + 0.5 * fbm(final_uv + vec2(0.0, epsilon));
-    vec3 normal = normalize(vec3( (height - h_x) * BUMP_STRENGTH, (height - h_y) * BUMP_STRENGTH, 1.0));
-
-    vec3 lightDir = normalize(vec3(1.0, 1.0, 1.0));
-    float diffuse = clamp(dot(normal, lightDir), 0.0, 1.0);
+    vec2 u = gl_FragCoord.xy / iResolution.xy;
+    u.x *= iResolution.x / iResolution.y;
     
-    float specular_power = 32.0;
-    float specular = pow(diffuse, specular_power);
-
-    // *** MODIFIED LINE ***
-    // Use mix() to blend the highlight in. This prevents color values from
-    // exceeding 1.0, which was causing the blown-out white spot.
-    vec3 final_color = mix(color, vec3(1.0), specular * 0.8);
-
-    gl_FragColor = vec4(final_color, 1.0);
+    float t = iTime * .15;
+    float d_s = .05;
+    
+    // Distortion from original
+    vec2 d = vec2(sin(u.x * 10. + t) * cos(u.y * 8. + t * .5),
+                  cos(u.y * 10. - t) * sin(u.x * 8. - t * .5)) * .5 + .5;
+    vec2 distorted = u + (d * 2. - 1.) * d_s;
+    
+    // Get the organic noise texture
+    float n = f(distorted * 3., t);
+    
+    // Get Voronoi cell boundaries
+    vec2 v = voronoi2D(u * 5.0 + vec2(t * 0.1, t * 0.05));
+    float edge = v.y - v.x;
+    float cellBorder = smoothstep(0.0, 0.15, edge);
+    
+    // Combine: use noise inside cells, emphasize at borders
+    float combined = n * (0.7 + 0.3 * (1.0 - cellBorder));
+    
+    // Light blue palette with more blue in highlights
+    vec3 color1 = vec3(0.94, 0.96, 1.0);         // Light blue background
+    vec3 color2 = vec3(0.84, 0.88, 0.96);        // More saturated blue
+    vec3 color3 = vec3(0.70, 0.78, 0.92);        // Stronger blue for highlights
+    
+    // Mix colors based on combined pattern
+    vec3 color = mix(mix(color1, color2, clamp(combined * 2.3, 0., 1.)),
+                     mix(color2, color3, clamp(combined * 2.3 - 1., 0., 1.)),
+                     step(.4, combined));
+    
+    gl_FragColor = vec4(color, 1.0);
 }
 `;
 

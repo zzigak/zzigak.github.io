@@ -245,26 +245,26 @@ body {
 .entry img {
     border: 2px solid;
     width: 150px;
-    height: 60px;
+    height: 75px;
     float: left;
     object-fit: cover;
     object-position: center;
     background: #eee;
     margin-right: 20px;
-    aspect-ratio: 15 / 6;
+    aspect-ratio: 2 / 1;
     display: block;
 }
 
 .entry video {
     border: 2px solid;
     width: 150px;
-    height: 80px;
+    height: 85px;
     float: left;
     object-fit: cover;
     object-position: center;
     background: #eee;
     margin-right: 20px;
-    aspect-ratio: 15 / 6;
+    aspect-ratio: 16 / 9;
     display: block;
 }
 
