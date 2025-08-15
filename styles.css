@@ -3,9 +3,9 @@ body {
     /* Body text is now a softer gray to increase contrast with titles */
     /*color: #4e5051; */
     color: #161717;
-    font-family: 'Palatino Linotype', Palatino, monospace;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     /*font-size: 0.9em;*/
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.4;
     margin: 0;
     padding: 0;
@@ -44,7 +44,7 @@ body {
 .paper-title {
     /* color: #fff; */
     font-weight: 700;
-    font-size: 18px;
+    font-size: 15px;
     color: #0066cc;
 }
 
@@ -110,7 +110,7 @@ body {
 
 .contact-info p {
     margin: 5px 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .contact-info p:first-child {
@@ -296,4 +296,29 @@ body {
 
 .paper-meta {
     color: #272929;
+}
+
+/* 3-line publication layout */
+.publication-entry .paper-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: #0066cc;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.publication-entry .paper-authors {
+    color: #272929;
+    margin-bottom: 4px;
+    line-height: 1.4;
+    display: block;
+}
+
+.publication-entry .paper-links {
+    display: block;
+    line-height: 1.4;
+}
+
+.publication-entry .paper-links a:first-child {
+    margin-left: 0;
 }
