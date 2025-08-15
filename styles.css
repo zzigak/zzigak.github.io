@@ -1,9 +1,11 @@
 body {
     background-color: #FFFFFF;
     /* Body text is now a softer gray to increase contrast with titles */
-    color: #4e5051;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9em;
+    /*color: #4e5051; */
+    color: #161717;
+    font-family: 'Palatino Linotype', Palatino, monospace;
+    /*font-size: 0.9em;*/
+    font-size: 18px;
     line-height: 1.4;
     margin: 0;
     padding: 0;
@@ -18,10 +20,12 @@ body {
     max-width: 1100px;
     margin: auto;
     padding: 100px;
+    position: relative;
 }
 
 .content {
     flex: 3;
+    margin-left: 20px;
 }
 
 .entry {
@@ -39,7 +43,8 @@ body {
 
 .paper-title {
     /* color: #fff; */
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 18px;
     color: #0066cc;
 }
 
@@ -94,14 +99,18 @@ body {
 .contact-info {
     /* The main contact name is now pure black to match the titles. */
     flex: 1;
+    position: sticky;
+    top: 100px;
     align-self: flex-start;
     text-align: left;
     color: #000000;
     margin-top: 15px;
+    font-size: 25px;
 }
 
 .contact-info p {
     margin: 5px 0;
+    font-size: 18px;
 }
 
 .contact-info p:first-child {
@@ -138,11 +147,16 @@ body {
     .container {
         flex-direction: column;
         align-items: flex-start;
+        padding: 8px;
     }
 
     .content {
         order: 2;
         width: 100%;
+        height: auto;
+        overflow-y: visible;
+        margin-left: 0;
+        padding-right: 0;
     }
 
     .contact-info {
@@ -150,11 +164,8 @@ body {
         width: 100%;
         text-align: left;
         margin-bottom: 10px;
-    }
-
-    .container {
-        padding: 8px;
-        margin-bottom: 8px;
+        position: relative;
+        top: auto;
     }
 
     .content-container {
@@ -192,11 +203,12 @@ body {
 }
 
 .section-title span {
-    font-size: 1em;
+    font-size: 16px;
     font-weight: bold;
     /* all caps */
     text-transform: uppercase;
-    color: #404040;
+    /** color: #404040; **/
+    color: #161717;
     margin-right: 16px;
     white-space: nowrap;
 }
@@ -204,7 +216,8 @@ body {
 .section-line {
     flex: 1;
     height: 1px;
-    background: #404040;
+    /*background: #404040;*/ 
+    background: #161717;
     opacity: 0.7;
 }
 
@@ -282,5 +295,5 @@ body {
  */
 
 .paper-meta {
-    color: #6c6c81;
+    color: #272929;
 }
