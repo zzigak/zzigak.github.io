@@ -1,0 +1,214 @@
+{
+  "cluster": "cluster_2",
+  "tuples": [
+    {
+      "tuple_name": "tuple_5:cc_python_5_26:cc_python_26_22:cc_python_22",
+      "refactorings": [
+        {
+          "name": "refactoring_1",
+          "metrics": {
+            "mi": 35.91784238715138,
+            "logprob": -5796.361810486677,
+            "tokens": 1888,
+            "cc": 80
+          },
+          "ranks": {
+            "mi_rank": 6,
+            "logprob_rank": 1,
+            "token_rank": 5,
+            "cc_rank": 4
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.667,
+            "maintained": false
+          }
+        },
+        {
+          "name": "refactoring_4",
+          "metrics": {
+            "mi": 38.69383254415151,
+            "logprob": -5947.300435830993,
+            "tokens": 1789,
+            "cc": 80
+          },
+          "ranks": {
+            "mi_rank": 4,
+            "logprob_rank": 2,
+            "token_rank": 2,
+            "cc_rank": 5
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.667,
+            "maintained": false
+          }
+        },
+        {
+          "name": "refactoring_6",
+          "metrics": {
+            "mi": 39.62523246500507,
+            "logprob": -6109.198048575113,
+            "tokens": 1855,
+            "cc": 79
+          },
+          "ranks": {
+            "mi_rank": 2,
+            "logprob_rank": 3,
+            "token_rank": 4,
+            "cc_rank": 3
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.967,
+            "maintained": true
+          }
+        },
+        {
+          "name": "refactoring_7",
+          "metrics": {
+            "mi": 45.152989904829546,
+            "logprob": -6192.409441542075,
+            "tokens": 1538,
+            "cc": 70
+          },
+          "ranks": {
+            "mi_rank": 1,
+            "logprob_rank": 4,
+            "token_rank": 1,
+            "cc_rank": 1
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.7,
+            "maintained": false
+          }
+        },
+        {
+          "name": "refactoring_5",
+          "metrics": {
+            "mi": 34.109318283775316,
+            "logprob": -6284.869125545261,
+            "tokens": 1934,
+            "cc": 94
+          },
+          "ranks": {
+            "mi_rank": 7,
+            "logprob_rank": 5,
+            "token_rank": 7,
+            "cc_rank": 7
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.633,
+            "maintained": false
+          }
+        },
+        {
+          "name": "refactoring_2",
+          "metrics": {
+            "mi": 37.00265092603427,
+            "logprob": -6322.987976008663,
+            "tokens": 1809,
+            "cc": 79
+          },
+          "ranks": {
+            "mi_rank": 5,
+            "logprob_rank": 6,
+            "token_rank": 3,
+            "cc_rank": 2
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.967,
+            "maintained": true
+          }
+        },
+        {
+          "name": "refactoring_3",
+          "metrics": {
+            "mi": 31.231400249506343,
+            "logprob": -6590.017886306332,
+            "tokens": 2095,
+            "cc": 95
+          },
+          "ranks": {
+            "mi_rank": 8,
+            "logprob_rank": 7,
+            "token_rank": 8,
+            "cc_rank": 8
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.667,
+            "maintained": false
+          }
+        },
+        {
+          "name": "refactoring_0",
+          "metrics": {
+            "mi": 39.09557344826922,
+            "logprob": -8257.85574571559,
+            "tokens": 1916,
+            "cc": 87
+          },
+          "ranks": {
+            "mi_rank": 3,
+            "logprob_rank": 8,
+            "token_rank": 6,
+            "cc_rank": 6
+          },
+          "pass_rates": {
+            "before": 0.967,
+            "after": 0.967,
+            "maintained": true
+          }
+        }
+      ],
+      "top_refactorings_overall": {
+        "mi": {
+          "name": "refactoring_7",
+          "rank": 1,
+          "score": 45.152989904829546
+        },
+        "logprob": {
+          "name": "refactoring_1",
+          "rank": 1,
+          "score": -5796.361810486677
+        },
+        "tokens": {
+          "name": "refactoring_7",
+          "rank": 1,
+          "score": 1538
+        },
+        "cc": {
+          "name": "refactoring_7",
+          "rank": 1,
+          "score": 70
+        }
+      },
+      "top_refactorings_passed": {
+        "mi": {
+          "name": "refactoring_6",
+          "rank": 2,
+          "score": 39.62523246500507
+        },
+        "logprob": {
+          "name": "refactoring_6",
+          "rank": 3,
+          "score": -6109.198048575113
+        },
+        "tokens": {
+          "name": "refactoring_2",
+          "rank": 3,
+          "score": 1809
+        },
+        "cc": {
+          "name": "refactoring_2",
+          "rank": 2,
+          "score": 79
+        }
+      }
+    }
+  ]
+}
