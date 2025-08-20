@@ -1,0 +1,69 @@
+REFACTORING STUDY - USER LINKS
+===============================
+Study URL: https://zzigak.github.io/refactor_study/
+
+Instructions:
+1. Share each link with the assigned participant
+2. Each user ID is unique and pre-assigned to 10 specific pairs
+3. Users should complete all 10 comparisons in one session if possible
+
+USER LINKS (30 participants):
+==============================
+
+User 1:  https://zzigak.github.io/refactor_study/?id=U0AECDC46
+User 2:  https://zzigak.github.io/refactor_study/?id=U187EC772
+User 3:  https://zzigak.github.io/refactor_study/?id=U1AC4C7E7
+User 4:  https://zzigak.github.io/refactor_study/?id=U24958007
+User 5:  https://zzigak.github.io/refactor_study/?id=U25116B3E
+User 6:  https://zzigak.github.io/refactor_study/?id=U2AE171F4
+User 7:  https://zzigak.github.io/refactor_study/?id=U348CECCC
+User 8:  https://zzigak.github.io/refactor_study/?id=U34FA2480
+User 9:  https://zzigak.github.io/refactor_study/?id=U35ADDB03
+User 10: https://zzigak.github.io/refactor_study/?id=U3C917B14
+User 11: https://zzigak.github.io/refactor_study/?id=U428ABB21
+User 12: https://zzigak.github.io/refactor_study/?id=U4AE11645
+User 13: https://zzigak.github.io/refactor_study/?id=U603B5F47
+User 14: https://zzigak.github.io/refactor_study/?id=U75928DA9
+User 15: https://zzigak.github.io/refactor_study/?id=U7FDB3AAE
+User 16: https://zzigak.github.io/refactor_study/?id=U80EB9E65
+User 17: https://zzigak.github.io/refactor_study/?id=U8FA685C9
+User 18: https://zzigak.github.io/refactor_study/?id=UA7D96F6C
+User 19: https://zzigak.github.io/refactor_study/?id=UAB0E8DFC
+User 20: https://zzigak.github.io/refactor_study/?id=UB52A9626
+User 21: https://zzigak.github.io/refactor_study/?id=UBCCC7199
+User 22: https://zzigak.github.io/refactor_study/?id=UD01B3A80
+User 23: https://zzigak.github.io/refactor_study/?id=UDBC46CA1
+User 24: https://zzigak.github.io/refactor_study/?id=UE46ED62C
+User 25: https://zzigak.github.io/refactor_study/?id=UEE24DC77
+User 26: https://zzigak.github.io/refactor_study/?id=UF2547D48
+User 27: https://zzigak.github.io/refactor_study/?id=UF6857085
+User 28: https://zzigak.github.io/refactor_study/?id=UF75CC1AC
+User 29: https://zzigak.github.io/refactor_study/?id=UFAEF8C35
+User 30: https://zzigak.github.io/refactor_study/?id=UFEC8A0C9
+
+TEST LINKS (for testing):
+=========================
+Test 1: https://zzigak.github.io/refactor_study/?id=TEST001
+Test 2: https://zzigak.github.io/refactor_study/?id=TEST002
+Test 3: https://zzigak.github.io/refactor_study/?id=TEST003
+Demo:   https://zzigak.github.io/refactor_study/?id=DEMO001
+
+DISTRIBUTION SUMMARY:
+=====================
+- Total pairs: 45
+- Each user evaluates: 10 pairs
+- Total evaluations: 300
+- Each pair evaluated: 6-7 times
+- Uniformity score: 92.8%
+
+NOTES:
+======
+- User IDs are encrypted using SHA256
+- Assignment distribution is optimized for uniform coverage
+- Each comparison includes MI vs Logprob, MI vs Tokens, or Logprob vs Tokens
+- Debug mode has been disabled for production
+
+TECHNICAL SUPPORT:
+==================
+For any technical issues or questions, please contact:
+📧 Email: zk66@cornell.edu
