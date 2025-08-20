@@ -370,7 +370,7 @@ function showCompletionMessage() {
                 margin-bottom: 1rem;
             ">📥 Download Responses (CSV)</button>
             <br>
-            <button onclick="window.location.href='index.html'" style="
+            <button onclick="restartStudy()" style="
                 padding: 0.5rem 1.5rem;
                 background: #666;
                 color: white;
@@ -378,17 +378,16 @@ function showCompletionMessage() {
                 border-radius: 4px;
                 cursor: pointer;
                 font-size: 0.9rem;
-            ">Return to Start</button>
+            ">Start New Study</button>
         </div>
     `;
     
     // Store CSV data globally for download function
     window.csvDataToDownload = csvData;
     
-    // Clear session data after a delay
-    setTimeout(() => {
-        localStorage.removeItem('studySession');
-    }, 2000);
+    // Mark study as completed but don't auto-clear session
+    sessionData.completed = true;
+    saveSession();
 }
 
 function prepareCSVData() {
@@ -628,3 +627,15 @@ function setupFontSizeControls() {
         increaseBtn.disabled = size >= maxSize;
     }
 }
+
+function restartStudy() {
+    // Clear all session data
+    localStorage.removeItem('studySession');
+    localStorage.removeItem('studyStarted');
+    
+    // Redirect to start page
+    window.location.href = 'index.html';
+}
+
+// Make restartStudy globally available
+window.restartStudy = restartStudy;

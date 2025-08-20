@@ -238,6 +238,11 @@ function setupEventListeners() {
         downloadResponses();
     });
     
+    // Restart button
+    document.getElementById('restartBtn').addEventListener('click', () => {
+        restartStudy();
+    });
+    
     // Font size controls
     setupFontSizeControls();
 }
@@ -343,6 +348,10 @@ function showCompletionModal() {
         alert('Please complete all 10 questions before submitting.');
         return;
     }
+    
+    // Mark session as completed
+    sessionData.completed = true;
+    saveSession();
     
     // Show modal
     document.getElementById('submitModal').style.display = 'flex';
@@ -508,6 +517,15 @@ function downloadResponses() {
     jsonLink.click();
     document.body.removeChild(jsonLink);
     URL.revokeObjectURL(jsonUrl);
+}
+
+function restartStudy() {
+    // Clear all session data
+    localStorage.removeItem('studySession');
+    localStorage.removeItem('studyStarted');
+    
+    // Redirect to start page
+    window.location.href = 'index.html';
 }
 
 function setupFontSizeControls() {
