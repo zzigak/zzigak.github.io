@@ -5,61 +5,253 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Refactoring Preference Study</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .instructions-page {
+            text-align: left;
+        }
+        
+        .instructions-page h2 {
+            text-align: center;
+        }
+        
+        .instructions-page > p {
+            text-align: center;
+        }
+        
+        .instructions-page .btn-next {
+            display: block;
+            margin: 2rem auto;
+            width: fit-content;
+        }
+        
+        /* Custom arrow colors for different card types */
+        .info-card[style*="f0fdf4"] li:before {
+            color: #10b981 !important;
+        }
+        
+        .info-card[style*="fef2f2"] li:before {
+            color: #ef4444 !important;
+        }
+        
+        .info-card[style*="fefce8"] li:before {
+            color: #facc15 !important;
+        }
+        
+        .form-page {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .btn-next {
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Mobile detection styles */
+        .mobile-warning {
+            display: none;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 90%;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .mobile-warning h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .mobile-warning p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .desktop-content {
+            display: block;
+        }
+        
+        @media (max-width: 768px), (pointer: coarse) and (hover: none) {
+            .desktop-content {
+                display: none;
+            }
+            
+            .mobile-warning {
+                display: block;
+            }
+            
+            .container {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container landing">
-        <header>
-            <h1>Code Refactoring Preference Study</h1>
-        </header>
+        <!-- Mobile Warning Message -->
+        <div class="mobile-warning">
+            <h3>📱 Desktop Required</h3>
+            <p>This study requires a desktop or laptop computer to properly view code side-by-side.</p>
+            <p>Please visit this page on a larger screen to participate.</p>
+        </div>
         
-        <main>
-            <section class="welcome">
-                <h2>Welcome to the Study</h2>
-                <p>Thank you for participating in our research on code refactoring preferences.</p>
+        <!-- Desktop Content -->
+        <div class="desktop-content">
+            <header>
+                <h1>Code Refactoring Preference Study</h1>
+            </header>
+        </div>
+        
+        <main class="desktop-content">
+            <!-- Instructions Page -->
+            <section class="page instructions-page active" id="instructionsPage">
+                <h2 style="margin-bottom: 2rem;">Evaluating Code Refactorings</h2>
                 
-                <div class="info-card">
-                    <h3>What you'll do:</h3>
+                <div class="info-card" style="margin-bottom: 1.5rem;">
+                    <h3>What You'll Be Doing</h3>
+                    <p style="margin-bottom: 1rem;">In this study, a <strong>refactoring</strong> means splitting code into <strong>a library of reusable functions</strong> + <strong>shortened main programs</strong> that use those functions.</p>
+                    <p style="margin-bottom: 1rem;">You'll see 10 examples. For each one:</p>
                     <ul>
-                        <li>Review 10 sets of Python code</li>
-                        <li>Each set contains an original version and two refactored versions</li>
-                        <li>Select which refactoring you prefer (v1 or v2)</li>
-                        <li>Estimated time: 15-20 minutes</li>
+                        <li><strong>Original (left):</strong> 3 complete Python programs</li>
+                        <li><strong>Version 1 (middle):</strong> One refactoring instance (library + shortened programs)</li>
+                        <li><strong>Version 2 (right):</strong> Another refactoring instance (library + shortened programs)</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Your task:</strong> Choose which version (V1 or V2) creates better reusable components.</p>
+                </div>
+                
+                <div class="info-card" style="margin-bottom: 1.5rem; background: #f0fdf4; border-color: #10b981;">
+                    <h3 style="color: #166534;">✓ GOOD Refactoring</h3>
+                    <ul>
+                        <li>Creates useful library/helper functions AND shortened programs</li>
+                        <li>Library functions you can imagine using in another task</li>
+                        <li>Library functions that capture reusable patterns or operations</li>
+                        <li>Helper functions that aren't overly specialized to this specific problem</li>
                     </ul>
                 </div>
                 
-                <div class="info-card">
-                    <h3>Instructions:</h3>
+                <div class="info-card" style="margin-bottom: 1.5rem; background: #fef2f2; border-color: #ef4444;">
+                    <h3 style="color: #dc2626;">✗ BAD Refactoring</h3>
                     <ul>
-                        <li>Code will be displayed side-by-side for easy comparison</li>
-                        <li>The original code will have a distinct background color</li>
-                        <li>Take your time to review each version carefully</li>
-                        <li>Your responses will be saved automatically</li>
+                        <li>Just moving parts of code into library without useful abstraction</li>
+                        <li>Functions too specific to these exact problems to be reusable</li>
+                        <li>Functions created but only called once</li>
+                        <li>Functions doing too many unrelated things</li>
                     </ul>
                 </div>
                 
-                <div class="start-section">
-                    <h3>Enter Your Study Code</h3>
-                    <form id="participantForm" style="margin: 1.5rem 0;">
-                        <div style="margin-bottom: 1rem;">
-                            <label for="participantId" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Study ID (provided to you):</label>
-                            <input type="text" id="participantId" name="id" required 
-                                   placeholder="Enter your assigned ID (e.g., USER001)"
-                                   style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; text-transform: uppercase;">
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <label for="participantName" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Name:</label>
-                            <input type="text" id="participantName" name="name" required
-                                   style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
-                        </div>
-                        <div style="margin-bottom: 1.5rem;">
-                            <label for="participantEmail" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Email:</label>
-                            <input type="email" id="participantEmail" name="email" required 
-                                   style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Start Study</button>
-                    </form>
-                    <p class="note">A unique participant ID will be generated for you</p>
+                <div class="info-card" style="margin-bottom: 1.5rem; background: #fefce8; border-color: #facc15;">
+                    <h3 style="color: #a16207;">⚠️ Key Point</h3>
+                    <p><strong>Short main programs alone don't make a refactoring better!</strong> The extracted functions must be ACTUALLY REUSABLE, not just for that program.</p>
                 </div>
+                
+                <div class="info-card" style="margin-bottom: 2rem;">
+                    <h3>Navigation Tips</h3>
+                    <ul>
+                        <li><strong>ALL:</strong> See complete refactored code with library</li>
+                        <li><strong>P1, P2, P3:</strong> See how each program uses the library</li>
+                        <li><strong>Library:</strong> Focus on just the extracted functions</li>
+                        <li>Click <strong>Version 1</strong> or <strong>Version 2</strong> to choose</li>
+                    </ul>
+                </div>
+                
+                <button class="btn btn-primary btn-next" onclick="showFormPage()">Continue to Registration</button>
+            </section>
+            
+            <!-- Form Page -->
+            <section class="page form-page" id="formPage">
+                <button class="btn" onclick="showInstructionsPage()" style="margin-bottom: 1.5rem;">← Back to Instructions</button>
+                
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">Enter Your Study Information</h3>
+                <form id="participantForm">
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantId" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Study ID (provided to you):</label>
+                        <input type="text" id="participantId" name="id" required 
+                               placeholder="Enter your assigned ID (e.g., user001)"
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; text-transform: uppercase;">
+                        <small id="idHelperText" style="display: none; color: #10b981; margin-top: 0.25rem;">✓ Your study ID has been automatically filled from the link</small>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantName" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Name:</label>
+                        <input type="text" id="participantName" name="name" required
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantEmail" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Email:</label>
+                        <input type="email" id="participantEmail" name="email" required 
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Gender <span style="color: red;">*</span></label>
+                        <select id="participantGender" name="gender" required
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                            <option value="">Select...</option>
+                            <option value="Woman">Woman</option>
+                            <option value="Man">Man</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantAge" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Age</label>
+                        <input type="number" id="participantAge" name="age" min="1" max="120"
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="programmingExperience" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">How long have you been programming? <span style="color: red;">*</span></label>
+                        <select id="programmingExperience" name="programmingExperience" required
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                            <option value="">Select...</option>
+                            <option value="< 2 years">< 2 years</option>
+                            <option value="2-5 years">2-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value="10+ years">10+ years</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="pythonExperience" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">How long have you been using Python?</label>
+                        <select id="pythonExperience" name="pythonExperience"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                            <option value="">Select...</option>
+                            <option value="< 2 years">< 2 years</option>
+                            <option value="2-5 years">2-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value="10+ years">10+ years</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1.1rem;">Start Study</button>
+                    
+                    <p class="note" style="margin-top: 1rem; text-align: center;">All information will be kept confidential</p>
+                </form>
             </section>
         </main>
         
@@ -68,6 +260,19 @@
         </footer>
     </div>
     
+    <script>
+        function showFormPage() {
+            document.getElementById('instructionsPage').classList.remove('active');
+            document.getElementById('formPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        
+        function showInstructionsPage() {
+            document.getElementById('formPage').classList.remove('active');
+            document.getElementById('instructionsPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
     <script src="js/app.js"></script>
 </body>
 </html>
