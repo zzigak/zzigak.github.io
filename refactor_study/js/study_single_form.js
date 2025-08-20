@@ -5,9 +5,9 @@ let currentTupleId = null;
 let timerInterval = null;
 let startTime = null;
 let currentViews = {
-    'original': 'p1',
-    'v1': 'p1',
-    'v2': 'p1'
+    'original': 'all',
+    'v1': 'all',
+    'v2': 'all'
 };
 
 document.addEventListener('DOMContentLoaded', async function() {
@@ -137,8 +137,10 @@ function updateCodePanel(panel, view, tuple) {
     
     // Get the appropriate content based on view
     if (panel === 'original') {
-        // Original panel only has p1, p2, p3
-        if (view === 'p1') {
+        // Original panel has all, p1, p2, p3
+        if (view === 'all') {
+            content = tuple.files.original || '';
+        } else if (view === 'p1') {
             content = tuple.files.original_p1 || tuple.files.original || '';
         } else if (view === 'p2') {
             content = tuple.files.original_p2 || tuple.files.original || '';
@@ -232,15 +234,6 @@ function setupEventListeners() {
     // Modal buttons
     document.getElementById('openFormBtn').addEventListener('click', () => {
         openPrefilledGoogleForm();
-    });
-    
-    document.getElementById('downloadBtn').addEventListener('click', () => {
-        downloadResponses();
-    });
-    
-    // Restart button
-    document.getElementById('restartBtn').addEventListener('click', () => {
-        restartStudy();
     });
     
     // Font size controls
@@ -366,6 +359,10 @@ function openPrefilledGoogleForm() {
         userId: 'entry.1958938177',  // UserID field
         email: 'entry.792270821',    // Email field  
         name: 'entry.1585743737',    // Name field
+        gender: 'entry.1826664697',  // Gender field
+        age: 'entry.1786834376',     // Age field
+        programmingExp: 'entry.331754450',  // Programming experience field
+        pythonExp: 'entry.1839075244',  // Python experience field
         // Trial 1
         trial1_tupleId: 'entry.1538445591',
         trial1_pairId: 'entry.306224226',
@@ -418,6 +415,10 @@ function openPrefilledGoogleForm() {
     params.append(ENTRY_IDS.userId, sessionData.participantId);
     params.append(ENTRY_IDS.email, sessionData.email || '');
     params.append(ENTRY_IDS.name, sessionData.name || '');
+    params.append(ENTRY_IDS.gender, sessionData.gender || '');
+    params.append(ENTRY_IDS.age, sessionData.age || '');
+    params.append(ENTRY_IDS.programmingExp, sessionData.programmingExperience || '');
+    params.append(ENTRY_IDS.pythonExp, sessionData.pythonExperience || '');
     
     // Sort responses by trial number
     const sortedResponses = sessionData.allResponses.sort((a, b) => a.trialNumber - b.trialNumber);
@@ -463,7 +464,7 @@ function openPrefilledGoogleForm() {
 function downloadResponses() {
     // Prepare CSV data
     const csvRows = [
-        ['UserID', 'Name', 'Email', 'TrialNumber', 'TupleID', 'Choice', 'Timestamp']
+        ['UserID', 'Name', 'Email', 'Gender', 'Age', 'Programming Experience', 'Python Experience', 'TrialNumber', 'TupleID', 'Choice', 'Timestamp']
     ];
     
     sessionData.allResponses
@@ -473,6 +474,10 @@ function downloadResponses() {
                 sessionData.participantId,
                 sessionData.name || '',
                 sessionData.email || '',
+                sessionData.gender || '',
+                sessionData.age || '',
+                sessionData.programmingExperience || '',
+                sessionData.pythonExperience || '',
                 response.trialNumber,
                 response.tupleId,
                 response.choice,
@@ -503,6 +508,10 @@ function downloadResponses() {
         participantId: sessionData.participantId,
         name: sessionData.name || '',
         email: sessionData.email || '',
+        gender: sessionData.gender || '',
+        age: sessionData.age || '',
+        programmingExperience: sessionData.programmingExperience || '',
+        pythonExperience: sessionData.pythonExperience || '',
         startTime: sessionData.startTime,
         completionTime: new Date().toISOString(),
         responses: sessionData.allResponses

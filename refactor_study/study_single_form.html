@@ -6,8 +6,54 @@
     <title>Refactoring Study - Compare Code</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <style>
+        /* Mobile detection for study page */
+        .mobile-block {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: var(--shadow-sm);
+            z-index: 10000;
+        }
+        
+        .mobile-block h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .mobile-block p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px), (pointer: coarse) and (hover: none) {
+            .mobile-block {
+                display: block;
+            }
+            
+            .study-container {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Mobile Block Message -->
+    <div class="mobile-block">
+        <h3>🖥️ Desktop Required</h3>
+        <p>This study needs a larger screen to display three code panels side-by-side.</p>
+        <p>Please continue on a desktop or laptop computer.</p>
+    </div>
+    
     <div class="study-container">
         <header class="study-header">
             <div class="progress-info">
@@ -40,7 +86,8 @@
                     <div class="panel-header original-header">
                         <h3>Original</h3>
                         <div class="view-buttons">
-                            <button class="view-btn active" data-panel="original" data-view="p1">P1</button>
+                            <button class="view-btn active" data-panel="original" data-view="all">ALL</button>
+                            <button class="view-btn" data-panel="original" data-view="p1">P1</button>
                             <button class="view-btn" data-panel="original" data-view="p2">P2</button>
                             <button class="view-btn" data-panel="original" data-view="p3">P3</button>
                         </div>
@@ -54,9 +101,9 @@
                     <div class="panel-header">
                         <h3>Version 1</h3>
                         <div class="view-buttons">
-                            <button class="view-btn" data-panel="v1" data-view="all">ALL</button>
+                            <button class="view-btn active" data-panel="v1" data-view="all">ALL</button>
                             <button class="view-btn" data-panel="v1" data-view="library">Library</button>
-                            <button class="view-btn active" data-panel="v1" data-view="p1">P1</button>
+                            <button class="view-btn" data-panel="v1" data-view="p1">P1</button>
                             <button class="view-btn" data-panel="v1" data-view="p2">P2</button>
                             <button class="view-btn" data-panel="v1" data-view="p3">P3</button>
                         </div>
@@ -70,9 +117,9 @@
                     <div class="panel-header">
                         <h3>Version 2</h3>
                         <div class="view-buttons">
-                            <button class="view-btn" data-panel="v2" data-view="all">ALL</button>
+                            <button class="view-btn active" data-panel="v2" data-view="all">ALL</button>
                             <button class="view-btn" data-panel="v2" data-view="library">Library</button>
-                            <button class="view-btn active" data-panel="v2" data-view="p1">P1</button>
+                            <button class="view-btn" data-panel="v2" data-view="p1">P1</button>
                             <button class="view-btn" data-panel="v2" data-view="p2">P2</button>
                             <button class="view-btn" data-panel="v2" data-view="p3">P3</button>
                         </div>
@@ -119,9 +166,7 @@
             <p>Thank you for completing the refactoring preference study.</p>
             <p>Your responses have been saved. Click below to submit them via Google Forms.</p>
             <div class="modal-actions">
-                <button id="openFormBtn" class="btn btn-primary">Open Pre-filled Google Form</button>
-                <button id="downloadBtn" class="btn">Download My Responses</button>
-                <button id="restartBtn" class="btn" style="background: #666;">Start New Study</button>
+                <button id="openFormBtn" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.2rem;">Submit Answers!</button>
             </div>
             <p class="note">The form will open with all your responses pre-filled. Just review and click Submit.</p>
         </div>
