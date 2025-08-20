@@ -1,0 +1,40 @@
+Cluster: cluster_2
+================================================================================
+
+Tuple: tuple_5:cc_python_5_26:cc_python_26_22:cc_python_22
+--------------------------------------------------------------------------------
+ALL REFACTORINGS:
+Name            MI       LogProb    Tokens   CC     PassBefore PassAfter  Maintained
+--------------------------------------------------------------------------------
+refactoring_1   35.918   -5796.4    1888     80     0.967      0.667      No        
+refactoring_4   38.694   -5947.3    1789     80     0.967      0.667      No        
+refactoring_6   39.625   -6109.2    1855     79     0.967      0.967      Yes       
+refactoring_7   45.153   -6192.4    1538     70     0.967      0.700      No        
+refactoring_5   34.109   -6284.9    1934     94     0.967      0.633      No        
+refactoring_2   37.003   -6323.0    1809     79     0.967      0.967      Yes       
+refactoring_3   31.231   -6590.0    2095     95     0.967      0.667      No        
+refactoring_0   39.096   -8257.9    1916     87     0.967      0.967      Yes       
+
+REFACTORINGS THAT MAINTAINED PASS RATES:
+Name            MI_Rank  LogProb_Rank Token_Rank  CC_Rank  MI       LogProb   
+--------------------------------------------------------------------------------
+refactoring_6   2        3            4           3        39.625   -6109.2   
+refactoring_2   5        6            3           2        37.003   -6323.0   
+refactoring_0   3        8            6           6        39.096   -8257.9   
+
+TOP REFACTORINGS BY EACH METRIC (ALL):
+--------------------------------------------------------------------------------
+Best Maintainability (MI):     refactoring_7   Rank: 1  Score: 45.153  
+Best Code Quality (LogProb):   refactoring_1   Rank: 1  Score: -5796.4   
+Most Concise (Tokens):         refactoring_7   Rank: 1  Score: 1538    
+Simplest (CC):                 refactoring_7   Rank: 1  Score: 70    
+
+TOP REFACTORINGS BY EACH METRIC (PASSED ONLY):
+--------------------------------------------------------------------------------
+Best Maintainability (MI):     refactoring_6   Rank: 2  Score: 39.625  
+Best Code Quality (LogProb):   refactoring_6   Rank: 3  Score: -6109.2   
+Most Concise (Tokens):         refactoring_2   Rank: 3  Score: 1809    
+Simplest (CC):                 refactoring_2   Rank: 2  Score: 79    
+
+================================================================================
+

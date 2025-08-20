@@ -1,0 +1,18 @@
+Selected Refactoring: 1
+Refactoring Total Losses and Pass Rates:
+Refactoring 0: Total Loss: 1.0000, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 0: LogProb: -5436.072954174491, Tokens: 5689
+Refactoring 1: Total Loss: 0.0000, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 1: LogProb: -3909.946811734859, Tokens: 4509
+Refactoring 2: Total Loss: 0.5392, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 2: LogProb: -4732.894392808866, Tokens: 5172
+Refactoring 3: Total Loss: 0.5346, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 3: LogProb: -4725.75204071167, Tokens: 5263
+Refactoring 4: Total Loss: 0.0785, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 4: LogProb: -4029.8219081791353, Tokens: 4697
+Refactoring 5: Total Loss: 0.6297, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 5: LogProb: -4870.898403166848, Tokens: 5360
+Refactoring 6: Total Loss: 0.8397, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 6: LogProb: -5191.408590567537, Tokens: 5679
+Refactoring 7: Total Loss: 0.1511, Mean Pass Rate Before: 0.533, Mean Pass Rate After: 0.533
+Refactoring 7: LogProb: -4140.471618568812, Tokens: 4686
