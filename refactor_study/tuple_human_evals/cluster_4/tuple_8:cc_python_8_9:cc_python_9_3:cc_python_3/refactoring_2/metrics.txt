@@ -1,0 +1,9 @@
+Mean Pass Rate Before: 0.567
+Mean Pass Rate After: 0.433
+Total LogProb: -3707.907046682072
+Total Tokens: 3051
+Cyclomatic Complexity: 50
+LLOC: 111
+SLOC: 107
+Successful: False
+Total Normalized Loss: 0.0633

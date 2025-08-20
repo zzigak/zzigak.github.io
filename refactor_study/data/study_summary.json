@@ -1,0 +1,25 @@
+{
+  "total_pairs": 35,
+  "pair_types": {
+    "mi_vs_logprob": 13,
+    "mi_vs_tokens": 11,
+    "logprob_vs_tokens": 11
+  },
+  "tuples": [
+    "tuple_28:cc_python_28_3:cc_python_3_29:cc_python_29",
+    "tuple_24:cc_python_24_15:cc_python_15_10:cc_python_10",
+    "tuple_11:cc_python_11_10:cc_python_10_27:cc_python_27",
+    "tuple_29:cc_python_29_19:cc_python_19_13:cc_python_13",
+    "tuple_2:cc_python_2_27:cc_python_27_5:cc_python_5",
+    "tuple_16:cc_python_16_25:cc_python_25_19:cc_python_19",
+    "tuple_5:cc_python_5_26:cc_python_26_22:cc_python_22",
+    "tuple_8:cc_python_8_9:cc_python_9_3:cc_python_3",
+    "tuple_8:cc_python_8_10:cc_python_10_20:cc_python_20",
+    "tuple_6:cc_python_6_21:cc_python_21_9:cc_python_9",
+    "tuple_12:cc_python_12_2:cc_python_2_11:cc_python_11",
+    "tuple_7:cc_python_7_29:cc_python_29_0:cc_python_0",
+    "tuple_16:cc_python_16_19:cc_python_19_23:cc_python_23",
+    "tuple_19:cc_python_19_14:cc_python_14_7:cc_python_7",
+    "tuple_28:cc_python_28_1:cc_python_1_19:cc_python_19"
+  ]
+}

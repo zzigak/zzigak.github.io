@@ -70,41 +70,75 @@ document.addEventListener('DOMContentLoaded', function() {
             const pythonExperience = document.getElementById('pythonExperience').value;
             
             // Load user assignments
+            let assignedTuples = null;
+            
+            // Try to load from user_assignments_final.json first
             try {
-                const response = await fetch('data/user_assignments.json');
+                const response = await fetch('data/user_assignments_final.json');
                 const userAssignments = await response.json();
                 
-                // Check if the user ID exists
-                if (!userAssignments[participantId]) {
-                    alert('Invalid Study ID. Please check your ID and try again.');
-                    return;
+                if (userAssignments[participantId]) {
+                    assignedTuples = userAssignments[participantId];
                 }
-                
-                // Initialize session data
-                const sessionData = {
-                    participantId: participantId,
-                    name: name,
-                    email: email,
-                    gender: gender,
-                    age: age,
-                    programmingExperience: programmingExperience,
-                    pythonExperience: pythonExperience,
-                    startTime: new Date().toISOString(),
-                    assignedTuples: userAssignments[participantId],
-                    currentIndex: 0,
-                    responses: {},
-                    allResponses: []
-                };
-                
-                // Save to localStorage
-                localStorage.setItem('studySession', JSON.stringify(sessionData));
-                
-                // Redirect to single form study page
-                window.location.href = 'study_single_form.html';
             } catch (error) {
-                console.error('Error loading user assignments:', error);
-                alert('Error loading study configuration. Please refresh and try again.');
+                console.log('user_assignments_final.json not found or error, trying v3 file');
             }
+            
+            // If not found in final, try user_assignments_v3.json
+            if (!assignedTuples) {
+                try {
+                    const response = await fetch('data/user_assignments_v3.json');
+                    const userAssignments = await response.json();
+                    
+                    if (userAssignments[participantId]) {
+                        assignedTuples = userAssignments[participantId];
+                    }
+                } catch (error) {
+                    console.log('user_assignments_v3.json not found or error, trying original file');
+                }
+            }
+            
+            // If not found in v3, try original user_assignments.json
+            if (!assignedTuples) {
+                try {
+                    const response = await fetch('data/user_assignments.json');
+                    const userAssignments = await response.json();
+                    
+                    if (userAssignments[participantId]) {
+                        assignedTuples = userAssignments[participantId];
+                    }
+                } catch (error) {
+                    console.log('user_assignments.json not found or error');
+                }
+            }
+            
+            // If still no assignments, use dynamic assignment
+            if (!assignedTuples) {
+                console.log(`No predefined assignments for ${participantId}, using dynamic assignment`);
+                assignedTuples = assignTuples(participantId);
+            }
+            
+            // Initialize session data
+            const sessionData = {
+                participantId: participantId,
+                name: name,
+                email: email,
+                gender: gender,
+                age: age,
+                programmingExperience: programmingExperience,
+                pythonExperience: pythonExperience,
+                startTime: new Date().toISOString(),
+                assignedTuples: assignedTuples,
+                currentIndex: 0,
+                responses: {},
+                allResponses: []
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('studySession', JSON.stringify(sessionData));
+            
+            // Redirect to single form study page
+            window.location.href = 'study_single_form.html';
         });
     }
 });
@@ -122,8 +156,8 @@ function assignTuples(participantId) {
     // Get tuple counts from localStorage or initialize
     let tupleCounts = JSON.parse(localStorage.getItem('globalTupleCounts') || '{}');
     
-    // Initialize counts for 19 tuples if not exists
-    for (let i = 0; i < 19; i++) {
+    // Initialize counts for 45 entries if not exists
+    for (let i = 0; i < 45; i++) {
         if (!(i in tupleCounts)) {
             tupleCounts[i] = 0;
         }

@@ -1,0 +1,86 @@
+Cluster: cluster_7
+================================================================================
+
+Tuple: tuple_11:cc_python_11_10:cc_python_10_27:cc_python_27
+--------------------------------------------------------------------------------
+ALL REFACTORINGS:
+Name            MI       LogProb    Tokens   CC     PassBefore PassAfter  Maintained
+--------------------------------------------------------------------------------
+refactoring_4   22.575   -5265.8    2173     87     0.800      0.800      Yes       
+refactoring_1   22.094   -5312.7    2231     88     0.800      0.800      Yes       
+refactoring_3   23.148   -5583.3    2270     88     0.800      0.800      Yes       
+refactoring_7   20.357   -5731.4    2419     102    0.800      0.800      Yes       
+refactoring_6   22.561   -6192.7    2256     85     0.800      0.800      Yes       
+refactoring_5   22.577   -6483.8    2362     92     0.800      0.800      Yes       
+refactoring_2   27.526   -6662.3    2195     79     0.800      0.467      No        
+refactoring_0   25.739   -7137.1    2214     88     0.800      0.800      Yes       
+
+REFACTORINGS THAT MAINTAINED PASS RATES:
+Name            MI_Rank  LogProb_Rank Token_Rank  CC_Rank  MI       LogProb   
+--------------------------------------------------------------------------------
+refactoring_4   5        1            1           3        22.575   -5265.8   
+refactoring_1   7        2            4           5        22.094   -5312.7   
+refactoring_3   3        3            6           6        23.148   -5583.3   
+refactoring_7   8        4            8           8        20.357   -5731.4   
+refactoring_6   6        5            5           2        22.561   -6192.7   
+refactoring_5   4        6            7           7        22.577   -6483.8   
+refactoring_0   2        8            3           4        25.739   -7137.1   
+
+TOP REFACTORINGS BY EACH METRIC (ALL):
+--------------------------------------------------------------------------------
+Best Maintainability (MI):     refactoring_2   Rank: 1  Score: 27.526  
+Best Code Quality (LogProb):   refactoring_4   Rank: 1  Score: -5265.8   
+Most Concise (Tokens):         refactoring_4   Rank: 1  Score: 2173    
+Simplest (CC):                 refactoring_2   Rank: 1  Score: 79    
+
+TOP REFACTORINGS BY EACH METRIC (PASSED ONLY):
+--------------------------------------------------------------------------------
+Best Maintainability (MI):     refactoring_0   Rank: 2  Score: 25.739  
+Best Code Quality (LogProb):   refactoring_4   Rank: 1  Score: -5265.8   
+Most Concise (Tokens):         refactoring_4   Rank: 1  Score: 2173    
+Simplest (CC):                 refactoring_6   Rank: 2  Score: 85    
+
+================================================================================
+
+Tuple: tuple_16:cc_python_16_25:cc_python_25_19:cc_python_19
+--------------------------------------------------------------------------------
+ALL REFACTORINGS:
+Name            MI       LogProb    Tokens   CC     PassBefore PassAfter  Maintained
+--------------------------------------------------------------------------------
+refactoring_1   41.229   -3909.9    1151     48     0.533      0.533      Yes       
+refactoring_4   39.873   -4029.8    1189     50     0.533      0.533      Yes       
+refactoring_7   40.032   -4140.5    1169     52     0.533      0.533      Yes       
+refactoring_3   39.927   -4725.8    1205     55     0.533      0.533      Yes       
+refactoring_2   39.900   -4732.9    1200     53     0.533      0.533      Yes       
+refactoring_5   40.424   -4870.9    1200     54     0.533      0.533      Yes       
+refactoring_6   43.506   -5191.4    1197     55     0.533      0.533      Yes       
+refactoring_0   45.746   -5436.1    1172     56     0.533      0.533      Yes       
+
+REFACTORINGS THAT MAINTAINED PASS RATES:
+Name            MI_Rank  LogProb_Rank Token_Rank  CC_Rank  MI       LogProb   
+--------------------------------------------------------------------------------
+refactoring_1   3        1            1           1        41.229   -3909.9   
+refactoring_4   8        2            4           2        39.873   -4029.8   
+refactoring_7   5        3            2           3        40.032   -4140.5   
+refactoring_3   6        4            8           6        39.927   -4725.8   
+refactoring_2   7        5            6           4        39.900   -4732.9   
+refactoring_5   4        6            7           5        40.424   -4870.9   
+refactoring_6   2        7            5           7        43.506   -5191.4   
+refactoring_0   1        8            3           8        45.746   -5436.1   
+
+TOP REFACTORINGS BY EACH METRIC (ALL):
+--------------------------------------------------------------------------------
+Best Maintainability (MI):     refactoring_0   Rank: 1  Score: 45.746  
+Best Code Quality (LogProb):   refactoring_1   Rank: 1  Score: -3909.9   
+Most Concise (Tokens):         refactoring_1   Rank: 1  Score: 1151    
+Simplest (CC):                 refactoring_1   Rank: 1  Score: 48    
+
+TOP REFACTORINGS BY EACH METRIC (PASSED ONLY):
+--------------------------------------------------------------------------------
+Best Maintainability (MI):     refactoring_0   Rank: 1  Score: 45.746  
+Best Code Quality (LogProb):   refactoring_1   Rank: 1  Score: -3909.9   
+Most Concise (Tokens):         refactoring_1   Rank: 1  Score: 1151    
+Simplest (CC):                 refactoring_1   Rank: 1  Score: 48    
+
+================================================================================
+

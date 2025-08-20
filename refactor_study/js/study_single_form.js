@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 async function loadTuplesData() {
     try {
-        const response = await fetch('data/tuples_v2.json');
+        const response = await fetch('data/tuples_v3.json');
         tuplesData = await response.json();
         document.getElementById('loading').style.display = 'none';
     } catch (error) {
@@ -79,6 +79,18 @@ function loadCurrentTuple() {
     const currentQuestion = sessionData.currentIndex + 1;
     document.getElementById('currentQuestion').textContent = currentQuestion;
     document.getElementById('progressFill').style.width = `${(currentQuestion / 10) * 100}%`;
+    
+    // Update debug info (for testing)
+    const debugInfo = document.getElementById('debugInfo');
+    if (debugInfo) {
+        document.getElementById('debugCluster').textContent = `Cluster: ${tuple.cluster || 'N/A'}`;
+        document.getElementById('debugTuple').textContent = `Tuple: ${tuple.tuple || 'N/A'}`;
+        document.getElementById('debugPairType').textContent = `Pair: ${tuple.pair_type || 'N/A'}`;
+        document.getElementById('debugMetrics').textContent = `Metrics: ${tuple.v1_metric || 'N/A'} (${tuple.v1_refactoring || 'N/A'}) vs ${tuple.v2_metric || 'N/A'} (${tuple.v2_refactoring || 'N/A'})`;
+        console.log('Debug info updated:', tuple);
+    } else {
+        console.error('Debug info element not found');
+    }
     
     // Load default views for each panel
     updateCodePanel('original', currentViews.original, tuple);
