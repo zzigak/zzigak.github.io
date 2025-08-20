@@ -1,0 +1,630 @@
+// Study page JavaScript with view switching
+let tuplesData = [];
+let sessionData = null;
+let currentTupleId = null;
+let timerInterval = null;
+let startTime = null;
+let currentViews = {
+    'original': 'p1',
+    'v1': 'p1',
+    'v2': 'p1'
+};
+
+document.addEventListener('DOMContentLoaded', async function() {
+    // Load session data
+    sessionData = JSON.parse(localStorage.getItem('studySession'));
+    
+    if (!sessionData) {
+        alert('No study session found. Redirecting to start page.');
+        window.location.href = 'index.html';
+        return;
+    }
+    
+    // Display participant ID
+    document.getElementById('participantId').textContent = sessionData.participantId;
+    
+    // Start timer
+    startTimer();
+    
+    // Load tuples data
+    await loadTuplesData();
+    
+    // Load current tuple
+    loadCurrentTuple();
+    
+    // Setup event listeners
+    setupEventListeners();
+    
+    // Setup keyboard shortcuts
+    setupKeyboardShortcuts();
+    
+    // Setup synchronized scrolling
+    setupSyncScroll();
+    
+    // Setup view buttons
+    setupViewButtons();
+});
+
+async function loadTuplesData() {
+    try {
+        const response = await fetch('data/tuples_v2.json');
+        tuplesData = await response.json();
+        document.getElementById('loading').style.display = 'none';
+    } catch (error) {
+        console.error('Error loading tuples data:', error);
+        alert('Error loading study data. Please refresh the page.');
+    }
+}
+
+function loadCurrentTuple() {
+    if (sessionData.currentIndex >= sessionData.assignedTuples.length) {
+        showCompletionModal();
+        return;
+    }
+    
+    currentTupleId = sessionData.assignedTuples[sessionData.currentIndex];
+    const tuple = tuplesData[currentTupleId];
+    
+    if (!tuple) {
+        console.error('Tuple not found:', currentTupleId);
+        return;
+    }
+    
+    // Update progress
+    const currentQuestion = sessionData.currentIndex + 1;
+    document.getElementById('currentQuestion').textContent = currentQuestion;
+    document.getElementById('progressFill').style.width = `${(currentQuestion / 10) * 100}%`;
+    
+    // Load default views for each panel
+    updateCodePanel('original', currentViews.original, tuple);
+    updateCodePanel('v1', currentViews.v1, tuple);
+    updateCodePanel('v2', currentViews.v2, tuple);
+    
+    // Clear previous selection
+    document.querySelectorAll('.choice-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    // Load previous response if exists
+    if (sessionData.responses[currentTupleId]) {
+        const prevChoice = sessionData.responses[currentTupleId];
+        document.querySelector(`[data-choice="${prevChoice}"]`).classList.add('selected');
+        document.getElementById('nextBtn').disabled = false;
+    } else {
+        document.getElementById('nextBtn').disabled = true;
+    }
+    
+    // Update navigation buttons
+    document.getElementById('prevBtn').disabled = sessionData.currentIndex === 0;
+    
+    // Show submit button on last question
+    if (sessionData.currentIndex === 9) {
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'inline-block';
+        document.getElementById('submitBtn').disabled = !sessionData.responses[currentTupleId];
+    } else {
+        document.getElementById('nextBtn').style.display = 'inline-block';
+        document.getElementById('submitBtn').style.display = 'none';
+    }
+}
+
+function updateCodePanel(panel, view, tuple) {
+    let codeElementId;
+    let content = '';
+    
+    // Determine which code element to update
+    if (panel === 'original') {
+        codeElementId = 'originalCode';
+    } else if (panel === 'v1') {
+        codeElementId = 'v1Code';
+    } else {
+        codeElementId = 'v2Code';
+    }
+    
+    // Get the appropriate content based on view
+    if (panel === 'original') {
+        // Original panel only has p1, p2, p3
+        if (view === 'p1') {
+            content = tuple.files.original_p1 || tuple.files.original || '';
+        } else if (view === 'p2') {
+            content = tuple.files.original_p2 || tuple.files.original || '';
+        } else if (view === 'p3') {
+            content = tuple.files.original_p3 || tuple.files.original || '';
+        }
+    } else {
+        // v1 and v2 panels have all, library, p1, p2, p3
+        const versionKey = panel;
+        if (view === 'all') {
+            content = tuple.files[versionKey] || '';
+        } else if (view === 'library') {
+            content = tuple.files[`library_${versionKey}`] || '';
+        } else if (view === 'p1') {
+            content = tuple.files[`p1_${versionKey}`] || '';
+        } else if (view === 'p2') {
+            content = tuple.files[`p2_${versionKey}`] || '';
+        } else if (view === 'p3') {
+            content = tuple.files[`p3_${versionKey}`] || '';
+        }
+    }
+    
+    // Update the code element
+    const codeElement = document.getElementById(codeElementId);
+    codeElement.textContent = content;
+    
+    // Apply syntax highlighting
+    Prism.highlightElement(codeElement);
+    
+    // Reset scroll position
+    const wrapper = codeElement.closest('.code-wrapper');
+    if (wrapper) {
+        wrapper.scrollTop = 0;
+    }
+}
+
+function setupViewButtons() {
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const panel = this.dataset.panel;
+            const view = this.dataset.view;
+            
+            // Update active state for buttons in this panel
+            document.querySelectorAll(`.view-btn[data-panel="${panel}"]`).forEach(b => {
+                b.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Update current view
+            currentViews[panel] = view;
+            
+            // Update code display
+            const tuple = tuplesData[currentTupleId];
+            if (tuple) {
+                updateCodePanel(panel, view, tuple);
+            }
+        });
+    });
+}
+
+function setupEventListeners() {
+    // Choice buttons
+    document.querySelectorAll('.choice-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const choice = this.dataset.choice;
+            selectChoice(choice);
+        });
+    });
+    
+    // Navigation buttons
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (sessionData.currentIndex > 0) {
+            sessionData.currentIndex--;
+            saveSession();
+            loadCurrentTuple();
+        }
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (sessionData.currentIndex < 9) {
+            sessionData.currentIndex++;
+            saveSession();
+            loadCurrentTuple();
+        }
+    });
+    
+    document.getElementById('submitBtn').addEventListener('click', () => {
+        showCompletionMessage();
+    });
+    
+    // Modal buttons
+    document.getElementById('googleFormBtn').addEventListener('click', () => {
+        submitToGoogleForm();
+    });
+    
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+        downloadResponses();
+    });
+    
+    // Font size controls
+    setupFontSizeControls();
+}
+
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        if (e.key === '1') {
+            selectChoice('v1');
+        } else if (e.key === '2') {
+            selectChoice('v2');
+        } else if (e.key === 'Enter' && !document.getElementById('nextBtn').disabled) {
+            if (sessionData.currentIndex < 9) {
+                document.getElementById('nextBtn').click();
+            } else {
+                document.getElementById('submitBtn').click();
+            }
+        }
+    });
+}
+
+async function selectChoice(choice) {
+    // Update UI to show selection
+    document.querySelectorAll('.choice-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    const selectedBtn = document.querySelector(`[data-choice="${choice}"]`);
+    if (selectedBtn) {
+        selectedBtn.classList.add('selected');
+    }
+    
+    // Save response locally
+    sessionData.responses[currentTupleId] = choice;
+    saveSession();
+    
+    // Submit to Google Form (will fail with 401 but data is saved locally)
+    const trialNumber = sessionData.currentIndex + 1;
+    
+    // Store detailed response for CSV
+    if (!sessionData.detailedResponses) {
+        sessionData.detailedResponses = [];
+    }
+    sessionData.detailedResponses.push({
+        userId: sessionData.participantId,
+        name: sessionData.name || '',
+        email: sessionData.email || '',
+        tupleId: currentTupleId,
+        choice: choice.toUpperCase(),
+        trialNumber: trialNumber,
+        timestamp: new Date().toISOString()
+    });
+    saveSession();
+    
+    
+    // Enable next/submit button now that a choice is made
+    if (sessionData.currentIndex === 9) {
+        // Last trial - enable submit button
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) submitBtn.disabled = false;
+    } else {
+        // Enable next button
+        const nextBtn = document.getElementById('nextBtn');
+        if (nextBtn) nextBtn.disabled = false;
+    }
+}
+
+function setupSyncScroll() {
+    const syncCheckbox = document.getElementById('syncScroll');
+    const codeWrappers = document.querySelectorAll('.code-wrapper');
+    
+    let isScrolling = false;
+    
+    codeWrappers.forEach(wrapper => {
+        wrapper.addEventListener('scroll', function() {
+            if (!syncCheckbox.checked || isScrolling) return;
+            
+            isScrolling = true;
+            const scrollPercent = this.scrollTop / (this.scrollHeight - this.clientHeight);
+            
+            codeWrappers.forEach(otherWrapper => {
+                if (otherWrapper !== this) {
+                    otherWrapper.scrollTop = scrollPercent * (otherWrapper.scrollHeight - otherWrapper.clientHeight);
+                }
+            });
+            
+            setTimeout(() => { isScrolling = false; }, 10);
+        });
+    });
+}
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+        document.getElementById('timer').textContent = 
+            `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }, 1000);
+}
+
+function saveSession() {
+    localStorage.setItem('studySession', JSON.stringify(sessionData));
+}
+
+function showCompletionMessage() {
+    clearInterval(timerInterval);
+    
+    // Prepare CSV data for download
+    const csvData = prepareCSVData();
+    
+    // Show completion message with download option
+    const mainContent = document.querySelector('.study-main');
+    mainContent.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+            <h2 style="color: #4CAF50; margin-bottom: 1rem;">✓ Study Complete!</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Thank you for completing the code refactoring study.
+            </p>
+            <p style="color: #666; margin-bottom: 1rem;">
+                Step 1: Submit your responses to Google Form
+            </p>
+            <button onclick="submitAllToGoogleForm()" style="
+                padding: 0.75rem 2rem;
+                background: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            ">📝 Open Google Form to Submit</button>
+            
+            <p style="color: #666; margin-bottom: 1rem;">
+                Step 2: Download backup copy of your responses
+            </p>
+            <button onclick="downloadCSV()" style="
+                padding: 0.75rem 2rem;
+                background: #2196F3;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            ">📥 Download Responses (CSV)</button>
+            <br>
+            <button onclick="window.location.href='index.html'" style="
+                padding: 0.5rem 1.5rem;
+                background: #666;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9rem;
+            ">Return to Start</button>
+        </div>
+    `;
+    
+    // Store CSV data globally for download function
+    window.csvDataToDownload = csvData;
+    
+    // Clear session data after a delay
+    setTimeout(() => {
+        localStorage.removeItem('studySession');
+    }, 2000);
+}
+
+function prepareCSVData() {
+    const rows = [
+        ['UserID', 'Name', 'Email', 'TupleID', 'Choice', 'TrialNumber', 'Timestamp']
+    ];
+    
+    // Use detailed responses if available, otherwise fall back to simple responses
+    if (sessionData.detailedResponses && sessionData.detailedResponses.length > 0) {
+        sessionData.detailedResponses.forEach(response => {
+            rows.push([
+                response.userId,
+                response.name,
+                response.email,
+                String(response.tupleId),
+                response.choice,
+                response.trialNumber.toString(),
+                response.timestamp
+            ]);
+        });
+    } else {
+        // Fallback to original method
+        sessionData.assignedTuples.forEach((tupleId, index) => {
+            const choice = sessionData.responses[tupleId] || 'no_response';
+            rows.push([
+                sessionData.participantId,
+                sessionData.name || '',
+                sessionData.email || '',
+                String(tupleId),
+                choice.toUpperCase(),
+                (index + 1).toString(),
+                new Date().toISOString()
+            ]);
+        });
+    }
+    
+    return rows.map(row => row.map(cell => {
+        const cellStr = String(cell);
+        return cellStr.includes(',') ? `"${cellStr}"` : cellStr;
+    }).join(',')).join('\n');
+}
+
+function downloadCSV() {
+    const blob = new Blob([window.csvDataToDownload], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `study_responses_${sessionData.participantId}_${Date.now()}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+async function submitChoiceToGoogleForm(tupleId, choice, trialNumber) {
+    // Google Form configuration with actual entry IDs
+    const FORM_ID = '1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA';
+    const ENTRY_IDS = {
+        userId: 'entry.1958938177',
+        email: 'entry.792270821',
+        name: 'entry.1585743737',
+        tupleId: 'entry.1538445591',
+        pairId: 'entry.306224226',
+        choice: 'entry.1092031299',
+        trialNumber: 'entry.435207678',
+        timestamp: 'entry.141633008'
+    };
+    
+    // Prepare form data
+    const formData = new FormData();
+    formData.append(ENTRY_IDS.userId, sessionData.participantId);
+    formData.append(ENTRY_IDS.email, sessionData.email || '');
+    formData.append(ENTRY_IDS.name, sessionData.name || '');
+    formData.append(ENTRY_IDS.tupleId, tupleId);
+    formData.append(ENTRY_IDS.pairId, '1'); // Always 1 since we're comparing v1 vs v2
+    formData.append(ENTRY_IDS.choice, choice.toUpperCase()); // V1, V2, or TIE
+    formData.append(ENTRY_IDS.trialNumber, trialNumber.toString());
+    formData.append(ENTRY_IDS.timestamp, new Date().toISOString());
+    
+    // Submit to Google Form silently
+    try {
+        const response = await fetch(
+            `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,
+            {
+                method: 'POST',
+                mode: 'no-cors', // Google Forms doesn't support CORS
+                body: formData
+            }
+        );
+        console.log(`Submitted trial ${trialNumber}: ${tupleId} -> ${choice}`);
+    } catch (error) {
+        console.error('Error submitting to Google Form:', error);
+    }
+}
+
+function downloadResponses() {
+    const data = {
+        participantId: sessionData.participantId,
+        startTime: sessionData.startTime,
+        completionTime: new Date().toISOString(),
+        assignedTuples: sessionData.assignedTuples,
+        responses: sessionData.responses,
+        tupleDetails: sessionData.assignedTuples.map(id => ({
+            tupleId: id,
+            tupleName: tuplesData[id]?.name || 'Unknown',
+            choice: sessionData.responses[id] || 'No response'
+        }))
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `study_responses_${sessionData.participantId}_${Date.now()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+async function submitAllToGoogleForm() {
+    // Submit all responses via iframe
+    if (!document.getElementById('submission_iframe')) {
+        const iframe = document.createElement('iframe');
+        iframe.name = 'submission_iframe';
+        iframe.id = 'submission_iframe';
+        iframe.style = 'width: 1px; height: 1px; position: absolute; top: -100px;';
+        document.body.appendChild(iframe);
+    }
+    
+    let submitted = 0;
+    const total = sessionData.detailedResponses.length;
+    
+    // Show progress
+    const mainContent = document.querySelector('.study-main');
+    const originalHTML = mainContent.innerHTML;
+    
+    for (const response of sessionData.detailedResponses) {
+        mainContent.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                <h2>Submitting Responses...</h2>
+                <p style="font-size: 1.2rem; margin: 2rem 0;">
+                    Submitting response ${submitted + 1} of ${total}
+                </p>
+                <div style="width: 300px; height: 20px; background: #e0e0e0; border-radius: 10px; overflow: hidden;">
+                    <div style="width: ${(submitted / total) * 100}%; height: 100%; background: #4CAF50; transition: width 0.3s;"></div>
+                </div>
+            </div>
+        `;
+        
+        // Create form for this response
+        const form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/formResponse';
+        form.method = 'POST';
+        form.target = 'submission_iframe';
+        
+        // Add fields
+        const fields = {
+            'entry.1958938177': response.userId,
+            'entry.792270821': response.email,
+            'entry.1585743737': response.name,
+            'entry.1538445591': String(response.tupleId),
+            'entry.306224226': '1',
+            'entry.1092031299': response.choice,
+            'entry.435207678': String(response.trialNumber),
+            'entry.141633008': response.timestamp
+        };
+        
+        for (const [name, value] of Object.entries(fields)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        }
+        
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        
+        submitted++;
+        
+        // Wait a bit between submissions to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    
+    // Restore completion screen
+    mainContent.innerHTML = originalHTML;
+    alert(`All ${total} responses have been submitted to Google Forms!`);
+}
+
+function setupFontSizeControls() {
+    let currentFontSize = 12; // Default font size in px
+    const minSize = 10;
+    const maxSize = 20;
+    
+    const fontSizeDisplay = document.getElementById('fontSize');
+    const decreaseBtn = document.getElementById('fontDecrease');
+    const increaseBtn = document.getElementById('fontIncrease');
+    
+    // Load saved font size from localStorage
+    const savedSize = localStorage.getItem('codeFontSize');
+    if (savedSize) {
+        currentFontSize = parseInt(savedSize);
+    }
+    
+    updateFontSize(currentFontSize);
+    
+    decreaseBtn.addEventListener('click', () => {
+        if (currentFontSize > minSize) {
+            currentFontSize--;
+            updateFontSize(currentFontSize);
+        }
+    });
+    
+    increaseBtn.addEventListener('click', () => {
+        if (currentFontSize < maxSize) {
+            currentFontSize++;
+            updateFontSize(currentFontSize);
+        }
+    });
+    
+    function updateFontSize(size) {
+        // Update all code panels
+        document.querySelectorAll('.code-wrapper pre').forEach(pre => {
+            pre.style.fontSize = `${size}px`;
+        });
+        
+        // Update display
+        fontSizeDisplay.textContent = `${size}px`;
+        
+        // Save to localStorage
+        localStorage.setItem('codeFontSize', size);
+        
+        // Update button states
+        decreaseBtn.disabled = size <= minSize;
+        increaseBtn.disabled = size >= maxSize;
+    }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Google Form Entry IDs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .instructions {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin: 20px 0;
+        }
+        .code-block {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        ol li {
+            margin: 10px 0;
+        }
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>How to Get Entry IDs from Your Google Form</h1>
+    
+    <div class="instructions">
+        <h2>Method 1: Using Browser Developer Tools (Recommended)</h2>
+        <ol>
+            <li>Open your Google Form in edit mode</li>
+            <li>Click the "Preview" button (eye icon) to open the form</li>
+            <li>Right-click on the form and select "Inspect" or press F12</li>
+            <li>Go to the "Network" tab in Developer Tools</li>
+            <li>Fill out the form with test data and submit it</li>
+            <li>Look for a request to "formResponse" in the Network tab</li>
+            <li>Click on it and go to the "Payload" or "Form Data" tab</li>
+            <li>You'll see all the entry IDs like: <span class="highlight">entry.1958938177</span></li>
+        </ol>
+    </div>
+
+    <div class="instructions">
+        <h2>Method 2: View Page Source</h2>
+        <ol>
+            <li>Open your Google Form (the public view, not edit mode)</li>
+            <li>Right-click and select "View Page Source" or press Ctrl+U (Cmd+U on Mac)</li>
+            <li>Search for "entry." in the source code</li>
+            <li>You'll find patterns like:
+                <div class="code-block">
+                    &lt;input type="hidden" name="entry.1958938177" value=""&gt;
+                </div>
+            </li>
+            <li>Match each entry ID with its corresponding field by looking at the labels nearby</li>
+        </ol>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ Important Notes:</h3>
+        <ul>
+            <li>Entry IDs are unique to each form and cannot be guessed</li>
+            <li>The order of fields in the form matches the order of entry IDs</li>
+            <li>Radio buttons (like V1/V2 choice) will have the same entry ID with different values</li>
+            <li>For radio buttons, the value you send should match exactly what's shown in the form (e.g., "V1" or "V2")</li>
+        </ul>
+    </div>
+
+    <div class="instructions">
+        <h2>Expected Entry IDs for Your Form Structure:</h2>
+        <p>Based on your form structure, you should find these entry IDs:</p>
+        <div class="code-block">
+// User Information
+entry.XXXXXXXXX - UserID
+entry.XXXXXXXXX - Email  
+entry.XXXXXXXXX - Name
+
+// Trial 1
+entry.XXXXXXXXX - TupleID (Trial 1)
+entry.XXXXXXXXX - PairID (Trial 1) - Radio: 1, 2, or 3
+entry.XXXXXXXXX - Choice (Trial 1) - Radio: V1 or V2
+
+// Trial 2
+entry.XXXXXXXXX - TupleID (Trial 2)
+entry.XXXXXXXXX - PairID (Trial 2) - Radio: 1, 2, or 3
+entry.XXXXXXXXX - Choice (Trial 2) - Radio: V1 or V2
+
+// ... continue for Trials 3-10 ...
+
+// Additional fields
+entry.XXXXXXXXX - Trial Number
+entry.XXXXXXXXX - Timestamp
+        </div>
+    </div>
+
+    <div class="instructions">
+        <h2>Quick Test Script</h2>
+        <p>Once you have the entry IDs, you can test with this script in the browser console:</p>
+        <div class="code-block">
+// Run this in the console while on your Google Form page
+const inputs = document.querySelectorAll('[name^="entry."]');
+const entryIds = {};
+inputs.forEach(input => {
+    const label = input.closest('.freebirdFormviewerComponentsQuestionBaseRoot')
+                      ?.querySelector('[role="heading"]')?.textContent || 'Unknown';
+    entryIds[label] = input.name;
+});
+console.table(entryIds);
+        </div>
+    </div>
+
+    <div class="instructions">
+        <h2>After Getting the Entry IDs</h2>
+        <ol>
+            <li>Replace all <code>entry.XXXXXXXXX</code> placeholders in <code>study_single_form.js</code> with the actual entry IDs</li>
+            <li>Test with one complete submission to ensure all fields are mapped correctly</li>
+            <li>The pre-filled URL will then work properly when users complete the study</li>
+        </ol>
+    </div>
+</body>
+</html>

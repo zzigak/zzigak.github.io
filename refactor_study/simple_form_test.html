@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Google Form Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+        .success { color: green; }
+        .info { background: #f0f0f0; padding: 15px; margin: 20px 0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Simple Google Form Submission Test</h1>
+    
+    <div class="info">
+        <p>Your form accepts these fields:</p>
+        <ul>
+            <li>UserID: entry.1958938177</li>
+            <li>Email: entry.792270821</li>
+            <li>Name: entry.1585743737</li>
+            <li>TupleID: entry.1538445591</li>
+            <li>PairID: entry.306224226</li>
+            <li>Choice: entry.1092031299</li>
+            <li>TrialNumber: entry.435207678</li>
+            <li>Timestamp: entry.141633008</li>
+        </ul>
+    </div>
+
+    <h2>Test 1: Submit via Hidden Iframe</h2>
+    <button onclick="submitViaIframe()">Submit Test Data via Iframe</button>
+    
+    <h2>Test 2: Submit via Fetch</h2>
+    <button onclick="submitViaFetch()">Submit Test Data via Fetch</button>
+    
+    <h2>Test 3: Open Pre-filled Form</h2>
+    <button onclick="openPrefilled()">Open Pre-filled Form in New Tab</button>
+    
+    <div id="result"></div>
+    
+    <!-- Hidden iframe for submission -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="iframeLoaded()"></iframe>
+
+    <script>
+    let submissionCount = 0;
+    
+    function submitViaIframe() {
+        submissionCount++;
+        
+        const form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/formResponse';
+        form.method = 'POST';
+        form.target = 'hidden_iframe';
+        
+        // Test data
+        const testData = {
+            'entry.1958938177': 'TEST_USER_' + submissionCount,
+            'entry.792270821': 'test' + submissionCount + '@example.com',
+            'entry.1585743737': 'Test User ' + submissionCount,
+            'entry.1538445591': 'cluster_0_tuple_' + submissionCount,
+            'entry.306224226': '1',
+            'entry.1092031299': 'V' + (submissionCount % 2 + 1),
+            'entry.435207678': String(submissionCount),
+            'entry.141633008': new Date().toISOString()
+        };
+        
+        for (const [name, value] of Object.entries(testData)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        }
+        
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        
+        document.getElementById('result').innerHTML += 
+            '<p class="success">✓ Submission ' + submissionCount + ' sent via iframe. Check your Google Form responses!</p>';
+    }
+    
+    function submitViaFetch() {
+        submissionCount++;
+        
+        const formData = new FormData();
+        formData.append('entry.1958938177', 'FETCH_USER_' + submissionCount);
+        formData.append('entry.792270821', 'fetch' + submissionCount + '@example.com');
+        formData.append('entry.1585743737', 'Fetch User ' + submissionCount);
+        formData.append('entry.1538445591', 'cluster_1_tuple_' + submissionCount);
+        formData.append('entry.306224226', '1');
+        formData.append('entry.1092031299', 'V' + (submissionCount % 2 + 1));
+        formData.append('entry.435207678', String(submissionCount));
+        formData.append('entry.141633008', new Date().toISOString());
+        
+        fetch('https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/formResponse', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+        }).then(() => {
+            document.getElementById('result').innerHTML += 
+                '<p class="success">✓ Submission ' + submissionCount + ' sent via fetch. Check your Google Form responses!</p>';
+        }).catch(error => {
+            document.getElementById('result').innerHTML += 
+                '<p style="color: red;">✗ Fetch error: ' + error + '</p>';
+        });
+    }
+    
+    function openPrefilled() {
+        const url = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/viewform?usp=pp_url' +
+            '&entry.1958938177=MANUAL_USER' +
+            '&entry.792270821=manual@example.com' +
+            '&entry.1585743737=Manual+User' +
+            '&entry.1538445591=cluster_0_tuple_1' +
+            '&entry.306224226=1' +
+            '&entry.1092031099=V1' +
+            '&entry.435207678=1' +
+            '&entry.141633008=' + encodeURIComponent(new Date().toISOString());
+        
+        window.open(url, '_blank');
+        document.getElementById('result').innerHTML += 
+            '<p>✓ Opened pre-filled form in new tab. Submit it manually to test.</p>';
+    }
+    
+    function iframeLoaded() {
+        console.log('Iframe loaded - submission likely successful');
+    }
+    </script>
+    
+    <hr>
+    <h2>Your Test Link</h2>
+    <p>Click to test your pre-filled link:</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/viewform?usp=pp_url&entry.1958938177=z&entry.792270821=zk66@cornell.edu&entry.1585743737=z&entry.1538445591=z&entry.306224226=1&entry.1092031099=V1&entry.435207678=z&entry.141633008=z" target="_blank">
+        Open Your Pre-filled Form
+    </a>
+</body>
+</html>

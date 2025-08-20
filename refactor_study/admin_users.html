@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - User ID Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .user-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .user-id {
+            font-weight: bold;
+            color: #2196F3;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .tuples {
+            font-family: monospace;
+            color: #666;
+            font-size: 0.9em;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .copy-btn {
+            background: #2196F3;
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin - User ID Management</h1>
+    
+    <div class="section">
+        <h2>Statistics</h2>
+        <div class="stats" id="stats"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Generate More User IDs</h2>
+        <p>Generate additional user IDs with randomized tuple assignments:</p>
+        <label>Number of users: 
+            <input type="number" id="numUsers" value="10" min="1" max="100">
+        </label>
+        <label>Prefix: 
+            <input type="text" id="prefix" value="USER" placeholder="e.g., GROUP2">
+        </label>
+        <button onclick="generateMoreUsers()">Generate New Users</button>
+        <button onclick="downloadAssignments()">Download All Assignments</button>
+    </div>
+    
+    <div class="section">
+        <h2>Current User Assignments</h2>
+        <input type="text" id="searchUser" placeholder="Search user ID..." style="width: 300px; padding: 8px; margin-bottom: 10px;">
+        <div class="user-grid" id="userGrid"></div>
+    </div>
+    
+    <div class="section">
+        <h2>Export for Distribution</h2>
+        <button onclick="exportUserList()">Export User List (CSV)</button>
+        <button onclick="exportInstructions()">Export Instructions (TXT)</button>
+        <div id="exportArea" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        let userAssignments = {};
+        
+        // Load existing assignments
+        async function loadAssignments() {
+            try {
+                const response = await fetch('data/user_assignments.json');
+                userAssignments = await response.json();
+                displayUsers();
+                updateStats();
+            } catch (error) {
+                console.error('Error loading assignments:', error);
+            }
+        }
+        
+        function displayUsers() {
+            const grid = document.getElementById('userGrid');
+            const searchTerm = document.getElementById('searchUser').value.toLowerCase();
+            
+            grid.innerHTML = '';
+            
+            Object.entries(userAssignments)
+                .filter(([id]) => id.toLowerCase().includes(searchTerm))
+                .sort(([a], [b]) => a.localeCompare(b))
+                .forEach(([userId, tuples]) => {
+                    const card = document.createElement('div');
+                    card.className = 'user-card';
+                    card.innerHTML = `
+                        <div class="user-id">${userId} 
+                            <button class="copy-btn" onclick="copyToClipboard('${userId}')">Copy ID</button>
+                        </div>
+                        <div class="tuples">Tuples: [${tuples.join(', ')}]</div>
+                    `;
+                    grid.appendChild(card);
+                });
+        }
+        
+        function updateStats() {
+            const stats = document.getElementById('stats');
+            const totalUsers = Object.keys(userAssignments).length;
+            const testUsers = Object.keys(userAssignments).filter(id => id.startsWith('TEST')).length;
+            const regularUsers = totalUsers - testUsers;
+            
+            // Calculate tuple coverage
+            const tupleCoverage = {};
+            Object.values(userAssignments).forEach(tuples => {
+                tuples.forEach(t => {
+                    tupleCoverage[t] = (tupleCoverage[t] || 0) + 1;
+                });
+            });
+            
+            stats.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${totalUsers}</div>
+                    <div class="stat-label">Total User IDs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${regularUsers}</div>
+                    <div class="stat-label">Regular Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${testUsers}</div>
+                    <div class="stat-label">Test Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${Object.keys(tupleCoverage).length}</div>
+                    <div class="stat-label">Unique Tuples Used</div>
+                </div>
+            `;
+        }
+        
+        function generateMoreUsers() {
+            const numUsers = parseInt(document.getElementById('numUsers').value);
+            const prefix = document.getElementById('prefix').value || 'USER';
+            
+            // Find the highest existing number for this prefix
+            let maxNum = 0;
+            Object.keys(userAssignments).forEach(id => {
+                if (id.startsWith(prefix)) {
+                    const num = parseInt(id.replace(prefix, '')) || 0;
+                    maxNum = Math.max(maxNum, num);
+                }
+            });
+            
+            // Generate new users
+            for (let i = 1; i <= numUsers; i++) {
+                const userId = `${prefix}${String(maxNum + i).padStart(3, '0')}`;
+                
+                // Generate random tuple assignment (10 unique tuples from 0-18)
+                const availableTuples = Array.from({length: 19}, (_, i) => i);
+                const selectedTuples = [];
+                
+                for (let j = 0; j < 10; j++) {
+                    const randomIndex = Math.floor(Math.random() * availableTuples.length);
+                    selectedTuples.push(availableTuples[randomIndex]);
+                    availableTuples.splice(randomIndex, 1);
+                }
+                
+                userAssignments[userId] = selectedTuples;
+            }
+            
+            displayUsers();
+            updateStats();
+            
+            alert(`Generated ${numUsers} new user IDs starting from ${prefix}${String(maxNum + 1).padStart(3, '0')}`);
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Copied: ${text}`);
+            });
+        }
+        
+        function downloadAssignments() {
+            const dataStr = JSON.stringify(userAssignments, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'user_assignments.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function exportUserList() {
+            let csv = 'UserID,Tuple1,Tuple2,Tuple3,Tuple4,Tuple5,Tuple6,Tuple7,Tuple8,Tuple9,Tuple10\n';
+            
+            Object.entries(userAssignments)
+                .filter(([id]) => !id.startsWith('TEST'))
+                .sort(([a], [b]) => a.localeCompare(b))
+                .forEach(([userId, tuples]) => {
+                    csv += `${userId},${tuples.join(',')}\n`;
+                });
+            
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `user_assignments_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        function exportInstructions() {
+            const instructions = `Code Refactoring Study - Participant Instructions
+================================================
+
+Your Study ID: [Will be provided separately]
+
+Instructions:
+1. Go to the study website: http://[your-domain]/
+2. Enter your assigned Study ID (e.g., USER001)
+3. Optionally enter your name and email
+4. Click "Start Study"
+5. You will see 10 pairs of refactored code
+6. For each pair, choose which version you prefer (V1 or V2)
+7. After completing all 10 comparisons, submit your responses
+
+Important:
+- Your Study ID is unique and determines which code examples you'll see
+- Take your time to review each code version carefully
+- You can navigate back and forth between questions
+- Your progress is saved automatically
+- The study should take approximately 15-20 minutes
+
+Test IDs Available:
+- TEST001: For testing the system
+- DEMO001: For demonstration purposes
+
+Thank you for participating!
+`;
+            
+            const blob = new Blob([instructions], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'study_instructions.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Search functionality
+        document.getElementById('searchUser').addEventListener('input', displayUsers);
+        
+        // Load on page load
+        loadAssignments();
+    </script>
+</body>
+</html>
