@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Google Form Submission via Iframe</title>
+</head>
+<body>
+    <h1>Test Google Form Submission Methods</h1>
+    
+    <h2>Method 1: Hidden Iframe Submit</h2>
+    <button onclick="submitViaIframe()">Test Submit via Iframe</button>
+    
+    <h2>Method 2: Direct Form Submit</h2>
+    <button onclick="submitDirectly()">Test Direct Submit</button>
+    
+    <div id="result"></div>
+    
+    <!-- Hidden iframe for submission -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <script>
+    function submitViaIframe() {
+        const form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/formResponse';
+        form.method = 'POST';
+        form.target = 'hidden_iframe';
+        
+        // Add form fields
+        const fields = {
+            'entry.1958938177': 'TEST_USER_IFRAME',
+            'entry.792270821': 'test@example.com',
+            'entry.1585743737': 'Test Name',
+            'entry.1538445591': 'test_tuple_1',
+            'entry.306224226': '1',
+            'entry.1092031299': 'V1',
+            'entry.435207678': '1',
+            'entry.141633008': new Date().toISOString()
+        };
+        
+        for (const [name, value] of Object.entries(fields)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        }
+        
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        
+        document.getElementById('result').innerHTML = '<p style="color: green;">Submitted via iframe! Check your Google Form responses.</p>';
+    }
+    
+    function submitDirectly() {
+        // Create a form that opens in new window
+        const form = document.createElement('form');
+        form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/formResponse';
+        form.method = 'POST';
+        form.target = '_blank';
+        
+        const fields = {
+            'entry.1958938177': 'TEST_USER_DIRECT',
+            'entry.792270821': 'test@example.com',
+            'entry.1585743737': 'Test Name',
+            'entry.1538445591': 'test_tuple_1',
+            'entry.306224226': '1',
+            'entry.1092031299': 'V1',
+            'entry.435207678': '1',
+            'entry.141633008': new Date().toISOString()
+        };
+        
+        for (const [name, value] of Object.entries(fields)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        }
+        
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+        
+        document.getElementById('result').innerHTML = '<p style="color: blue;">Form submitted in new tab. Check if it worked.</p>';
+    }
+    </script>
+    
+    <hr>
+    <h2>Check your form settings:</h2>
+    <ol>
+        <li>Go to your form: <a href="https://docs.google.com/forms/d/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/edit" target="_blank">Edit Form</a></li>
+        <li>Settings → General → Turn OFF "Collect email addresses"</li>
+        <li>Settings → General → Turn OFF "Restrict to [organization]"</li>
+        <li>Make sure NO fields are marked as required (no red asterisks)</li>
+    </ol>
+</body>
+</html>
