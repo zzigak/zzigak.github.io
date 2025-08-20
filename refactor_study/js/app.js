@@ -2,6 +2,33 @@
 document.addEventListener('DOMContentLoaded', function() {
     const participantForm = document.getElementById('participantForm');
     
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlUserId = urlParams.get('id');
+    
+    // If user ID is provided in URL, auto-populate and make read-only
+    if (urlUserId) {
+        const participantIdInput = document.getElementById('participantId');
+        if (participantIdInput) {
+            participantIdInput.value = urlUserId.toUpperCase();
+            participantIdInput.readOnly = true;
+            participantIdInput.style.backgroundColor = '#f3f4f6';
+            participantIdInput.style.cursor = 'not-allowed';
+            
+            // Update the label to indicate it's pre-assigned
+            const label = participantIdInput.previousElementSibling;
+            if (label) {
+                label.textContent = 'Study ID (pre-assigned):';
+            }
+            
+            // Show helper text
+            const helperText = document.getElementById('idHelperText');
+            if (helperText) {
+                helperText.style.display = 'block';
+            }
+        }
+    }
+    
     // Check for existing session
     const existingSession = localStorage.getItem('studySession');
     if (existingSession) {
@@ -37,6 +64,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const participantId = document.getElementById('participantId').value.trim().toUpperCase();
             const name = document.getElementById('participantName').value.trim();
             const email = document.getElementById('participantEmail').value.trim();
+            const gender = document.getElementById('participantGender').value;
+            const age = document.getElementById('participantAge').value;
+            const programmingExperience = document.getElementById('programmingExperience').value;
+            const pythonExperience = document.getElementById('pythonExperience').value;
             
             // Load user assignments
             try {
@@ -54,6 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     participantId: participantId,
                     name: name,
                     email: email,
+                    gender: gender,
+                    age: age,
+                    programmingExperience: programmingExperience,
+                    pythonExperience: pythonExperience,
                     startTime: new Date().toISOString(),
                     assignedTuples: userAssignments[participantId],
                     currentIndex: 0,
