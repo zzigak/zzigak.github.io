@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Google Form Submission</title>
+</head>
+<body>
+    <h1>Test Google Form Submission</h1>
+    <p>Click the button below to test submitting to your Google Form:</p>
+    
+    <button onclick="testSubmit()">Test Submit</button>
+    
+    <div id="result"></div>
+
+    <script>
+    function testSubmit() {
+        const FORM_ID = '1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA';
+        
+        // Create a simple test submission
+        const formData = new FormData();
+        formData.append('entry.1958938177', 'TEST_USER');
+        formData.append('entry.792270821', 'test@example.com');
+        formData.append('entry.1585743737', 'Test Name');
+        formData.append('entry.1538445591', 'test_tuple_1');
+        formData.append('entry.306224226', '1');
+        formData.append('entry.1092031299', 'V1');
+        formData.append('entry.435207678', '1');
+        formData.append('entry.141633008', new Date().toISOString());
+        
+        fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+        }).then(() => {
+            document.getElementById('result').innerHTML = '<p style="color: green;">Submission sent! Check your Google Form responses to see if it was received.</p>';
+        }).catch(error => {
+            document.getElementById('result').innerHTML = '<p style="color: red;">Error: ' + error + '</p>';
+        });
+    }
+    </script>
+    
+    <hr>
+    <h2>Alternative: Open Form Directly</h2>
+    <p>Try opening this pre-filled link in a new tab and submitting manually:</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/viewform?usp=pp_url&entry.1958938177=TEST_USER&entry.792270821=test@example.com&entry.1585743737=Test+Name&entry.1538445591=test_tuple&entry.306224226=1&entry.1092031299=V1&entry.435207678=1&entry.141633008=2024-test" target="_blank">
+        Open Pre-filled Form
+    </a>
+</body>
+</html>

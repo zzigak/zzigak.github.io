@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refactoring Study - Compare Code</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+</head>
+<body>
+    <div class="study-container">
+        <header class="study-header">
+            <div class="progress-info">
+                <span class="progress-text">Question <span id="currentQuestion">1</span> of 10</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <div class="participant-info">
+                <span>Participant: <strong id="participantId">-</strong></span>
+                <span class="timer" id="timer">00:00</span>
+            </div>
+            <div class="controls-section">
+                <label class="control-item">
+                    <input type="checkbox" id="syncScroll">
+                    <span>Sync Scrolling</span>
+                </label>
+                <div class="control-item font-controls">
+                    <span>Font Size:</span>
+                    <button class="font-btn" id="fontDecrease">−</button>
+                    <span id="fontSize">14px</span>
+                    <button class="font-btn" id="fontIncrease">+</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="study-main">
+            <div class="code-comparison">
+                <div class="code-panel original-panel">
+                    <div class="panel-header original-header">
+                        <h3>Original</h3>
+                        <div class="view-buttons">
+                            <button class="view-btn active" data-panel="original" data-view="p1">P1</button>
+                            <button class="view-btn" data-panel="original" data-view="p2">P2</button>
+                            <button class="view-btn" data-panel="original" data-view="p3">P3</button>
+                        </div>
+                    </div>
+                    <div class="code-wrapper">
+                        <pre><code class="language-python" id="originalCode"></code></pre>
+                    </div>
+                </div>
+                
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <h3>Version 1</h3>
+                        <div class="view-buttons">
+                            <button class="view-btn" data-panel="v1" data-view="all">ALL</button>
+                            <button class="view-btn" data-panel="v1" data-view="library">Library</button>
+                            <button class="view-btn active" data-panel="v1" data-view="p1">P1</button>
+                            <button class="view-btn" data-panel="v1" data-view="p2">P2</button>
+                            <button class="view-btn" data-panel="v1" data-view="p3">P3</button>
+                        </div>
+                    </div>
+                    <div class="code-wrapper">
+                        <pre><code class="language-python" id="v1Code"></code></pre>
+                    </div>
+                </div>
+                
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <h3>Version 2</h3>
+                        <div class="view-buttons">
+                            <button class="view-btn" data-panel="v2" data-view="all">ALL</button>
+                            <button class="view-btn" data-panel="v2" data-view="library">Library</button>
+                            <button class="view-btn active" data-panel="v2" data-view="p1">P1</button>
+                            <button class="view-btn" data-panel="v2" data-view="p2">P2</button>
+                            <button class="view-btn" data-panel="v2" data-view="p3">P3</button>
+                        </div>
+                    </div>
+                    <div class="code-wrapper">
+                        <pre><code class="language-python" id="v2Code"></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="selection-section">
+                <h3>Which refactored version do you prefer?</h3>
+                <div class="choice-buttons">
+                    <button class="choice-btn" data-choice="v1">
+                        <span class="choice-label">Version 1</span>
+                        <span class="shortcut">Press 1</span>
+                    </button>
+                    <button class="choice-btn" data-choice="v2">
+                        <span class="choice-label">Version 2</span>
+                        <span class="shortcut">Press 2</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button id="prevBtn" class="nav-btn" disabled>Previous</button>
+                <button id="nextBtn" class="nav-btn btn-primary" disabled>Next Question</button>
+                <button id="submitBtn" class="nav-btn btn-submit" style="display: none;">Complete Study</button>
+            </div>
+        </main>
+        
+    </div>
+    
+    <!-- Loading indicator -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading code...</p>
+    </div>
+    
+    <!-- Modal for final submission -->
+    <div class="modal" id="submitModal" style="display: none;">
+        <div class="modal-content">
+            <h2>Study Complete!</h2>
+            <p>Thank you for completing the refactoring preference study.</p>
+            <p>Your responses have been saved. Click below to submit them via Google Forms.</p>
+            <div class="modal-actions">
+                <button id="openFormBtn" class="btn btn-primary">Open Pre-filled Google Form</button>
+                <button id="downloadBtn" class="btn">Download My Responses</button>
+            </div>
+            <p class="note">The form will open with all your responses pre-filled. Just review and click Submit.</p>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="js/study_single_form.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Local Server Instructions</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f9fafb;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1f2937; }
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .step {
+            margin: 20px 0;
+            padding-left: 20px;
+            border-left: 3px solid #2563eb;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🚀 Testing the User Study Website</h1>
+        
+        <p>To test the website locally, you need to run a local server (required for loading JSON data).</p>
+        
+        <div class="step">
+            <h3>Option 1: Using Python (Recommended)</h3>
+            <p>Open terminal in the <code>docs</code> directory and run:</p>
+            <pre>cd docs
+python3 -m http.server 8000</pre>
+            <p>Then open: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+        </div>
+        
+        <div class="step">
+            <h3>Option 2: Using Node.js</h3>
+            <p>If you have Node.js installed:</p>
+            <pre>npx http-server docs -p 8000</pre>
+            <p>Then open: <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></p>
+        </div>
+        
+        <div class="step">
+            <h3>Option 3: Using VS Code Live Server</h3>
+            <p>If using VS Code with Live Server extension:</p>
+            <ol>
+                <li>Right-click on <code>docs/index.html</code></li>
+                <li>Select "Open with Live Server"</li>
+            </ol>
+        </div>
+        
+        <hr style="margin: 30px 0; border: none; border-top: 1px solid #e5e7eb;">
+        
+        <h2>📋 What to Test</h2>
+        <ul>
+            <li>✅ Click "Start Study" on the landing page</li>
+            <li>✅ Verify participant ID is generated</li>
+            <li>✅ Check that 10 tuples are assigned</li>
+            <li>✅ Test code display and scrolling</li>
+            <li>✅ Test selection buttons (v1, v2, no preference)</li>
+            <li>✅ Test keyboard shortcuts (1, 2, 0)</li>
+            <li>✅ Test navigation (Previous/Next)</li>
+            <li>✅ Test synchronized scrolling toggle</li>
+            <li>✅ Complete all 10 questions</li>
+            <li>✅ Download responses JSON file</li>
+        </ul>
+        
+        <h2>🔧 Google Forms Integration</h2>
+        <p>To connect with Google Forms:</p>
+        <ol>
+            <li>Create a Google Form with fields for:
+                <ul>
+                    <li>Participant ID</li>
+                    <li>Responses (JSON string)</li>
+                    <li>Assigned Tuples</li>
+                    <li>Completion Time</li>
+                    <li>Demographics (age, gender, email, etc.)</li>
+                </ul>
+            </li>
+            <li>Get the form ID from the URL</li>
+            <li>Get entry IDs by inspecting form elements</li>
+            <li>Update <code>js/study.js</code> line ~240 with your form details</li>
+        </ol>
+        
+        <h2>🌐 GitHub Pages Deployment</h2>
+        <p>To deploy on GitHub Pages:</p>
+        <ol>
+            <li>Push all files to your repository</li>
+            <li>Go to Settings → Pages</li>
+            <li>Source: Deploy from branch</li>
+            <li>Branch: main (or master)</li>
+            <li>Folder: /docs</li>
+            <li>Save and wait ~5 minutes</li>
+            <li>Your site will be available at: <code>https://[username].github.io/[repo-name]/</code></li>
+        </ol>
+    </div>
+</body>
+</html>

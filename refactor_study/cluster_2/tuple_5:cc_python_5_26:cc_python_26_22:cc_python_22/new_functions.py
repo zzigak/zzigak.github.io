@@ -1,0 +1,135 @@
+# ==== NEW HELPER FUNCTIONS ====
+from collections import deque
+
+def dfs_prune(x, parent, adj, removals):
+    """
+    DFS to decide which child edges to remove so each node keeps at most 2 children.
+    Returns True if this subtree can attach to parent (kept), else False.
+    """
+    cnt = 0
+    for y in adj[x]:
+        if y == parent:
+            continue
+        keep = dfs_prune(y, x, adj, removals)
+        if keep:
+            cnt += 1
+            if cnt > 2:
+                removals.append((x, y))
+        else:
+            removals.append((x, y))
+    return cnt < 2
+
+def find_removal_edges(adj):
+    """
+    Returns list of edges (u,v) to remove to make tree a bamboo.
+    Nodes are 0-based; root is 0.
+    """
+    removals = []
+    dfs_prune(0, -1, adj, removals)
+    return removals
+
+def remove_edges(adj, edges):
+    """
+    Remove each edge (u,v) from adj in both directions.
+    """
+    for u, v in edges:
+        adj[u].remove(v)
+        adj[v].remove(u)
+
+def find_leaf(start, adj):
+    """
+    Find a leaf node reachable from 'start' in a tree (0-based).
+    """
+    prev = -1
+    curr = start
+    while True:
+        for nbr in adj[curr]:
+            if nbr != prev:
+                prev, curr = curr, nbr
+                break
+        else:
+            return curr
+
+def build_rewire_operations(removals, adj):
+    """
+    Given removal edges and the pruned tree adj,
+    build list of operations (x1,y1,x2,y2) in 0-based.
+    """
+    ops = []
+    leaf_curr = find_leaf(0, adj)
+    for u, v in removals:
+        new_leaf = find_leaf(v, adj)
+        ops.append((u, v, leaf_curr, new_leaf))
+        leaf_curr = find_leaf(new_leaf, adj)
+    return ops
+
+def scc_ciE(E):
+    """
+    Given directed graph E as adjacency list, compute SCCs and return list ciE
+    where ciE[c] = 1 if SCC c has no incoming edges from other SCCs, else 0.
+    """
+    n = len(E)
+    # build inverse graph
+    iE = [[] for _ in range(n)]
+    for u, nbrs in enumerate(E):
+        for v in nbrs:
+            iE[v].append(u)
+    # first pass: order by finish time
+    done = [0]*n  # 0=unseen,1=in stack,2=processed
+    order = []
+    for i in range(n):
+        if done[i]:
+            continue
+        stk = [~i, i]
+        while stk:
+            x = stk.pop()
+            if x < 0:
+                u = ~x
+                if done[u] == 2:
+                    continue
+                done[u] = 2
+                order.append(u)
+            else:
+                if done[x]:
+                    continue
+                done[x] = 1
+                stk.append(~x)
+                for y in E[x]:
+                    if not done[y]:
+                        stk.append(~y)
+                        stk.append(y)
+    # second pass: assign components
+    comp_id = [0]*n
+    done = [0]*n
+    cid = 0
+    for u in reversed(order):
+        if done[u]:
+            continue
+        stk = [~u, u]
+        while stk:
+            x = stk.pop()
+            if x < 0:
+                v = ~x
+                if done[v] == 2:
+                    continue
+                done[v] = 2
+                comp_id[v] = cid
+            else:
+                if done[x]:
+                    continue
+                done[x] = 1
+                stk.append(~x)
+                for y in iE[x]:
+                    if not done[y]:
+                        stk.append(~y)
+                        stk.append(y)
+        cid += 1
+    # compute ciE
+    ciE = [1]*cid
+    for u, nbrs in enumerate(E):
+        cu = comp_id[u]
+        for v in nbrs:
+            cv = comp_id[v]
+            if cu != cv:
+                ciE[cv] = 0
+    return ciE

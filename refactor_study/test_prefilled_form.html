@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Pre-filled Google Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .url-display {
+            background: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            word-break: break-all;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        h3 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Pre-filled Google Form URL Generation</h1>
+    
+    <div class="test-section">
+        <h3>Test Data</h3>
+        <p>This will generate a pre-filled Google Form URL with test data for all 10 responses.</p>
+        <button onclick="generateTestURL()">Generate Test URL</button>
+        <button onclick="openTestForm()">Open Test Form</button>
+        
+        <div id="urlDisplay" class="url-display" style="display: none;"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test Results</h3>
+        <div id="testResults"></div>
+    </div>
+
+    <script>
+        // Sample test data for 10 responses
+        const testData = {
+            participantId: 'TEST123',
+            name: 'Test User',
+            email: 'test@example.com',
+            responses: [
+                { tupleId: 0, choice: 'V1', trialNumber: 1 },
+                { tupleId: 3, choice: 'V2', trialNumber: 2 },
+                { tupleId: 5, choice: 'V1', trialNumber: 3 },
+                { tupleId: 7, choice: 'V2', trialNumber: 4 },
+                { tupleId: 9, choice: 'V1', trialNumber: 5 },
+                { tupleId: 11, choice: 'V2', trialNumber: 6 },
+                { tupleId: 13, choice: 'V1', trialNumber: 7 },
+                { tupleId: 15, choice: 'V2', trialNumber: 8 },
+                { tupleId: 17, choice: 'V1', trialNumber: 9 },
+                { tupleId: 18, choice: 'V2', trialNumber: 10 }
+            ]
+        };
+        
+        let generatedURL = '';
+        
+        function generateTestURL() {
+            // Google Form base URL
+            const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/viewform';
+            
+            // Build URL parameters with all responses concatenated
+            const params = new URLSearchParams();
+            
+            // Add user info - using the actual entry IDs from your form
+            params.append('entry.1958938177', testData.participantId);
+            params.append('entry.792270821', testData.email);
+            params.append('entry.1585743737', testData.name);
+            
+            // Create a formatted string with all 10 responses
+            // Format each response as a structured string
+            const allResponses = testData.responses.map(r => 
+                `Trial${r.trialNumber}:Tuple${r.tupleId}:${r.choice}`
+            ).join(' | ');
+            
+            // Put all responses in the first available text field
+            params.append('entry.1538445591', allResponses);
+            
+            // Add timestamp
+            params.append('entry.141633008', new Date().toISOString());
+            
+            // Generate the full URL
+            generatedURL = `${FORM_URL}?${params.toString()}`;
+            
+            // Display the URL
+            const urlDisplay = document.getElementById('urlDisplay');
+            urlDisplay.textContent = generatedURL;
+            urlDisplay.style.display = 'block';
+            
+            // Display test results
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = `
+                <h4>Generated Data:</h4>
+                <ul>
+                    <li><strong>Participant ID:</strong> ${testData.participantId}</li>
+                    <li><strong>Name:</strong> ${testData.name}</li>
+                    <li><strong>Email:</strong> ${testData.email}</li>
+                    <li><strong>All Responses:</strong> ${allResponses}</li>
+                    <li><strong>URL Length:</strong> ${generatedURL.length} characters</li>
+                </ul>
+                <p style="color: #666; margin-top: 10px;">
+                    Note: The form will open with all 10 responses concatenated in a single field. 
+                    You may need to adjust the Google Form to have fields for all 10 responses, 
+                    or process this concatenated data on the backend.
+                </p>
+            `;
+        }
+        
+        function openTestForm() {
+            if (!generatedURL) {
+                generateTestURL();
+            }
+            window.open(generatedURL, '_blank');
+        }
+    </script>
+</body>
+</html>
