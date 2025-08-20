@@ -2,6 +2,33 @@
 document.addEventListener('DOMContentLoaded', function() {
     const participantForm = document.getElementById('participantForm');
     
+    // Check for existing session
+    const existingSession = localStorage.getItem('studySession');
+    if (existingSession) {
+        const session = JSON.parse(existingSession);
+        
+        // If session is completed, offer to clear it
+        if (session.completed) {
+            if (confirm('A previous study session was completed. Would you like to start a new study?')) {
+                localStorage.removeItem('studySession');
+                localStorage.removeItem('studyStarted');
+            } else {
+                // If they don't want to clear, redirect back to study page
+                window.location.href = 'study_single_form.html';
+                return;
+            }
+        } else if (session.currentIndex > 0) {
+            // If session is in progress, ask if they want to continue or restart
+            if (confirm('You have an ongoing study session. Would you like to continue where you left off?\n\nClick OK to continue, Cancel to start over.')) {
+                window.location.href = 'study_single_form.html';
+                return;
+            } else {
+                localStorage.removeItem('studySession');
+                localStorage.removeItem('studyStarted');
+            }
+        }
+    }
+    
     if (participantForm) {
         participantForm.addEventListener('submit', async function(e) {
             e.preventDefault();
