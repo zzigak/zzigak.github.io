@@ -10,7 +10,22 @@ let currentViews = {
     'v2': 'all'
 };
 
+// Check if debug mode is enabled via URL parameter with secret key
+const urlParams = new URLSearchParams(window.location.search);
+const debugKey = urlParams.get('debugKey');
+const DEBUG_SECRET = 'xR9mK2nP7qL4wZ8v'; // Secret key for debug access
+const debugMode = debugKey === DEBUG_SECRET;
+
 document.addEventListener('DOMContentLoaded', async function() {
+    // Show debug elements if debug mode is enabled
+    if (debugMode) {
+        const debugInfo = document.getElementById('debugInfo');
+        if (debugInfo) {
+            debugInfo.style.display = 'block';
+        }
+        console.log('Debug mode enabled');
+    }
+    
     // Load session data
     sessionData = JSON.parse(localStorage.getItem('studySession'));
     
@@ -43,16 +58,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Setup keyboard shortcuts
     setupKeyboardShortcuts();
     
-    // Setup synchronized scrolling
-    setupSyncScroll();
-    
     // Setup view buttons
     setupViewButtons();
 });
 
 async function loadTuplesData() {
     try {
-        const response = await fetch('data/tuples_v3.json');
+        const response = await fetch('data/tuples_v4_no_docs.json');
         tuplesData = await response.json();
         document.getElementById('loading').style.display = 'none';
     } catch (error) {
@@ -75,40 +87,76 @@ function loadCurrentTuple() {
         return;
     }
     
+    // Reset views to 'all' when transitioning to a new tuple
+    currentViews = {
+        'original': 'all',
+        'v1': 'all',
+        'v2': 'all'
+    };
+    
+    // Reset view buttons to 'all' state
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        if (btn.dataset.view === 'all') {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
     // Update progress
     const currentQuestion = sessionData.currentIndex + 1;
     document.getElementById('currentQuestion').textContent = currentQuestion;
     document.getElementById('progressFill').style.width = `${(currentQuestion / 10) * 100}%`;
     
-    // Update debug info (for testing)
-    const debugInfo = document.getElementById('debugInfo');
-    if (debugInfo) {
-        document.getElementById('debugCluster').textContent = `Cluster: ${tuple.cluster || 'N/A'}`;
-        document.getElementById('debugTuple').textContent = `Tuple: ${tuple.tuple || 'N/A'}`;
-        document.getElementById('debugPairType').textContent = `Pair: ${tuple.pair_type || 'N/A'}`;
-        document.getElementById('debugMetrics').textContent = `Metrics: ${tuple.v1_metric || 'N/A'} (${tuple.v1_refactoring || 'N/A'}) vs ${tuple.v2_metric || 'N/A'} (${tuple.v2_refactoring || 'N/A'})`;
-        console.log('Debug info updated:', tuple);
-    } else {
-        console.error('Debug info element not found');
+    // Update debug info only if in debug mode
+    if (debugMode) {
+        const debugInfo = document.getElementById('debugInfo');
+        if (debugInfo) {
+            // Map pair_type to numeric pairId
+            const pairTypeToId = {
+                'mi_vs_logprob': 1,
+                'mi_vs_tokens': 2,
+                'logprob_vs_tokens': 3
+            };
+            
+            document.getElementById('debugTupleId').textContent = currentTupleId;
+            document.getElementById('debugTupleName').textContent = tuple.tuple || 'N/A';
+            document.getElementById('debugCluster').textContent = tuple.cluster || 'N/A';
+            document.getElementById('debugPairType').textContent = tuple.pair_type || 'N/A';
+            document.getElementById('debugPairId').textContent = pairTypeToId[tuple.pair_type] || 'N/A';
+            document.getElementById('debugV1Metric').textContent = tuple.v1_metric || 'N/A';
+            document.getElementById('debugV1Refactoring').textContent = tuple.v1_refactoring || 'N/A';
+            document.getElementById('debugV2Metric').textContent = tuple.v2_metric || 'N/A';
+            document.getElementById('debugV2Refactoring').textContent = tuple.v2_refactoring || 'N/A';
+            console.log('Debug info updated:', tuple);
+        }
     }
     
-    // Load default views for each panel
+    // Load default views for each panel (now always 'all')
     updateCodePanel('original', currentViews.original, tuple);
     updateCodePanel('v1', currentViews.v1, tuple);
     updateCodePanel('v2', currentViews.v2, tuple);
     
-    // Clear previous selection
+    // Clear previous selection and ensure no default selection
     document.querySelectorAll('.choice-btn').forEach(btn => {
         btn.classList.remove('selected');
+        btn.blur(); // Remove any focus
     });
     
     // Load previous response if exists
     const existingResponse = sessionData.allResponses.find(r => r.tupleId === currentTupleId);
     if (existingResponse) {
-        document.querySelector(`[data-choice="${existingResponse.choice.toLowerCase()}"]`).classList.add('selected');
+        const btnToSelect = document.querySelector(`[data-choice="${existingResponse.choice.toLowerCase()}"]`);
+        if (btnToSelect) {
+            btnToSelect.classList.add('selected');
+        }
         document.getElementById('nextBtn').disabled = false;
     } else {
+        // Ensure no selection and next button is disabled for new questions
         document.getElementById('nextBtn').disabled = true;
+        if (debugMode) {
+            console.log('No existing response for tuple', currentTupleId, '- buttons should be unselected');
+        }
     }
     
     // Update navigation buttons
@@ -278,11 +326,25 @@ function selectChoice(choice) {
         selectedBtn.classList.add('selected');
     }
     
+    // Get current tuple data
+    const tuple = tuplesData[currentTupleId];
+    
+    // Map pair_type to numeric pairId
+    const pairTypeToId = {
+        'mi_vs_logprob': 1,
+        'mi_vs_tokens': 2,
+        'logprob_vs_tokens': 3
+    };
+    
     // Update or add response
     const existingIndex = sessionData.allResponses.findIndex(r => r.tupleId === currentTupleId);
     const responseData = {
         tupleId: currentTupleId,
         choice: choice.toUpperCase(),
+        pairType: tuple.pair_type,
+        pairId: pairTypeToId[tuple.pair_type] || 1,
+        v1_metric: tuple.v1_metric,
+        v2_metric: tuple.v2_metric,
         trialNumber: sessionData.currentIndex + 1,
         timestamp: new Date().toISOString()
     };
@@ -306,29 +368,6 @@ function selectChoice(choice) {
     }
 }
 
-function setupSyncScroll() {
-    const syncCheckbox = document.getElementById('syncScroll');
-    const codeWrappers = document.querySelectorAll('.code-wrapper');
-    
-    let isScrolling = false;
-    
-    codeWrappers.forEach(wrapper => {
-        wrapper.addEventListener('scroll', function() {
-            if (!syncCheckbox.checked || isScrolling) return;
-            
-            isScrolling = true;
-            const scrollPercent = this.scrollTop / (this.scrollHeight - this.clientHeight);
-            
-            codeWrappers.forEach(otherWrapper => {
-                if (otherWrapper !== this) {
-                    otherWrapper.scrollTop = scrollPercent * (otherWrapper.scrollHeight - otherWrapper.clientHeight);
-                }
-            });
-            
-            setTimeout(() => { isScrolling = false; }, 10);
-        });
-    });
-}
 
 function startTimer() {
     startTime = Date.now();
@@ -348,8 +387,14 @@ function saveSession() {
 function showCompletionModal() {
     clearInterval(timerInterval);
     
-    // Ensure all 10 responses are collected
-    if (sessionData.allResponses.length < 10) {
+    // Count unique tuple responses (to handle case where user went back and changed answers)
+    const uniqueTuples = new Set(sessionData.allResponses.map(r => r.tupleId));
+    const allTuplesAnswered = sessionData.assignedTuples.every(tupleId => 
+        sessionData.allResponses.some(r => r.tupleId === tupleId)
+    );
+    
+    // Ensure all 10 questions have been answered
+    if (uniqueTuples.size < 10 || !allTuplesAnswered) {
         alert('Please complete all 10 questions before submitting.');
         return;
     }
@@ -358,8 +403,72 @@ function showCompletionModal() {
     sessionData.completed = true;
     saveSession();
     
+    // Generate debug summary only in debug mode
+    if (debugMode) {
+        generateDebugSummary();
+        const debugContainer = document.getElementById('debugSummaryContainer');
+        if (debugContainer) {
+            debugContainer.style.display = 'block';
+        }
+    }
+    
     // Show modal
     document.getElementById('submitModal').style.display = 'flex';
+}
+
+function generateDebugSummary() {
+    const summaryDiv = document.getElementById('debugSummary');
+    if (!summaryDiv) return;
+    
+    // Sort responses by trial number
+    const sortedResponses = [...sessionData.allResponses].sort((a, b) => a.trialNumber - b.trialNumber);
+    
+    let summaryHTML = '<table style="width: 100%; border-collapse: collapse;">';
+    summaryHTML += '<tr style="border-bottom: 2px solid #0284c7;">';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">Trial</th>';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">Choice</th>';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">Winner</th>';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">Tuple</th>';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">Pair Type</th>';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">V1</th>';
+    summaryHTML += '<th style="text-align: left; padding: 5px;">V2</th>';
+    summaryHTML += '</tr>';
+    
+    sortedResponses.forEach(response => {
+        const tuple = tuplesData[response.tupleId];
+        const winnerMetric = response.choice === 'V1' ? response.v1_metric : response.v2_metric;
+        const rowColor = response.trialNumber % 2 === 0 ? '#f0f9ff' : '#ffffff';
+        
+        summaryHTML += `<tr style="background: ${rowColor};">`;
+        summaryHTML += `<td style="padding: 5px;">${response.trialNumber}</td>`;
+        summaryHTML += `<td style="padding: 5px; font-weight: bold; color: ${response.choice === 'V1' ? '#dc2626' : '#2563eb'};">${response.choice}</td>`;
+        summaryHTML += `<td style="padding: 5px; font-weight: bold;">${winnerMetric || 'N/A'}</td>`;
+        summaryHTML += `<td style="padding: 5px; font-size: 10px;">${tuple ? tuple.tuple.split(':').pop() : response.tupleId}</td>`;
+        summaryHTML += `<td style="padding: 5px;">${response.pairType || 'N/A'}</td>`;
+        summaryHTML += `<td style="padding: 5px; color: #dc2626;">${response.v1_metric || 'N/A'}</td>`;
+        summaryHTML += `<td style="padding: 5px; color: #2563eb;">${response.v2_metric || 'N/A'}</td>`;
+        summaryHTML += '</tr>';
+    });
+    
+    summaryHTML += '</table>';
+    
+    // Add summary statistics
+    const metricWins = {};
+    sortedResponses.forEach(response => {
+        const winnerMetric = response.choice === 'V1' ? response.v1_metric : response.v2_metric;
+        if (winnerMetric) {
+            metricWins[winnerMetric] = (metricWins[winnerMetric] || 0) + 1;
+        }
+    });
+    
+    summaryHTML += '<div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #0284c7;">';
+    summaryHTML += '<strong>Metric Wins:</strong> ';
+    Object.entries(metricWins).forEach(([metric, count]) => {
+        summaryHTML += `<span style="margin-right: 15px;">${metric}: ${count}</span>`;
+    });
+    summaryHTML += '</div>';
+    
+    summaryDiv.innerHTML = summaryHTML;
 }
 
 function openPrefilledGoogleForm() {
@@ -444,9 +553,9 @@ function openPrefilledGoogleForm() {
             params.append(ENTRY_IDS[`trial${trialNum}_tupleId`], response.tupleId.toString());
         }
         
-        // Add PairID (always 1 since we're comparing v1 vs v2)
+        // Add PairID based on pair_type
         if (ENTRY_IDS[`trial${trialNum}_pairId`]) {
-            params.append(ENTRY_IDS[`trial${trialNum}_pairId`], '1');
+            params.append(ENTRY_IDS[`trial${trialNum}_pairId`], response.pairId || '1');
         }
         
         // Add Choice (V1 or V2)
