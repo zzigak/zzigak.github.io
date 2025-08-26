@@ -67,10 +67,6 @@
                 <span class="timer" id="timer">00:00</span>
             </div>
             <div class="controls-section">
-                <label class="control-item">
-                    <input type="checkbox" id="syncScroll">
-                    <span>Sync Scrolling</span>
-                </label>
                 <div class="control-item font-controls">
                     <span>Font Size:</span>
                     <button class="font-btn" id="fontDecrease">−</button>
@@ -80,14 +76,18 @@
             </div>
         </header>
         
-        <!-- Debug Info (for testing) -->
-        <!-- <div id="debugInfo" style="background: #fef3c7; border: 2px solid #f59e0b; padding: 15px; margin: 10px 20px; border-radius: 8px; font-family: monospace; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <!-- Debug Info Box (only shown with ?debug=true parameter) -->
+        <div id="debugInfo" style="display: none; background: #fef3c7; border: 2px solid #f59e0b; padding: 15px; margin: 10px 20px; border-radius: 8px; font-family: monospace; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <strong style="color: #d97706;">🔍 DEBUG INFO:</strong>
-            <span id="debugCluster" style="color: #0891b2;"></span> | 
-            <span id="debugTuple" style="color: #059669;"></span> | 
-            <span id="debugPairType" style="color: #7c3aed;"></span> | 
-            <span id="debugMetrics" style="color: #dc2626;"></span>
-        </div> -->
+            <div style="margin-top: 8px;">
+                <div><strong>Tuple ID:</strong> <span id="debugTupleId" style="color: #0891b2;"></span></div>
+                <div><strong>Tuple Name:</strong> <span id="debugTupleName" style="color: #059669;"></span></div>
+                <div><strong>Cluster:</strong> <span id="debugCluster" style="color: #0891b2;"></span></div>
+                <div><strong>Pair Type:</strong> <span id="debugPairType" style="color: #7c3aed;"></span> | <strong>Pair ID:</strong> <span id="debugPairId" style="color: #7c3aed;"></span></div>
+                <div><strong>V1 Metric:</strong> <span id="debugV1Metric" style="color: #dc2626;"></span> (<span id="debugV1Refactoring" style="color: #dc2626;"></span>)</div>
+                <div><strong>V2 Metric:</strong> <span id="debugV2Metric" style="color: #dc2626;"></span> (<span id="debugV2Refactoring" style="color: #dc2626;"></span>)</div>
+            </div>
+        </div>
         
         <main class="study-main">
             <div class="code-comparison">
@@ -173,6 +173,15 @@
         <div class="modal-content">
             <h2>Study Complete!</h2>
             <p>Thank you for completing the refactoring preference study.</p>
+            
+            <!-- Debug Summary (only shown with debug mode) -->
+            <div id="debugSummaryContainer" style="display: none; background: #e0f2fe; border: 1px solid #0284c7; padding: 15px; margin: 20px 0; border-radius: 8px; max-height: 300px; overflow-y: auto;">
+                <h3 style="color: #0284c7; margin-top: 0;">📊 Debug Summary - Your Choices:</h3>
+                <div id="debugSummary" style="font-family: monospace; font-size: 12px;">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            
             <p>Your responses have been saved. Click below to submit them via Google Forms.</p>
             <div class="modal-actions">
                 <button id="openFormBtn" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.2rem;">Submit Answers!</button>
