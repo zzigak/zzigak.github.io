@@ -574,9 +574,6 @@ footer {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: var(--bg-tertiary);
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius);
 }
 
 .font-btn {
