@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Setup view buttons
     setupViewButtons();
+    
+    // Setup tab navigation
+    setupTabNavigation();
 });
 
 async function loadTuplesData() {
@@ -137,11 +140,17 @@ function loadCurrentTuple() {
     updateCodePanel('v1', currentViews.v1, tuple);
     updateCodePanel('v2', currentViews.v2, tuple);
     
+    // Extract and display existing functions
+    extractAndDisplayExistingFunctions(tuple);
+    
     // Clear previous selection and ensure no default selection
     document.querySelectorAll('.choice-btn').forEach(btn => {
         btn.classList.remove('selected');
         btn.blur(); // Remove any focus
     });
+    
+    // Clear argument text area
+    document.getElementById('argumentText').value = '';
     
     // Load previous response if exists
     const existingResponse = sessionData.allResponses.find(r => r.tupleId === currentTupleId);
@@ -150,7 +159,11 @@ function loadCurrentTuple() {
         if (btnToSelect) {
             btnToSelect.classList.add('selected');
         }
-        document.getElementById('nextBtn').disabled = false;
+        // Restore argument text if exists
+        if (existingResponse.argument) {
+            document.getElementById('argumentText').value = existingResponse.argument;
+        }
+        checkIfCanProceed();
     } else {
         // Ensure no selection and next button is disabled for new questions
         document.getElementById('nextBtn').disabled = true;
@@ -211,9 +224,57 @@ function updateCodePanel(panel, view, tuple) {
         // v1 and v2 panels have all, library, p1, p2, p3
         const versionKey = panel;
         if (view === 'all') {
-            content = tuple.files[versionKey] || '';
+            // For ALL view, exclude retrieved functions
+            const fullCode = tuple.files[versionKey] || '';
+            if (fullCode) {
+                const lines = fullCode.split('\n');
+                const filteredLines = [];
+                let inRetrievedSection = false;
+                
+                for (const line of lines) {
+                    // Check for section markers
+                    if (line.includes('RETRIEVED HELPER FUNCTIONS') || line.includes('Retrieved Helper Functions')) {
+                        inRetrievedSection = true;
+                    } else if (line.includes('NEW HELPER FUNCTIONS') || line.includes('New Helper Functions') || 
+                               line.includes('NEW FUNCTIONS') || line.includes('New Functions') ||
+                               line.includes('# P1:') || line.includes('# P2:') || line.includes('# P3:') ||
+                               line.includes('# Problem 1') || line.includes('# Problem 2') || line.includes('# Problem 3')) {
+                        inRetrievedSection = false;
+                        filteredLines.push(line);
+                    } else if (!inRetrievedSection) {
+                        filteredLines.push(line);
+                    }
+                }
+                
+                content = filteredLines.join('\n');
+            } else {
+                content = '';
+            }
         } else if (view === 'library') {
-            content = tuple.files[`library_${versionKey}`] || '';
+            // Extract only NEW functions, excluding RETRIEVED functions
+            const libraryCode = tuple.files[`library_${versionKey}`] || '';
+            if (libraryCode) {
+                const lines = libraryCode.split('\n');
+                let inNewSection = false;
+                const newFunctionLines = [];
+                
+                for (const line of lines) {
+                    // Check for section markers
+                    if (line.includes('NEW HELPER FUNCTIONS') || line.includes('New Helper Functions') || 
+                        line.includes('NEW FUNCTIONS') || line.includes('New Functions')) {
+                        inNewSection = true;
+                        newFunctionLines.push(line);
+                    } else if (line.includes('RETRIEVED HELPER FUNCTIONS') || line.includes('Retrieved Helper Functions')) {
+                        inNewSection = false;
+                    } else if (inNewSection) {
+                        newFunctionLines.push(line);
+                    }
+                }
+                
+                content = newFunctionLines.join('\n');
+            } else {
+                content = '';
+            }
         } else if (view === 'p1') {
             content = tuple.files[`p1_${versionKey}`] || '';
         } else if (view === 'p2') {
@@ -270,9 +331,15 @@ function setupEventListeners() {
         });
     });
     
+    // Argument text area listener
+    document.getElementById('argumentText').addEventListener('input', () => {
+        checkIfCanProceed();
+    });
+    
     // Navigation buttons
     document.getElementById('prevBtn').addEventListener('click', () => {
         if (sessionData.currentIndex > 0) {
+            saveChoice();  // Save current choice and argument before going back
             sessionData.currentIndex--;
             saveSession();
             loadCurrentTuple();
@@ -281,6 +348,7 @@ function setupEventListeners() {
     
     document.getElementById('nextBtn').addEventListener('click', () => {
         if (sessionData.currentIndex < 9) {
+            saveChoice();  // Save the choice and argument before moving on
             sessionData.currentIndex++;
             saveSession();
             loadCurrentTuple();
@@ -288,6 +356,7 @@ function setupEventListeners() {
     });
     
     document.getElementById('submitBtn').addEventListener('click', () => {
+        saveChoice();  // Save the choice and argument before submitting
         showCompletionModal();
     });
     
@@ -298,6 +367,9 @@ function setupEventListeners() {
     
     // Font size controls
     setupFontSizeControls();
+    
+    // Instructions modal
+    setupInstructionsModal();
 }
 
 function setupKeyboardShortcuts() {
@@ -326,6 +398,44 @@ function selectChoice(choice) {
         selectedBtn.classList.add('selected');
     }
     
+    // Check if both choice and argument are provided
+    checkIfCanProceed();
+}
+
+function checkIfCanProceed() {
+    const selectedChoice = document.querySelector('.choice-btn.selected');
+    const argumentText = document.getElementById('argumentText').value.trim();
+    
+    // Enable next/submit button only if both choice and argument are provided
+    if (selectedChoice && argumentText.length > 0) {
+        if (sessionData.currentIndex === 9) {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('btn-disabled');
+            submitBtn.classList.add('btn-primary');
+        } else {
+            document.getElementById('nextBtn').disabled = false;
+        }
+    } else {
+        // Disable buttons if requirements not met
+        if (sessionData.currentIndex === 9) {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.classList.remove('btn-primary');
+            submitBtn.classList.add('btn-disabled');
+        } else {
+            document.getElementById('nextBtn').disabled = true;
+        }
+    }
+}
+
+function saveChoice() {
+    const selectedBtn = document.querySelector('.choice-btn.selected');
+    if (!selectedBtn) return;
+    
+    const choice = selectedBtn.dataset.choice;
+    const argumentText = document.getElementById('argumentText').value.trim();
+    
     // Get current tuple data
     const tuple = tuplesData[currentTupleId];
     
@@ -341,6 +451,7 @@ function selectChoice(choice) {
     const responseData = {
         tupleId: currentTupleId,
         choice: choice.toUpperCase(),
+        argument: argumentText,  // Store the argument text
         pairType: tuple.pair_type,
         pairId: pairTypeToId[tuple.pair_type] || 1,
         v1_metric: tuple.v1_metric,
@@ -356,16 +467,6 @@ function selectChoice(choice) {
     }
     
     saveSession();
-    
-    // Enable next/submit button
-    if (sessionData.currentIndex === 9) {
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('btn-disabled');
-        submitBtn.classList.add('btn-primary');
-    } else {
-        document.getElementById('nextBtn').disabled = false;
-    }
 }
 
 
@@ -475,55 +576,63 @@ function openPrefilledGoogleForm() {
     // Google Form base URL
     const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/viewform';
     
-    // Actual entry IDs from the Google Form
+    // Actual entry IDs from the Google Form (updated with reason fields)
     const ENTRY_IDS = {
         userId: 'entry.1958938177',  // UserID field
         email: 'entry.792270821',    // Email field  
         name: 'entry.1585743737',    // Name field
-        gender: 'entry.1826664697',  // Gender field
-        age: 'entry.1786834376',     // Age field
         programmingExp: 'entry.331754450',  // Programming experience field
         pythonExp: 'entry.1839075244',  // Python experience field
         // Trial 1
         trial1_tupleId: 'entry.1538445591',
         trial1_pairId: 'entry.306224226',
         trial1_choice: 'entry.1092031299',
+        trial1_reason: 'entry.1023698889',
         // Trial 2
         trial2_tupleId: 'entry.487065090',
         trial2_pairId: 'entry.165561073',
         trial2_choice: 'entry.812388703',
+        trial2_reason: 'entry.2013501725',
         // Trial 3
         trial3_tupleId: 'entry.1277091152',
         trial3_pairId: 'entry.325557872',
         trial3_choice: 'entry.2000752445',
+        trial3_reason: 'entry.1647651375',
         // Trial 4
         trial4_tupleId: 'entry.2140505775',
         trial4_pairId: 'entry.1718924254',
         trial4_choice: 'entry.720209224',
+        trial4_reason: 'entry.529680361',
         // Trial 5
         trial5_tupleId: 'entry.4308478',
         trial5_pairId: 'entry.198690717',
         trial5_choice: 'entry.136166959',
+        trial5_reason: 'entry.413363029',
         // Trial 6
         trial6_tupleId: 'entry.1717139691',
         trial6_pairId: 'entry.1130745721',
         trial6_choice: 'entry.1756691659',
+        trial6_reason: 'entry.1553296185',
         // Trial 7
         trial7_tupleId: 'entry.795772895',
         trial7_pairId: 'entry.600609903',
         trial7_choice: 'entry.547640540',
+        trial7_reason: 'entry.1479666726',
         // Trial 8
         trial8_tupleId: 'entry.778698876',
         trial8_pairId: 'entry.1778742953',
         trial8_choice: 'entry.659602518',
+        trial8_reason: 'entry.704499563',
         // Trial 9
         trial9_tupleId: 'entry.2132146432',
         trial9_pairId: 'entry.2038252166',
         trial9_choice: 'entry.1305399604',
+        trial9_reason: 'entry.181619158',
         // Trial 10
         trial10_tupleId: 'entry.867453469',
         trial10_pairId: 'entry.499398113',
         trial10_choice: 'entry.529410553',
+        trial10_reason: 'entry.1565690313',
         // Other fields
         trialNumber: 'entry.435207678',  // Trial Number field
         timestamp: 'entry.141633008'     // Timestamp field
@@ -536,8 +645,6 @@ function openPrefilledGoogleForm() {
     params.append(ENTRY_IDS.userId, sessionData.participantId);
     params.append(ENTRY_IDS.email, sessionData.email || '');
     params.append(ENTRY_IDS.name, sessionData.name || '');
-    params.append(ENTRY_IDS.gender, sessionData.gender || '');
-    params.append(ENTRY_IDS.age, sessionData.age || '');
     params.append(ENTRY_IDS.programmingExp, sessionData.programmingExperience || '');
     params.append(ENTRY_IDS.pythonExp, sessionData.pythonExperience || '');
     
@@ -562,6 +669,11 @@ function openPrefilledGoogleForm() {
         if (ENTRY_IDS[`trial${trialNum}_choice`]) {
             params.append(ENTRY_IDS[`trial${trialNum}_choice`], response.choice);
         }
+        
+        // Add Reason/Argument for this trial
+        if (ENTRY_IDS[`trial${trialNum}_reason`] && response.argument) {
+            params.append(ENTRY_IDS[`trial${trialNum}_reason`], response.argument);
+        }
     });
     
     // Add timestamp
@@ -585,7 +697,7 @@ function openPrefilledGoogleForm() {
 function downloadResponses() {
     // Prepare CSV data
     const csvRows = [
-        ['UserID', 'Name', 'Email', 'Gender', 'Age', 'Programming Experience', 'Python Experience', 'TrialNumber', 'TupleID', 'Choice', 'Timestamp']
+        ['UserID', 'Name', 'Email', 'Programming Experience', 'Python Experience', 'TrialNumber', 'TupleID', 'Choice', 'Timestamp']
     ];
     
     sessionData.allResponses
@@ -595,8 +707,6 @@ function downloadResponses() {
                 sessionData.participantId,
                 sessionData.name || '',
                 sessionData.email || '',
-                sessionData.gender || '',
-                sessionData.age || '',
                 sessionData.programmingExperience || '',
                 sessionData.pythonExperience || '',
                 response.trialNumber,
@@ -629,8 +739,6 @@ function downloadResponses() {
         participantId: sessionData.participantId,
         name: sessionData.name || '',
         email: sessionData.email || '',
-        gender: sessionData.gender || '',
-        age: sessionData.age || '',
         programmingExperience: sessionData.programmingExperience || '',
         pythonExperience: sessionData.pythonExperience || '',
         startTime: sessionData.startTime,
@@ -704,5 +812,134 @@ function setupFontSizeControls() {
         
         // Save preference
         localStorage.setItem('codeFontSize', size.toString());
+    }
+}
+
+function setupInstructionsModal() {
+    const modal = document.getElementById('instructionsModal');
+    const btn = document.getElementById('instructionsBtn');
+    const closeBtn1 = document.getElementById('closeInstructionsBtn');
+    const closeBtn2 = document.getElementById('closeInstructionsBtn2');
+    
+    if (!modal || !btn) return;
+    
+    // Open modal when button is clicked
+    btn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+    
+    // Close modal functions
+    const closeModal = () => {
+        modal.style.display = 'none';
+    };
+    
+    // Close when X button is clicked
+    if (closeBtn1) {
+        closeBtn1.addEventListener('click', closeModal);
+    }
+    
+    // Close when "Got it" button is clicked
+    if (closeBtn2) {
+        closeBtn2.addEventListener('click', closeModal);
+    }
+    
+    // Close when clicking outside the modal
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeModal();
+        }
+    });
+}
+
+function setupTabNavigation() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.dataset.tab;
+            
+            // Update button states
+            tabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Update content visibility
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            if (targetTab === 'original') {
+                document.getElementById('originalTab').classList.add('active');
+            } else if (targetTab === 'refactorings') {
+                document.getElementById('refactoringsTab').classList.add('active');
+            }
+        });
+    });
+}
+
+function extractAndDisplayExistingFunctions(tuple) {
+    // Extract existing functions from library_v1 or library_v2
+    // These are the functions marked as "RETRIEVED HELPER FUNCTIONS"
+    
+    let existingFunctions = '';
+    
+    // Try to get from library_v1 first, then library_v2
+    const libraryCode = tuple.files.library_v1 || tuple.files.library_v2 || '';
+    
+    if (libraryCode) {
+        // Look for the RETRIEVED HELPER FUNCTIONS section
+        const lines = libraryCode.split('\n');
+        let inRetrievedSection = false;
+        let inNewSection = false;
+        const existingLines = [];
+        
+        for (const line of lines) {
+            // Check for section markers
+            if (line.includes('RETRIEVED HELPER FUNCTIONS') || line.includes('Retrieved Helper Functions')) {
+                inRetrievedSection = true;
+                inNewSection = false;
+                existingLines.push(line);
+            } else if (line.includes('NEW HELPER FUNCTIONS') || line.includes('New Helper Functions') || 
+                       line.includes('NEW FUNCTIONS') || line.includes('New Functions')) {
+                inRetrievedSection = false;
+                inNewSection = true;
+            } else if (inRetrievedSection && !inNewSection) {
+                existingLines.push(line);
+            }
+        }
+        
+        existingFunctions = existingLines.join('\n');
+        
+        // If no retrieved section found, try to extract imports and helper functions before NEW section
+        if (!existingFunctions || existingFunctions.trim() === '') {
+            const beforeNewSection = [];
+            for (const line of lines) {
+                if (line.includes('NEW HELPER FUNCTIONS') || line.includes('New Helper Functions') ||
+                    line.includes('NEW FUNCTIONS') || line.includes('New Functions')) {
+                    break;
+                }
+                beforeNewSection.push(line);
+            }
+            existingFunctions = beforeNewSection.join('\n');
+        }
+    }
+    
+    // If still no existing functions, show a message
+    if (!existingFunctions || existingFunctions.trim() === '') {
+        existingFunctions = '# No existing/retrieved functions for this example\n# All functions are newly proposed';
+    }
+    
+    // Update the existing functions code panel
+    const existingFunctionsElement = document.getElementById('existingFunctionsCode');
+    if (existingFunctionsElement) {
+        existingFunctionsElement.textContent = existingFunctions;
+        Prism.highlightElement(existingFunctionsElement);
     }
 }
