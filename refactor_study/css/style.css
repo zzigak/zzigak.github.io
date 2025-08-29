@@ -129,6 +129,19 @@ header h1 {
     box-shadow: var(--shadow-md);
 }
 
+.btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-primary);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
 .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -227,6 +240,50 @@ footer {
     overflow: hidden;
 }
 
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: var(--bg-primary);
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    flex: 1;
+    min-height: 0;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Code Comparison Layout */
 .code-comparison {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -234,6 +291,11 @@ footer {
     margin-bottom: 0.5rem;
     flex: 1;
     min-height: 0;
+}
+
+.code-comparison.two-pane {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
 .code-panel {

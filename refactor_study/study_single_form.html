@@ -67,6 +67,7 @@
                 <span class="timer" id="timer">00:00</span>
             </div>
             <div class="controls-section">
+                <button class="btn btn-secondary" id="instructionsBtn" style="margin-right: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;">📖 Instructions</button>
                 <div class="control-item font-controls">
                     <span>Font Size:</span>
                     <button class="font-btn" id="fontDecrease">−</button>
@@ -90,66 +91,103 @@
         </div>
         
         <main class="study-main">
-            <div class="code-comparison">
-                <div class="code-panel original-panel">
-                    <div class="panel-header original-header">
-                        <h3>Original</h3>
-                        <div class="view-buttons">
-                            <button class="view-btn active" data-panel="original" data-view="all">ALL</button>
-                            <button class="view-btn" data-panel="original" data-view="p1">P1</button>
-                            <button class="view-btn" data-panel="original" data-view="p2">P2</button>
-                            <button class="view-btn" data-panel="original" data-view="p3">P3</button>
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" data-tab="original">Original Programs & Existing Functions</button>
+                <button class="tab-btn" data-tab="refactorings">Refactorings (V1 vs V2)</button>
+            </div>
+            
+            <!-- Tab Content: Original & Existing Functions -->
+            <div class="tab-content active" id="originalTab">
+                <div class="code-comparison two-pane">
+                    <div class="code-panel">
+                        <div class="panel-header">
+                            <h3>Original Programs</h3>
+                            <div class="view-buttons">
+                                <button class="view-btn active" data-panel="original" data-view="all">ALL</button>
+                                <button class="view-btn" data-panel="original" data-view="p1">P1</button>
+                                <button class="view-btn" data-panel="original" data-view="p2">P2</button>
+                                <button class="view-btn" data-panel="original" data-view="p3">P3</button>
+                            </div>
+                        </div>
+                        <div class="code-wrapper">
+                            <pre><code class="language-python" id="originalCode"></code></pre>
                         </div>
                     </div>
-                    <div class="code-wrapper">
-                        <pre><code class="language-python" id="originalCode"></code></pre>
+                    
+                    <div class="code-panel">
+                        <div class="panel-header">
+                            <h3>Existing Functions (Retrieved)</h3>
+                        </div>
+                        <div class="code-wrapper">
+                            <pre><code class="language-python" id="existingFunctionsCode"></code></pre>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="code-panel">
-                    <div class="panel-header">
-                        <h3>Version 1</h3>
-                        <div class="view-buttons">
-                            <button class="view-btn active" data-panel="v1" data-view="all">ALL</button>
-                            <button class="view-btn" data-panel="v1" data-view="library">Library</button>
-                            <button class="view-btn" data-panel="v1" data-view="p1">P1</button>
-                            <button class="view-btn" data-panel="v1" data-view="p2">P2</button>
-                            <button class="view-btn" data-panel="v1" data-view="p3">P3</button>
+            </div>
+            
+            <!-- Tab Content: Refactorings -->
+            <div class="tab-content" id="refactoringsTab">
+                <div class="code-comparison two-pane">
+                    <div class="code-panel">
+                        <div class="panel-header">
+                            <h3>Version 1</h3>
+                            <div class="view-buttons">
+                                <button class="view-btn active" data-panel="v1" data-view="all">ALL</button>
+                                <button class="view-btn" data-panel="v1" data-view="library">New Functions</button>
+                                <button class="view-btn" data-panel="v1" data-view="p1">P1</button>
+                                <button class="view-btn" data-panel="v1" data-view="p2">P2</button>
+                                <button class="view-btn" data-panel="v1" data-view="p3">P3</button>
+                            </div>
+                        </div>
+                        <div class="code-wrapper">
+                            <pre><code class="language-python" id="v1Code"></code></pre>
                         </div>
                     </div>
-                    <div class="code-wrapper">
-                        <pre><code class="language-python" id="v1Code"></code></pre>
-                    </div>
-                </div>
-                
-                <div class="code-panel">
-                    <div class="panel-header">
-                        <h3>Version 2</h3>
-                        <div class="view-buttons">
-                            <button class="view-btn active" data-panel="v2" data-view="all">ALL</button>
-                            <button class="view-btn" data-panel="v2" data-view="library">Library</button>
-                            <button class="view-btn" data-panel="v2" data-view="p1">P1</button>
-                            <button class="view-btn" data-panel="v2" data-view="p2">P2</button>
-                            <button class="view-btn" data-panel="v2" data-view="p3">P3</button>
+                    
+                    <div class="code-panel">
+                        <div class="panel-header">
+                            <h3>Version 2</h3>
+                            <div class="view-buttons">
+                                <button class="view-btn active" data-panel="v2" data-view="all">ALL</button>
+                                <button class="view-btn" data-panel="v2" data-view="library">New Functions</button>
+                                <button class="view-btn" data-panel="v2" data-view="p1">P1</button>
+                                <button class="view-btn" data-panel="v2" data-view="p2">P2</button>
+                                <button class="view-btn" data-panel="v2" data-view="p3">P3</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="code-wrapper">
-                        <pre><code class="language-python" id="v2Code"></code></pre>
+                        <div class="code-wrapper">
+                            <pre><code class="language-python" id="v2Code"></code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="selection-section">
-                <h3>Which refactored version do you prefer?</h3>
-                <div class="choice-buttons">
-                    <button class="choice-btn" data-choice="v1">
-                        <span class="choice-label">Version 1</span>
-                        <span class="shortcut">Press 1</span>
-                    </button>
-                    <button class="choice-btn" data-choice="v2">
-                        <span class="choice-label">Version 2</span>
-                        <span class="shortcut">Press 2</span>
-                    </button>
+                <h3 style="text-align: center;">Which refactored version do you prefer?</h3>
+                <div style="display: flex; gap: 2rem; align-items: flex-start; justify-content: center;">
+                    <div style="flex: 0 0 auto;">
+                        <div class="choice-buttons">
+                            <button class="choice-btn" data-choice="v1" style="height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <span class="choice-label">Version 1</span>
+                                <span class="shortcut">Press 1</span>
+                            </button>
+                            <button class="choice-btn" data-choice="v2" style="height: 90px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <span class="choice-label">Version 2</span>
+                                <span class="shortcut">Press 2</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div style="width: 500px; max-width: 100%;">
+                        <textarea 
+                            id="argumentText" 
+                            placeholder="Explain why you chose this version over the other..."
+                            style="width: 100%; height: 90px; min-height: 90px; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: var(--radius); font-family: inherit; font-size: 0.95rem; resize: vertical;"
+                        ></textarea>
+                        <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #dc2626; font-weight: 500;">
+                            ⚠️ Both selection and explanation are required to continue
+                        </p>
+                    </div>
                 </div>
             </div>
             
@@ -187,6 +225,68 @@
                 <button id="openFormBtn" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.2rem;">Submit Answers!</button>
             </div>
             <p class="note">The form will open with all your responses pre-filled. Just review and click Submit.</p>
+        </div>
+    </div>
+    
+    <!-- Instructions Modal -->
+    <div class="modal" id="instructionsModal" style="display: none;">
+        <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto;">
+            <button class="close-btn" id="closeInstructionsBtn" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">×</button>
+            
+            <h2 style="margin-bottom: 1.5rem;">📖 Study Instructions</h2>
+            
+            <div style="background: #f0f9ff; border: 1px solid #0284c7; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <h3 style="color: #0369a1; margin-top: 0;">What You're Doing</h3>
+                <p style="margin-bottom: 0.5rem;">A <strong>refactoring</strong> means splitting code into <strong>a library of reusable functions</strong> + <strong>shortened main programs</strong> that use those functions.</p>
+                <p style="margin-bottom: 0.5rem;">You'll see <strong>two tabs</strong> at the top:</p>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li><strong>Tab 1 - Original Programs & Existing Functions:</strong> Shows the 3 original programs (solving related problems) and any existing helper functions that were already extracted</li>
+                    <li><strong>Tab 2 - Refactorings (V1 vs V2):</strong> Shows two different refactoring approaches side by side for you to compare</li>
+                </ul>
+            </div>
+            
+            <div style="background: #e0f2fe; border: 2px solid #0284c7; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <h3 style="margin-top: 0; color: #0c4a6e; margin-bottom: 1rem;">📝 Your Task (Both Required):</h3>
+                <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
+                    <div style="background: #0284c7; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                    <div>
+                        <strong style="color: #0c4a6e;">Choose which refactoring is better:</strong> Select Version 1 or Version 2
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <div style="background: #0284c7; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                    <div>
+                        <strong style="color: #0c4a6e;">Explain your choice:</strong> Write why you prefer one version over the other
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #fefce8; border: 1px solid #facc15; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                <h3 style="color: #a16207; margin-top: 0;">⚠️ Important Notes</h3>
+                <p style="margin-bottom: 0.5rem;"><strong>Your task:</strong> Decide which refactoring is higher quality.</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Read problem statements:</strong> Look at the original programs (P1, P2, P3) to understand what problems they're solving. This will help you understand the purpose of the extracted functions.</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Focus on NEW functions and refactorings:</strong> Each library contains both existing extracted functions AND newly proposed functions. Consider the <strong>newly proposed functions</strong> and <strong>how the programs are refactored to use them</strong> when making your decision.</p>
+                <p style="margin-bottom: 0;"><strong>Ignore documentation:</strong> Whether functions have docstrings or comments should NOT influence your choice. Focus only on the actual functionality of the code.</p>
+            </div>
+            
+            <div style="background: #f9fafb; border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem;">
+                <h3 style="color: #374151; margin-top: 0;">How to Use the Interface</h3>
+                <ul style="margin-bottom: 0; padding-left: 20px;">
+                    <li><strong>Switch between tabs:</strong> Click the tabs at the top to toggle between "Original Programs & Existing Functions" and "Refactorings (V1 vs V2)"</li>
+                    <li><strong>View buttons in each panel:</strong></li>
+                    <ul style="padding-left: 20px;">
+                        <li><strong>ALL:</strong> Shows the complete refactored code including both the library and all three programs</li>
+                        <li><strong>New Functions:</strong> Shows only the newly proposed functions (excluding retrieved/existing functions)</li>
+                        <li><strong>P1, P2, P3:</strong> Shows how each individual program uses the library functions</li>
+                    </ul>
+                    <li><strong>Make your choice:</strong> Click either "Version 1" or "Version 2" button (or press keyboard keys 1 or 2) to select which refactoring you prefer</li>
+                    <li><strong>Explain your choice:</strong> You MUST write an explanation in the text box arguing why you chose one version over the other. This is required to continue.</li>
+                    <li><strong>Navigate:</strong> Use "Next Question" to proceed after making a selection AND providing an explanation</li>
+                    <li><strong>Adjust font size:</strong> Use the + and - buttons in the header to make text larger or smaller</li>
+                </ul>
+            </div>
+            
+            <button class="btn btn-primary" id="closeInstructionsBtn2" style="margin-top: 1.5rem; width: 100%;">Got it, close instructions</button>
         </div>
     </div>
     

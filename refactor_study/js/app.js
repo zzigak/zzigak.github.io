@@ -60,14 +60,30 @@ document.addEventListener('DOMContentLoaded', function() {
         participantForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get form data
-            const participantId = document.getElementById('participantId').value.trim().toUpperCase();
-            const name = document.getElementById('participantName').value.trim();
-            const email = document.getElementById('participantEmail').value.trim();
-            const gender = document.getElementById('participantGender').value;
-            const age = document.getElementById('participantAge').value;
-            const programmingExperience = document.getElementById('programmingExperience').value;
-            const pythonExperience = document.getElementById('pythonExperience').value;
+            // Get form data with error checking
+            const participantIdElement = document.getElementById('participantId');
+            const nameElement = document.getElementById('participantName');
+            const emailElement = document.getElementById('participantEmail');
+            const programmingExpElement = document.getElementById('programmingExperience');
+            const pythonExpElement = document.getElementById('pythonExperience');
+            
+            if (!participantIdElement || !nameElement || !emailElement || !programmingExpElement || !pythonExpElement) {
+                console.error('Missing form elements:', {
+                    participantId: !!participantIdElement,
+                    name: !!nameElement,
+                    email: !!emailElement,
+                    programmingExp: !!programmingExpElement,
+                    pythonExp: !!pythonExpElement
+                });
+                alert('Error: Form elements not found. Please refresh the page.');
+                return;
+            }
+            
+            const participantId = participantIdElement.value.trim().toUpperCase();
+            const name = nameElement.value.trim();
+            const email = emailElement.value.trim();
+            const programmingExperience = programmingExpElement.value;
+            const pythonExperience = pythonExpElement.value;
             
             // Load user assignments
             let assignedTuples = null;
@@ -123,8 +139,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 participantId: participantId,
                 name: name,
                 email: email,
-                gender: gender,
-                age: age,
                 programmingExperience: programmingExperience,
                 pythonExperience: pythonExperience,
                 startTime: new Date().toISOString(),
