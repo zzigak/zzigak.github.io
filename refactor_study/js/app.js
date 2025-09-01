@@ -41,13 +41,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.removeItem('studyStarted');
             } else {
                 // If they don't want to clear, redirect back to study page
-                window.location.href = 'study_single_form.html';
+                const urlParams = new URLSearchParams(window.location.search);
+                const debugKey = urlParams.get('debugKey');
+                const debugParam = debugKey ? `?debugKey=${debugKey}` : '';
+                window.location.href = 'study_single_form.html' + debugParam;
                 return;
             }
         } else if (session.currentIndex > 0) {
             // If session is in progress, ask if they want to continue or restart
             if (confirm('You have an ongoing study session. Would you like to continue where you left off?\n\nClick OK to continue, Cancel to start over.')) {
-                window.location.href = 'study_single_form.html';
+                const urlParams = new URLSearchParams(window.location.search);
+                const debugKey = urlParams.get('debugKey');
+                const debugParam = debugKey ? `?debugKey=${debugKey}` : '';
+                window.location.href = 'study_single_form.html' + debugParam;
                 return;
             } else {
                 localStorage.removeItem('studySession');
@@ -89,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let assignedTuples = null;
             
             try {
-                const response = await fetch('data/user_assignments_uniform.json');
+                const response = await fetch('data/user_assignments_final_uniform.json');
                 const userAssignments = await response.json();
                 
                 if (userAssignments[participantId]) {
@@ -122,8 +128,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Save to localStorage
             localStorage.setItem('studySession', JSON.stringify(sessionData));
             
-            // Redirect to single form study page
-            window.location.href = 'study_single_form.html';
+            // Redirect to single form study page, preserving debug key if present
+            const urlParams = new URLSearchParams(window.location.search);
+            const debugKey = urlParams.get('debugKey');
+            const debugParam = debugKey ? `?debugKey=${debugKey}` : '';
+            window.location.href = 'study_single_form.html' + debugParam;
         });
     }
 });
