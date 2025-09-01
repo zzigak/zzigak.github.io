@@ -9,10 +9,10 @@
 
   <style>
     :root {
-      --bg-color: #fff;
+      --bg-color: #ffffff;
       --text-color: #2d3748;
       --text-secondary: #4a5568;
-      --accent-color: #0d6efd; /* your blue */
+      --accent-color: #2b6fd7; /* your blue */
       --border-color: #e2e8f0;
       --shadow-color: rgba(0,0,0,.05);
       --transition-time: .3s;
@@ -119,11 +119,13 @@
       color:var(--text-secondary);
       border-bottom:3px solid transparent;
       transition:all var(--transition-time) ease;
+      font-weight:500;
+      min-width:fit-content;
     }
     .tabs button.active{
       color:var(--accent-color);
       border-bottom:3px solid var(--accent-color);
-      font-weight:600;
+      font-weight:500;
     }
     .tabs button:hover{
       color:var(--accent-color);
@@ -206,7 +208,7 @@
       if (section === 'all') {
         entries.style.display = 'flex';
         document.querySelectorAll('.entry').forEach(e => e.style.display = 'flex');
-        document.querySelectorAll('h2').forEach(h => h.style.display = 'none');
+        document.querySelectorAll('h2').forEach(h => h.style.display = 'block');
         document.querySelector('.teaching-list').style.display = 'block';
       } else if (section === 'publications') {
         entries.style.display = 'flex';
@@ -249,7 +251,7 @@
   <!-- About -->
   <div class="about">
     <p>
-      Hi! I'm a Cornell University <a href="https://as.cornell.edu/education/college-scholar-program" target="_blank" style="color:var(--accent-color);text-decoration:none;">College Scholar</a> pursuing a B.A. in Mathematics and Computer Science. I'm fortunate to work with Professor <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank" style="color:var(--accent-color);text-decoration:none;">Kevin Ellis</a> on code refactoring and code generation for physical simulation, and with Professor <a href="https://www.cs.cornell.edu/~srm/" target="_blank" style="color:var(--accent-color);text-decoration:none;">Steve Marschner</a> on neural physics simulations.
+      Hi! I'm a Cornell University <a href="https://as.cornell.edu/education/college-scholar-program" target="_blank" style="color:var(--accent-color);text-decoration:none; font-weight:500;">College Scholar</a> pursuing a B.A. in Mathematics and Computer Science. I'm fortunate to work with Professor <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank" style="color:var(--accent-color);text-decoration:none; font-weight:500;">Kevin Ellis</a> on code refactoring and code generation for physical simulation, and with Professor <a href="https://www.cs.cornell.edu/~srm/" target="_blank" style="color:var(--accent-color);text-decoration:none; font-weight:500;">Steve Marschner</a> on neural physics simulations.
     </p>
     <!-- <p style="color:#c3512e;font-weight:700;margin-top:1rem;margin-bottom:0;">
       I am applying for PhD programs in Fall 2025!
