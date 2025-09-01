@@ -90,16 +90,16 @@ function loadCurrentTuple() {
         return;
     }
     
-    // Reset views to 'all' when transitioning to a new tuple
+    // Reset views to 'p1' (first original problem) when transitioning to a new tuple
     currentViews = {
-        'original': 'all',
-        'v1': 'all',
-        'v2': 'all'
+        'original': 'p1',
+        'v1': 'p1',
+        'v2': 'p1'
     };
     
-    // Reset view buttons to 'all' state
+    // Reset view buttons to 'p1' state
     document.querySelectorAll('.view-btn').forEach(btn => {
-        if (btn.dataset.view === 'all') {
+        if (btn.dataset.view === 'p1') {
             btn.classList.add('active');
         } else {
             btn.classList.remove('active');
@@ -767,7 +767,7 @@ function restartStudy() {
 }
 
 function setupFontSizeControls() {
-    let currentFontSize = 14; // Default font size in px
+    let currentFontSize = 12; // Default font size in px
     const minSize = 10;
     const maxSize = 20;
     
