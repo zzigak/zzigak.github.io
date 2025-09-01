@@ -1,0 +1,3610 @@
+{
+  "study_info": {
+    "total_participants": 30,
+    "questions_per_participant": 10,
+    "total_unique_tuples": 45,
+    "data_file": "data/tuples_v4_no_docs.json"
+  },
+  "participants": {
+    "U047DF6E8F": {
+      "participant_number": 1,
+      "user_id": "U047DF6E8F",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U047DF6E8F",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U047DF6E8F&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 18,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 2,
+          "tuple_index": 12,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 28,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 6,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 7,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 8,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 9,
+          "tuple_index": 24,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 10,
+          "tuple_index": 37,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "U08EF07FE7": {
+      "participant_number": 2,
+      "user_id": "U08EF07FE7",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U08EF07FE7",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U08EF07FE7&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 16,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 2,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 4,
+          "tuple_index": 10,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 22,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 6,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 31,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 40,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "U145EDD83C": {
+      "participant_number": 3,
+      "user_id": "U145EDD83C",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U145EDD83C",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U145EDD83C&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 28,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 2,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 3,
+          "tuple_index": 7,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_2",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 4,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 5,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 6,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 25,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 37,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 19,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        }
+      ]
+    },
+    "U22C5DF4D5": {
+      "participant_number": 4,
+      "user_id": "U22C5DF4D5",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U22C5DF4D5",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U22C5DF4D5&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 2,
+          "tuple_index": 38,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 3,
+          "tuple_index": 29,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 5,
+          "tuple_index": 8,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 6,
+          "tuple_index": 26,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 20,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 10,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "U4818F5BA9": {
+      "participant_number": 5,
+      "user_id": "U4818F5BA9",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U4818F5BA9",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U4818F5BA9&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 16,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 2,
+          "tuple_index": 12,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 22,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 30,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 10,
+          "tuple_index": 39,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "U5C5CD84FB": {
+      "participant_number": 6,
+      "user_id": "U5C5CD84FB",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U5C5CD84FB",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U5C5CD84FB&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 20,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 36,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 3,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 12,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 5,
+          "tuple_index": 27,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 6,
+          "tuple_index": 26,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 8,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 9,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "U72F39FC2E": {
+      "participant_number": 7,
+      "user_id": "U72F39FC2E",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U72F39FC2E",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U72F39FC2E&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 21,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 9,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_0"
+        },
+        {
+          "position": 4,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 5,
+          "tuple_index": 15,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_6"
+        },
+        {
+          "position": 6,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 7,
+          "tuple_index": 30,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 8,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 9,
+          "tuple_index": 39,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 10,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "U7750A2E16": {
+      "participant_number": 8,
+      "user_id": "U7750A2E16",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U7750A2E16",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U7750A2E16&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 2,
+          "tuple_index": 17,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 3,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 5,
+          "tuple_index": 29,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 6,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 7,
+          "tuple_index": 38,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 8,
+          "tuple_index": 9,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_0"
+        },
+        {
+          "position": 9,
+          "tuple_index": 23,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 10,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "U7D1383497": {
+      "participant_number": 9,
+      "user_id": "U7D1383497",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U7D1383497",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U7D1383497&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 19,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 39,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 3,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 25,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 6,
+          "tuple_index": 11,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 7,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 30,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "U8DA5CEE2D": {
+      "participant_number": 10,
+      "user_id": "U8DA5CEE2D",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U8DA5CEE2D",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U8DA5CEE2D&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 28,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 2,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 3,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 37,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 6,
+          "tuple_index": 13,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 7,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 21,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 10,
+          "tuple_index": 15,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_6"
+        }
+      ]
+    },
+    "U9CEA94ADB": {
+      "participant_number": 11,
+      "user_id": "U9CEA94ADB",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=U9CEA94ADB",
+        "debug": "https://zzigak.github.io/refactor_study/?id=U9CEA94ADB&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 40,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 2,
+          "tuple_index": 7,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_2",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 3,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 31,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 21,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 8,
+          "tuple_index": 15,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_6"
+        },
+        {
+          "position": 9,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "UA1CBC3F14": {
+      "participant_number": 12,
+      "user_id": "UA1CBC3F14",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UA1CBC3F14",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UA1CBC3F14&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 31,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 23,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 40,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 5,
+          "tuple_index": 17,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 6,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 7,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 8,
+          "tuple_index": 13,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 9,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "UA7EBDB5B2": {
+      "participant_number": 13,
+      "user_id": "UA7EBDB5B2",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UA7EBDB5B2",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UA7EBDB5B2&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 27,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 2,
+          "tuple_index": 23,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 4,
+          "tuple_index": 17,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 5,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 6,
+          "tuple_index": 36,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 11,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 10,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "UAE68DCBAB": {
+      "participant_number": 14,
+      "user_id": "UAE68DCBAB",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UAE68DCBAB",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UAE68DCBAB&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 20,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 31,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 3,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 26,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 6,
+          "tuple_index": 40,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 7,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 9,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 10,
+          "tuple_index": 12,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        }
+      ]
+    },
+    "UB34AD1BC2": {
+      "participant_number": 15,
+      "user_id": "UB34AD1BC2",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UB34AD1BC2",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UB34AD1BC2&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 3,
+          "tuple_index": 15,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_6"
+        },
+        {
+          "position": 4,
+          "tuple_index": 11,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 21,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 6,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 7,
+          "tuple_index": 29,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 8,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 10,
+          "tuple_index": 38,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "UB4299AAEF": {
+      "participant_number": 16,
+      "user_id": "UB4299AAEF",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UB4299AAEF",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UB4299AAEF&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 10,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 20,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 4,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 37,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 7,
+          "tuple_index": 26,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 28,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 9,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "UC0F1107B6": {
+      "participant_number": 17,
+      "user_id": "UC0F1107B6",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UC0F1107B6",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UC0F1107B6&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 3,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 4,
+          "tuple_index": 36,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 27,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 6,
+          "tuple_index": 19,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 25,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 9,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_0"
+        },
+        {
+          "position": 10,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        }
+      ]
+    },
+    "UCCDAA55EA": {
+      "participant_number": 18,
+      "user_id": "UCCDAA55EA",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UCCDAA55EA",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UCCDAA55EA&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 24,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 2,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 3,
+          "tuple_index": 18,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 4,
+          "tuple_index": 29,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 5,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 6,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 10,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 10,
+          "tuple_index": 38,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "UCD89C37EF": {
+      "participant_number": 19,
+      "user_id": "UCD89C37EF",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UCD89C37EF",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UCD89C37EF&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 30,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 18,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 4,
+          "tuple_index": 39,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 5,
+          "tuple_index": 24,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 6,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 7,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 10,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "UD7B9F2D40": {
+      "participant_number": 20,
+      "user_id": "UD7B9F2D40",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UD7B9F2D40",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UD7B9F2D40&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 19,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 3,
+          "tuple_index": 25,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 4,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 38,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 7,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 8,
+          "tuple_index": 13,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 9,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 29,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        }
+      ]
+    },
+    "UD9CBE4F58": {
+      "participant_number": 21,
+      "user_id": "UD9CBE4F58",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UD9CBE4F58",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UD9CBE4F58&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 2,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 3,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 14,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 5,
+          "tuple_index": 36,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 6,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 7,
+          "tuple_index": 27,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 8,
+          "tuple_index": 24,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 9,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 10,
+          "tuple_index": 18,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "UDC61DE1A1": {
+      "participant_number": 22,
+      "user_id": "UDC61DE1A1",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UDC61DE1A1",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UDC61DE1A1&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 3,
+          "tuple_index": 30,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 4,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 5,
+          "tuple_index": 17,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 6,
+          "tuple_index": 7,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_2",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 7,
+          "tuple_index": 23,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 8,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 9,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 39,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "UDCDB4BFAC": {
+      "participant_number": 23,
+      "user_id": "UDCDB4BFAC",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UDCDB4BFAC",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UDCDB4BFAC&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 23,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 3,
+          "tuple_index": 43,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 4,
+          "tuple_index": 37,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 5,
+          "tuple_index": 17,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 6,
+          "tuple_index": 9,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_0"
+        },
+        {
+          "position": 7,
+          "tuple_index": 28,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 8,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 34,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 10,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "UE064AED19": {
+      "participant_number": 24,
+      "user_id": "UE064AED19",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UE064AED19",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UE064AED19&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 27,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 2,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 3,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 21,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 6,
+          "tuple_index": 15,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_6"
+        },
+        {
+          "position": 7,
+          "tuple_index": 36,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 7,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_2",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 9,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        }
+      ]
+    },
+    "UE2DBE7FC4": {
+      "participant_number": 25,
+      "user_id": "UE2DBE7FC4",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UE2DBE7FC4",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UE2DBE7FC4&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 2,
+          "tuple_index": 26,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 3,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 39,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 5,
+          "tuple_index": 2,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 7,
+          "tuple_index": 14,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 8,
+          "tuple_index": 20,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 9,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 30,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        }
+      ]
+    },
+    "UE4405AC19": {
+      "participant_number": 26,
+      "user_id": "UE4405AC19",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UE4405AC19",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UE4405AC19&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 22,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 2,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 3,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 16,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 5,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 6,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 7,
+          "tuple_index": 36,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 8,
+          "tuple_index": 27,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 9,
+          "tuple_index": 8,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        }
+      ]
+    },
+    "UFAB2DCB48": {
+      "participant_number": 27,
+      "user_id": "UFAB2DCB48",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UFAB2DCB48",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UFAB2DCB48&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 22,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 2,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 3,
+          "tuple_index": 29,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 4,
+          "tuple_index": 35,
+          "cluster": "cluster_7",
+          "problems": "cc_python_16 + cc_python_25 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 5,
+          "tuple_index": 14,
+          "cluster": "cluster_3",
+          "problems": "cc_python_7 + cc_python_29 + cc_python_0",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_3"
+        },
+        {
+          "position": 6,
+          "tuple_index": 44,
+          "cluster": "cluster_9",
+          "problems": "cc_python_8 + cc_python_10 + cc_python_20",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 16,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 8,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 9,
+          "tuple_index": 38,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        }
+      ]
+    },
+    "UFCB50654E": {
+      "participant_number": 28,
+      "user_id": "UFCB50654E",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UFCB50654E",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UFCB50654E&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 5,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 2,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 3,
+          "tuple_index": 19,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 4,
+          "tuple_index": 3,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 5,
+          "tuple_index": 31,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 41,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 7,
+          "tuple_index": 40,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 8,
+          "tuple_index": 32,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 9,
+          "tuple_index": 11,
+          "cluster": "cluster_3",
+          "problems": "cc_python_6 + cc_python_21 + cc_python_9",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 10,
+          "tuple_index": 25,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_5"
+        }
+      ]
+    },
+    "UFEAFF8E8D": {
+      "participant_number": 29,
+      "user_id": "UFEAFF8E8D",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UFEAFF8E8D",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UFEAFF8E8D&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 31,
+          "cluster": "cluster_6",
+          "problems": "cc_python_19 + cc_python_14 + cc_python_7",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 2,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 3,
+          "tuple_index": 18,
+          "cluster": "cluster_4",
+          "problems": "cc_python_8 + cc_python_9 + cc_python_3",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 4,
+          "tuple_index": 24,
+          "cluster": "cluster_5",
+          "problems": "cc_python_5 + cc_python_29 + cc_python_7",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_3",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 5,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 6,
+          "tuple_index": 0,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_logprob",
+          "v1_metric": "mi",
+          "v2_metric": "logprob",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 7,
+          "tuple_index": 40,
+          "cluster": "cluster_8",
+          "problems": "cc_python_28 + cc_python_3 + cc_python_29",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 8,
+          "tuple_index": 8,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    },
+    "UFF996DA39": {
+      "participant_number": 30,
+      "user_id": "UFF996DA39",
+      "links": {
+        "normal": "https://zzigak.github.io/refactor_study/?id=UFF996DA39",
+        "debug": "https://zzigak.github.io/refactor_study/?id=UFF996DA39&debugKey=xR9mK2nP7qL4wZ8v"
+      },
+      "pairs": [
+        {
+          "position": 1,
+          "tuple_index": 22,
+          "cluster": "cluster_5",
+          "problems": "cc_python_28 + cc_python_1 + cc_python_19",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 2,
+          "tuple_index": 33,
+          "cluster": "cluster_7",
+          "problems": "cc_python_11 + cc_python_10 + cc_python_27",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_0",
+          "v2_refactoring": "refactoring_4"
+        },
+        {
+          "position": 3,
+          "tuple_index": 4,
+          "cluster": "cluster_1",
+          "problems": "cc_python_2 + cc_python_27 + cc_python_5",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_7",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 4,
+          "tuple_index": 42,
+          "cluster": "cluster_9",
+          "problems": "cc_python_17 + cc_python_16 + cc_python_19",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_5"
+        },
+        {
+          "position": 5,
+          "tuple_index": 1,
+          "cluster": "cluster_0",
+          "problems": "cc_python_29 + cc_python_19 + cc_python_13",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 6,
+          "tuple_index": 37,
+          "cluster": "cluster_8",
+          "problems": "cc_python_24 + cc_python_15 + cc_python_10",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_7"
+        },
+        {
+          "position": 7,
+          "tuple_index": 28,
+          "cluster": "cluster_6",
+          "problems": "cc_python_12 + cc_python_2 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_5",
+          "v2_refactoring": "refactoring_1"
+        },
+        {
+          "position": 8,
+          "tuple_index": 8,
+          "cluster": "cluster_3",
+          "problems": "cc_python_16 + cc_python_19 + cc_python_23",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_4",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 9,
+          "tuple_index": 6,
+          "cluster": "cluster_2",
+          "problems": "cc_python_5 + cc_python_26 + cc_python_22",
+          "comparison_type": "logprob_vs_tokens",
+          "v1_metric": "logprob",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_6",
+          "v2_refactoring": "refactoring_2"
+        },
+        {
+          "position": 10,
+          "tuple_index": 16,
+          "cluster": "cluster_4",
+          "problems": "cc_python_28 + cc_python_4 + cc_python_11",
+          "comparison_type": "mi_vs_tokens",
+          "v1_metric": "mi",
+          "v2_metric": "tokens",
+          "v1_refactoring": "refactoring_1",
+          "v2_refactoring": "refactoring_4"
+        }
+      ]
+    }
+  }
+}
