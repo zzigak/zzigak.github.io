@@ -85,53 +85,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const programmingExperience = programmingExpElement.value;
             const pythonExperience = pythonExpElement.value;
             
-            // Load user assignments
+            // Load user assignments from uniform distribution file
             let assignedTuples = null;
             
-            // Try to load from user_assignments_final.json first
             try {
-                const response = await fetch('data/user_assignments_final.json');
+                const response = await fetch('data/user_assignments_uniform.json');
                 const userAssignments = await response.json();
                 
                 if (userAssignments[participantId]) {
                     assignedTuples = userAssignments[participantId];
+                    console.log(`Loaded assignments for ${participantId}`);
+                } else {
+                    alert(`No assignments found for participant ID: ${participantId}. Please check your ID.`);
+                    return;
                 }
             } catch (error) {
-                console.log('user_assignments_final.json not found or error, trying v3 file');
-            }
-            
-            // If not found in final, try user_assignments_v3.json
-            if (!assignedTuples) {
-                try {
-                    const response = await fetch('data/user_assignments_v3.json');
-                    const userAssignments = await response.json();
-                    
-                    if (userAssignments[participantId]) {
-                        assignedTuples = userAssignments[participantId];
-                    }
-                } catch (error) {
-                    console.log('user_assignments_v3.json not found or error, trying original file');
-                }
-            }
-            
-            // If not found in v3, try original user_assignments.json
-            if (!assignedTuples) {
-                try {
-                    const response = await fetch('data/user_assignments.json');
-                    const userAssignments = await response.json();
-                    
-                    if (userAssignments[participantId]) {
-                        assignedTuples = userAssignments[participantId];
-                    }
-                } catch (error) {
-                    console.log('user_assignments.json not found or error');
-                }
-            }
-            
-            // If still no assignments, use dynamic assignment
-            if (!assignedTuples) {
-                console.log(`No predefined assignments for ${participantId}, using dynamic assignment`);
-                assignedTuples = assignTuples(participantId);
+                console.error('Error loading assignments:', error);
+                alert('Error loading study assignments. Please contact the study administrator.');
+                return;
             }
             
             // Initialize session data
@@ -166,8 +137,71 @@ function generateParticipantId() {
     return id;
 }
 
-function assignTuples(participantId) {
+async function assignTuplesWithUniqueOriginals(participantId) {
+    // Load tuples data to get cluster information
+    let tuplesData;
+    try {
+        const response = await fetch('data/tuples_v4_no_docs.json');
+        tuplesData = await response.json();
+    } catch (error) {
+        console.error('Error loading tuples data:', error);
+        // Fallback to simple assignment if can't load data
+        return assignTuplesSimple(participantId);
+    }
+    
     // Get tuple counts from localStorage or initialize
+    let tupleCounts = JSON.parse(localStorage.getItem('globalTupleCounts') || '{}');
+    
+    // Group tuples by cluster
+    const clusterGroups = {};
+    tuplesData.forEach((tuple, index) => {
+        const cluster = tuple.cluster;
+        if (!clusterGroups[cluster]) {
+            clusterGroups[cluster] = [];
+        }
+        clusterGroups[cluster].push({
+            id: index,
+            count: tupleCounts[index] || 0
+        });
+    });
+    
+    // Select one tuple from each cluster (10 clusters total)
+    const selected = [];
+    const clusters = Object.keys(clusterGroups);
+    
+    // Ensure we have 10 unique clusters
+    const numClusters = Math.min(clusters.length, 10);
+    
+    for (let i = 0; i < numClusters; i++) {
+        const cluster = clusters[i];
+        const tuplesInCluster = clusterGroups[cluster];
+        
+        // Sort by view count (ascending) to get least viewed
+        tuplesInCluster.sort((a, b) => a.count - b.count);
+        
+        // Select the least viewed tuple from this cluster
+        if (tuplesInCluster.length > 0) {
+            selected.push(tuplesInCluster[0].id);
+        }
+    }
+    
+    // Update counts
+    selected.forEach(id => {
+        if (!(id in tupleCounts)) {
+            tupleCounts[id] = 0;
+        }
+        tupleCounts[id]++;
+    });
+    
+    // Save updated counts
+    localStorage.setItem('globalTupleCounts', JSON.stringify(tupleCounts));
+    
+    // Shuffle the selected tuples for this participant
+    return shuffle(selected);
+}
+
+function assignTuplesSimple(participantId) {
+    // Fallback to original simple assignment logic
     let tupleCounts = JSON.parse(localStorage.getItem('globalTupleCounts') || '{}');
     
     // Initialize counts for 45 entries if not exists
@@ -195,6 +229,11 @@ function assignTuples(participantId) {
     
     // Shuffle the selected tuples for this participant
     return shuffle(selected);
+}
+
+// Keep original function name for compatibility but make it use the new logic
+async function assignTuples(participantId) {
+    return await assignTuplesWithUniqueOriginals(participantId);
 }
 
 function shuffle(array) {

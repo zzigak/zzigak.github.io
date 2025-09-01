@@ -415,6 +415,38 @@ footer {
     font-family: inherit;
 }
 
+/* Line Numbers Styling */
+.code-wrapper pre.line-numbers {
+    position: relative;
+    padding-left: 3.8em;
+    counter-reset: linenumber;
+}
+
+.code-wrapper .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    font-size: 100%;
+    left: -3.8em;
+    width: 3em;
+    letter-spacing: -1px;
+    border-right: 1px solid var(--border-color);
+    user-select: none;
+}
+
+.code-wrapper .line-numbers-rows > span {
+    display: block;
+    counter-increment: linenumber;
+}
+
+.code-wrapper .line-numbers-rows > span:before {
+    content: counter(linenumber);
+    color: var(--text-secondary);
+    display: block;
+    padding-right: 0.8em;
+    text-align: right;
+}
+
 /* Selection Section */
 .selection-section {
     background: var(--bg-primary);

@@ -6,6 +6,7 @@
     <title>Refactoring Study - Compare Code</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
 </head>
 <body>
     <div class="study-container">
@@ -28,7 +29,7 @@
                 <div class="control-item font-controls">
                     <span>Font Size:</span>
                     <button class="font-btn" id="fontDecrease">−</button>
-                    <span id="fontSize">14px</span>
+                    <span id="fontSize">12px</span>
                     <button class="font-btn" id="fontIncrease">+</button>
                 </div>
             </div>
@@ -46,7 +47,7 @@
                         </div>
                     </div>
                     <div class="code-wrapper">
-                        <pre><code class="language-python" id="originalCode"></code></pre>
+                        <pre class="line-numbers"><code class="language-python" id="originalCode"></code></pre>
                     </div>
                 </div>
                 
@@ -62,7 +63,7 @@
                         </div>
                     </div>
                     <div class="code-wrapper">
-                        <pre><code class="language-python" id="v1Code"></code></pre>
+                        <pre class="line-numbers"><code class="language-python" id="v1Code"></code></pre>
                     </div>
                 </div>
                 
@@ -78,7 +79,7 @@
                         </div>
                     </div>
                     <div class="code-wrapper">
-                        <pre><code class="language-python" id="v2Code"></code></pre>
+                        <pre class="line-numbers"><code class="language-python" id="v2Code"></code></pre>
                     </div>
                 </div>
             </div>
@@ -88,11 +89,9 @@
                 <div class="choice-buttons">
                     <button class="choice-btn" data-choice="v1">
                         <span class="choice-label">Version 1</span>
-                        <span class="shortcut">Press 1</span>
                     </button>
                     <button class="choice-btn" data-choice="v2">
                         <span class="choice-label">Version 2</span>
-                        <span class="shortcut">Press 2</span>
                     </button>
                 </div>
             </div>
@@ -128,6 +127,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
     <script src="js/study_v2.js"></script>
 </body>
 </html>
