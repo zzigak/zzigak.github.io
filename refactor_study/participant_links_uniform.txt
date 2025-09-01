@@ -1,0 +1,100 @@
+UNIFORM DISTRIBUTION PARTICIPANT STUDY
+================================================================================
+
+Total Participants: 30
+Questions per Participant: 10
+Distribution: Each tuple used 6-7 times (perfectly uniform)
+
+================================================================================
+
+PARTICIPANT #1: U05AC19D4F
+------------------------------------------------------------
+LINKS:
+  Normal: https://zzigak.github.io/refactor_study/?id=U05AC19D4F
+  Debug:  https://zzigak.github.io/refactor_study/?id=U05AC19D4F&debugKey=xR9mK2nP7qL4wZ8v
+
+PAIRS:
+  1. Tuple 3 (cluster_1): mi vs logprob
+  2. Tuple 6 (cluster_2): logprob vs tokens
+  3. Tuple 33 (cluster_7): mi vs tokens
+  4. Tuple 20 (cluster_4): logprob vs tokens
+  5. Tuple 4 (cluster_1): mi vs tokens
+  6. Tuple 29 (cluster_6): logprob vs tokens
+  7. Tuple 17 (cluster_4): logprob vs tokens
+  8. Tuple 43 (cluster_9): mi vs logprob
+  9. Tuple 42 (cluster_9): logprob vs tokens
+  10. Tuple 23 (cluster_5): logprob vs tokens
+
+PARTICIPANT #2: U09A97DA33
+------------------------------------------------------------
+LINKS:
+  Normal: https://zzigak.github.io/refactor_study/?id=U09A97DA33
+  Debug:  https://zzigak.github.io/refactor_study/?id=U09A97DA33&debugKey=xR9mK2nP7qL4wZ8v
+
+PAIRS:
+  1. Tuple 38 (cluster_8): mi vs logprob
+  2. Tuple 13 (cluster_3): mi vs tokens
+  3. Tuple 22 (cluster_5): mi vs tokens
+  4. Tuple 12 (cluster_3): mi vs logprob
+  5. Tuple 21 (cluster_5): mi vs logprob
+  6. Tuple 0 (cluster_0): mi vs logprob
+  7. Tuple 44 (cluster_9): logprob vs tokens
+  8. Tuple 43 (cluster_9): mi vs logprob
+  9. Tuple 10 (cluster_3): mi vs tokens
+  10. Tuple 29 (cluster_6): logprob vs tokens
+
+PARTICIPANT #3: U1BDCE9A68
+------------------------------------------------------------
+LINKS:
+  Normal: https://zzigak.github.io/refactor_study/?id=U1BDCE9A68
+  Debug:  https://zzigak.github.io/refactor_study/?id=U1BDCE9A68&debugKey=xR9mK2nP7qL4wZ8v
+
+PAIRS:
+  1. Tuple 20 (cluster_4): logprob vs tokens
+  2. Tuple 2 (cluster_0): logprob vs tokens
+  3. Tuple 9 (cluster_3): mi vs logprob
+  4. Tuple 35 (cluster_7): mi vs tokens
+  5. Tuple 37 (cluster_8): logprob vs tokens
+  6. Tuple 43 (cluster_9): mi vs logprob
+  7. Tuple 8 (cluster_3): logprob vs tokens
+  8. Tuple 17 (cluster_4): logprob vs tokens
+  9. Tuple 13 (cluster_3): mi vs tokens
+  10. Tuple 25 (cluster_5): mi vs tokens
+
+PARTICIPANT #4: U2EAEE0DC2
+------------------------------------------------------------
+LINKS:
+  Normal: https://zzigak.github.io/refactor_study/?id=U2EAEE0DC2
+  Debug:  https://zzigak.github.io/refactor_study/?id=U2EAEE0DC2&debugKey=xR9mK2nP7qL4wZ8v
+
+PAIRS:
+  1. Tuple 25 (cluster_5): mi vs tokens
+  2. Tuple 23 (cluster_5): logprob vs tokens
+  3. Tuple 36 (cluster_8): mi vs logprob
+  4. Tuple 5 (cluster_2): mi vs tokens
+  5. Tuple 38 (cluster_8): mi vs logprob
+  6. Tuple 33 (cluster_7): mi vs tokens
+  7. Tuple 40 (cluster_8): logprob vs tokens
+  8. Tuple 29 (cluster_6): logprob vs tokens
+  9. Tuple 24 (cluster_5): mi vs logprob
+  10. Tuple 7 (cluster_3): mi vs logprob
+
+PARTICIPANT #5: U3CFDFE0B6
+------------------------------------------------------------
+LINKS:
+  Normal: https://zzigak.github.io/refactor_study/?id=U3CFDFE0B6
+  Debug:  https://zzigak.github.io/refactor_study/?id=U3CFDFE0B6&debugKey=xR9mK2nP7qL4wZ8v
+
+PAIRS:
+  1. Tuple 19 (cluster_4): mi vs tokens
+  2. Tuple 35 (cluster_7): mi vs tokens
+  3. Tuple 9 (cluster_3): mi vs logprob
+  4. Tuple 18 (cluster_4): mi vs logprob
+  5. Tuple 2 (cluster_0): logprob vs tokens
+  6. Tuple 24 (cluster_5): mi vs logprob
+  7. Tuple 21 (cluster_5): mi vs logprob
+  8. Tuple 40 (cluster_8): logprob vs tokens
+  9. Tuple 6 (cluster_2): logprob vs tokens
+  10. Tuple 42 (cluster_9): logprob vs tokens
+
+... (25 more participants)

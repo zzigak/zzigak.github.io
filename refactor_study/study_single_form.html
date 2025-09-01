@@ -6,6 +6,7 @@
     <title>Refactoring Study - Compare Code</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
     <style>
         /* Mobile detection for study page */
         .mobile-block {
@@ -71,7 +72,7 @@
                 <div class="control-item font-controls">
                     <span>Font Size:</span>
                     <button class="font-btn" id="fontDecrease">−</button>
-                    <span id="fontSize">14px</span>
+                    <span id="fontSize">12px</span>
                     <button class="font-btn" id="fontIncrease">+</button>
                 </div>
             </div>
@@ -111,7 +112,7 @@
                             </div>
                         </div>
                         <div class="code-wrapper">
-                            <pre><code class="language-python" id="originalCode"></code></pre>
+                            <pre class="line-numbers"><code class="language-python" id="originalCode"></code></pre>
                         </div>
                     </div>
                     
@@ -120,7 +121,7 @@
                             <h3>Existing Functions (Retrieved)</h3>
                         </div>
                         <div class="code-wrapper">
-                            <pre><code class="language-python" id="existingFunctionsCode"></code></pre>
+                            <pre class="line-numbers"><code class="language-python" id="existingFunctionsCode"></code></pre>
                         </div>
                     </div>
                 </div>
@@ -141,7 +142,7 @@
                             </div>
                         </div>
                         <div class="code-wrapper">
-                            <pre><code class="language-python" id="v1Code"></code></pre>
+                            <pre class="line-numbers"><code class="language-python" id="v1Code"></code></pre>
                         </div>
                     </div>
                     
@@ -157,7 +158,7 @@
                             </div>
                         </div>
                         <div class="code-wrapper">
-                            <pre><code class="language-python" id="v2Code"></code></pre>
+                            <pre class="line-numbers"><code class="language-python" id="v2Code"></code></pre>
                         </div>
                     </div>
                 </div>
@@ -292,6 +293,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
     <script src="js/study_single_form.js"></script>
 </body>
 </html>

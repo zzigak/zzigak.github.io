@@ -230,11 +230,8 @@ function setupEventListeners() {
 
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        if (e.key === '1') {
-            selectChoice('v1');
-        } else if (e.key === '2') {
-            selectChoice('v2');
-        } else if (e.key === 'Enter' && !document.getElementById('nextBtn').disabled) {
+        // Only keep Enter key for navigation
+        if (e.key === 'Enter' && !document.getElementById('nextBtn').disabled) {
             if (sessionData.currentIndex < 9) {
                 document.getElementById('nextBtn').click();
             } else {
