@@ -131,17 +131,30 @@
                 
                 <div class="info-card" style="margin-bottom: 1.5rem;">
                     <h3>What You'll Be Doing</h3>
-                    <p style="margin-bottom: 1rem;">In this study, a <strong>refactoring</strong> means splitting code into <strong>a library of reusable functions</strong> + <strong>shortened main programs</strong> that use those functions.</p>
-                    <p style="margin-bottom: 1rem;">You'll see 10 examples. The interface has <strong>two tabs</strong>:</p>
-                    <ul style="line-height: 1.8;">
-                        <li><strong>Tab 1 - "Original Programs & Existing Functions":</strong><br>
-                            <span style="margin-left: 20px;">• Left side: The 3 original complete programs (before refactoring)</span><br>
-                            <span style="margin-left: 20px;">• Right side: Any existing helper functions that were already available</span></li>
-                        <li style="margin-top: 0.5rem;"><strong>Tab 2 - "Refactorings (V1 vs V2)":</strong><br>
-                            <span style="margin-left: 20px;">• Left side: Version 1's refactoring approach</span><br>
-                            <span style="margin-left: 20px;">• Right side: Version 2's refactoring approach</span><br>
-                            <span style="margin-left: 20px;">• Both show their Helper Functions (new + retrieved) and the shortened programs</span></li>
-                    </ul>
+                    <p style="margin-bottom: 1rem;">In this study, a <strong>refactoring</strong> means transforming code by extracting common functionality into <strong>reusable helper functions</strong>, then rewriting the original programs to use these functions, resulting in <strong>shorter, more maintainable code</strong>.</p>
+                    
+                    <p style="margin-bottom: 1rem;">You'll evaluate 10 examples. Each example shows 3 related programs that solve similar problems. The interface has <strong>two tabs</strong>:</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <p style="margin-bottom: 1rem;"><strong>📑 Tab 1 - "Original Programs & Existing Functions":</strong></p>
+                        <ul style="line-height: 1.8; margin-left: 20px;">
+                            <li><strong>Three original programs (P1, P2, P3):</strong> Complete, working solutions with their problem descriptions/prompts at the top</li>
+                            <li><strong>Retrieved functions:</strong> Pre-existing helper functions from a library (built from other problems) that could potentially be reused</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <p style="margin-bottom: 1rem;"><strong>🔄 Tab 2 - "Refactorings (V1 vs V2)":</strong></p>
+                        <ul style="line-height: 1.8; margin-left: 20px;">
+                            <li><strong>Two refactoring versions (V1 and V2):</strong> Different approaches to refactoring the same programs</li>
+                            <li><strong>Each version shows:</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>• <strong>Helper Functions:</strong> Both newly created functions AND any reused functions from the retrieved library</li>
+                                    <li>• <strong>Refactored programs:</strong> Shortened versions of P1, P2, P3 that now use the helper functions</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                     <p style="margin-top: 1rem;"><strong>Your task:</strong> Review Tab 1 for context, then switch to Tab 2 to compare the refactorings and decide which version (V1 or V2) is higher quality.</p>
                 </div>
                 
