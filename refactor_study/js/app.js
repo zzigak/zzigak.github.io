@@ -91,19 +91,37 @@ document.addEventListener('DOMContentLoaded', function() {
             const programmingExperience = programmingExpElement.value;
             const pythonExperience = pythonExpElement.value;
             
-            // Load user assignments from uniform distribution file
+            // Load user assignments with shuffled versions
             let assignedTuples = null;
+            let shuffleInfo = null;
             
             try {
-                const response = await fetch('data/user_assignments_final_uniform.json');
-                const userAssignments = await response.json();
+                // Try to load shuffled assignments first (includes version swap info)
+                try {
+                    const shuffleResponse = await fetch('data/user_assignments_shuffled.json');
+                    const shuffledAssignments = await shuffleResponse.json();
+                    
+                    if (shuffledAssignments[participantId]) {
+                        shuffleInfo = shuffledAssignments[participantId];
+                        assignedTuples = shuffleInfo.map(item => item.tuple_index);
+                        console.log(`Loaded shuffled assignments for ${participantId}`);
+                    }
+                } catch (shuffleError) {
+                    console.log('Shuffled assignments not found, using original');
+                }
                 
-                if (userAssignments[participantId]) {
-                    assignedTuples = userAssignments[participantId];
-                    console.log(`Loaded assignments for ${participantId}`);
-                } else {
-                    alert(`No assignments found for participant ID: ${participantId}. Please check your ID.`);
-                    return;
+                // Fallback to original assignments if shuffled not found
+                if (!assignedTuples) {
+                    const response = await fetch('data/user_assignments_final_uniform.json');
+                    const userAssignments = await response.json();
+                    
+                    if (userAssignments[participantId]) {
+                        assignedTuples = userAssignments[participantId];
+                        console.log(`Loaded original assignments for ${participantId}`);
+                    } else {
+                        alert(`No assignments found for participant ID: ${participantId}. Please check your ID.`);
+                        return;
+                    }
                 }
             } catch (error) {
                 console.error('Error loading assignments:', error);
@@ -120,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pythonExperience: pythonExperience,
                 startTime: new Date().toISOString(),
                 assignedTuples: assignedTuples,
+                shuffleInfo: shuffleInfo,  // Store shuffle info for version swapping
                 currentIndex: 0,
                 responses: {},
                 allResponses: []
