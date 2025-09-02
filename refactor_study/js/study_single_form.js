@@ -90,16 +90,16 @@ function loadCurrentTuple() {
         return;
     }
     
-    // Reset views to 'p1' (first original problem) when transitioning to a new tuple
+    // Reset views to 'all' when transitioning to a new tuple
     currentViews = {
-        'original': 'p1',
-        'v1': 'p1',
-        'v2': 'p1'
+        'original': 'all',
+        'v1': 'all',
+        'v2': 'all'
     };
     
-    // Reset view buttons to 'p1' state
+    // Reset view buttons to 'all' state
     document.querySelectorAll('.view-btn').forEach(btn => {
-        if (btn.dataset.view === 'p1') {
+        if (btn.dataset.view === 'all') {
             btn.classList.add('active');
         } else {
             btn.classList.remove('active');
@@ -374,11 +374,8 @@ function setupEventListeners() {
 
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        if (e.key === '1') {
-            selectChoice('v1');
-        } else if (e.key === '2') {
-            selectChoice('v2');
-        } else if (e.key === 'Enter' && !document.getElementById('nextBtn').disabled) {
+        // Only allow Enter key for navigation, remove 1/2 shortcuts
+        if (e.key === 'Enter' && !document.getElementById('nextBtn').disabled) {
             if (sessionData.currentIndex < 9) {
                 document.getElementById('nextBtn').click();
             } else if (document.getElementById('submitBtn') && !document.getElementById('submitBtn').disabled) {
@@ -574,7 +571,7 @@ function generateDebugSummary() {
 
 function openPrefilledGoogleForm() {
     // Google Form base URL
-    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfY4IV_NLRYtkEr8mYFxfXzgZPHcHoYego6yQ7GStpHbfHWUA/viewform';
+    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfnJFfYDkZOeP6d10msW_33uk_WftR3zdQH2spwY9pxuSJZMQ/viewform';
     
     // Actual entry IDs from the Google Form (updated with reason fields)
     const ENTRY_IDS = {
