@@ -2,6 +2,7 @@
 let tuplesData = [];
 let sessionData = null;
 let currentTupleId = null;
+let currentTupleData = null;  // Store the current tuple (with swaps applied)
 let timerInterval = null;
 let startTime = null;
 let currentViews = {
@@ -83,11 +84,91 @@ function loadCurrentTuple() {
     }
     
     currentTupleId = sessionData.assignedTuples[sessionData.currentIndex];
-    const tuple = tuplesData[currentTupleId];
+    let tuple = JSON.parse(JSON.stringify(tuplesData[currentTupleId])); // Deep clone to avoid modifying original
     
     if (!tuple) {
         console.error('Tuple not found:', currentTupleId);
         return;
+    }
+    
+    // Store as current tuple data (will be modified if swapping needed)
+    currentTupleData = tuple;
+    
+    // Check if we should swap versions based on shuffle info
+    if (sessionData.shuffleInfo && sessionData.shuffleInfo[sessionData.currentIndex]) {
+        const shuffleData = sessionData.shuffleInfo[sessionData.currentIndex];
+        
+        // Use the swap_versions field directly from shuffle data
+        const shouldSwap = shuffleData.swap_versions === true;
+        
+        console.log(`Tuple ${currentTupleId} - Original in JSON: v1=${tuple.v1_metric}, v2=${tuple.v2_metric}`);
+        console.log(`Original metrics: v1=${shuffleData.original_v1_metric}, v2=${shuffleData.original_v2_metric}`);
+        console.log(`Should display: v1=${shuffleData.displayed_v1_metric}, v2=${shuffleData.displayed_v2_metric}`);
+        console.log(`Swap versions flag: ${shuffleData.swap_versions}`);
+        console.log(`Will swap: ${shouldSwap}`);
+        
+        if (shouldSwap) {
+            console.log('Before swap - files:', Object.keys(tuple.files));
+            
+            // Swap v1 and v2 data
+            const tempMetric = tuple.v1_metric;
+            const tempRefactoring = tuple.v1_refactoring;
+            const tempFiles = {};
+            
+            // Store v1 files temporarily (including both 'v1' and '_v1' patterns)
+            for (const key in tuple.files) {
+                if (key === 'v1' || key.includes('_v1')) {
+                    tempFiles[key] = tuple.files[key];
+                }
+            }
+            
+            // Copy v2 to v1
+            tuple.v1_metric = tuple.v2_metric;
+            tuple.v1_refactoring = tuple.v2_refactoring;
+            
+            // Swap the main v1/v2 files
+            if ('v2' in tuple.files) {
+                tuple.files['v1'] = tuple.files['v2'];
+            }
+            
+            // Swap all _v2 files to _v1
+            for (const key in tuple.files) {
+                if (key.includes('_v2')) {
+                    const v1Key = key.replace('_v2', '_v1');
+                    tuple.files[v1Key] = tuple.files[key];
+                }
+            }
+            
+            // Copy temp (original v1) to v2
+            tuple.v2_metric = tempMetric;
+            tuple.v2_refactoring = tempRefactoring;
+            
+            // Restore the main v2 file from temp
+            if ('v1' in tempFiles) {
+                tuple.files['v2'] = tempFiles['v1'];
+            }
+            
+            // Restore all _v1 files as _v2
+            for (const key in tempFiles) {
+                if (key.includes('_v1')) {
+                    const v2Key = key.replace('_v1', '_v2');
+                    tuple.files[v2Key] = tempFiles[key];
+                }
+            }
+            
+            console.log(`SWAPPED! Now showing: v1=${tuple.v1_metric} (${tuple.v1_refactoring}), v2=${tuple.v2_metric} (${tuple.v2_refactoring})`);
+            console.log('After swap - files:', Object.keys(tuple.files));
+            
+            // Verify the swap by checking the main v1/v2 files
+            if (tuple.files.v1 && tuple.files.v2) {
+                console.log('Verification - first 50 chars of v1:', tuple.files.v1.substring(0, 50));
+                console.log('Verification - first 50 chars of v2:', tuple.files.v2.substring(0, 50));
+            }
+            if (tuple.files.library_v1 && tuple.files.library_v2) {
+                console.log('Library check - first 50 chars of library_v1:', tuple.files.library_v1.substring(0, 50));
+                console.log('Library check - first 50 chars of library_v2:', tuple.files.library_v2.substring(0, 50));
+            }
+        }
     }
     
     // Reset views to 'all' when transitioning to a new tuple
@@ -123,25 +204,25 @@ function loadCurrentTuple() {
             };
             
             document.getElementById('debugTupleId').textContent = currentTupleId;
-            document.getElementById('debugTupleName').textContent = tuple.tuple || 'N/A';
-            document.getElementById('debugCluster').textContent = tuple.cluster || 'N/A';
-            document.getElementById('debugPairType').textContent = tuple.pair_type || 'N/A';
-            document.getElementById('debugPairId').textContent = pairTypeToId[tuple.pair_type] || 'N/A';
-            document.getElementById('debugV1Metric').textContent = tuple.v1_metric || 'N/A';
-            document.getElementById('debugV1Refactoring').textContent = tuple.v1_refactoring || 'N/A';
-            document.getElementById('debugV2Metric').textContent = tuple.v2_metric || 'N/A';
-            document.getElementById('debugV2Refactoring').textContent = tuple.v2_refactoring || 'N/A';
-            console.log('Debug info updated:', tuple);
+            document.getElementById('debugTupleName').textContent = currentTupleData.tuple || 'N/A';
+            document.getElementById('debugCluster').textContent = currentTupleData.cluster || 'N/A';
+            document.getElementById('debugPairType').textContent = currentTupleData.pair_type || 'N/A';
+            document.getElementById('debugPairId').textContent = pairTypeToId[currentTupleData.pair_type] || 'N/A';
+            document.getElementById('debugV1Metric').textContent = currentTupleData.v1_metric || 'N/A';
+            document.getElementById('debugV1Refactoring').textContent = currentTupleData.v1_refactoring || 'N/A';
+            document.getElementById('debugV2Metric').textContent = currentTupleData.v2_metric || 'N/A';
+            document.getElementById('debugV2Refactoring').textContent = currentTupleData.v2_refactoring || 'N/A';
+            console.log('Debug info updated:', currentTupleData);
         }
     }
     
     // Load default views for each panel (now always 'all')
-    updateCodePanel('original', currentViews.original, tuple);
-    updateCodePanel('v1', currentViews.v1, tuple);
-    updateCodePanel('v2', currentViews.v2, tuple);
+    updateCodePanel('original', currentViews.original, currentTupleData);
+    updateCodePanel('v1', currentViews.v1, currentTupleData);
+    updateCodePanel('v2', currentViews.v2, currentTupleData);
     
     // Extract and display existing functions
-    extractAndDisplayExistingFunctions(tuple);
+    extractAndDisplayExistingFunctions(currentTupleData);
     
     // Clear previous selection and ensure no default selection
     document.querySelectorAll('.choice-btn').forEach(btn => {
@@ -313,10 +394,9 @@ function setupViewButtons() {
             // Update current view
             currentViews[panel] = view;
             
-            // Update code display
-            const tuple = tuplesData[currentTupleId];
-            if (tuple) {
-                updateCodePanel(panel, view, tuple);
+            // Update code display using the current tuple (with swaps applied)
+            if (currentTupleData) {
+                updateCodePanel(panel, view, currentTupleData);
             }
         });
     });
@@ -433,8 +513,8 @@ function saveChoice() {
     const choice = selectedBtn.dataset.choice;
     const argumentText = document.getElementById('argumentText').value.trim();
     
-    // Get current tuple data
-    const tuple = tuplesData[currentTupleId];
+    // Get current tuple data (with swaps applied)
+    const tuple = currentTupleData;
     
     // Map pair_type to numeric pairId
     const pairTypeToId = {
@@ -442,6 +522,25 @@ function saveChoice() {
         'mi_vs_tokens': 2,
         'logprob_vs_tokens': 3
     };
+    
+    // Check if versions were swapped
+    let wasSwapped = false;
+    let originalV1Metric = tuple.v1_metric;  // What's currently in v1 position after any swapping
+    let originalV2Metric = tuple.v2_metric;  // What's currently in v2 position after any swapping
+    
+    if (sessionData.shuffleInfo && sessionData.shuffleInfo[sessionData.currentIndex]) {
+        const shuffleData = sessionData.shuffleInfo[sessionData.currentIndex];
+        wasSwapped = shuffleData.swap_versions;
+        // The tuple metrics are already swapped if needed, so tuple.v1_metric is what's displayed as v1
+        // We need to track the original (pre-swap) metrics for reporting
+        originalV1Metric = shuffleData.original_v1_metric;
+        originalV2Metric = shuffleData.original_v2_metric;
+    }
+    
+    // Determine which metric was actually chosen
+    // tuple.v1_metric and tuple.v2_metric are what's DISPLAYED (after any swapping)
+    let chosenMetric = (choice.toLowerCase() === 'v1') ? tuple.v1_metric : tuple.v2_metric;
+    let notChosenMetric = (choice.toLowerCase() === 'v1') ? tuple.v2_metric : tuple.v1_metric;
     
     // Update or add response
     const existingIndex = sessionData.allResponses.findIndex(r => r.tupleId === currentTupleId);
@@ -451,8 +550,13 @@ function saveChoice() {
         argument: argumentText,  // Store the argument text
         pairType: tuple.pair_type,
         pairId: pairTypeToId[tuple.pair_type] || 1,
-        v1_metric: tuple.v1_metric,
-        v2_metric: tuple.v2_metric,
+        displayed_v1_metric: tuple.v1_metric,  // What was shown as V1
+        displayed_v2_metric: tuple.v2_metric,  // What was shown as V2
+        original_v1_metric: originalV1Metric,  // Original V1 from data
+        original_v2_metric: originalV2Metric,  // Original V2 from data
+        chosen_metric: chosenMetric,  // Which metric was actually chosen
+        not_chosen_metric: notChosenMetric,  // Which metric was not chosen
+        was_swapped: wasSwapped,  // Whether versions were swapped
         trialNumber: sessionData.currentIndex + 1,
         timestamp: new Date().toISOString()
     };
