@@ -166,16 +166,20 @@
             
             <div class="selection-section">
                 <h3 style="text-align: center;">Which refactored version do you prefer?</h3>
+                <p style="text-align: center; color: #dc2626; font-size: 0.9rem; margin: 0.5rem 0 1rem 0;">
+                    <em>Use "Equally Good" only when versions are essentially identical</em>
+                </p>
                 <div style="display: flex; gap: 2rem; align-items: flex-start; justify-content: center;">
                     <div style="flex: 0 0 auto;">
                         <div class="choice-buttons">
-                            <button class="choice-btn" data-choice="v1" style="height: 45px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.25rem 1rem;">
-                                <span class="choice-label" style="font-size: 0.9rem;">Version 1</span>
-                                <span class="shortcut" style="font-size: 0.7rem;">Press 1</span>
+                            <button class="choice-btn" data-choice="v1" style="padding: 0.5rem 1rem;">
+                                <span class="choice-label">Version 1</span>
                             </button>
-                            <button class="choice-btn" data-choice="v2" style="height: 45px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0.25rem 1rem;">
-                                <span class="choice-label" style="font-size: 0.9rem;">Version 2</span>
-                                <span class="shortcut" style="font-size: 0.7rem;">Press 2</span>
+                            <button class="choice-btn" data-choice="v2" style="padding: 0.5rem 1rem;">
+                                <span class="choice-label">Version 2</span>
+                            </button>
+                            <button class="choice-btn" data-choice="equal" style="padding: 0.5rem 1rem;">
+                                <span class="choice-label">Equally Good</span>
                             </button>
                         </div>
                     </div>
@@ -267,7 +271,10 @@
                 <p style="margin-bottom: 0.5rem;"><strong>Your task:</strong> Decide which refactoring is higher quality.</p>
                 <p style="margin-bottom: 0.5rem;"><strong>Read problem statements:</strong> Look at the original programs (P1, P2, P3) to understand what problems they're solving. This will help you understand the purpose of the extracted functions.</p>
                 <p style="margin-bottom: 0.5rem;"><strong>Focus on Helper Functions:</strong> The "Helper Functions" tab shows both <strong>newly extracted functions</strong> created during refactoring AND <strong>existing retrieved functions</strong> that were already available. Consider how well these functions work together and how effectively the programs use them.</p>
-                <p style="margin-bottom: 0;"><strong>Ignore documentation:</strong> Whether functions have docstrings or comments should NOT influence your choice. Focus only on the actual functionality of the code.</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Ignore documentation:</strong> Whether functions have docstrings or comments should NOT influence your choice. Focus only on the actual functionality of the code.</p>
+                <div style="background: #fee2e2; border: 1px solid #ef4444; border-radius: 4px; padding: 0.75rem; margin-top: 0.75rem;">
+                    <p style="margin: 0; color: #b91c1c;"><strong style="font-size: 1.1em;">⚠️ "Equally Good" Option:</strong> <span style="font-weight: bold;">ONLY use this option when the two versions are essentially identical or so similar that there is truly no meaningful difference between them.</span> Please try to identify differences and make a choice between Version 1 and Version 2 whenever possible. The "Equally Good" option should be used sparingly.</p>
+                </div>
             </div>
             
             <div style="background: #f9fafb; border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem;">
@@ -280,7 +287,7 @@
                         <li><strong>New Functions:</strong> Shows only the newly proposed functions (excluding retrieved/existing functions)</li>
                         <li><strong>P1, P2, P3:</strong> Shows how each individual program uses the library functions</li>
                     </ul>
-                    <li><strong>Make your choice:</strong> Click either "Version 1" or "Version 2" button (or press keyboard keys 1 or 2) to select which refactoring you prefer</li>
+                    <li><strong>Make your choice:</strong> Click either "Version 1", "Version 2", or "Equally Good" button to select your preference. Use "Equally Good" ONLY when versions are essentially identical.</li>
                     <li><strong>Explain your choice:</strong> You MUST write an explanation in the text box arguing why you chose one version over the other. This is required to continue.</li>
                     <li><strong>Navigate:</strong> Use "Next Question" to proceed after making a selection AND providing an explanation</li>
                     <li><strong>Adjust font size:</strong> Use the + and - buttons in the header to make text larger or smaller</li>
