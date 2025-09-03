@@ -454,7 +454,7 @@ function setupEventListeners() {
 
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        // Only allow Enter key for navigation, remove 1/2 shortcuts
+        // Only allow Enter key for navigation, no shortcuts for choices
         if (e.key === 'Enter' && !document.getElementById('nextBtn').disabled) {
             if (sessionData.currentIndex < 9) {
                 document.getElementById('nextBtn').click();
@@ -539,14 +539,21 @@ function saveChoice() {
     
     // Determine which metric was actually chosen
     // tuple.v1_metric and tuple.v2_metric are what's DISPLAYED (after any swapping)
-    let chosenMetric = (choice.toLowerCase() === 'v1') ? tuple.v1_metric : tuple.v2_metric;
-    let notChosenMetric = (choice.toLowerCase() === 'v1') ? tuple.v2_metric : tuple.v1_metric;
+    let chosenMetric, notChosenMetric;
+    if (choice.toLowerCase() === 'equal') {
+        // For "Equally Good", both metrics are considered chosen
+        chosenMetric = 'EQUAL';
+        notChosenMetric = 'EQUAL';
+    } else {
+        chosenMetric = (choice.toLowerCase() === 'v1') ? tuple.v1_metric : tuple.v2_metric;
+        notChosenMetric = (choice.toLowerCase() === 'v1') ? tuple.v2_metric : tuple.v1_metric;
+    }
     
     // Update or add response
     const existingIndex = sessionData.allResponses.findIndex(r => r.tupleId === currentTupleId);
     const responseData = {
         tupleId: currentTupleId,
-        choice: choice.toUpperCase(),
+        choice: choice.toUpperCase(),  // Will be V1, V2, or EQUAL
         argument: argumentText,  // Store the argument text
         pairType: tuple.pair_type,
         pairId: pairTypeToId[tuple.pair_type] || 1,
@@ -554,8 +561,8 @@ function saveChoice() {
         displayed_v2_metric: tuple.v2_metric,  // What was shown as V2
         original_v1_metric: originalV1Metric,  // Original V1 from data
         original_v2_metric: originalV2Metric,  // Original V2 from data
-        chosen_metric: chosenMetric,  // Which metric was actually chosen
-        not_chosen_metric: notChosenMetric,  // Which metric was not chosen
+        chosen_metric: chosenMetric,  // Which metric was actually chosen (or 'EQUAL')
+        not_chosen_metric: notChosenMetric,  // Which metric was not chosen (or 'EQUAL')
         was_swapped: wasSwapped,  // Whether versions were swapped
         trialNumber: sessionData.currentIndex + 1,
         timestamp: new Date().toISOString()
@@ -766,9 +773,11 @@ function openPrefilledGoogleForm() {
             params.append(ENTRY_IDS[`trial${trialNum}_pairId`], response.pairId || '1');
         }
         
-        // Add Choice (V1 or V2)
+        // Add Choice (V1, V2, or EG for Equally Good)
         if (ENTRY_IDS[`trial${trialNum}_choice`]) {
-            params.append(ENTRY_IDS[`trial${trialNum}_choice`], response.choice);
+            // Convert EQUAL to EG for the Google Form
+            const choiceValue = response.choice === 'EQUAL' ? 'EG' : response.choice;
+            params.append(ENTRY_IDS[`trial${trialNum}_choice`], choiceValue);
         }
         
         // Add Reason/Argument for this trial
