@@ -500,6 +500,12 @@ footer {
     transform: scale(1.05);
 }
 
+.choice-btn[data-choice="equal"].selected {
+    background-color: #fca5a5;
+    border-color: #f87171;
+    color: #7f1d1d;
+}
+
 .choice-btn.no-pref {
     border-style: dashed;
 }
