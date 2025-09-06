@@ -746,6 +746,18 @@ function openPrefilledGoogleForm() {
         timestamp: 'entry.141633008'     // Timestamp field
     };
     
+    // Calculate study duration
+    let studyDurationMinutes = 'N/A';
+    if (sessionData.startTime) {
+        const startMs = new Date(sessionData.startTime).getTime();
+        const endMs = new Date().getTime();
+        const durationMs = endMs - startMs;
+        const durationSeconds = Math.floor(durationMs / 1000);
+        const minutes = Math.floor(durationSeconds / 60);
+        const seconds = durationSeconds % 60;
+        studyDurationMinutes = `${minutes}:${String(seconds).padStart(2, '0')}`;
+    }
+    
     // Build URL parameters
     const params = new URLSearchParams();
     
@@ -786,9 +798,11 @@ function openPrefilledGoogleForm() {
         }
     });
     
-    // Add timestamp
+    // Add timestamp with duration info
     if (ENTRY_IDS.timestamp) {
-        params.append(ENTRY_IDS.timestamp, new Date().toISOString());
+        const completionTime = new Date().toISOString();
+        const timestampWithDuration = `${completionTime} | Duration: ${studyDurationMinutes}`;
+        params.append(ENTRY_IDS.timestamp, timestampWithDuration);
     }
     
     // Open the pre-filled form
@@ -805,9 +819,21 @@ function openPrefilledGoogleForm() {
 }
 
 function downloadResponses() {
+    // Calculate study duration for CSV
+    let studyDurationMinutes = 'N/A';
+    if (sessionData.startTime) {
+        const startMs = new Date(sessionData.startTime).getTime();
+        const endMs = new Date().getTime();
+        const durationMs = endMs - startMs;
+        const durationSeconds = Math.floor(durationMs / 1000);
+        const minutes = Math.floor(durationSeconds / 60);
+        const seconds = durationSeconds % 60;
+        studyDurationMinutes = `${minutes}:${String(seconds).padStart(2, '0')}`;
+    }
+    
     // Prepare CSV data
     const csvRows = [
-        ['UserID', 'Name', 'Email', 'Programming Experience', 'Python Experience', 'TrialNumber', 'TupleID', 'Choice', 'Timestamp']
+        ['UserID', 'Name', 'Email', 'Programming Experience', 'Python Experience', 'TrialNumber', 'TupleID', 'Choice', 'Timestamp', 'StudyDuration']
     ];
     
     sessionData.allResponses
@@ -822,7 +848,8 @@ function downloadResponses() {
                 response.trialNumber,
                 response.tupleId,
                 response.choice,
-                response.timestamp
+                response.timestamp,
+                studyDurationMinutes
             ]);
         });
     
@@ -853,6 +880,7 @@ function downloadResponses() {
         pythonExperience: sessionData.pythonExperience || '',
         startTime: sessionData.startTime,
         completionTime: new Date().toISOString(),
+        studyDurationMinutes: studyDurationMinutes,
         responses: sessionData.allResponses
     };
     

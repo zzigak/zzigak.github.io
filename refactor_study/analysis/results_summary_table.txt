@@ -1,0 +1,25 @@
+MAIN RESULTS TABLE
+======================================================================
+
+Table 1: Pairwise Preference Results
+----------------------------------------------------------------------
+Comparison           N     Preference           95% CI               p-value   
+----------------------------------------------------------------------
+MI vs LOGPROB        42    LOGPROB: 66.7%  [51.6%, 79.0%]       p=0.044     
+MI vs TOKENS         40    TOKENS: 60.0%   [44.6%, 73.7%]       p=0.268     
+LOGPROB vs TOKENS    35    TOKENS: 51.4%   [35.6%, 67.0%]       p=1.000     
+
+======================================================================
+
+Table 2: Bradley-Terry Model Results
+----------------------------------------------------------------------
+Metric          Strength     95% CI               Relative to MI 
+----------------------------------------------------------------------
+LOGPROB         0.400        [0.284, 0.529]  1.79x
+TOKENS          0.376        [0.262, 0.504]  1.68x
+MI              0.224        [0.224, 0.224]  1.00x
+
+======================================================================
+
+Note: Bradley-Terry CIs computed using standard errors from Hessian matrix
+      (Fisher Information), transformed from log scale - this is the standard approach.
