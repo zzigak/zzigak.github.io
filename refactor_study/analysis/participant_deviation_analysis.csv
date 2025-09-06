@@ -1,0 +1,12 @@
+UserID,Name,Email,Agreement_Rate,Disagreement_Rate,EG_Rate,Agreement_Z_Score,Is_Outlier
+U908EF07FE,Jeremy Ku-Benjet,jk2582@cornell.edu,0.85,0.1,0.1,1.7954805538691792,False
+U33109D65F,Nicky Kriplani,ak2798@cornell.edu,0.7,0.1,0.3,0.8398215493904221,False
+UB271569B6,Georgina Woo,gwoo@mit.edu,0.7,0.3,0.0,0.8398215493904221,False
+UE064AED19,Kartik Chandra,kach@mit.edu,0.65,0.1,0.3,0.5212685478975035,False
+UACF3BE15C,Qingyao Sun,qs234@cornell.edu,0.6,0.3,0.1,0.20271554640458433,False
+U4ED6E8EA5,Sam,samacqua@gmail.com,0.6,0.3,0.2,0.20271554640458433,False
+U7FC4E8A3C,Aaron Ferber,amf272@cornell.edu,0.5,0.5,0.0,-0.43439045658125347,False
+U80A4E7CD4,Saif Mahmud,sm2446@cornell.edu,0.5,0.5,0.0,-0.43439045658125347,False
+U798B7CC2F,Claas Beger,cbb89@cornell.edu,0.45,0.5,0.1,-0.7529434580741724,False
+U73F722CDB,Eric Yu,eyyu@mit.edu,0.4,0.6,0.0,-1.0714964595670913,False
+UFABEA441A,Amani Kiruga,akiruga@mit.edu,0.3,0.6,0.1,-1.7086024625529295,False

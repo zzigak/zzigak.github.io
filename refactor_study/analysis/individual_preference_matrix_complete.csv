@@ -1,0 +1,13 @@
+UserID,Name,mi_vs_tokens_mi,mi_vs_tokens_tokens,mi_vs_tokens_EG,mi_vs_tokens_total,mi_vs_tokens_winner,mi_vs_logprob_mi,mi_vs_logprob_logprob,mi_vs_logprob_EG,mi_vs_logprob_total,mi_vs_logprob_winner,logprob_vs_tokens_logprob,logprob_vs_tokens_tokens,logprob_vs_tokens_EG,logprob_vs_tokens_total,logprob_vs_tokens_winner
+UE064AED19,Kartik Chandra,0,4,1,5,tokens,0,2,1,3,logprob,0,1,1,2,tokens
+U7FC4E8A3C,Aaron Ferber,1,1,0,2,TIE/EG,1,0,0,1,mi,4,3,0,7,logprob
+U33109D65F,Nicky Kriplani,0,3,0,3,tokens,0,2,1,3,logprob,1,1,2,4,TIE/EG
+U798B7CC2F,Claas Beger,2,2,0,4,TIE/EG,0,2,0,2,logprob,0,3,1,4,tokens
+U908EF07FE,Jeremy Ku-Benjet,1,3,0,4,tokens,0,3,0,3,logprob,2,0,1,3,logprob
+UB271569B6,Georgina Woo,1,3,0,4,tokens,1,2,0,3,logprob,2,1,0,3,logprob
+U73F722CDB,Eric Yu,3,1,0,4,mi,1,2,0,3,logprob,2,1,0,3,logprob
+UFABEA441A,Amani Kiruga,3,2,0,5,mi,2,0,1,3,mi,1,1,0,2,TIE/EG
+UACF3BE15C,Qingyao Sun,2,0,1,3,mi,0,4,0,4,logprob,2,1,0,3,logprob
+U80A4E7CD4,Saif Mahmud,0,2,0,2,tokens,2,2,0,4,TIE/EG,1,3,0,4,tokens
+U4ED6E8EA5,Sam,2,2,0,4,TIE/EG,1,2,0,3,logprob,1,0,2,3,logprob
+UFC676F211,Anirudh Atmakuru,0,0,0,0,N/A,4,1,0,5,mi,1,3,1,5,tokens
