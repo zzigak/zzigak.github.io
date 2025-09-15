@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refactoring Preference Study</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .instructions-page {
+            text-align: left;
+        }
+        
+        .instructions-page h2 {
+            text-align: center;
+        }
+        
+        .instructions-page > p {
+            text-align: center;
+        }
+        
+        .instructions-page .btn-next {
+            display: block;
+            margin: 2rem auto;
+            width: fit-content;
+        }
+        
+        /* Custom arrow colors for different card types */
+        .info-card[style*="f0fdf4"] li:before {
+            color: #10b981 !important;
+        }
+        
+        .info-card[style*="fef2f2"] li:before {
+            color: #ef4444 !important;
+        }
+        
+        .info-card[style*="fefce8"] li:before {
+            color: #facc15 !important;
+        }
+        
+        .form-page {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .btn-next {
+            margin-top: 2rem;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Mobile detection styles */
+        .mobile-warning {
+            display: none;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 90%;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .mobile-warning h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .mobile-warning p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .desktop-content {
+            display: block;
+        }
+        
+        @media (max-width: 768px), (pointer: coarse) and (hover: none) {
+            .desktop-content {
+                display: none;
+            }
+            
+            .mobile-warning {
+                display: block;
+            }
+            
+            .container {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container landing">
+        <!-- Mobile Warning Message -->
+        <div class="mobile-warning">
+            <h3>📱 Desktop Required</h3>
+            <p>This study requires a desktop or laptop computer to properly view code side-by-side.</p>
+            <p>Please visit this page on a larger screen to participate.</p>
+        </div>
+        
+        <!-- Desktop Content -->
+        <div class="desktop-content">
+            <header>
+                <h1>Code Refactoring Preference Study</h1>
+            </header>
+        </div>
+        
+        <main class="desktop-content">
+            <!-- Instructions Page -->
+            <section class="page instructions-page active" id="instructionsPage">
+                <h2 style="margin-bottom: 2rem;">Evaluating Code Refactorings</h2>
+                
+                <div class="info-card" style="margin-bottom: 1.5rem;">
+                    <h3>What You'll Be Doing</h3>
+                    <p style="margin-bottom: 1rem;">In this study, a <strong>refactoring</strong> means transforming code by extracting common functionality into <strong>reusable helper functions</strong>, then rewriting the original programs to use these functions, resulting in <strong>shorter, more maintainable code</strong>.</p>
+                    
+                    <p style="margin-bottom: 1rem;">You'll evaluate 10 examples. Each example shows 3 related programs that solve similar problems. The interface has <strong>two tabs</strong>:</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <p style="margin-bottom: 1rem;"><strong>📑 Tab 1 - "Original Programs & Existing Functions":</strong></p>
+                        <ul style="line-height: 1.8; margin-left: 20px;">
+                            <li><strong>Three original programs (P1, P2, P3):</strong> Complete, working solutions with their problem descriptions/prompts at the top</li>
+                            <li><strong>Retrieved functions:</strong> Pre-existing helper functions from a library (built from other problems) that could potentially be reused</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                        <p style="margin-bottom: 1rem;"><strong>🔄 Tab 2 - "Refactorings (V1 vs V2)":</strong></p>
+                        <ul style="line-height: 1.8; margin-left: 20px;">
+                            <li><strong>Two refactoring versions (V1 and V2):</strong> Different approaches to refactoring the same programs</li>
+                            <li><strong>Each version shows:</strong>
+                                <ul style="margin-top: 0.5rem;">
+                                    <li>• <strong>Helper Functions:</strong> Both newly created functions AND any reused functions from the retrieved library</li>
+                                    <li>• <strong>Refactored programs:</strong> Shortened versions of P1, P2, P3 that now use the helper functions</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 1rem;"><strong>Your task:</strong> Review Tab 1 for context, then switch to Tab 2 to compare the refactorings and decide which version (V1 or V2) is higher quality.</p>
+                </div>
+                
+                <div class="info-card" style="margin-bottom: 1.5rem; background: #e0f2fe; border: 2px solid #0284c7;">
+                    <h3 style="margin-top: 0; color: #0c4a6e; margin-bottom: 1rem;">📝 Your Task (Both Required):</h3>
+                    <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem;">
+                        <div style="background: #0284c7; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">1</div>
+                        <div>
+                            <strong style="color: #0c4a6e;">Choose which refactoring is better:</strong> Select Version 1, Version 2, or Equally Good
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <div style="background: #0284c7; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">2</div>
+                        <div>
+                            <strong style="color: #0c4a6e;">Explain your choice:</strong> Write why you prefer one version over the other (or why they're equally good)
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fee2e2; border: 1px solid #ef4444; border-radius: 4px; padding: 0.75rem; margin-top: 1rem;">
+                        <p style="margin: 0; color: #b91c1c;"><strong style="font-size: 1.1em;">⚠️ Important - "Equally Good" Option:</strong></p>
+                        <p style="margin: 0.5rem 0 0 0; color: #b91c1c; font-weight: bold;">ONLY use "Equally Good" when the two versions are essentially identical or so similar that there is truly no meaningful difference between them.</p>
+                        <p style="margin: 0.5rem 0 0 0; color: #b91c1c;">Please try to identify differences and make a choice between Version 1 and Version 2 whenever possible.</p>
+                    </div>
+                </div>
+                
+                <div class="info-card" style="margin-bottom: 1.5rem; background: #f3f4f6; border: 1px solid #9ca3af;">
+                    <h3 style="color: #374151; margin-bottom: 1rem;">Think About What Makes a Good Refactoring</h3>
+                    <p style="margin-bottom: 0.75rem; color: #374151;"><strong>Important:</strong> The goal of refactoring is to create <strong>useful abstractions</strong>, not just to make code shorter.</p>
+                    <p style="margin-bottom: 0.75rem; color: #6b7280;">When evaluating these refactorings, use your judgment about code quality and library design. Consider whether the extracted functions represent meaningful, reusable abstractions that improve the code's organization and maintainability.</p>
+                    <p style="color: #6b7280;"><strong>Examples of poor refactoring:</strong> Functions with overly problem-specific names, functions that are too specific to these exact problems to be reusable elsewhere, or functions that just move code without creating useful abstractions.</p>
+                </div>
+                
+                <div class="info-card" style="margin-bottom: 1.5rem; background: #fefce8; border-color: #facc15;">
+                    <h3 style="color: #a16207;">⚠️ Important Notes</h3>
+                    <p style="margin-bottom: 1rem;"><strong>Read problem statements:</strong> Look at the original programs (P1, P2, P3) to understand what problems they're solving. This will help you understand the purpose of the extracted functions.</p>
+                    <p style="margin-bottom: 1rem;"><strong>Focus on NEW functions and refactorings:</strong> Each library contains both existing extracted functions AND newly proposed functions. Consider the <strong>newly proposed functions</strong> and <strong>how the programs are refactored to use them</strong> when making your decision.</p>
+                    <p><strong>Ignore documentation:</strong> Whether functions have docstrings or comments should NOT influence your choice. Focus only on the actual functionality of the code.</p>
+                </div>
+                
+                <div class="info-card" style="margin-bottom: 2rem;">
+                    <h3>Navigation Tips</h3>
+                    <ul>
+                        <li><strong>ALL:</strong> See complete refactored code with library</li>
+                        <li><strong>P1, P2, P3:</strong> See how each program uses the library</li>
+                        <li><strong>New Functions:</strong> Focus on just the newly proposed functions (excluding retrieved/existing functions)</li>
+                        <li>Click <strong>Version 1</strong>, <strong>Version 2</strong>, or <strong>Equally Good</strong> button to select your choice</li>
+                        <li>Write an explanation in the text box to continue to the next question</li>
+                        <li>Use the <strong>+ and -</strong> buttons in the header to adjust font size</li>
+                    </ul>
+                </div>
+                
+                <button class="btn btn-primary btn-next" onclick="showFormPage()">Continue to Registration</button>
+            </section>
+            
+            <!-- Form Page -->
+            <section class="page form-page" id="formPage">
+                <button class="btn" onclick="showInstructionsPage()" style="margin-bottom: 1.5rem;">← Back to Instructions</button>
+                
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">Enter Your Study Information</h3>
+                <form id="participantForm">
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantId" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Study ID (provided to you):</label>
+                        <input type="text" id="participantId" name="id" required 
+                               placeholder="Enter your assigned ID (e.g., user001)"
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; text-transform: uppercase;">
+                        <small id="idHelperText" style="display: none; color: #10b981; margin-top: 0.25rem;">✓ Your study ID has been automatically filled from the link</small>
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantName" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Name:</label>
+                        <input type="text" id="participantName" name="name" required
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="participantEmail" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">Email:</label>
+                        <input type="email" id="participantEmail" name="email" required 
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                    </div>
+                    
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <label for="programmingExperience" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">How long have you been programming? <span style="color: red;">*</span></label>
+                        <select id="programmingExperience" name="programmingExperience" required
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                            <option value="">Select...</option>
+                            <option value="< 2 years">< 2 years</option>
+                            <option value="2-5 years">2-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value="10+ years">10+ years</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="pythonExperience" style="display: block; margin-bottom: 0.25rem; font-weight: 500;">How long have you been using Python?</label>
+                        <select id="pythonExperience" name="pythonExperience"
+                                style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+                            <option value="">Select...</option>
+                            <option value="< 2 years">< 2 years</option>
+                            <option value="2-5 years">2-5 years</option>
+                            <option value="5-10 years">5-10 years</option>
+                            <option value="10+ years">10+ years</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1.1rem;">Start Study</button>
+                    
+                    <p class="note" style="margin-top: 1rem; text-align: center;">All information will be kept confidential</p>
+                </form>
+            </section>
+        </main>
+        
+        <footer>
+            <p>For questions or technical issues, please contact the research team.</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showFormPage() {
+            document.getElementById('instructionsPage').classList.remove('active');
+            document.getElementById('formPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        
+        function showInstructionsPage() {
+            document.getElementById('formPage').classList.remove('active');
+            document.getElementById('instructionsPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+    <script src="js/app.js"></script>
+</body>
+</html>
