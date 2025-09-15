@@ -3,32 +3,32 @@ cluster_0,cluster_0/tuple_29:cc_python_29_19:cc_python_19_13:cc_python_13,logpro
 cluster_0,cluster_0/tuple_29:cc_python_29_19:cc_python_19_13:cc_python_13,mi_vs_logprob,mi,logprob,1.0,,0,3,mi,66.7,"U7FC4E8A3C, U908EF07FE, UB271569B6",2.0
 cluster_0,cluster_0/tuple_29:cc_python_29_19:cc_python_19_13:cc_python_13,mi_vs_tokens,mi,tokens,,2.0,0,3,tokens,66.7,"UE064AED19, U33109D65F, UACF3BE15C",1.0
 cluster_1,cluster_1/tuple_2:cc_python_2_27:cc_python_27_5:cc_python_5,mi_vs_logprob,mi,logprob,2.0,,0,3,logprob,66.7,"UFABEA441A, UACF3BE15C, UFC676F211",1.0
-cluster_1,cluster_1/tuple_2:cc_python_2_27:cc_python_27_5:cc_python_5,mi_vs_tokens,mi,tokens,,2.0,0,2,tokens,100.0,"UE064AED19, U4ED6E8EA5",0.0
+cluster_1,cluster_1/tuple_2:cc_python_2_27:cc_python_27_5:cc_python_5,mi_vs_tokens,mi,tokens,,3.0,0,3,tokens,100.0,"UE064AED19, U4ED6E8EA5, U8ECC01EC6",0.0
 cluster_2,cluster_2/tuple_5:cc_python_5_26:cc_python_26_22:cc_python_22,logprob_vs_tokens,logprob,tokens,0.0,4.0,0,4,tokens,100.0,"U33109D65F, U798B7CC2F, UB271569B6, UACF3BE15C",
 cluster_2,cluster_2/tuple_5:cc_python_5_26:cc_python_26_22:cc_python_22,mi_vs_tokens,mi,tokens,,2.0,0,3,tokens,66.7,"U908EF07FE, U73F722CDB, UFABEA441A",1.0
 cluster_3,cluster_3/tuple_16:cc_python_16_19:cc_python_19_23:cc_python_23,logprob_vs_tokens,logprob,tokens,1.0,1.0,1,3,TIE,33.3,"UE064AED19, U33109D65F, U908EF07FE",
 cluster_3,cluster_3/tuple_16:cc_python_16_19:cc_python_19_23:cc_python_23,mi_vs_logprob,mi,logprob,1.0,,1,4,mi,50.0,"UB271569B6, U73F722CDB, UFABEA441A, U4ED6E8EA5",2.0
-cluster_3,cluster_3/tuple_6:cc_python_6_21:cc_python_21_9:cc_python_9,logprob_vs_tokens,logprob,tokens,2.0,0.0,0,2,logprob,100.0,"UFABEA441A, U4ED6E8EA5",
+cluster_3,cluster_3/tuple_6:cc_python_6_21:cc_python_21_9:cc_python_9,logprob_vs_tokens,logprob,tokens,2.0,1.0,0,3,logprob,66.7,"UFABEA441A, U4ED6E8EA5, U8ECC01EC6",
 cluster_3,cluster_3/tuple_6:cc_python_6_21:cc_python_21_9:cc_python_9,mi_vs_logprob,mi,logprob,2.0,,0,3,logprob,66.7,"UB271569B6, UACF3BE15C, UFC676F211",1.0
 cluster_3,cluster_3/tuple_6:cc_python_6_21:cc_python_21_9:cc_python_9,mi_vs_tokens,mi,tokens,,3.0,0,4,tokens,75.0,"U7FC4E8A3C, U33109D65F, U798B7CC2F, U908EF07FE",1.0
 cluster_3,cluster_3/tuple_7:cc_python_7_29:cc_python_29_0:cc_python_0,logprob_vs_tokens,logprob,tokens,0.0,1.0,0,1,tokens,100.0,UFC676F211,
 cluster_3,cluster_3/tuple_7:cc_python_7_29:cc_python_29_0:cc_python_0,mi_vs_logprob,mi,logprob,0.0,,1,1,TIE,0.0,U33109D65F,0.0
-cluster_3,cluster_3/tuple_7:cc_python_7_29:cc_python_29_0:cc_python_0,mi_vs_tokens,mi,tokens,,3.0,0,4,tokens,75.0,"UE064AED19, U7FC4E8A3C, UACF3BE15C, U80A4E7CD4",1.0
+cluster_3,cluster_3/tuple_7:cc_python_7_29:cc_python_29_0:cc_python_0,mi_vs_tokens,mi,tokens,,4.0,0,5,tokens,80.0,"UE064AED19, U7FC4E8A3C, UACF3BE15C, U80A4E7CD4, U8ECC01EC6",1.0
 cluster_4,cluster_4/tuple_28:cc_python_28_4:cc_python_4_11:cc_python_11_good,logprob_vs_tokens,logprob,tokens,2.0,1.0,1,4,logprob,50.0,"U33109D65F, U798B7CC2F, UACF3BE15C, UFC676F211",
 cluster_4,cluster_4/tuple_28:cc_python_28_4:cc_python_4_11:cc_python_11_good,mi_vs_logprob,mi,logprob,4.0,,0,4,logprob,100.0,"U73F722CDB, U80A4E7CD4, U4ED6E8EA5, U3FB15CABE",0.0
-cluster_4,cluster_4/tuple_28:cc_python_28_4:cc_python_4_11:cc_python_11_good,mi_vs_tokens,mi,tokens,,1.0,0,1,tokens,100.0,UB271569B6,0.0
+cluster_4,cluster_4/tuple_28:cc_python_28_4:cc_python_4_11:cc_python_11_good,mi_vs_tokens,mi,tokens,,2.0,0,2,tokens,100.0,"UB271569B6, U8ECC01EC6",0.0
 cluster_4,cluster_4/tuple_8:cc_python_8_9:cc_python_9_3:cc_python_3,logprob_vs_tokens,logprob,tokens,1.0,2.0,0,3,tokens,66.7,"U7FC4E8A3C, UACF3BE15C, UFC676F211",
-cluster_4,cluster_4/tuple_8:cc_python_8_9:cc_python_9_3:cc_python_3,mi_vs_logprob,mi,logprob,0.0,,1,2,mi,50.0,"UE064AED19, U3FB15CABE",1.0
+cluster_4,cluster_4/tuple_8:cc_python_8_9:cc_python_9_3:cc_python_3,mi_vs_logprob,mi,logprob,0.0,,1,3,mi,66.7,"UE064AED19, U3FB15CABE, U8ECC01EC6",2.0
 cluster_4,cluster_4/tuple_8:cc_python_8_9:cc_python_9_3:cc_python_3,mi_vs_tokens,mi,tokens,,1.0,0,3,mi,66.7,"U798B7CC2F, U908EF07FE, U4ED6E8EA5",2.0
 cluster_5,cluster_5/tuple_28:cc_python_28_1:cc_python_1_19:cc_python_19,logprob_vs_tokens,logprob,tokens,2.0,1.0,0,3,logprob,66.7,"U7FC4E8A3C, U33109D65F, U908EF07FE",
-cluster_5,cluster_5/tuple_28:cc_python_28_1:cc_python_1_19:cc_python_19,mi_vs_logprob,mi,logprob,0.0,,0,2,mi,100.0,"U80A4E7CD4, UFC676F211",2.0
+cluster_5,cluster_5/tuple_28:cc_python_28_1:cc_python_1_19:cc_python_19,mi_vs_logprob,mi,logprob,0.0,,0,3,mi,100.0,"U80A4E7CD4, UFC676F211, U8ECC01EC6",3.0
 cluster_5,cluster_5/tuple_28:cc_python_28_1:cc_python_1_19:cc_python_19,mi_vs_tokens,mi,tokens,,1.0,1,6,mi,66.7,"UE064AED19, U798B7CC2F, UB271569B6, U73F722CDB, UFABEA441A, U3FB15CABE",4.0
-cluster_5,cluster_5/tuple_5:cc_python_5_29:cc_python_29_7:cc_python_7,logprob_vs_tokens,logprob,tokens,1.0,1.0,2,4,TIE,25.0,"U7FC4E8A3C, U798B7CC2F, U908EF07FE, U73F722CDB",
+cluster_5,cluster_5/tuple_5:cc_python_5_29:cc_python_29_7:cc_python_7,logprob_vs_tokens,logprob,tokens,1.0,2.0,2,5,tokens,40.0,"U7FC4E8A3C, U798B7CC2F, U908EF07FE, U73F722CDB, U8ECC01EC6",
 cluster_5,cluster_5/tuple_5:cc_python_5_29:cc_python_29_7:cc_python_7,mi_vs_logprob,mi,logprob,3.0,,0,3,logprob,100.0,"U33109D65F, UACF3BE15C, U3FB15CABE",0.0
 cluster_5,cluster_5/tuple_5:cc_python_5_29:cc_python_29_7:cc_python_7,mi_vs_tokens,mi,tokens,,2.0,0,2,tokens,100.0,"UFABEA441A, U80A4E7CD4",0.0
 cluster_6,cluster_6/tuple_12:cc_python_12_2:cc_python_2_11:cc_python_11,logprob_vs_tokens,logprob,tokens,2.0,1.0,1,4,logprob,50.0,"U7FC4E8A3C, U73F722CDB, U80A4E7CD4, U4ED6E8EA5",
 cluster_6,cluster_6/tuple_12:cc_python_12_2:cc_python_2_11:cc_python_11,mi_vs_logprob,mi,logprob,1.0,,0,2,TIE,50.0,"U33109D65F, UFC676F211",1.0
-cluster_6,cluster_6/tuple_12:cc_python_12_2:cc_python_2_11:cc_python_11,mi_vs_tokens,mi,tokens,,2.0,1,3,tokens,66.7,"U798B7CC2F, UACF3BE15C, U3FB15CABE",0.0
+cluster_6,cluster_6/tuple_12:cc_python_12_2:cc_python_2_11:cc_python_11,mi_vs_tokens,mi,tokens,,2.0,1,4,tokens,50.0,"U798B7CC2F, UACF3BE15C, U3FB15CABE, U8ECC01EC6",1.0
 cluster_6,cluster_6/tuple_19:cc_python_19_14:cc_python_14_7:cc_python_7,mi_vs_logprob,mi,logprob,3.0,,0,3,logprob,100.0,"UE064AED19, U908EF07FE, U80A4E7CD4",0.0
 cluster_6,cluster_6/tuple_19:cc_python_19_14:cc_python_14_7:cc_python_7,mi_vs_tokens,mi,tokens,,1.0,0,1,tokens,100.0,U4ED6E8EA5,0.0
 cluster_7,cluster_7/tuple_11:cc_python_11_10:cc_python_10_27:cc_python_27,mi_vs_logprob,mi,logprob,2.0,,0,2,logprob,100.0,"U798B7CC2F, U3FB15CABE",0.0
@@ -36,10 +36,10 @@ cluster_7,cluster_7/tuple_11:cc_python_11_10:cc_python_10_27:cc_python_27,mi_vs_
 cluster_7,cluster_7/tuple_16:cc_python_16_25:cc_python_25_19:cc_python_19,mi_vs_logprob,mi,logprob,2.0,,0,2,logprob,100.0,"U73F722CDB, U3FB15CABE",0.0
 cluster_8,cluster_8/tuple_24:cc_python_24_15:cc_python_15_10:cc_python_10,logprob_vs_tokens,logprob,tokens,2.0,1.0,1,4,logprob,50.0,"U7FC4E8A3C, U73F722CDB, U80A4E7CD4, U4ED6E8EA5",
 cluster_8,cluster_8/tuple_24:cc_python_24_15:cc_python_15_10:cc_python_10,mi_vs_logprob,mi,logprob,3.0,,0,4,logprob,75.0,"U798B7CC2F, UFABEA441A, UACF3BE15C, U3FB15CABE",1.0
-cluster_8,cluster_8/tuple_28:cc_python_28_3:cc_python_3_29:cc_python_29,logprob_vs_tokens,logprob,tokens,1.0,0.0,1,2,logprob,50.0,"UE064AED19, UB271569B6",
+cluster_8,cluster_8/tuple_28:cc_python_28_3:cc_python_3_29:cc_python_29,logprob_vs_tokens,logprob,tokens,1.0,1.0,1,3,TIE,33.3,"UE064AED19, UB271569B6, U8ECC01EC6",
 cluster_8,cluster_8/tuple_28:cc_python_28_3:cc_python_3_29:cc_python_29,mi_vs_logprob,mi,logprob,2.0,,0,3,logprob,66.7,"U4ED6E8EA5, UFC676F211, U3FB15CABE",1.0
 cluster_8,cluster_8/tuple_28:cc_python_28_3:cc_python_3_29:cc_python_29,mi_vs_tokens,mi,tokens,,1.0,0,3,mi,66.7,"U33109D65F, U908EF07FE, UFABEA441A",2.0
 cluster_9,cluster_9/tuple_17:cc_python_17_16:cc_python_16_19:cc_python_19,logprob_vs_tokens,logprob,tokens,1.0,2.0,0,3,tokens,66.7,"U7FC4E8A3C, U80A4E7CD4, UFC676F211",
-cluster_9,cluster_9/tuple_17:cc_python_17_16:cc_python_16_19:cc_python_19,mi_vs_tokens,mi,tokens,,3.0,0,4,tokens,75.0,"UE064AED19, UB271569B6, U73F722CDB, UFABEA441A",1.0
+cluster_9,cluster_9/tuple_17:cc_python_17_16:cc_python_16_19:cc_python_19,mi_vs_tokens,mi,tokens,,4.0,0,5,tokens,80.0,"UE064AED19, UB271569B6, U73F722CDB, UFABEA441A, U8ECC01EC6",1.0
 cluster_9,cluster_9/tuple_8:cc_python_8_10:cc_python_10_20:cc_python_20,logprob_vs_tokens,logprob,tokens,2.0,2.0,0,4,TIE,50.0,"U7FC4E8A3C, U798B7CC2F, UB271569B6, UFABEA441A",
 cluster_9,cluster_9/tuple_8:cc_python_8_10:cc_python_10_20:cc_python_20,mi_vs_logprob,mi,logprob,2.0,,0,4,TIE,50.0,"UE064AED19, U908EF07FE, U80A4E7CD4, U3FB15CABE",2.0
