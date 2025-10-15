@@ -637,13 +637,46 @@ if has_participant_data:
     baseline_results, _, _, _, _, _ = fit_bradley_terry_with_ci(merged_df)
     stage1_only_results, _, _, _, _, _ = fit_bradley_terry_with_ci(stage1_df)
 
+    # Also get single-stage filtering (consensus only, no participant removal)
+    print("\nCalculating single-stage consensus filtering (no participant removal)...")
+
+    # Calculate consensus for full dataset
+    tuple_stats_full = merged_df.groupby(['TupleID', 'Pair Type']).agg({
+        'Actual_Choice': [
+            lambda x: x.value_counts(normalize=True).iloc[0] if len(x) > 0 else 0,
+            lambda x: x.value_counts().index[0] if len(x) > 0 else None,
+            'count'
+        ]
+    }).reset_index()
+    tuple_stats_full.columns = ['TupleID', 'Pair Type', 'Consensus_Rate', 'Majority_Choice', 'Total_Votes']
+
+    merged_df_with_consensus = merged_df.merge(
+        tuple_stats_full[['TupleID', 'Pair Type', 'Consensus_Rate', 'Majority_Choice']],
+        on=['TupleID', 'Pair Type'], how='left')
+
+    single_stage_results = []
+    for threshold in consensus_thresholds:
+        mask = (merged_df_with_consensus['Consensus_Rate'] < threshold) | \
+               (merged_df_with_consensus['Actual_Choice'] == merged_df_with_consensus['Majority_Choice'])
+        filtered_df = merged_df_with_consensus[mask].copy()
+
+        results_single, _, _, _, _, _ = fit_bradley_terry_with_ci(filtered_df)
+
+        single_stage_results.append({
+            'threshold': threshold,
+            'n_final': len(filtered_df),
+            'results': results_single
+        })
+
+        print(f"  Single-stage {threshold*100:.0f}%: {len(filtered_df)} responses kept")
+
     # Create visualization
-    fig_filter, ax_filter = plt.subplots(1, 1, figsize=(14, 7))
+    fig_filter, ax_filter = plt.subplots(1, 1, figsize=(16, 7))
 
     comparisons = ['LOGPROB vs MI', 'TOKENS vs MI', 'LOGPROB vs TOKENS']
     x_pos = np.arange(len(comparisons))
-    bar_width = 0.15
-    offset_positions = [-2, -1, 0, 1]
+    bar_width = 0.12
+    offset_positions = [-3, -2, -1, 0, 1, 2]  # 6 bars now
 
     # Plot bars for each method
     # 1. Baseline
@@ -660,22 +693,42 @@ if has_participant_data:
            color='#3498db', alpha=0.8, label='Stage 1 only (quartile)',
            edgecolor='black', linewidth=1.5, error_kw={'linewidth': 2})
 
-    # 3. Two-stage 65%
+    # 3. Single-stage 65% (consensus only)
+    single_65 = single_stage_results[0]['results']
+    single_65_probs = [r['prob'] for r in single_65]
+    single_65_errors = [[r['prob'] - r['ci_lower'] for r in single_65],
+                        [r['ci_upper'] - r['prob'] for r in single_65]]
+    ax_filter.bar(x_pos + offset_positions[2]*bar_width, single_65_probs, bar_width,
+           yerr=single_65_errors, capsize=5,
+           color='#9b59b6', alpha=0.8, label='Stage 2 only (65%)',
+           edgecolor='black', linewidth=1.5, error_kw={'linewidth': 2})
+
+    # 4. Single-stage 75% (consensus only)
+    single_75 = single_stage_results[1]['results']
+    single_75_probs = [r['prob'] for r in single_75]
+    single_75_errors = [[r['prob'] - r['ci_lower'] for r in single_75],
+                        [r['ci_upper'] - r['prob'] for r in single_75]]
+    ax_filter.bar(x_pos + offset_positions[3]*bar_width, single_75_probs, bar_width,
+           yerr=single_75_errors, capsize=5,
+           color='#f39c12', alpha=0.8, label='Stage 2 only (75%)',
+           edgecolor='black', linewidth=1.5, error_kw={'linewidth': 2})
+
+    # 5. Two-stage 65%
     two_65 = combined_results[0]['results']
     two_65_probs = [r['prob'] for r in two_65]
     two_65_errors = [[r['prob'] - r['ci_lower'] for r in two_65],
                      [r['ci_upper'] - r['prob'] for r in two_65]]
-    ax_filter.bar(x_pos + offset_positions[2]*bar_width, two_65_probs, bar_width,
+    ax_filter.bar(x_pos + offset_positions[4]*bar_width, two_65_probs, bar_width,
            yerr=two_65_errors, capsize=5,
            color='#e74c3c', alpha=0.8, label='Two-stage (65%)',
            edgecolor='black', linewidth=1.5, error_kw={'linewidth': 2})
 
-    # 4. Two-stage 75%
+    # 6. Two-stage 75%
     two_75 = combined_results[1]['results']
     two_75_probs = [r['prob'] for r in two_75]
     two_75_errors = [[r['prob'] - r['ci_lower'] for r in two_75],
                      [r['ci_upper'] - r['prob'] for r in two_75]]
-    ax_filter.bar(x_pos + offset_positions[3]*bar_width, two_75_probs, bar_width,
+    ax_filter.bar(x_pos + offset_positions[5]*bar_width, two_75_probs, bar_width,
            yerr=two_75_errors, capsize=5,
            color='#2ecc71', alpha=0.8, label='Two-stage (75%)',
            edgecolor='black', linewidth=1.5, error_kw={'linewidth': 2})
@@ -690,17 +743,19 @@ if has_participant_data:
     ax_filter.set_ylabel('P(First metric preferred)', fontsize=13)
     ax_filter.set_yticks([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
     ax_filter.set_yticklabels(['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'])
-    ax_filter.set_title('Comparison of Filtering Methods at 65% and 75% Consensus Thresholds',
+    ax_filter.set_title('Comparison of Single-Stage and Two-Stage Filtering Methods',
                 fontsize=14, fontweight='bold')
-    ax_filter.legend(loc='upper left', fontsize=10, ncol=2)
+    ax_filter.legend(loc='upper left', fontsize=9, ncol=3)
     ax_filter.grid(True, alpha=0.3, axis='y')
 
     # Add sample size annotations
     for i, comp in enumerate(comparisons):
         y_pos = 0.02
-        n_kept_65 = combined_results[0]['n_final']
-        n_kept_75 = combined_results[1]['n_final']
-        ax_filter.text(x_pos[i], y_pos, f'n={n_kept_75}/{len(merged_df)}', ha='center', fontsize=9, style='italic')
+        # Show sample sizes for different methods
+        n_single_65 = single_stage_results[0]['n_final']
+        n_two_65 = combined_results[0]['n_final']
+        ax_filter.text(x_pos[i], y_pos, f'S65:{n_single_65} | T65:{n_two_65}',
+                      ha='center', fontsize=8, style='italic')
 
     plt.tight_layout()
     plt.savefig('bradley_terry_two_stage_filtering.png', dpi=300, bbox_inches='tight')
