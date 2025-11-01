@@ -163,10 +163,41 @@
       border:1px solid var(--border-color);
       flex-shrink:0;
     }
+    .entry-info {
+      position: relative;
+      flex: 1;
+      padding-right: 100px; /* Reserve space for tags */
+      min-width: 0; /* Allow flex item to shrink */
+    }
     .entry-info h3{
       font-size:1.05rem;
       font-weight:600;
       margin-bottom:.35rem;
+      display:block;
+      padding-right: 0; /* Ensure h3 doesn't interfere with tag */
+    }
+    .entry-tag {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      text-align: right;
+    }
+    .publication-tag {
+      background-color: #e6f0ff;
+      color: var(--accent-color);
+      border: 1px solid #b3d1ff;
+    }
+    .project-tag {
+      background-color: var(--bg-color);
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
     }
     .entry-info .authors{
       font-size:.95rem;
@@ -285,10 +316,10 @@
           <!-- Publication 1 -->
      <div class="entry publication">
        <div class="entry-image-container">
-         <img src="image/refactor.gif" alt="Refactoring Codebases">
+         <img src="image/refactor_figure.png" alt="Refactoring Codebases">
        </div>
        <div class="entry-info">
-        <h3>Refactoring Codebases through Library Design</h3>
+        <h3>Refactoring Codebases through Library Design</h3><span class="entry-tag publication-tag">Publication</span>
         <div class="authors"><span class="me">Ž. Kovačič</span>*, J. T. Chiu*, C. Lee, W. Zhao, K. Ellis</div>
         <div class="venue">DL4C @ NeurIPS 2025, Extension in submission</div>
         <div class="links">
@@ -306,7 +337,7 @@
          <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
        </div>
        <div class="entry-info">
-        <h3>Physics-Based Simulation</h3>
+        <h3>Physics-Based Simulation</h3><span class="entry-tag publication-tag">Publication</span>
         <div class="authors">M. Li, C. Jiang, Z. Luo, W. Du, C. Yu, <span class="me">Ž. Kovačič</span>, T. Xie</div>
         <div class="venue">Online Book (2025)</div>
         <div class="links">
@@ -323,7 +354,7 @@
          </video>
        </div>
        <div class="entry-info">
-        <h3>Pocket Time-Lapse</h3>
+        <h3>Pocket Time-Lapse</h3><span class="entry-tag publication-tag">Publication</span>
         <div class="authors">E. M. Chen, <span class="me">Ž. Kovačič</span>, M. Agrawal, A. Davis</div>
         <div class="venue">SIGGRAPH (2025)</div>
         <div class="links">
@@ -332,7 +363,23 @@
       </div>
          </div>
      
-               <!-- Project 1 -->
+              <!-- Project 1 -->
+     <div class="entry project">
+       <div class="entry-image-container">
+         <video autoplay loop muted playsinline>
+           <source src="video/yarn.mp4" type="video/mp4">
+         </video>
+       </div>
+       <div class="entry-info">
+         <h3>MPM Yarn Simulation (2025)</h3><span class="entry-tag project-tag">Project</span>
+         <p style="font-size:0.95rem;margin:0.3rem 0;">Implements Anisotropic Elastoplasticity for Cloth, Knit and Hair Frictional Contact [C. Jiang et. al., 2017].</p>
+         <div class="links">
+           <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub (coming soon)</a>
+         </div>
+       </div>
+     </div>
+    
+               <!-- Project 2 -->
      <div class="entry project">
        <div class="entry-image-container">
          <video autoplay loop muted playsinline>
@@ -340,7 +387,7 @@
          </video>
        </div>
        <div class="entry-info">
-         <h3>MLS-MPM and CPIC (2025)</h3>
+         <h3>MLS-MPM and CPIC (2025)</h3><span class="entry-tag project-tag">Project</span>
          <p style="font-size:0.95rem;margin:0.3rem 0;">Implementation of the Moving Least Squared Material Point Method, CPIC, various materials, and mesh extraction in 2D and 3D.</p>
          <div class="links">
            <a href="https://github.com/zzigak/MPM-MLS-CPIC" target="_blank"><i class="fab fa-github"></i> GitHub</a>
@@ -356,7 +403,7 @@
          </video>
        </div>
        <div class="entry-info">
-         <h3>Path Tracing in OCaml (2025)</h3>
+         <h3>Path Tracing in OCaml (2025)</h3><span class="entry-tag project-tag">Project</span>
          <p style="font-size:0.95rem;margin:0.3rem 0;">A path tracer featuring distributive ray tracing, reflections, refractions, volumetrics, emissive objects, and a BVH.</p>
          <div class="links">
            <a href="https://github.com/zzigak/path-tracer-ocaml" target="_blank"><i class="fab fa-github"></i> GitHub</a>
@@ -370,7 +417,7 @@
          <img src="image/pen2graph.png" alt="Pen-2-Graph">
        </div>
        <div class="entry-info">
-         <h3>Pen-2-Graph (2024)</h3>
+         <h3>Pen-2-Graph (2024)</h3><span class="entry-tag project-tag">Project</span>
          <p style="font-size:0.95rem;margin:0.3rem 0;">Automates generation of node-edge graph programs from sketches using vision-language models and differential evolution.</p>
          <div class="links">
            <a href="https://github.com/zzigak/Pen2Graph" target="_blank"><i class="fab fa-github"></i> GitHub</a>
@@ -386,7 +433,7 @@
          </video>
        </div>
        <div class="entry-info">
-         <h3>Image Space Modal Basis (2024)</h3>
+         <h3>Image Space Modal Basis (2024)</h3><span class="entry-tag project-tag">Project</span>
          <p style="font-size:0.95rem;margin:0.3rem 0;">Implements "Image-Space Modal Bases for Plausible Manipulation of Objects in Video", extending it with modal warping. Features a Python pipeline and custom JS rasterizer.</p>
          <div class="links">
            <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub (coming soon)</a>
@@ -402,7 +449,7 @@
          </video>
        </div>
        <div class="entry-info">
-         <h3>Obstruction Removal - SliceSplatting (2024)</h3>
+         <h3>Obstruction Removal - SliceSplatting (2024)</h3><span class="entry-tag project-tag">Project</span>
          <p style="font-size:0.95rem;margin:0.3rem 0;">Modifies Gaussian Splatting to remove obstructions blocking the view of objects of interest in 3D scene reconstruction.</p>
          <div class="links">
            <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub (coming soon)</a>
@@ -416,7 +463,7 @@
          <img src="image/melodyMesh.png" alt="MelodyMesh">
        </div>
        <div class="entry-info">
-         <h3>MelodyMesh (2023)</h3>
+         <h3>MelodyMesh (2023)</h3><span class="entry-tag project-tag">Project</span>
          <p style="font-size:0.95rem;margin:0.3rem 0;">3D music visualizer that deforms meshes based on audio frequencies.</p>
          <div class="links">
            <a href="https://github.com/zzigak/MelodyMesh" target="_blank"><i class="fab fa-github"></i> GitHub</a>
