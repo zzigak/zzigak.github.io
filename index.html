@@ -26,7 +26,8 @@
 
     body{
       font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 1rem;
+      font-size: 17px;
+      font-weight: 400;
       background:var(--bg-color);
       color:var(--text-color);
       display:flex;
@@ -100,7 +101,7 @@
       max-width:850px;
       width:100%;
       padding:1rem 0;
-      font-size:1.15rem;
+      font-size:17px;
       color:var(--text-secondary);
     }
 
@@ -117,7 +118,7 @@
     .tabs button{
       background:none;
       border:none;
-      font-size:1.4rem;
+      font-size:1.25rem;
       padding:.7rem 0;
       cursor:pointer;
       color:var(--text-secondary);
@@ -297,7 +298,7 @@
   <!-- Research -->
   <div class="about">
     <h2 style="font-size:1.4rem;margin-bottom:0.8rem;font-weight:700;border-bottom:1px solid var(--border-color);padding-bottom:0.5rem;">Research</h2>
-    <p style="font-size:1.15rem;">
+    <p style="font-size:17px;">
       My interests lie at the intersection of physical simulation, machine learning (code generation), and tools for computer graphics. In the past, I worked on time-lapse generation and modal analysis for resimulation with Abe Davis.
     </p>
   </div>
@@ -379,7 +380,23 @@
        </div>
      </div>
     
-               <!-- Project 2 -->
+              <!-- Project 2 -->
+     <div class="entry project">
+       <div class="entry-image-container">
+         <video autoplay loop muted playsinline>
+           <source src="video/xpbd.mp4" type="video/mp4">
+         </video>
+       </div>
+       <div class="entry-info">
+         <h3>XPBD Simulator (2025)</h3><span class="entry-tag project-tag">Project</span>
+         <p style="font-size:0.95rem;margin:0.3rem 0;">Implements PBD solver with ability to simulate cloth, volumetric meshes, and fluids in the same solver.</p>
+         <div class="links">
+           <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub (coming soon)</a>
+         </div>
+       </div>
+     </div>
+    
+              <!-- Project 3 -->
      <div class="entry project">
        <div class="entry-image-container">
          <video autoplay loop muted playsinline>
