@@ -13,19 +13,20 @@
 
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-color: rgb(55, 53, 47);
-      --text-secondary: rgb(55, 53, 47);
-      --accent-color: #2b6fd7; /* your blue */
-      --border-color: #e2e8f0;
-      --shadow-color: rgba(0,0,0,.05);
+      --bg-color: #000000;
+      --text-color: #ffffff; /* White for normal text */
+      --text-secondary: #ffffff; /* White for secondary text */
+      --highlight-color: #00ff00; /* Terminal green for highlights/bold */
+      --accent-color: #ffff00; /* Yellow for links/accents */
+      --border-color: #00ff00; /* Green borders */
+      --shadow-color: rgba(0,255,0,.1);
       --transition-time: .3s;
     }
 
     *{margin:0;padding:0;box-sizing:border-box;}
 
     body{
-      font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Courier New", "Monaco", "Consolas", "Lucida Console", monospace;
       font-size: 17px;
       font-weight: 400;
       background:var(--bg-color);
@@ -53,10 +54,12 @@
       font-size:2.6rem;
       font-weight:600;
       margin-bottom:.3rem;
+      color:var(--highlight-color);
+      text-shadow: 0 0 10px rgba(0,255,0,0.5);
     }
     .hero-info p{
       font-size:1.15rem;
-      color:var(--text-secondary);
+      color:var(--text-color);
       margin-bottom:1.2rem;
     }
 
@@ -66,7 +69,7 @@
       flex-wrap:wrap;
     }
     .hero-links a{
-      color:var(--text-secondary);
+      color:var(--text-color);
       text-decoration:none;
       font-size:1rem;
       transition:all var(--transition-time) ease;
@@ -75,7 +78,8 @@
       gap:.4rem;
     }
     .hero-links a:hover{
-      color:var(--accent-color);
+      color:var(--highlight-color);
+      text-shadow: 0 0 5px rgba(0,255,0,0.5);
     }
 
     .hero-photo img{
@@ -84,12 +88,14 @@
       object-fit:cover;
       border-radius:10px;
       border:2px solid var(--border-color);
-      box-shadow:0 2px 16px rgba(0,0,0,.06);
+      box-shadow:0 2px 16px rgba(0,255,0,.2);
+      filter: brightness(0.9) contrast(1.1);
     }
     
     /* Additional styles for links in about section */
     .about a:hover{
       text-decoration:underline;
+      color:var(--highlight-color);
     }
 
     @media(max-width:700px){
@@ -102,7 +108,7 @@
       width:100%;
       padding:1rem 0;
       font-size:17px;
-      color:var(--text-secondary);
+      color:var(--text-color);
     }
 
     /* Tabs */
@@ -121,19 +127,22 @@
       font-size:1.25rem;
       padding:.7rem 0;
       cursor:pointer;
-      color:var(--text-secondary);
+      color:var(--text-color);
       border-bottom:3px solid transparent;
       transition:all var(--transition-time) ease;
       font-weight:500;
       min-width:fit-content;
+      font-family: "Courier New", "Monaco", "Consolas", "Lucida Console", monospace;
     }
     .tabs button.active{
-      color:var(--accent-color);
-      border-bottom:3px solid var(--accent-color);
+      color:var(--highlight-color);
+      border-bottom:3px solid var(--highlight-color);
       font-weight:500;
+      text-shadow: 0 0 5px rgba(0,255,0,0.5);
     }
     .tabs button:hover{
-      color:var(--accent-color);
+      color:var(--highlight-color);
+      text-shadow: 0 0 5px rgba(0,255,0,0.3);
     }
 
     /* Entries */
@@ -164,7 +173,8 @@
       border-radius:4px;
       border:1px solid var(--border-color);
       flex-shrink:0;
-      background-color: #f8f9fa; /* subtle background for letterboxing */
+      background-color: #0a0a0a; /* dark background for letterboxing */
+      filter: brightness(0.85) contrast(1.1);
     }
     .entry-info {
       position: relative;
@@ -179,6 +189,7 @@
       margin-bottom:.2rem;
       display:block;
       padding-right: 0;
+      color:var(--highlight-color);
     }
     .entry-type-label {
       position: absolute;
@@ -186,29 +197,30 @@
       top: 0;
       font-size: 0.7rem;
       font-weight: 500;
-      color: var(--text-secondary);
-      opacity: 0.6;
+      color: var(--highlight-color);
+      opacity: 0.8;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     .entry-info .authors{
       font-size:.95rem;
-      color:var(--text-secondary);
+      color:var(--text-color);
       margin-bottom:.2rem;
     }
     .entry-info .authors .me{
       font-weight:460;
-      color:var(--text-color);
+      color:var(--highlight-color);
     }
     .entry-info .venue{
       font-size:.9rem;
-      color:var(--text-secondary);
+      color:var(--text-color);
       margin-bottom:.3rem;
       font-style:italic;
     }
     .entry.project p, .entry.publication p{
       margin-top:0.15rem !important;
       margin-bottom:0.3rem;
+      color:var(--text-color);
     }
     .entry-info .links a{
       margin-right:.8rem;
@@ -223,8 +235,21 @@
     }
     .entry-info .links a:hover{
       background:var(--accent-color);
-      color:white;
+      color:var(--bg-color);
       border-color:var(--accent-color);
+      box-shadow: 0 0 10px rgba(255,255,0,0.5);
+    }
+    
+    /* Research section heading */
+    h2 {
+      color:var(--highlight-color);
+      border-bottom-color:var(--border-color);
+    }
+    
+    /* Bold text should be green */
+    strong, b {
+      color: var(--highlight-color);
+      font-weight: 600;
     }
   </style>
   <script>
@@ -283,7 +308,7 @@
   <!-- About -->
   <div class="about">
     <p>
-      Hi! I'm a Cornell University <a href="https://as.cornell.edu/education/college-scholar-program" target="_blank" style="color:var(--accent-color);text-decoration:none; font-weight:500;">College Scholar</a> pursuing a B.A. in Mathematics and Computer Science. I'm fortunate to work with Professor <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank" style="color:var(--accent-color);text-decoration:none; font-weight:500;">Kevin Ellis</a> on code refactoring and code generation for physical simulation, and with Professor <a href="https://www.cs.cornell.edu/~srm/" target="_blank" style="color:var(--accent-color);text-decoration:none; font-weight:500;">Steve Marschner</a> on neural physics simulations.
+      Hi! I'm a Cornell University <a href="https://as.cornell.edu/education/college-scholar-program" target="_blank" style="color:var(--highlight-color);text-decoration:none; font-weight:500;">College Scholar</a> pursuing a B.A. in Mathematics and Computer Science. I'm fortunate to work with Professor <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank" style="color:var(--highlight-color);text-decoration:none; font-weight:500;">Kevin Ellis</a> on code refactoring and code generation for physical simulation, and with Professor <a href="https://www.cs.cornell.edu/~srm/" target="_blank" style="color:var(--highlight-color);text-decoration:none; font-weight:500;">Steve Marschner</a> on neural physics simulations.
     </p>
     <!-- <p style="color:#c3512e;font-weight:700;margin-top:1rem;margin-bottom:0;">
       I am applying for PhD programs in Fall 2025!
@@ -370,7 +395,7 @@
          <h3>MPM Yarn Simulation (2025)<span class="entry-type-label">Project</span></h3>
          <p style="font-size:0.95rem;margin:0.3rem 0;">Implements Anisotropic Elastoplasticity for Cloth, Knit and Hair Frictional Contact [C. Jiang et. al., 2017].</p>
          <div class="links">
-           <a href="https://github.com/zzigak/mpm-yarn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+           <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub (coming soon)</a>
          </div>
        </div>
      </div>
@@ -448,7 +473,7 @@
          <h3>Image Space Modal Basis (2024)<span class="entry-type-label">Project</span></h3>
          <p style="font-size:0.95rem;margin:0.3rem 0;">Implements "Image-Space Modal Bases for Plausible Manipulation of Objects in Video", extending it with modal warping. Features a Python pipeline and custom JS rasterizer.</p>
          <div class="links">
-           <a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+           <a href="#" target="_blank"><i class="fab fa-github"></i> GitHub (coming soon)</a>
          </div>
        </div>
      </div>
