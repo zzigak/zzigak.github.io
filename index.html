@@ -197,6 +197,7 @@
     .entry-image-container{
       width: 200px;
       flex-shrink: 0;
+      padding-top: 0;
     }
     /* ---------- PUBLICATION IMAGES ---------- */
     .entry img, .entry video{
@@ -217,11 +218,13 @@
       padding-right: 90px;
     }
     .entry-info h3{
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
       margin-bottom: .2rem;
+      margin-top: 0;
       display: block;
       padding-right: 0;
+      line-height: 1.2;
     }
     .entry-type-label {
       position: absolute;
@@ -235,7 +238,7 @@
       letter-spacing: 0.5px;
     }
     .entry-info .authors{
-      font-size: .95rem;
+      font-size: 1.0rem;
       color: #666;
       margin-bottom: .2rem;
     }
@@ -263,12 +266,12 @@
       border: 1px solid #ddd;
       border-radius: 4px;
       background: transparent;
-      transition: all 0.3s ease;
+      transition: background 0.13s, box-shadow 0.13s;
     }
     .entry-info .links a:hover{
-      background: #f0f0f0;
+      background: #f4f4fa;
+      box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.04);
       color: #222;
-      border-color: #999;
     }
   </style>
   <script>
