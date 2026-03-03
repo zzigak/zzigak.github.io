@@ -33,7 +33,7 @@
     }
 
     .content {
-      max-width: 880px;
+      max-width: 840px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -92,12 +92,6 @@
       margin-bottom: 0.2em;
     }
 
-    .hero-email {
-      font-size: 1.1em;
-      color: #666;
-      margin-bottom: 16px;
-    }
-
     .hero-links {
       display: flex;
       gap: 1.25rem;
@@ -110,6 +104,10 @@
       color: #666;
       font-size: 0.95em;
       transition: color 0.13s;
+    }
+
+    .hero-bio {
+      font-size: 0.95em;
     }
 
     .hero-links a:hover {
@@ -129,8 +127,7 @@
         text-align: left;
       }
 
-      .hero-name,
-      .hero-email {
+      .hero-name {
         text-align: center;
       }
 
@@ -164,14 +161,14 @@
     }
 
     .tabs-container {
-      max-width: 880px;
+      max-width: 840px;
       width: 100%;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .tabs {
-      max-width: 880px;
+      max-width: 840px;
       width: 100%;
       margin-top: 1.5rem;
       display: flex;
@@ -205,16 +202,16 @@
 
     /* Entries - Original index style */
     .entries-container {
-      max-width: 880px;
+      max-width: 840px;
       width: 100%;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .entries {
-      max-width: 880px;
+      max-width: 840px;
       width: 100%;
-      margin-top: 2rem;
+      margin-top: 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
@@ -368,12 +365,11 @@
         </div>
         <div class="hero-info">
           <div class="hero-name">Žiga Kovačič</div>
-          <div class="hero-email">Email: zk66 [at] cornell.edu</div>
-          <p style="margin-top: 0; margin-bottom: 0;">
-            Hi! I'm a Cornell University undergrad. I'm fortunate to be advised by Professor <a
-              href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a> and Professor <a
-              href="https://www.cs.cornell.edu/~srm/" target="_blank">Steve
-              Marschner</a>.
+          <p class="hero-bio" style="margin-top: 0; margin-bottom: 0;">
+            I'm a Cornell undergrad advised by <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin
+              Ellis</a> and <a href="https://www.cs.cornell.edu/~srm/" target="_blank">Steve Marschner</a>. I'm interested
+            in which levels of abstraction are most useful for building world models for specific tasks, including hybrid
+            neuro-classical simulators and abstract internal models for embodiment.
           </p>
           <div class="hero-links">
             <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ"><i
@@ -381,24 +377,12 @@
             <a target="_blank" href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
             <a target="_blank" href="https://x.com/zzigakovacic"><i class="fab fa-twitter"></i> X</a>
             <a target="_blank" href="pdf/grad_school.pdf"><i class="fas fa-file-alt"></i> CV</a>
+            <a href="mailto:zk66@cornell.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="content">
-    <!-- Research - OpenAI style -->
-    <div class="about">
-      <h2 class="section-header">Research</h2>
-      <p>
-        I am currently interested in exploring what are the right levels of abstraction when building world models for
-        specific tasks. This entails hybrid neuro-classical simulators as well as builting more abstract internal models
-        of the world for embodied agents.
-      </p>
-    </div>
-  </div>
-
 
   </div>
 
