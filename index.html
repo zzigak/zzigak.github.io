@@ -7,20 +7,29 @@
   <title>Žiga Kovačič</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="image/brain.png">
-  <link rel="shortcut icon" type="image/png" href="image/brain.png">
+  <link rel="icon" type="image/x-icon" href="image/logo.ico">
+  <link rel="icon" type="image/png" href="image/logo.png">
+  <link rel="shortcut icon" type="image/x-icon" href="image/logo.ico">
 
   <!-- Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
   <style>
+    html {
+      font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+      font-feature-settings: normal;
+      font-variation-settings: normal;
+      overflow-x: hidden;
+    }
+
     body {
       margin: 0;
       padding: 0 0 60px;
       background: #ffffff;
-      font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: inherit;
       color: #222;
       line-height: 1.55;
+      overflow-x: hidden;
     }
 
     a,
@@ -42,7 +51,7 @@
       background-color: #f1f1f1;
       width: 100%;
       padding: 45px 0 25px;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .hero-section {
@@ -88,8 +97,10 @@
 
     .hero-name {
       font-size: 2.0em;
-      font-weight: 550;
-      margin-bottom: 0.2em;
+      font-family: inherit;
+      font-weight: 600;
+      margin-bottom: 0.32em;
+      line-height: 1.05;
     }
 
     .hero-links {
@@ -110,6 +121,15 @@
       font-size: 0.95em;
     }
 
+    .hero-update {
+      margin-top: 0.55rem;
+      margin-bottom: 0;
+      font-size: 0.92em;
+      color: #111;
+      font-weight: 500;
+      font-style: italic;
+    }
+
     .hero-links a:hover {
       color: #222;
       text-decoration: underline;
@@ -124,11 +144,15 @@
 
       .hero-info {
         width: 100%;
-        text-align: left;
+        text-align: center;
       }
 
       .hero-name {
         text-align: center;
+      }
+
+      .hero-bio {
+        text-align: left;
       }
 
       .hero-links {
@@ -153,11 +177,12 @@
 
     .section-header {
       margin: 36px 0 8px;
-      font-size: 1.5em;
+      font-size: 1.35rem;
       letter-spacing: 0.02em;
       text-transform: none;
       color: #111;
-      font-weight: 500;
+      font-family: inherit;
+      font-weight: 600;
     }
 
     .tabs-container {
@@ -173,26 +198,28 @@
       margin-top: 1.5rem;
       display: flex;
       justify-content: flex-start;
-      gap: 2rem;
-      border-bottom: 1px solid #e0e0e0;
+      gap: 0.25rem;
     }
 
     .tabs button {
-      background: none;
+      background: transparent;
       border: none;
-      font-size: 1.25rem;
-      padding: .7rem 0;
+      font-size: .95rem;
+      line-height: 1.35rem;
+      padding: .34rem .9rem;
       cursor: pointer;
-      color: #777;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
-      font-weight: 500;
+      color: rgb(115 115 115);
+      border-radius: .25rem;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .15s;
+      font-weight: 400;
       min-width: fit-content;
     }
 
     .tabs button.active {
-      color: #222;
-      border-bottom: 3px solid #222;
+      color: rgb(0 0 0);
+      background: #f1f1f1;
       font-weight: 500;
     }
 
@@ -259,29 +286,30 @@
     }
 
     .entry-info h3 {
-      font-size: 1.05rem;
-      font-weight: 530;
+      font-size: 1.02rem;
+      font-family: inherit;
+      font-weight: 600;
       margin-bottom: .2rem;
       margin-top: 0;
       display: block;
       padding-right: 0;
-      line-height: 1.2;
+      line-height: 1.24;
     }
 
     .entry-type-label {
       position: absolute;
       right: 0;
       top: 0;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 500;
-      color: #777;
-      opacity: 0.6;
+      color: #7a7a7a;
+      opacity: 0.85;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.08em;
     }
 
     .entry-info .authors {
-      font-size: 1.0rem;
+      font-size: 0.92rem;
       color: #666;
       margin-bottom: .2rem;
     }
@@ -292,7 +320,7 @@
     }
 
     .entry-info .venue {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       color: #666;
       margin-bottom: .3rem;
       font-style: italic;
@@ -321,6 +349,137 @@
       box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.04);
       color: #222;
     }
+
+    .entry-info .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .entry-info .links a {
+      margin-right: 0;
+    }
+
+    .pub-intro {
+      max-width: 840px;
+      margin: 0 auto 0.15rem;
+      padding: 0 24px;
+      font-size: 0.97rem;
+      line-height: 1.45;
+      color: #666;
+    }
+
+    .pub-intro a {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: #b8b8b8;
+    }
+
+    .pub-intro a:hover {
+      text-decoration-color: #222;
+    }
+
+    .news-section {
+      max-width: 840px;
+      margin: 6px auto 0;
+      padding: 0 24px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e6e6e6;
+    }
+
+    .news-list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: #444;
+    }
+
+    .news-item {
+      margin-bottom: 0.45rem;
+      line-height: 1.55;
+    }
+
+    .pub-intro {
+      margin-top: 0.95rem;
+      margin-bottom: 0.6rem;
+    }
+
+    @media (max-width: 760px) {
+      .pub-intro,
+      .tabs-container,
+      .entries-container {
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .pub-intro {
+        text-align: center;
+      }
+
+      .tabs-container {
+        display: flex;
+        justify-content: center;
+      }
+
+      .tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: center;
+      }
+
+      .entries {
+        align-items: center;
+      }
+
+      .entry {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0.75rem 0;
+        margin: 0;
+      }
+
+      .entry.publication,
+      .entry.project {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .entry.teaching {
+        width: 100%;
+      }
+
+      .entry-image-container {
+        width: 100%;
+        margin: 0;
+      }
+
+      .entry img,
+      .entry video {
+        width: 100% !important;
+        max-height: 210px;
+        object-fit: contain;
+      }
+
+      .entry-info {
+        width: 100%;
+        max-width: 100%;
+        padding-right: 0;
+        text-align: left;
+      }
+
+      .entry-info h3 {
+        line-height: 1.3;
+      }
+
+      .entry-type-label {
+        position: static;
+        margin-left: 0.45rem;
+        vertical-align: middle;
+      }
+    }
+
   </style>
   <script>
     function showSection(section, event) {
@@ -329,30 +488,35 @@
 
       // Update active tab
       tabs.forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
+      if (event && event.target) {
+        event.target.classList.add('active');
+      } else {
+        const defaultTab = document.querySelector(`.tabs button[data-section="${section}"]`);
+        if (defaultTab) defaultTab.classList.add('active');
+      }
 
       // Show/hide content based on selection
       if (section === 'all') {
         entries.style.display = 'flex';
         document.querySelectorAll('.entry').forEach(e => e.style.display = 'flex');
-        document.querySelectorAll('h2').forEach(h => h.style.display = 'block');
-        document.querySelector('.teaching-list').style.display = 'block';
       } else if (section === 'publications') {
         entries.style.display = 'flex';
         document.querySelectorAll('.entry').forEach(e => e.style.display = 'none');
         document.querySelectorAll('.entry.publication').forEach(e => e.style.display = 'flex');
-        document.querySelector('.teaching-list').style.display = 'none';
       } else if (section === 'projects') {
         entries.style.display = 'flex';
         document.querySelectorAll('.entry').forEach(e => e.style.display = 'none');
         document.querySelectorAll('.entry.project').forEach(e => e.style.display = 'flex');
-        document.querySelector('.teaching-list').style.display = 'none';
       } else if (section === 'teaching') {
         entries.style.display = 'flex';
         document.querySelectorAll('.entry').forEach(e => e.style.display = 'none');
         document.querySelectorAll('.entry.teaching').forEach(e => e.style.display = 'flex');
       }
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      showSection('all');
+    });
   </script>
 </head>
 
@@ -361,38 +525,50 @@
     <div class="content">
       <div class="hero-section">
         <div class="hero-photo">
-          <img src="image/modif.png" alt="Žiga">
+          <img src="image/cap.png" alt="Žiga">
         </div>
         <div class="hero-info">
           <div class="hero-name">Žiga Kovačič</div>
           <p class="hero-bio" style="margin-top: 0; margin-bottom: 0;">
             I'm a Cornell undergrad advised by <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin
               Ellis</a> and <a href="https://www.cs.cornell.edu/~srm/" target="_blank">Steve Marschner</a>. I'm interested
-            in which levels of abstraction are most useful for building world models for specific tasks, including hybrid
+            in which levels of abstraction are most useful for building world models, including hybrid
             neuro-classical simulators and abstract internal models for embodiment.
           </p>
+          <p class="hero-update">I'm an incoming CS PhD student at Stanford (Fall 2026)!</p>
           <div class="hero-links">
             <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ"><i
                 class="fas fa-graduation-cap"></i> Scholar</a>
             <a target="_blank" href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
             <a target="_blank" href="https://x.com/zzigakovacic"><i class="fab fa-twitter"></i> X</a>
             <a target="_blank" href="pdf/grad_school.pdf"><i class="fas fa-file-alt"></i> CV</a>
-            <a href="mailto:zk66@cornell.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="mailto:zk66@cornell.edu" aria-label="Email"><i class="fas fa-envelope"></i> Email</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  </div>
+  <section class="news-section">
+    <h2 class="section-header" style="margin-top: 0;">News</h2>
+    <ul class="news-list">
+      <li class="news-item"><strong>Mar. 2026</strong> Recognised as top 1% of graduating class, Merrill Presidential
+        Scholar award.</li>
+      <li class="news-item"><strong>Mar. 2026</strong> Accepted to PhD programs including Stanford CS, MIT EECS, and
+        UPenn CS.</li>
+    </ul>
+  </section>
 
-  <!-- Tabs - Original style with OpenAI colors -->
+  <p class="pub-intro">See my <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Google
+      Scholar</a> for the most up-to-date publication list.</p>
+
+  <!-- Tabs - Owen-inspired style -->
   <div class="tabs-container">
     <div class="tabs">
-      <button class="active" onclick="showSection('all', event)">All</button>
-      <button onclick="showSection('publications', event)">Publications</button>
-      <button onclick="showSection('projects', event)">Projects</button>
-      <button onclick="showSection('teaching', event)">Teaching</button>
+      <button class="active" data-section="all" onclick="showSection('all', event)">All</button>
+      <button data-section="publications" onclick="showSection('publications', event)">Publications</button>
+      <button data-section="projects" onclick="showSection('projects', event)">Projects</button>
+      <button data-section="teaching" onclick="showSection('teaching', event)">Teaching</button>
     </div>
   </div>
 
@@ -401,7 +577,7 @@
     <div class="entries" id="all-content">
 
       <!-- Publication 1 -->
-      <div class="entry publication">
+      <div class="entry publication selected">
         <div class="entry-image-container">
           <img src="image/refactor_figure.png" alt="Refactoring Codebases">
         </div>
@@ -421,7 +597,7 @@
       </div>
 
       <!-- Publication 2 -->
-      <div class="entry publication">
+      <div class="entry publication selected">
         <div class="entry-image-container">
           <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
         </div>
@@ -431,12 +607,14 @@
           <div class="venue">Online Book (2025)</div>
           <div class="links">
             <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
+            <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
+              Code</a>
           </div>
         </div>
       </div>
 
       <!-- Publication 3 -->
-      <div class="entry publication">
+      <div class="entry publication selected">
         <div class="entry-image-container">
           <video autoplay loop muted playsinline>
             <source src="video/ptl.mp4" type="video/mp4">
@@ -448,6 +626,8 @@
           <div class="venue">SIGGRAPH (2025)</div>
           <div class="links">
             <a href="https://pocket-timelapse.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+            <a href="https://github.com/abedavis/pocket-time-lapse-registration" target="_blank"><i
+                class="fab fa-github"></i> Code</a>
           </div>
         </div>
       </div>
@@ -659,6 +839,7 @@
       </div>
     </div>
   </div>
+
 </body>
 
 </html>
