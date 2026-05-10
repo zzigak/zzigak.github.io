@@ -14,6 +14,10 @@
         <strong>Left/Right</strong>, and follow the voice.
       </p>
       <p class="quick-description">
+        The first round is a guided demo with map visible. After you clear it, the real game starts
+        and map is hidden by default.
+      </p>
+      <p class="quick-description">
         To change settings, open the <strong>Controls</strong> tab (voice, maze size, interval, map).
         To watch replay: finish a run, open <strong>Controls</strong>, choose a run in
         <strong>Replay Run</strong>, then click <strong>Replay Run</strong>.
@@ -97,10 +101,11 @@
           />
         </section>
 
-        <section class="viz" id="vizSection" hidden>
-          <canvas id="topDownCanvas" width="420" height="420"></canvas>
-        </section>
       </details>
+
+      <section class="viz" id="vizSection" hidden>
+        <canvas id="topDownCanvas" width="420" height="420"></canvas>
+      </section>
     </main>
 
     <script src="./maze.js"></script>

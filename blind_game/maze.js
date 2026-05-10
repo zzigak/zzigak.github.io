@@ -79,6 +79,9 @@ let guide = { x: 1.5, y: 1.5 };
 let mazeCompleted = false;
 let mapVisible = false;
 let runActive = false;
+let demoRoundActive = false;
+let demoTransitionPending = false;
+let demoRoundCompleted = false;
 
 let currentMapId = 1;
 let sameMapTotalMs = 0;
@@ -542,6 +545,9 @@ function checkGoal() {
       clearInterval(pulseTimerId);
       pulseTimerId = null;
     }
+    if (demoRoundActive) {
+      beginRealGameAfterDemo();
+    }
   }
 }
 
@@ -845,7 +851,7 @@ function enableControls() {
   retryMapButton.disabled = false;
   newMazeButton.disabled = false;
   replayButton.disabled = runHistory.length === 0;
-  toggleMapButton.disabled = false;
+  toggleMapButton.disabled = demoRoundActive;
   mazeSizeSelect.disabled = false;
   intervalSlider.disabled = false;
   facingSlider.disabled = false;
@@ -857,8 +863,15 @@ function updateIntervalLabel() {
 }
 
 function updateMapVisibility() {
+  if (demoRoundActive) {
+    mapVisible = true;
+  }
   vizSection.hidden = !mapVisible;
-  toggleMapButton.textContent = mapVisible ? "Hide Map" : "Show Map";
+  if (demoRoundActive) {
+    toggleMapButton.textContent = "Map Locked (Demo)";
+  } else {
+    toggleMapButton.textContent = mapVisible ? "Hide Map" : "Show Map";
+  }
 }
 
 function resetPlayerForRun() {
@@ -972,6 +985,47 @@ function waitMs(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function showDemoRoundInstructions() {
+  if (demoRoundCompleted) return;
+  alert(
+    "Demo Round (Map Visible)\n\n" +
+      "1) Move with W / A / S / D.\n" +
+      "2) Rotate with Left / Right arrows.\n" +
+      "3) Follow the voice and also watch the map this round.\n" +
+      "4) Orange marker/sound is your guide; green is the goal.\n\n" +
+      "After this demo clears, the real game starts with map hidden by default."
+  );
+}
+
+async function beginRealGameAfterDemo() {
+  if (demoTransitionPending || !demoRoundActive) return;
+  demoTransitionPending = true;
+  await waitMs(260);
+  alert(
+    "Now the real game begins.\n\n" +
+      "The map is now hidden by default.\n" +
+      "Use audio direction first.\n" +
+      "Open Controls any time to show map, change settings, or replay runs."
+  );
+
+  demoRoundActive = false;
+  demoRoundCompleted = true;
+  mapVisible = false;
+  updateMapVisibility();
+  enableControls();
+
+  stopReplay();
+  maze = createMaze(mazeSize, mazeSize);
+  mazeSnapshot = cloneMaze(maze);
+  currentMapId += 1;
+  sameMapTotalMs = 0;
+  resetPlayerForRun();
+  await playGuideArrivalSequence();
+  await playStartBeep();
+  startGameplayNow();
+  demoTransitionPending = false;
+}
+
 function createSpatialPannerAt(worldX, worldY) {
   const localPanner = audioCtx.createPanner();
   localPanner.panningModel = "HRTF";
@@ -1068,6 +1122,12 @@ startButton.addEventListener("click", async () => {
   runHistory = [];
   runHistoryCounter = 1;
   updateReplaySelectOptions();
+  demoRoundActive = true;
+  demoRoundCompleted = false;
+  demoTransitionPending = false;
+  mapVisible = true;
+  updateMapVisibility();
+  showDemoRoundInstructions();
   resetPlayerForRun();
   updateTimerHud();
 
@@ -1125,6 +1185,7 @@ runReplaySelect.addEventListener("change", () => {
 });
 
 toggleMapButton.addEventListener("click", () => {
+  if (demoRoundActive) return;
   mapVisible = !mapVisible;
   updateMapVisibility();
 });
