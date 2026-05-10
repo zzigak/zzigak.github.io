@@ -1,0 +1,141 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #f3f4f6;
+  background: #000;
+}
+
+.timer-hud {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  background: rgba(4, 4, 4, 0.96);
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-width: 180px;
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.app {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0 0 14px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.controls,
+.status,
+.facing-controls {
+  margin-bottom: 16px;
+}
+
+button {
+  padding: 9px 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  color: #f5f5f5;
+  background: #050505;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background: #101010;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.status {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+}
+
+.facing-controls label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+#intervalSlider,
+#facingSlider {
+  width: 100%;
+  max-width: 480px;
+}
+
+#mazeSizeSelect,
+#voiceSelect {
+  width: 100%;
+  max-width: 220px;
+  padding: 8px 10px;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  color: #f5f5f5;
+  background: #050505;
+}
+
+#runReplaySelect {
+  width: 100%;
+  margin-top: 4px;
+  padding: 6px 8px;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  color: #f5f5f5;
+  background: #050505;
+}
+
+.hint {
+  display: none;
+}
+
+.direction-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 14px 0 16px;
+}
+
+.direction-grid button.active {
+  border-color: #9ca3af;
+  background: #151515;
+}
+
+.viz {
+  background: #020202;
+  border: 1px solid #252525;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+#topDownCanvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  background: #000;
+  border-radius: 6px;
+}

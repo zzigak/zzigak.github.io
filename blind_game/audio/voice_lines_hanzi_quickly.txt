@@ -1,0 +1,6 @@
+filename	voice	line_id	hanzi
+bright_adventurer_04_quickly_lets_go.wav	bright_adventurer	04_quickly_lets_go	快点！我们现在就走！
+elegant_mage_04_quickly_lets_go.wav	elegant_mage	04_quickly_lets_go	快点！我们现在就走！
+calm_shrine_style_04_quickly_lets_go.wav	calm_shrine_style	04_quickly_lets_go	快点！我们现在就走！
+playful_companion_04_quickly_lets_go.wav	playful_companion	04_quickly_lets_go	快点！我们现在就走！
+teacher_motherly_04_quickly_lets_go.wav	teacher_motherly	04_quickly_lets_go	快点！我们现在就走！

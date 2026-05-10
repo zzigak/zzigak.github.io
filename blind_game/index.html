@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spatial Audio Direction Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <aside class="timer-hud" id="timerHud">
+      <div><strong>Current:</strong> <span id="currentTimeLabel">00:00.0</span></div>
+      <div><strong>Same Map Total:</strong> <span id="sameMapTotalLabel">00:00.0</span></div>
+      <div><strong>Map:</strong> <span id="mapIdLabel">#1</span></div>
+      <div><strong>Wall Hit Rate:</strong> <span id="wallHitRateLabel">0.0% (0/0)</span></div>
+      <div><strong>Replay Run:</strong></div>
+      <select id="runReplaySelect" disabled></select>
+    </aside>
+
+    <main class="app">
+      <h1>Audio Maze Guide</h1>
+
+      <section class="controls">
+        <button id="startButton">Start Audio</button>
+        <button id="retryMapButton" disabled>Retry Same Map</button>
+        <button id="newMazeButton" disabled>New Map</button>
+        <button id="replayButton" disabled>Replay Run</button>
+        <button id="toggleMapButton" disabled>Show Map</button>
+      </section>
+
+      <section class="facing-controls">
+        <label for="mazeSizeSelect">Maze Size</label>
+        <select id="mazeSizeSelect">
+          <option value="11">Small</option>
+          <option value="13" selected>Medium</option>
+          <option value="17">Large</option>
+        </select>
+      </section>
+
+      <section class="facing-controls">
+        <label for="voiceSelect">Voice</label>
+        <select id="voiceSelect">
+          <option value="bright_generated" selected>Bright Adventurer (Generated)</option>
+          <option value="teacher_generated">Teacher Motherly (Generated)</option>
+          <option value="big_sister">Big Sister</option>
+        </select>
+      </section>
+
+      <section class="facing-controls">
+        <label for="intervalSlider">Guide Interval: <span id="intervalValue">2.4s</span></label>
+        <input
+          type="range"
+          id="intervalSlider"
+          min="2"
+          max="3"
+          step="0.1"
+          value="2.4"
+        />
+      </section>
+
+      <section class="status">
+        <div><strong>Facing:</strong> <span id="facingLabel">North</span></div>
+        <div><strong>Guide Direction:</strong> <span id="guideDirectionLabel">Forward</span></div>
+        <div><strong>Distance to Guide:</strong> <span id="distanceLabel">--</span></div>
+        <div><strong>Maze:</strong> <span id="mazeStatusLabel">Waiting to start</span></div>
+      </section>
+
+      <section class="facing-controls">
+        <label for="facingSlider">Facing Angle (or use Left/Right arrows)</label>
+        <input
+          type="range"
+          id="facingSlider"
+          min="0"
+          max="270"
+          step="90"
+          value="0"
+          disabled
+        />
+      </section>
+
+      <section class="status">
+        <div><strong>Move:</strong> <span>W/A/S/D (forward/left/back/right relative to view)</span></div>
+        <div><strong>Rotate:</strong> <span>Left / Right arrows</span></div>
+        <div><strong>Map:</strong> <span>Hidden by default, toggle when needed</span></div>
+      </section>
+
+      <section class="viz" id="vizSection" hidden>
+        <canvas id="topDownCanvas" width="420" height="420"></canvas>
+      </section>
+    </main>
+
+    <script src="./maze.js"></script>
+  </body>
+</html>
