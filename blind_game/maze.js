@@ -48,22 +48,12 @@ const VOICE_PACKS = {
   },
   big_sister: {
     guide: [
-      [
-        "./audio/ara_ara_big_sister_01_come_here.wav",
-      ],
-      [
-        "./audio/ara_ara_big_sister_01_come_here.wav",
-      ],
-      [
-        "./audio/ara_ara_big_sister_01_come_here.wav",
-      ],
-      [
-        "./audio/ara_ara_big_sister_01_come_here.wav",
-      ],
+      ["./audio/ara_ara_big_sister_01_this_way.wav"],
+      ["./audio/ara_ara_big_sister_01_over_here.wav"],
+      ["./audio/ara_ara_big_sister_01_come_here.wav"],
+      ["./audio/ara_ara_big_sister_04_quickly_lets_go.wav"],
     ],
-    intro: [
-      "./audio/ara_ara_big_sister_00_intro.wav",
-    ],
+    intro: ["./audio/ara_ara_big_sister_00_intro.wav"],
   },
 };
 
@@ -76,7 +66,7 @@ let guideClipIndex = 0;
 let introClipBuffer = null;
 let pulseTimerId = null;
 let activePulseIntervalMs = null;
-let pulsePeak = 0.3;
+let pulsePeak = 0.45;
 let pulseIntervalMs = 2400;
 
 let facingDegrees = 0;
@@ -447,8 +437,9 @@ function updateGuideAudio() {
   const frontScale = (frontness + 1) / 2;
   const directionalGain = 0.62 + frontScale * 0.38;
   distanceToneGain.gain.setTargetAtTime((distanceFactor + nearBoost) * directionalGain, now, 0.04);
-  toneFilter.frequency.setTargetAtTime(1800, now, 0.08);
-  pulsePeak = 0.32;
+  // Keep the repeating guide call bright/clear, closer to the intro callout timbre.
+  toneFilter.frequency.setTargetAtTime(4200, now, 0.06);
+  pulsePeak = 0.45;
 }
 
 function updateListener() {
@@ -590,7 +581,7 @@ function playStepSound() {
 
   const gain = audioCtx.createGain();
   gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(0.035, now + 0.006);
+  gain.gain.exponentialRampToValueAtTime(0.05, now + 0.006);
   gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
 
   source.connect(filter);
@@ -636,8 +627,8 @@ function movePlayer(localX, localY) {
 }
 
 function getSelectedVoicePackKey() {
-  const selected = voiceSelect?.value || "bright_generated";
-  return VOICE_PACKS[selected] ? selected : "bright_generated";
+  const selected = voiceSelect?.value || "big_sister";
+  return VOICE_PACKS[selected] ? selected : "big_sister";
 }
 
 async function decodeFirstAvailable(candidates) {
@@ -688,8 +679,8 @@ async function initializeAudio() {
   distanceToneGain = audioCtx.createGain();
   panner = audioCtx.createPanner();
   toneFilter.type = "lowpass";
-  toneFilter.frequency.value = 2400;
-  toneFilter.Q.value = 0.5;
+  toneFilter.frequency.value = 5200;
+  toneFilter.Q.value = 0.35;
   distanceToneGain.gain.value = 1;
   panner.panningModel = "HRTF";
   panner.distanceModel = "inverse";
@@ -977,6 +968,94 @@ function playStartBeep() {
   });
 }
 
+function waitMs(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function createSpatialPannerAt(worldX, worldY) {
+  const localPanner = audioCtx.createPanner();
+  localPanner.panningModel = "HRTF";
+  localPanner.distanceModel = "inverse";
+  localPanner.refDistance = 0.9;
+  localPanner.maxDistance = 24;
+  localPanner.rolloffFactor = 1.25;
+  localPanner.coneInnerAngle = 360;
+  localPanner.coneOuterAngle = 0;
+  localPanner.coneOuterGain = 0;
+  localPanner.positionX.setValueAtTime(worldX - player.x, audioCtx.currentTime);
+  localPanner.positionY.setValueAtTime(0, audioCtx.currentTime);
+  localPanner.positionZ.setValueAtTime(worldY - player.y, audioCtx.currentTime);
+  return localPanner;
+}
+
+function playGuideFootstepAt(worldX, worldY, gainAmount = 0.08) {
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  const noiseBuffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * 0.06), audioCtx.sampleRate);
+  const data = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < data.length; i += 1) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+  }
+  const source = audioCtx.createBufferSource();
+  source.buffer = noiseBuffer;
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(760, now);
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(gainAmount, now + 0.008);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+  const localPanner = createSpatialPannerAt(worldX, worldY);
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(localPanner);
+  localPanner.connect(audioCtx.destination);
+  source.start(now);
+  source.stop(now + 0.11);
+}
+
+function playGuideCalloutAt(buffer, worldX, worldY, gainAmount = 0.98) {
+  return new Promise((resolve) => {
+    if (!audioCtx || !buffer) {
+      resolve();
+      return;
+    }
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+    const gain = audioCtx.createGain();
+    gain.gain.value = gainAmount;
+    const localPanner = createSpatialPannerAt(worldX, worldY);
+    source.connect(gain);
+    gain.connect(localPanner);
+    localPanner.connect(audioCtx.destination);
+    source.onended = () => resolve();
+    source.start();
+  });
+}
+
+async function playGuideArrivalSequence() {
+  if (!audioCtx || guideClipBuffers.length === 0) return;
+  mazeStatusLabel.textContent = "Guide is taking position...";
+  await waitMs(420);
+  updateGuideWaypoint();
+  const targetX = guide.x;
+  const targetY = guide.y;
+  const startX = player.x + 0.15;
+  const startY = player.y + 1.1;
+  const steps = 6;
+  for (let index = 0; index < steps; index += 1) {
+    const ratio = (index + 1) / steps;
+    const x = startX + (targetX - startX) * ratio;
+    const y = startY + (targetY - startY) * ratio;
+    playGuideFootstepAt(x, y, 0.09);
+    await waitMs(190);
+  }
+  await waitMs(170);
+  const clip = guideClipBuffers[guideClipIndex];
+  guideClipIndex = (guideClipIndex + 1) % guideClipBuffers.length;
+  await playGuideCalloutAt(clip, targetX, targetY, 1.02);
+}
+
 startButton.addEventListener("click", async () => {
   await initializeAudio();
   if (audioCtx.state === "suspended") await audioCtx.resume();
@@ -994,6 +1073,7 @@ startButton.addEventListener("click", async () => {
 
   mazeStatusLabel.textContent = "Tutorial in progress";
   await playOneShotToDestination(introClipBuffer, 0.92);
+  await playGuideArrivalSequence();
   await playStartBeep();
 
   startGameplayNow();
