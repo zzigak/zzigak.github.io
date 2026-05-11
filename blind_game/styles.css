@@ -5,7 +5,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   color: #f3f4f6;
   background: #000;
 }
@@ -39,10 +39,25 @@ h1 {
   line-height: 1.45;
 }
 
+.onboarding {
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 16px;
+  background: #030303;
+  margin-bottom: 16px;
+}
+
 .controls,
 .status,
 .facing-controls {
   margin-bottom: 16px;
+}
+
+button,
+select,
+input,
+summary {
+  font-family: inherit;
 }
 
 button {
@@ -115,7 +130,8 @@ button:disabled {
 }
 
 #mazeSizeSelect,
-#voiceSelect {
+#voiceSelect,
+#onboardingLanguage {
   width: 100%;
   max-width: 220px;
   padding: 8px 10px;

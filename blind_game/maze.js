@@ -20,33 +20,23 @@ const runReplaySelect = document.getElementById("runReplaySelect");
 const vizSection = document.getElementById("vizSection");
 const canvas = document.getElementById("topDownCanvas");
 const ctx = canvas.getContext("2d");
+const onboardingScreen = document.getElementById("onboardingScreen");
+const onboardingLanguage = document.getElementById("onboardingLanguage");
+const onboardingTitle = document.getElementById("onboardingTitle");
+const onboardingContext = document.getElementById("onboardingContext");
+const onboardingSafety = document.getElementById("onboardingSafety");
+const onboardingHowTo = document.getElementById("onboardingHowTo");
+const enterGameButton = document.getElementById("enterGameButton");
+const gamePanel = document.getElementById("gamePanel");
 
 const DEFAULT_MAZE_SIZE = 13;
 const MOVE_STEP = 1;
 const PLAYER_RADIUS = 0.16;
 const WALL_THICKNESS = 0.13;
-
 const CARDINAL_LABELS = ["North", "East", "South", "West"];
+/** Only two voices: Chinese (ara) vs Japanese-style one-shots + Anna long loop. */
 const VOICE_PACKS = {
-  bright_generated: {
-    guide: [
-      ["./audio/bright_adventurer_01_this_way.wav"],
-      ["./audio/bright_adventurer_01_over_here.wav"],
-      ["./audio/bright_adventurer_01_come_here.wav"],
-      ["./audio/bright_adventurer_04_quickly_lets_go.wav"],
-    ],
-    intro: ["./audio/bright_adventurer_00_intro.wav"],
-  },
-  teacher_generated: {
-    guide: [
-      ["./audio/teacher_motherly_01_this_way.wav"],
-      ["./audio/teacher_motherly_01_over_here.wav"],
-      ["./audio/teacher_motherly_01_come_here.wav"],
-      ["./audio/teacher_motherly_04_quickly_lets_go.wav"],
-    ],
-    intro: ["./audio/teacher_motherly_00_intro.wav"],
-  },
-  big_sister: {
+  chinese: {
     guide: [
       ["./audio/ara_ara_big_sister_01_this_way.wav"],
       ["./audio/ara_ara_big_sister_01_over_here.wav"],
@@ -54,6 +44,17 @@ const VOICE_PACKS = {
       ["./audio/ara_ara_big_sister_04_quickly_lets_go.wav"],
     ],
     intro: ["./audio/ara_ara_big_sister_00_intro.wav"],
+    continuous: "./audio/ara_ara_big_sister_001.wav",
+  },
+  japanese: {
+    guide: [
+      ["./audio/calm_shrine_style_01_this_way.wav"],
+      ["./audio/calm_shrine_style_01_over_here.wav"],
+      ["./audio/calm_shrine_style_01_come_here.wav"],
+      ["./audio/calm_shrine_style_04_quickly_lets_go.wav"],
+    ],
+    intro: ["./audio/calm_shrine_style_00_intro.wav"],
+    continuous: "./audio/Ono_Anna_001.wav",
   },
 };
 
@@ -64,6 +65,16 @@ let panner = null;
 let guideClipBuffers = [];
 let guideClipIndex = 0;
 let introClipBuffer = null;
+let continuousGuideElement = null;
+let continuousGuideMediaNode = null;
+let continuousGuideGain = null;
+
+/** Must run synchronously during a user gesture — see startButton handler. */
+function resumeAudioContextSync() {
+  if (!audioCtx || audioCtx.state === "running") return;
+  
+  void audioCtx.resume();
+}
 let pulseTimerId = null;
 let activePulseIntervalMs = null;
 let pulsePeak = 0.45;
@@ -100,6 +111,30 @@ let runHistory = [];
 let runHistoryCounter = 1;
 let currentRunStepAttempts = 0;
 let currentRunWallHits = 0;
+let safetyPromptShown = false;
+
+const ONBOARDING_COPY = {
+  zh: {
+    title: "盲人音频迷宫",
+    context:
+      "这是一个依靠空间音频导航的迷宫。第一局是演示局（地图可见），通关后进入正式局（默认隐藏地图）。",
+    safety:
+      "开始认真游玩前，请闭眼或戴上眼罩，只用声音来判断方向。",
+    howTo:
+      "进入游戏后点击 Start Audio。使用 W/A/S/D 移动，左右方向键旋转。语音可在 Controls 里切换（中文 / 日语）。重玩、地图和回放在 Controls 里。",
+    enter: "进入游戏面板",
+  },
+  ja: {
+    title: "ブラインド音声迷路",
+    context:
+      "この迷路は立体音響で進みます。1回目は地図ありのデモ、クリア後は地図非表示の本番モードになります。",
+    safety:
+      "本番プレイでは、目を閉じるかアイマスクを着けて、音だけで進んでください。",
+    howTo:
+      "ゲーム画面で Start Audio を押します。W/A/S/D で移動、左右キーで回転。音声は Controls で中文/日本語を切り替えできます。設定とリプレイは Controls にあります。",
+    enter: "ゲーム画面へ進む",
+  },
+};
 
 function clampAngle(value) {
   const normalized = value % 360;
@@ -132,6 +167,22 @@ function updateTimerHud() {
   mapIdLabel.textContent = `#${currentMapId}`;
   const hitRate = currentRunStepAttempts > 0 ? (currentRunWallHits / currentRunStepAttempts) * 100 : 0;
   wallHitRateLabel.textContent = `${hitRate.toFixed(1)}% (${currentRunWallHits}/${currentRunStepAttempts})`;
+}
+
+function renderOnboarding(languageKey) {
+  const lang = ONBOARDING_COPY[languageKey] ? languageKey : "zh";
+  const copy = ONBOARDING_COPY[lang];
+  onboardingTitle.textContent = copy.title;
+  onboardingContext.textContent = copy.context;
+  onboardingSafety.textContent = copy.safety;
+  onboardingHowTo.textContent = copy.howTo;
+  enterGameButton.textContent = copy.enter;
+}
+
+function getContinuousGuideTrack() {
+  const key = getSelectedVoicePackKey();
+  const pack = VOICE_PACKS[key];
+  return pack?.continuous || VOICE_PACKS.chinese.continuous;
 }
 
 function startRunTimer() {
@@ -439,10 +490,19 @@ function updateGuideAudio() {
   const nearBoost = distance < 0.7 ? Math.min(0.06, (0.7 - distance) * 0.12) : 0;
   const frontScale = (frontness + 1) / 2;
   const directionalGain = 0.62 + frontScale * 0.38;
-  distanceToneGain.gain.setTargetAtTime((distanceFactor + nearBoost) * directionalGain, now, 0.04);
+  const guideGainTarget = (distanceFactor + nearBoost) * directionalGain;
+  distanceToneGain.gain.setTargetAtTime(guideGainTarget, now, 0.04);
   // Keep the repeating guide call bright/clear, closer to the intro callout timbre.
   toneFilter.frequency.setTargetAtTime(4200, now, 0.06);
   pulsePeak = 0.45;
+  if (continuousGuideGain) {
+    if (!runActive || mazeCompleted) {
+      continuousGuideGain.gain.setTargetAtTime(0.0001, now, 0.04);
+    } else {
+      const volumeTarget = Math.max(0.08, Math.min(1, pulsePeak));
+      continuousGuideGain.gain.setTargetAtTime(volumeTarget, now, 0.04);
+    }
+  }
 }
 
 function updateListener() {
@@ -467,56 +527,48 @@ function updateListener() {
   }
 }
 
-function pulseGuide() {
-  if (
-    !audioCtx ||
-    !distanceToneGain ||
-    !toneFilter ||
-    guideClipBuffers.length === 0 ||
-    mazeCompleted ||
-    !runActive
-  ) {
+function stopContinuousGuideVoice() {
+  if (continuousGuideGain && audioCtx) {
+    continuousGuideGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.03);
+  } else if (continuousGuideElement) {
+    continuousGuideElement.volume = 0;
+  }
+}
+
+function ensureContinuousGuideVoice() {
+  if (!audioCtx || !runActive || mazeCompleted) {
     return;
   }
-  const now = audioCtx.currentTime;
-  const clipBuffer = guideClipBuffers[guideClipIndex];
-  guideClipIndex = (guideClipIndex + 1) % guideClipBuffers.length;
-  const source = audioCtx.createBufferSource();
-  source.buffer = clipBuffer;
-  source.playbackRate.value = 1;
-  const pulseGain = audioCtx.createGain();
-  pulseGain.gain.setValueAtTime(0.0001, now);
-  pulseGain.gain.exponentialRampToValueAtTime(pulsePeak, now + 0.02);
-  const clipDuration = Math.min(clipBuffer.duration, Math.max(1.8, pulseIntervalMs / 1000 - 0.15));
-  const fadeOutStart = Math.max(now + 0.3, now + clipDuration - 0.16);
-  pulseGain.gain.setValueAtTime(pulsePeak, fadeOutStart);
-  pulseGain.gain.exponentialRampToValueAtTime(0.0001, now + clipDuration);
-  source.connect(pulseGain);
-  pulseGain.connect(toneFilter);
-  source.start(now);
-  source.stop(now + clipDuration);
-  if (runActive) {
-    currentRunPulseEvents.push({
-      t: Math.max(0, Date.now() - currentRunStartedAtMs),
-      x: guide.x,
-      y: guide.y,
+  resumeAudioContextSync();
+  if (!continuousGuideElement) {
+    continuousGuideElement = new Audio(getContinuousGuideTrack());
+    continuousGuideElement.loop = true;
+    continuousGuideElement.preload = "auto";
+    continuousGuideElement.volume = 1;
+  }
+  if (!continuousGuideMediaNode && audioCtx) {
+    continuousGuideMediaNode = audioCtx.createMediaElementSource(continuousGuideElement);
+    continuousGuideGain = audioCtx.createGain();
+    continuousGuideGain.gain.value = 0.0001;
+    continuousGuideMediaNode.connect(continuousGuideGain);
+    continuousGuideGain.connect(toneFilter);
+  }
+  const playPromise = continuousGuideElement.play();
+  if (playPromise?.catch) {
+    playPromise.catch(() => {
+      // Ignore autoplay races; next user-gesture tick will resume.
     });
   }
 }
 
+function pulseGuide() {
+  ensureContinuousGuideVoice();
+}
+
 function updatePulseLoop() {
-  if (mazeCompleted || !runActive) {
-    if (pulseTimerId) {
-      clearInterval(pulseTimerId);
-      pulseTimerId = null;
-      activePulseIntervalMs = null;
-    }
-    return;
+  if (runActive && !mazeCompleted) {
+    ensureContinuousGuideVoice();
   }
-  if (pulseTimerId && activePulseIntervalMs === pulseIntervalMs) return;
-  if (pulseTimerId) clearInterval(pulseTimerId);
-  pulseTimerId = setInterval(pulseGuide, pulseIntervalMs);
-  activePulseIntervalMs = pulseIntervalMs;
 }
 
 function updateGuideState() {
@@ -545,6 +597,7 @@ function checkGoal() {
       clearInterval(pulseTimerId);
       pulseTimerId = null;
     }
+    stopContinuousGuideVoice();
     if (demoRoundActive) {
       beginRealGameAfterDemo();
     }
@@ -633,8 +686,8 @@ function movePlayer(localX, localY) {
 }
 
 function getSelectedVoicePackKey() {
-  const selected = voiceSelect?.value || "big_sister";
-  return VOICE_PACKS[selected] ? selected : "big_sister";
+  const selected = voiceSelect?.value || "chinese";
+  return VOICE_PACKS[selected] ? selected : "chinese";
 }
 
 async function decodeFirstAvailable(candidates) {
@@ -670,39 +723,21 @@ async function loadGuideClipBuffer(forceReload = false) {
   introClipBuffer = null;
 
   const selectedKey = getSelectedVoicePackKey();
-  let loaded = await loadPackBuffers(VOICE_PACKS[selectedKey]);
+  const loaded = await loadPackBuffers(VOICE_PACKS[selectedKey]);
   guideClipBuffers = loaded.guide;
   introClipBuffer = loaded.intro;
+
   if (guideClipBuffers.length === 0) {
     mazeStatusLabel.textContent = `No guide clips found for voice: ${selectedKey}`;
   }
 }
 
 async function initializeAudio() {
-  if (audioCtx) return;
-  audioCtx = new AudioContext();
-  toneFilter = audioCtx.createBiquadFilter();
-  distanceToneGain = audioCtx.createGain();
-  panner = audioCtx.createPanner();
-  toneFilter.type = "lowpass";
-  toneFilter.frequency.value = 5200;
-  toneFilter.Q.value = 0.35;
-  distanceToneGain.gain.value = 1;
-  panner.panningModel = "HRTF";
-  panner.distanceModel = "inverse";
-  panner.refDistance = 0.9;
-  panner.maxDistance = 24;
-  panner.rolloffFactor = 1.3;
-  panner.coneInnerAngle = 360;
-  panner.coneOuterAngle = 0;
-  panner.coneOuterGain = 0;
-  toneFilter.connect(distanceToneGain);
-  distanceToneGain.connect(panner);
-  panner.connect(audioCtx.destination);
-
+  // AudioContext and continuous voice chain are set up synchronously in the
+  // click handler before this is called, so this is a no-op on first run.
+  if (!audioCtx) return;
   await loadGuideClipBuffer();
   if (guideClipBuffers.length === 0) mazeStatusLabel.textContent = "Could not load guide clip";
-  updateListener();
 }
 
 function drawMaze() {
@@ -853,13 +888,13 @@ function enableControls() {
   replayButton.disabled = runHistory.length === 0;
   toggleMapButton.disabled = demoRoundActive;
   mazeSizeSelect.disabled = false;
-  intervalSlider.disabled = false;
+  intervalSlider.disabled = true;
   facingSlider.disabled = false;
   runReplaySelect.disabled = runHistory.length === 0;
 }
 
 function updateIntervalLabel() {
-  intervalValue.textContent = `${(pulseIntervalMs / 1000).toFixed(1)}s`;
+  intervalValue.textContent = "Continuous Loop";
 }
 
 function updateMapVisibility() {
@@ -895,6 +930,10 @@ function startGameplayNow() {
   startRunTimer();
   updateGuideState();
   pulseGuide();
+  resumeAudioContextSync();
+  if (continuousGuideElement) {
+    continuousGuideElement.play().catch(() => {});
+  }
 }
 
 function loadNewMap() {
@@ -1007,6 +1046,12 @@ async function beginRealGameAfterDemo() {
       "Use audio direction first.\n" +
       "Open Controls any time to show map, change settings, or replay runs."
   );
+  // Alert may suspend the AudioContext; resume it before playing more audio.
+  if (audioCtx && audioCtx.state === "suspended") await audioCtx.resume();
+  resumeAudioContextSync();
+  if (continuousGuideElement) {
+    continuousGuideElement.play().catch(() => {});
+  }
 
   demoRoundActive = false;
   demoRoundCompleted = true;
@@ -1022,19 +1067,26 @@ async function beginRealGameAfterDemo() {
   resetPlayerForRun();
   await playGuideArrivalSequence();
   await playStartBeep();
+
+  if (audioCtx?.state === "suspended") await audioCtx.resume();
+  resumeAudioContextSync();
+  if (continuousGuideElement) {
+    continuousGuideElement.play().catch(() => {});
+  }
+
   startGameplayNow();
   demoTransitionPending = false;
 }
 
 function createSpatialPannerAt(worldX, worldY) {
   const localPanner = audioCtx.createPanner();
-  localPanner.panningModel = "HRTF";
+  localPanner.panningModel = "equalpower";
   localPanner.distanceModel = "inverse";
   localPanner.refDistance = 0.9;
   localPanner.maxDistance = 24;
   localPanner.rolloffFactor = 1.25;
   localPanner.coneInnerAngle = 360;
-  localPanner.coneOuterAngle = 0;
+  localPanner.coneOuterAngle = 360;
   localPanner.coneOuterGain = 0;
   localPanner.positionX.setValueAtTime(worldX - player.x, audioCtx.currentTime);
   localPanner.positionY.setValueAtTime(0, audioCtx.currentTime);
@@ -1110,9 +1162,84 @@ async function playGuideArrivalSequence() {
   await playGuideCalloutAt(clip, targetX, targetY, 1.02);
 }
 
+onboardingLanguage?.addEventListener("change", () => {
+  renderOnboarding(onboardingLanguage.value);
+  if (voiceSelect) {
+    voiceSelect.value = onboardingLanguage.value === "ja" ? "japanese" : "chinese";
+    voiceSelect.dispatchEvent(new Event("change"));
+  }
+});
+
+enterGameButton?.addEventListener("click", () => {
+  if (onboardingScreen) onboardingScreen.hidden = true;
+  if (gamePanel) gamePanel.hidden = false;
+  startButton.focus();
+});
+
 startButton.addEventListener("click", async () => {
-  await initializeAudio();
+  // ── SYNCHRONOUS BLOCK ──────────────────────────────────────────────────────
+  // Everything here runs in the same browser gesture frame so autoplay is
+  // guaranteed.  We must NOT await or call alert() before reaching the end of
+  // this block.
+  if (!audioCtx) {
+    audioCtx = new AudioContext();
+    toneFilter = audioCtx.createBiquadFilter();
+    toneFilter.type = "lowpass";
+    toneFilter.frequency.value = 5200;
+    toneFilter.Q.value = 0.35;
+    distanceToneGain = audioCtx.createGain();
+    distanceToneGain.gain.value = 1;
+    panner = audioCtx.createPanner();
+    // "equalpower" is more reliable across browsers/OSes than "HRTF" (which
+    // can output silence with some sink configurations).
+    panner.panningModel = "equalpower";
+    panner.distanceModel = "inverse";
+    panner.refDistance = 0.9;
+    panner.maxDistance = 24;
+    panner.rolloffFactor = 1.3;
+    panner.coneInnerAngle = 360;
+    // Some engines behave badly with coneOuterAngle 0; keep a full sphere.
+    panner.coneOuterAngle = 360;
+    panner.coneOuterGain = 0;
+    toneFilter.connect(distanceToneGain);
+    distanceToneGain.connect(panner);
+    panner.connect(audioCtx.destination);
+    updateListener();
+  }
+  if (!continuousGuideMediaNode) {
+    if (!continuousGuideElement) {
+      continuousGuideElement = new Audio(getContinuousGuideTrack());
+      continuousGuideElement.loop = true;
+      continuousGuideElement.preload = "auto";
+      continuousGuideElement.volume = 1;
+    }
+    continuousGuideMediaNode = audioCtx.createMediaElementSource(continuousGuideElement);
+    continuousGuideGain = audioCtx.createGain();
+    continuousGuideGain.gain.value = 0.0001;
+    continuousGuideMediaNode.connect(continuousGuideGain);
+    continuousGuideGain.connect(toneFilter);
+  }
+  // AudioContext starts "suspended"; resume must run in the *same* synchronous
+  // turn as the click/tap (before await), or Safari/Firefox may never process
+  // MediaElementSourceNode output even though play() succeeded.
+  resumeAudioContextSync();
+  if (continuousGuideElement) {
+    continuousGuideElement.play().catch(() => {});
+  }
+  resumeAudioContextSync();
+  // ── END SYNCHRONOUS BLOCK ──────────────────────────────────────────────────
+
+  if (!safetyPromptShown) {
+    alert("For real play: close your eyes or wear a blindfold and use audio only.");
+    safetyPromptShown = true;
+  }
   if (audioCtx.state === "suspended") await audioCtx.resume();
+
+  // Load short voice clips (intro, guide callouts).  The continuous track is
+  // already wired up above so loadGuideClipBuffer only needs to decode the
+  // short buffers now.
+  await loadGuideClipBuffer();
+
   startButton.disabled = true;
   startButton.textContent = "Tutorial...";
   maze = createMaze(mazeSize, mazeSize);
@@ -1128,6 +1255,8 @@ startButton.addEventListener("click", async () => {
   mapVisible = true;
   updateMapVisibility();
   showDemoRoundInstructions();
+  // Resume in case the alert above suspended the context.
+  if (audioCtx.state === "suspended") await audioCtx.resume();
   resetPlayerForRun();
   updateTimerHud();
 
@@ -1135,6 +1264,12 @@ startButton.addEventListener("click", async () => {
   await playOneShotToDestination(introClipBuffer, 0.92);
   await playGuideArrivalSequence();
   await playStartBeep();
+
+  if (audioCtx?.state === "suspended") await audioCtx.resume();
+  resumeAudioContextSync();
+  if (continuousGuideElement) {
+    continuousGuideElement.play().catch(() => {});
+  }
 
   startGameplayNow();
   enableControls();
@@ -1157,14 +1292,32 @@ mazeSizeSelect.addEventListener("change", () => {
 });
 
 voiceSelect.addEventListener("change", async () => {
+  if (onboardingLanguage) {
+    onboardingLanguage.value = voiceSelect.value === "japanese" ? "ja" : "zh";
+    renderOnboarding(onboardingLanguage.value);
+  }
   if (!audioCtx) return;
   await loadGuideClipBuffer(true);
   if (guideClipBuffers.length === 0) {
-    mazeStatusLabel.textContent = "Could not load selected voice clips";
+    mazeStatusLabel.textContent = "Could not load selected guide voice";
     return;
   }
-  if (runActive && !mazeCompleted) {
-    pulseGuide();
+  const track = getContinuousGuideTrack();
+  const tail = track.replace("./", "");
+  if (
+    continuousGuideElement &&
+    typeof continuousGuideElement.src === "string" &&
+    !continuousGuideElement.src.endsWith(tail)
+  ) {
+    const wasPlaying = runActive && !mazeCompleted;
+    stopContinuousGuideVoice();
+    continuousGuideElement.src = track;
+    continuousGuideElement.load();
+    if (wasPlaying) {
+      resumeAudioContextSync();
+      continuousGuideElement.play().catch(() => {});
+      ensureContinuousGuideVoice();
+    }
   }
 });
 
@@ -1206,7 +1359,7 @@ facingSlider.addEventListener("input", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "Enter" && !startButton.disabled && !event.repeat) {
+  if (event.key === "Enter" && !startButton.disabled && !event.repeat && !gamePanel.hidden) {
     event.preventDefault();
     startButton.click();
     return;
@@ -1251,12 +1404,14 @@ window.addEventListener("beforeunload", () => {
   if (pulseTimerId) clearInterval(pulseTimerId);
   if (runTickerId) clearInterval(runTickerId);
   if (replayTimerId) clearInterval(replayTimerId);
+  stopContinuousGuideVoice();
   if (audioCtx) audioCtx.close();
 });
 
 mazeSize = Number(mazeSizeSelect.value) || DEFAULT_MAZE_SIZE;
 maze = createMaze(mazeSize, mazeSize);
 mazeSnapshot = cloneMaze(maze);
+renderOnboarding(onboardingLanguage?.value || "zh");
 updateIntervalLabel();
 updateMapVisibility();
 updateFacingLabel();

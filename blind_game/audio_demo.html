@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spatial demo — short clip ↔ long loop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 2rem;
+        max-width: 42rem;
+        line-height: 1.45;
+        font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      }
+      pre {
+        background: #111;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+      button {
+        font: inherit;
+        padding: 0.45rem 0.9rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Spatial audio demo</h1>
+    <p>
+      Same routing idea as the game: two <code>HTMLAudioElement</code>s → <code>MediaElementSource</code> → gain →
+      lowpass → distance gain → <code>PannerNode</code> → speakers. Starts on the short
+      <strong>come here</strong> clip, then you can switch to the <strong>long</strong> loop. Direction and
+      distance change every few seconds.
+    </p>
+
+    <p>
+      <button type="button" id="startBtn">Start spatial demo</button>
+      <button type="button" id="shortBtn" disabled>Use short clip</button>
+      <button type="button" id="longBtn" disabled>Use long loop</button>
+      <button type="button" id="stopBtn" disabled>Stop</button>
+    </p>
+    <pre id="out">Press Start.</pre>
+
+    <script>
+      const SHORT_CLIP = "./audio/ara_ara_big_sister_01_come_here.wav";
+      const LONG_LOOP = "./audio/ara_ara_big_sister_001.wav";
+
+      const STEP_SEC = 5;
+      /** After this many seconds, crossfade to the long loop (if still on short). */
+      const AUTO_LONG_AFTER_SEC = 18;
+
+      const PHASES = [
+        { label: "In front, close", facingDeg: 0, gx: 0, gy: -1.2 },
+        { label: "To the right", facingDeg: 0, gx: 2, gy: 0 },
+        { label: "Far ahead", facingDeg: 0, gx: 0, gy: -7 },
+        { label: "Behind (you face south)", facingDeg: 180, gx: 0, gy: 3 },
+        { label: "Left", facingDeg: 0, gx: -3.5, gy: 0 },
+        { label: "Far + diagonal", facingDeg: 90, gx: 5, gy: -4 },
+      ];
+
+      const out = document.getElementById("out");
+      const startBtn = document.getElementById("startBtn");
+      const shortBtn = document.getElementById("shortBtn");
+      const longBtn = document.getElementById("longBtn");
+      const stopBtn = document.getElementById("stopBtn");
+
+      let audioCtx = null;
+      let toneFilter = null;
+      let distanceToneGain = null;
+      let panner = null;
+      let shortEl = null;
+      let longEl = null;
+      let shortMedia = null;
+      let longMedia = null;
+      let shortGain = null;
+      let longGain = null;
+      let phaseIndex = 0;
+      let phaseTimerId = null;
+      let autoLongTimerId = null;
+      let running = false;
+      /** "short" | "long" — which source is intended to be audible */
+      let activeMode = "short";
+
+      const player = { x: 0, y: 0 };
+
+      function resumeSync() {
+        if (!audioCtx || audioCtx.state === "running") return;
+        void audioCtx.resume();
+      }
+
+      function statusLine() {
+        const ph = PHASES[phaseIndex];
+        const dx = ph.gx - player.x;
+        const dy = ph.gy - player.y;
+        const dist = Math.hypot(dx, dy);
+        out.textContent =
+          `Context: ${audioCtx ? audioCtx.state : "—"} | Source: ${activeMode} (short = come_here, long = 5min loop)\n` +
+          `Phase ${phaseIndex + 1}/${PHASES.length}: ${ph.label}\n` +
+          `Facing: ${ph.facingDeg}° | Guide Δ: (${dx.toFixed(2)}, ${dy.toFixed(2)}) | distance: ${dist.toFixed(2)}`;
+      }
+
+      function updateListener() {
+        if (!audioCtx) return;
+        const ph = PHASES[phaseIndex];
+        const rad = (ph.facingDeg * Math.PI) / 180;
+        const forwardX = Math.sin(rad);
+        const forwardZ = -Math.cos(rad);
+        const listener = audioCtx.listener;
+        const t = audioCtx.currentTime;
+        if (listener.positionX) {
+          listener.positionX.setValueAtTime(0, t);
+          listener.positionY.setValueAtTime(0, t);
+          listener.positionZ.setValueAtTime(0, t);
+          listener.forwardX.setValueAtTime(forwardX, t);
+          listener.forwardY.setValueAtTime(0, t);
+          listener.forwardZ.setValueAtTime(forwardZ, t);
+          listener.upX.setValueAtTime(0, t);
+          listener.upY.setValueAtTime(1, t);
+          listener.upZ.setValueAtTime(0, t);
+        } else if (listener.setOrientation) {
+          listener.setPosition(0, 0, 0);
+          listener.setOrientation(forwardX, 0, forwardZ, 0, 1, 0);
+        }
+      }
+
+      function applySpatial() {
+        if (!audioCtx || !panner || !distanceToneGain || !toneFilter || !shortGain || !longGain) return;
+        const ph = PHASES[phaseIndex];
+        const now = audioCtx.currentTime;
+        const toGuideX = ph.gx - player.x;
+        const toGuideY = ph.gy - player.y;
+        const distance = Math.hypot(toGuideX, toGuideY);
+        const facingRad = (ph.facingDeg * Math.PI) / 180;
+        const forwardX = Math.sin(facingRad);
+        const forwardY = -Math.cos(facingRad);
+        const frontness = Math.max(
+          -1,
+          Math.min(1, (toGuideX * forwardX + toGuideY * forwardY) / Math.max(distance, 0.001)),
+        );
+
+        panner.positionX.setValueAtTime(toGuideX, now);
+        panner.positionY.setValueAtTime(0, now);
+        panner.positionZ.setValueAtTime(toGuideY, now);
+
+        const overReference = Math.max(0, distance - 1);
+        const distanceFactor = Math.max(0.88, 1 - overReference * 0.02);
+        const nearBoost = distance < 0.7 ? Math.min(0.06, (0.7 - distance) * 0.12) : 0;
+        const frontScale = (frontness + 1) / 2;
+        const directionalGain = 0.62 + frontScale * 0.38;
+        const guideGainTarget = (distanceFactor + nearBoost) * directionalGain;
+        distanceToneGain.gain.setTargetAtTime(guideGainTarget, now, 0.04);
+        toneFilter.frequency.setTargetAtTime(4200, now, 0.06);
+
+        const pulsePeak = 0.45;
+        const v = Math.max(0.08, Math.min(1, pulsePeak));
+        if (activeMode === "short") {
+          shortGain.gain.setTargetAtTime(v, now, 0.04);
+          longGain.gain.setTargetAtTime(0.0001, now, 0.04);
+        } else {
+          longGain.gain.setTargetAtTime(v, now, 0.04);
+          shortGain.gain.setTargetAtTime(0.0001, now, 0.04);
+        }
+        statusLine();
+      }
+
+      function nextPhase() {
+        phaseIndex = (phaseIndex + 1) % PHASES.length;
+        updateListener();
+        applySpatial();
+      }
+
+      function crossfadeTo(mode) {
+        if (!audioCtx || !shortEl || !longEl) return;
+        activeMode = mode;
+        const now = audioCtx.currentTime;
+        if (mode === "long") {
+          longEl.play().catch(() => {});
+          shortGain.gain.setTargetAtTime(0.0001, now, 0.06);
+          longGain.gain.setTargetAtTime(0.45, now, 0.06);
+          setTimeout(() => {
+            shortEl.pause();
+          }, 120);
+        } else {
+          shortEl.play().catch(() => {});
+          longGain.gain.setTargetAtTime(0.0001, now, 0.06);
+          shortGain.gain.setTargetAtTime(0.45, now, 0.06);
+          setTimeout(() => {
+            longEl.pause();
+          }, 120);
+        }
+        applySpatial();
+      }
+
+      function cleanup() {
+        if (phaseTimerId) clearInterval(phaseTimerId);
+        if (autoLongTimerId) clearTimeout(autoLongTimerId);
+        phaseTimerId = null;
+        autoLongTimerId = null;
+        if (shortEl) {
+          shortEl.pause();
+          shortEl.currentTime = 0;
+        }
+        if (longEl) {
+          longEl.pause();
+          longEl.currentTime = 0;
+        }
+        running = false;
+      }
+
+      startBtn.addEventListener("click", () => {
+        if (running) return;
+
+        cleanup();
+        phaseIndex = 0;
+        activeMode = "short";
+        running = true;
+
+        // ── Everything that must run in the same gesture turn (before await) ──
+        if (!audioCtx) {
+          audioCtx = new AudioContext();
+          toneFilter = audioCtx.createBiquadFilter();
+          toneFilter.type = "lowpass";
+          toneFilter.frequency.value = 5200;
+          toneFilter.Q.value = 0.35;
+          distanceToneGain = audioCtx.createGain();
+          distanceToneGain.gain.value = 1;
+          panner = audioCtx.createPanner();
+          panner.panningModel = "equalpower";
+          panner.distanceModel = "inverse";
+          panner.refDistance = 0.9;
+          panner.maxDistance = 24;
+          panner.rolloffFactor = 1.3;
+          panner.coneInnerAngle = 360;
+          panner.coneOuterAngle = 360;
+          panner.coneOuterGain = 0;
+          toneFilter.connect(distanceToneGain);
+          distanceToneGain.connect(panner);
+          panner.connect(audioCtx.destination);
+        }
+
+        if (!shortEl) {
+          shortEl = new Audio(SHORT_CLIP);
+          shortEl.loop = true;
+          shortEl.preload = "auto";
+          shortEl.volume = 1;
+        }
+        if (!longEl) {
+          longEl = new Audio(LONG_LOOP);
+          longEl.loop = true;
+          longEl.preload = "auto";
+          longEl.volume = 1;
+        }
+
+        if (!shortMedia) {
+          shortMedia = audioCtx.createMediaElementSource(shortEl);
+          shortGain = audioCtx.createGain();
+          shortGain.gain.value = 0.45;
+          shortMedia.connect(shortGain);
+          shortGain.connect(toneFilter);
+        }
+        if (!longMedia) {
+          longMedia = audioCtx.createMediaElementSource(longEl);
+          longGain = audioCtx.createGain();
+          longGain.gain.value = 0.0001;
+          longMedia.connect(longGain);
+          longGain.connect(toneFilter);
+        }
+
+        resumeSync();
+        shortEl.play().catch((e) => {
+          out.textContent = "short play() failed: " + (e && e.message ? e.message : e);
+        });
+        resumeSync();
+
+        updateListener();
+        applySpatial();
+
+        phaseTimerId = setInterval(nextPhase, STEP_SEC * 1000);
+
+        autoLongTimerId = setTimeout(() => {
+          if (!running || activeMode !== "short") return;
+          crossfadeTo("long");
+          out.textContent += "\n\n(Auto-switched to long loop after " + AUTO_LONG_AFTER_SEC + "s.)";
+        }, AUTO_LONG_AFTER_SEC * 1000);
+
+        startBtn.disabled = true;
+        shortBtn.disabled = false;
+        longBtn.disabled = false;
+        stopBtn.disabled = false;
+      });
+
+      shortBtn.addEventListener("click", () => {
+        if (!running) return;
+        crossfadeTo("short");
+      });
+
+      longBtn.addEventListener("click", () => {
+        if (!running) return;
+        crossfadeTo("long");
+      });
+
+      stopBtn.addEventListener("click", () => {
+        cleanup();
+        startBtn.disabled = false;
+        shortBtn.disabled = true;
+        longBtn.disabled = true;
+        stopBtn.disabled = true;
+        out.textContent = "Stopped.";
+      });
+    </script>
+  </body>
+</html>
