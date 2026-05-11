@@ -115,7 +115,7 @@ let safetyPromptShown = false;
 
 const ONBOARDING_COPY = {
   zh: {
-    title: "盲人音频迷宫",
+    title: "音频迷宫",
     context:
       "这是一个依靠空间音频导航的迷宫。第一局是演示局（地图可见），通关后进入正式局（默认隐藏地图）。",
     safety:
@@ -125,7 +125,7 @@ const ONBOARDING_COPY = {
     enter: "进入游戏面板",
   },
   ja: {
-    title: "ブラインド音声迷路",
+    title: "オーディオ迷路",
     context:
       "この迷路は立体音響で進みます。1回目は地図ありのデモ、クリア後は地図非表示の本番モードになります。",
     safety:
