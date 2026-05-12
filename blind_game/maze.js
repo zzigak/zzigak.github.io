@@ -21,7 +21,6 @@ const vizSection = document.getElementById("vizSection");
 const canvas = document.getElementById("topDownCanvas");
 const ctx = canvas.getContext("2d");
 const onboardingScreen = document.getElementById("onboardingScreen");
-const onboardingLanguage = document.getElementById("onboardingLanguage");
 const onboardingTitle = document.getElementById("onboardingTitle");
 const onboardingContext = document.getElementById("onboardingContext");
 const onboardingSafety = document.getElementById("onboardingSafety");
@@ -113,27 +112,16 @@ let currentRunStepAttempts = 0;
 let currentRunWallHits = 0;
 let safetyPromptShown = false;
 
+/** Intro screen copy (English only). */
 const ONBOARDING_COPY = {
-  zh: {
-    title: "音频迷宫",
-    context:
-      "这是一个依靠空间音频导航的迷宫。第一局是演示局（地图可见），通关后进入正式局（默认隐藏地图）。",
-    safety:
-      "开始认真游玩前，请闭眼或戴上眼罩，只用声音来判断方向。",
-    howTo:
-      "进入游戏后点击 Start Audio。使用 W/A/S/D 移动，左右方向键旋转。语音可在 Controls 里切换（中文 / 日语）。重玩、地图和回放在 Controls 里。",
-    enter: "进入游戏面板",
-  },
-  ja: {
-    title: "オーディオ迷路",
-    context:
-      "この迷路は立体音響で進みます。1回目は地図ありのデモ、クリア後は地図非表示の本番モードになります。",
-    safety:
-      "本番プレイでは、目を閉じるかアイマスクを着けて、音だけで進んでください。",
-    howTo:
-      "ゲーム画面で Start Audio を押します。W/A/S/D で移動、左右キーで回転。音声は Controls で中文/日本語を切り替えできます。設定とリプレイは Controls にあります。",
-    enter: "ゲーム画面へ進む",
-  },
+  title: "Audio Maze",
+  context:
+    "Find your way through a maze using spatial audio. The first run is a demo with the map visible; after you reach the goal, the real run starts with the map hidden by default.",
+  safety:
+    "For serious play, close your eyes or wear a blindfold and follow the sound for direction.",
+  howTo:
+    "Click Start Audio in the game panel. Move with W/A/S/D and rotate with the Left/Right arrow keys. Choose Chinese or Japanese voice packs under Controls. Replay, the map, and other settings are in Controls too.",
+  enter: "Enter game",
 };
 
 function clampAngle(value) {
@@ -169,14 +157,12 @@ function updateTimerHud() {
   wallHitRateLabel.textContent = `${hitRate.toFixed(1)}% (${currentRunWallHits}/${currentRunStepAttempts})`;
 }
 
-function renderOnboarding(languageKey) {
-  const lang = ONBOARDING_COPY[languageKey] ? languageKey : "zh";
-  const copy = ONBOARDING_COPY[lang];
-  onboardingTitle.textContent = copy.title;
-  onboardingContext.textContent = copy.context;
-  onboardingSafety.textContent = copy.safety;
-  onboardingHowTo.textContent = copy.howTo;
-  enterGameButton.textContent = copy.enter;
+function renderOnboarding() {
+  onboardingTitle.textContent = ONBOARDING_COPY.title;
+  onboardingContext.textContent = ONBOARDING_COPY.context;
+  onboardingSafety.textContent = ONBOARDING_COPY.safety;
+  onboardingHowTo.textContent = ONBOARDING_COPY.howTo;
+  enterGameButton.textContent = ONBOARDING_COPY.enter;
 }
 
 function getContinuousGuideTrack() {
@@ -1162,14 +1148,6 @@ async function playGuideArrivalSequence() {
   await playGuideCalloutAt(clip, targetX, targetY, 1.02);
 }
 
-onboardingLanguage?.addEventListener("change", () => {
-  renderOnboarding(onboardingLanguage.value);
-  if (voiceSelect) {
-    voiceSelect.value = onboardingLanguage.value === "ja" ? "japanese" : "chinese";
-    voiceSelect.dispatchEvent(new Event("change"));
-  }
-});
-
 enterGameButton?.addEventListener("click", () => {
   if (onboardingScreen) onboardingScreen.hidden = true;
   if (gamePanel) gamePanel.hidden = false;
@@ -1292,10 +1270,6 @@ mazeSizeSelect.addEventListener("change", () => {
 });
 
 voiceSelect.addEventListener("change", async () => {
-  if (onboardingLanguage) {
-    onboardingLanguage.value = voiceSelect.value === "japanese" ? "ja" : "zh";
-    renderOnboarding(onboardingLanguage.value);
-  }
   if (!audioCtx) return;
   await loadGuideClipBuffer(true);
   if (guideClipBuffers.length === 0) {
@@ -1411,7 +1385,7 @@ window.addEventListener("beforeunload", () => {
 mazeSize = Number(mazeSizeSelect.value) || DEFAULT_MAZE_SIZE;
 maze = createMaze(mazeSize, mazeSize);
 mazeSnapshot = cloneMaze(maze);
-renderOnboarding(onboardingLanguage?.value || "zh");
+renderOnboarding();
 updateIntervalLabel();
 updateMapVisibility();
 updateFacingLabel();
