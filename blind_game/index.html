@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Audio Maze</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -112,6 +113,20 @@
       <section class="viz" id="vizSection" hidden>
         <canvas id="topDownCanvas" width="420" height="420"></canvas>
       </section>
+
+      <div id="gameModal" class="game-modal-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="gameModalTitle">
+        <div class="game-modal-panel">
+          <h2 class="game-modal-title" id="gameModalTitle"></h2>
+          <p class="game-modal-body" id="gameModalBody"></p>
+          <button type="button" class="game-modal-dismiss" id="gameModalDismiss">Got it</button>
+        </div>
+      </div>
+
+      <div id="victoryOverlay" class="victory-overlay" hidden>
+        <p class="victory-caption" id="victoryCaption"></p>
+        <p class="victory-hint" id="victoryHint" hidden></p>
+        <div class="victory-viz-mount" id="victoryVizMount"></div>
+      </div>
     </main>
 
     <script src="./maze.js"></script>

@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -37,6 +41,23 @@ h1 {
   margin: 0 0 16px;
   color: #d1d5db;
   line-height: 1.45;
+}
+
+.onboarding h1 {
+  color: #fff;
+}
+
+.onboarding .quick-description {
+  color: #e8e8ed;
+}
+
+.onboarding button {
+  border-color: #404048;
+  background: #121214;
+}
+
+.onboarding button:hover:not(:disabled) {
+  background: #1e1e22;
 }
 
 .onboarding {
@@ -182,4 +203,130 @@ button:disabled {
   margin: 0 auto;
   background: #000;
   border-radius: 6px;
+}
+
+.game-modal-overlay[hidden] {
+  display: none !important;
+}
+
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 195;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px max(22px, env(safe-area-inset-right)) 22px max(22px, env(safe-area-inset-left));
+  padding-top: max(22px, env(safe-area-inset-top));
+  padding-bottom: max(22px, env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.game-modal-panel {
+  width: 100%;
+  max-width: 440px;
+  padding: 20px 22px 22px;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  background: #0c0c0c;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.game-modal-panel:focus {
+  outline: none;
+}
+
+.game-modal-title {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fafafa;
+  line-height: 1.35;
+}
+
+.game-modal-body {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #a3a3a3;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.game-modal-dismiss {
+  width: 100%;
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-color: #404048;
+  background: #121214;
+  font-weight: 600;
+}
+
+.game-modal-dismiss:hover:not(:disabled) {
+  background: #1e1e22;
+}
+
+/*
+ * [hidden] normally maps to display:none in the UA sheet, but our explicit
+ * display:flex wins in the cascade — overlay stayed on top,dimmed onboarding.
+ */
+.victory-overlay[hidden] {
+  display: none !important;
+}
+
+.victory-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 20px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.victory-caption {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fafafa;
+  text-align: center;
+  max-width: 480px;
+  line-height: 1.4;
+}
+
+.victory-overlay.is-hint-phase {
+  justify-content: center;
+  cursor: pointer;
+}
+
+.victory-hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #a3a3a3;
+  text-align: center;
+  max-width: 460px;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.victory-viz-mount {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  overflow: hidden;
+}
+
+.victory-overlay .viz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

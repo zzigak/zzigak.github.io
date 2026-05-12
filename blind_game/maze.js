@@ -27,6 +27,15 @@ const onboardingSafety = document.getElementById("onboardingSafety");
 const onboardingHowTo = document.getElementById("onboardingHowTo");
 const enterGameButton = document.getElementById("enterGameButton");
 const gamePanel = document.getElementById("gamePanel");
+const appShell = document.querySelector(".app");
+const victoryOverlay = document.getElementById("victoryOverlay");
+const victoryCaption = document.getElementById("victoryCaption");
+const victoryHint = document.getElementById("victoryHint");
+const victoryVizMount = document.getElementById("victoryVizMount");
+const gameModal = document.getElementById("gameModal");
+const gameModalTitle = document.getElementById("gameModalTitle");
+const gameModalBody = document.getElementById("gameModalBody");
+const gameModalDismiss = document.getElementById("gameModalDismiss");
 
 const DEFAULT_MAZE_SIZE = 13;
 const MOVE_STEP = 1;
@@ -111,6 +120,23 @@ let runHistoryCounter = 1;
 let currentRunStepAttempts = 0;
 let currentRunWallHits = 0;
 let safetyPromptShown = false;
+/** While true, fullscreen game modal blocks keyboard shortcuts (e.g. Enter → Start). */
+let gameModalOpen = false;
+
+/** After the demo round, each goal: chimes → map overlay → fast path replay. */
+const VICTORY_AFTER_CHIME_MS = 520;
+const VICTORY_FAST_REPLAY_TICK_MS = 28;
+const VICTORY_FAST_REPLAY_SPEED = 6;
+const VICTORY_REPLAY_TAIL_MS = 320;
+const VICTORY_HINT_PAUSE_MS = 6200;
+
+const VICTORY_HINT_COPY = {
+  title: "What's next",
+  body:
+    "Retry Same Map to practice this layout, or New Map for another maze.\n\n" +
+    "Open Controls anytime for map visibility, maze size / voice, and Replay Run (or pick a saved run below it).",
+  dismiss: "(Tap anywhere to dismiss, or wait)",
+};
 
 /** Intro screen copy (English only). */
 const ONBOARDING_COPY = {
@@ -122,6 +148,29 @@ const ONBOARDING_COPY = {
   howTo:
     "Click Start Audio in the game panel. Move with W/A/S/D and rotate with the Left/Right arrow keys. Choose Chinese or Japanese voice packs under Controls. Replay, the map, and other settings are in Controls too.",
   enter: "Enter game",
+};
+
+const GAME_MODAL_COPY = {
+  safety: {
+    title: "For real play",
+    body: "Close your eyes or wear a blindfold and use audio only.",
+  },
+  demoRound: {
+    title: "Demo round (map visible)",
+    body:
+      "1) Move with W / A / S / D.\n" +
+      "2) Rotate with the Left / Right arrow keys.\n" +
+      "3) Follow the voice and watch the map this round.\n" +
+      "4) The orange marker and sound are your guide; green is the goal.\n\n" +
+      "After you finish this demo, the real game starts with the map hidden by default.",
+  },
+  realGameBegins: {
+    title: "Now the real game begins",
+    body:
+      "The map is hidden by default from here.\n\n" +
+      "Use audio direction first.\n\n" +
+      "Open Controls anytime to show the map, change settings, or replay runs.",
+  },
 };
 
 function clampAngle(value) {
@@ -579,13 +628,17 @@ function checkGoal() {
     mazeStatusLabel.textContent = "Goal reached";
     guideDirectionLabel.textContent = "Done";
     stopRunTimer();
+    runActive = false;
     if (pulseTimerId) {
       clearInterval(pulseTimerId);
       pulseTimerId = null;
     }
     stopContinuousGuideVoice();
+    drawMaze();
     if (demoRoundActive) {
       beginRealGameAfterDemo();
+    } else {
+      void runVictoryCelebrationSequence();
     }
   }
 }
@@ -1010,29 +1063,226 @@ function waitMs(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function showDemoRoundInstructions() {
+function waitVictoryDismissOrTimeout(overlayEl, ms) {
+  return new Promise((resolve) => {
+    if (!overlayEl) {
+      waitMs(ms).then(resolve);
+      return;
+    }
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      overlayEl.removeEventListener("click", onTap);
+      clearTimeout(timer);
+      resolve();
+    };
+    const onTap = () => finish();
+    const timer = setTimeout(finish, ms);
+    overlayEl.addEventListener("click", onTap);
+  });
+}
+
+function showGameModal({ title, body, dismissLabel = "Got it" }) {
+  return new Promise((resolve) => {
+    if (!gameModal || !gameModalTitle || !gameModalBody || !gameModalDismiss) {
+      window.alert(`${title}\n\n${body}`);
+      resolve();
+      return;
+    }
+
+    gameModalTitle.textContent = title;
+    gameModalBody.textContent = body;
+    gameModalDismiss.textContent = dismissLabel;
+    gameModal.hidden = false;
+    gameModalOpen = true;
+
+    let settled = false;
+    const cleanup = () => {
+      if (settled) return;
+      settled = true;
+      gameModalOpen = false;
+      gameModal.hidden = true;
+      gameModalDismiss.removeEventListener("click", onDismissClick);
+      gameModal.removeEventListener("click", onBackdropClick);
+      document.removeEventListener("keydown", onTrapKeydown, true);
+      resolve();
+    };
+
+    function onDismissClick(event) {
+      event.stopPropagation();
+      cleanup();
+    }
+
+    function onBackdropClick(event) {
+      if (event.target === gameModal) cleanup();
+    }
+
+    function onTrapKeydown(event) {
+      if (!gameModalOpen) return;
+      if (event.key === "Enter" || event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        cleanup();
+      }
+    }
+
+    gameModalDismiss.addEventListener("click", onDismissClick);
+    gameModal.addEventListener("click", onBackdropClick);
+    document.addEventListener("keydown", onTrapKeydown, true);
+    queueMicrotask(() => {
+      gameModalDismiss.focus({ preventScroll: true });
+    });
+  });
+}
+
+function playVictoryChimes() {
+  if (!audioCtx) return;
+  resumeAudioContextSync();
+  const freqs = [784, 988, 1318];
+  const now = audioCtx.currentTime;
+  for (let i = 0; i < freqs.length; i += 1) {
+    const t0 = now + i * 0.11;
+    const osc = audioCtx.createOscillator();
+    osc.type = "sine";
+    const gain = audioCtx.createGain();
+    osc.frequency.setValueAtTime(freqs[i], t0);
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(0.22, t0 + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.1);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(t0);
+    osc.stop(t0 + 0.105);
+  }
+}
+
+function lockVictoryUi() {
+  if (voiceSelect) voiceSelect.disabled = true;
+  retryMapButton.disabled = true;
+  newMazeButton.disabled = true;
+  replayButton.disabled = true;
+  toggleMapButton.disabled = true;
+  mazeSizeSelect.disabled = true;
+  facingSlider.disabled = true;
+  runReplaySelect.disabled = true;
+}
+
+function unlockVictoryUi() {
+  if (voiceSelect) voiceSelect.disabled = false;
+  enableControls();
+}
+
+async function runVictoryCelebrationSequence() {
+  if (!victoryOverlay || !appShell || !victoryVizMount || !victoryCaption) return;
+
+  lockVictoryUi();
+  const savedMapVisible = mapVisible;
+  const backupTrace = lastCompletedTrace.map((p) => ({ ...p }));
+  const backupDur = lastCompletedTraceDurationMs;
+  const backupPulse = lastCompletedPulseEvents.map((e) => ({ ...e }));
+
+  let replayTrace = backupTrace;
+  let replayDur = backupDur;
+  let replayPulse = backupPulse;
+
+  if (currentRunTrace.length >= 2) {
+    replayTrace = currentRunTrace.map((point) => ({ ...point }));
+    replayDur = Math.max(completedRunMs, 1);
+    replayPulse = currentRunPulseEvents.map((event) => ({ ...event }));
+  }
+
+  try {
+    playVictoryChimes();
+    await waitMs(VICTORY_AFTER_CHIME_MS);
+
+    stopReplay();
+    lastCompletedTrace = replayTrace;
+    lastCompletedTraceDurationMs = replayDur;
+    lastCompletedPulseEvents = replayPulse;
+
+    victoryOverlay.classList.remove("is-hint-phase");
+    if (victoryHint) {
+      victoryHint.hidden = true;
+      victoryHint.textContent = "";
+    }
+    victoryVizMount.hidden = false;
+
+    victoryCaption.textContent =
+      "Victory! This is a fast replay of the path you just took (sped up).";
+    victoryOverlay.hidden = false;
+    victoryVizMount.appendChild(vizSection);
+    vizSection.hidden = false;
+
+    await new Promise((resolve) => {
+      if (replayTrace.length < 2 || replayDur <= 50) {
+        drawMaze();
+        setTimeout(resolve, 780);
+        return;
+      }
+      replayActive = true;
+      replayCursorMs = 0;
+      drawMaze();
+      replayTimerId = setInterval(() => {
+        replayCursorMs += VICTORY_FAST_REPLAY_TICK_MS * VICTORY_FAST_REPLAY_SPEED;
+        if (replayCursorMs >= replayDur) {
+          replayCursorMs = replayDur;
+          drawMaze();
+          stopReplay();
+          resolve();
+          return;
+        }
+        drawMaze();
+      }, VICTORY_FAST_REPLAY_TICK_MS);
+    });
+
+    stopReplay();
+    await waitMs(VICTORY_REPLAY_TAIL_MS);
+
+    if (vizSection.parentElement === victoryVizMount) {
+      appShell.insertBefore(vizSection, victoryOverlay);
+    }
+    victoryVizMount.hidden = true;
+    victoryOverlay.classList.add("is-hint-phase");
+    victoryCaption.textContent = VICTORY_HINT_COPY.title;
+    if (victoryHint) {
+      victoryHint.textContent = `${VICTORY_HINT_COPY.body}\n\n${VICTORY_HINT_COPY.dismiss}`;
+      victoryHint.hidden = false;
+    }
+    await waitVictoryDismissOrTimeout(victoryOverlay, VICTORY_HINT_PAUSE_MS);
+  } finally {
+    victoryOverlay.classList.remove("is-hint-phase");
+    if (victoryVizMount) victoryVizMount.hidden = false;
+    if (victoryHint) {
+      victoryHint.hidden = true;
+      victoryHint.textContent = "";
+    }
+    lastCompletedTrace = backupTrace;
+    lastCompletedTraceDurationMs = backupDur;
+    lastCompletedPulseEvents = backupPulse;
+
+    victoryOverlay.hidden = true;
+    if (vizSection.parentElement === victoryVizMount) {
+      appShell.insertBefore(vizSection, victoryOverlay);
+    }
+    mapVisible = savedMapVisible;
+    updateMapVisibility();
+    unlockVictoryUi();
+    drawMaze();
+  }
+}
+
+async function showDemoRoundInstructions() {
   if (demoRoundCompleted) return;
-  alert(
-    "Demo Round (Map Visible)\n\n" +
-      "1) Move with W / A / S / D.\n" +
-      "2) Rotate with Left / Right arrows.\n" +
-      "3) Follow the voice and also watch the map this round.\n" +
-      "4) Orange marker/sound is your guide; green is the goal.\n\n" +
-      "After this demo clears, the real game starts with map hidden by default."
-  );
+  await showGameModal(GAME_MODAL_COPY.demoRound);
 }
 
 async function beginRealGameAfterDemo() {
   if (demoTransitionPending || !demoRoundActive) return;
   demoTransitionPending = true;
   await waitMs(260);
-  alert(
-    "Now the real game begins.\n\n" +
-      "The map is now hidden by default.\n" +
-      "Use audio direction first.\n" +
-      "Open Controls any time to show map, change settings, or replay runs."
-  );
-  // Alert may suspend the AudioContext; resume it before playing more audio.
+  await showGameModal(GAME_MODAL_COPY.realGameBegins);
+  // Modal (unlike alert) usually does not suspend AudioContext; still resume safely.
   if (audioCtx && audioCtx.state === "suspended") await audioCtx.resume();
   resumeAudioContextSync();
   if (continuousGuideElement) {
@@ -1157,8 +1407,8 @@ enterGameButton?.addEventListener("click", () => {
 startButton.addEventListener("click", async () => {
   // ── SYNCHRONOUS BLOCK ──────────────────────────────────────────────────────
   // Everything here runs in the same browser gesture frame so autoplay is
-  // guaranteed.  We must NOT await or call alert() before reaching the end of
-  // this block.
+  // guaranteed.  We must NOT await before reaching the end of this block — keep
+  // AudioContext.resume() and HTMLMediaElement.play() together with the tap.
   if (!audioCtx) {
     audioCtx = new AudioContext();
     toneFilter = audioCtx.createBiquadFilter();
@@ -1208,7 +1458,7 @@ startButton.addEventListener("click", async () => {
   // ── END SYNCHRONOUS BLOCK ──────────────────────────────────────────────────
 
   if (!safetyPromptShown) {
-    alert("For real play: close your eyes or wear a blindfold and use audio only.");
+    await showGameModal(GAME_MODAL_COPY.safety);
     safetyPromptShown = true;
   }
   if (audioCtx.state === "suspended") await audioCtx.resume();
@@ -1232,8 +1482,8 @@ startButton.addEventListener("click", async () => {
   demoTransitionPending = false;
   mapVisible = true;
   updateMapVisibility();
-  showDemoRoundInstructions();
-  // Resume in case the alert above suspended the context.
+  await showDemoRoundInstructions();
+  // Resume after modal closes in case the context suspended (e.g. tab focus shift).
   if (audioCtx.state === "suspended") await audioCtx.resume();
   resetPlayerForRun();
   updateTimerHud();
@@ -1333,6 +1583,7 @@ facingSlider.addEventListener("input", (event) => {
 });
 
 window.addEventListener("keydown", (event) => {
+  if (gameModalOpen) return;
   if (event.key === "Enter" && !startButton.disabled && !event.repeat && !gamePanel.hidden) {
     event.preventDefault();
     startButton.click();
