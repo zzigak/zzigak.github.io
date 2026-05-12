@@ -42,6 +42,18 @@ const MOVE_STEP = 1;
 const PLAYER_RADIUS = 0.16;
 const WALL_THICKNESS = 0.13;
 const CARDINAL_LABELS = ["North", "East", "South", "West"];
+/** Panner inverse-distance: unity gain within refDistance — keep ref small-ish so farther guide is quieter */
+const GUIDE_PANNER_REF_DISTANCE = 2.4;
+const GUIDE_PANNER_MAX_DISTANCE = 72;
+const GUIDE_PANNER_ROLLOFF = 0.58;
+/** Tone-gain on top of panner; floor avoids silence when combined with directional trim. */
+const GUIDE_TONE_DISTANCE_FLOOR = 0.76;
+const GUIDE_TONE_DISTANCE_PER_CELL = 0.02;
+/** When facing away from the guide, keep at least this fraction of forward loudness. */
+const GUIDE_DIRECTIONAL_GAIN_MIN = 0.68;
+/** Continuous loop level into the spatial chain (effective loudness knob). */
+const GUIDE_CONTINUOUS_PULSE = 0.52;
+const GUIDE_CONTINUOUS_GAIN_MIN = 0.13;
 /** Only two voices: Chinese (ara) vs Japanese-style one-shots + Anna long loop. */
 const VOICE_PACKS = {
   chinese: {
@@ -85,7 +97,7 @@ function resumeAudioContextSync() {
 }
 let pulseTimerId = null;
 let activePulseIntervalMs = null;
-let pulsePeak = 0.45;
+let pulsePeak = 0.52;
 let pulseIntervalMs = 2400;
 
 let facingDegrees = 0;
@@ -519,22 +531,26 @@ function updateGuideAudio() {
   panner.positionY.setValueAtTime(0, now);
   panner.positionZ.setValueAtTime(toGuideY, now);
 
-  // Use 1 cell as loudness reference: no distance attenuation at or inside that range.
-  const overReference = Math.max(0, distance - 1);
-  const distanceFactor = Math.max(0.88, 1 - overReference * 0.02);
-  const nearBoost = distance < 0.7 ? Math.min(0.06, (0.7 - distance) * 0.12) : 0;
+  // Use ~1¼ cells as nominal “near” reference; soften beyond that toward floor.
+  const overReference = Math.max(0, distance - 1.25);
+  const distanceFactor = Math.max(
+    GUIDE_TONE_DISTANCE_FLOOR,
+    1 - overReference * GUIDE_TONE_DISTANCE_PER_CELL
+  );
+  const nearBoost = distance < 0.7 ? Math.min(0.05, (0.7 - distance) * 0.1) : 0;
   const frontScale = (frontness + 1) / 2;
-  const directionalGain = 0.62 + frontScale * 0.38;
+  const directionalGain =
+    GUIDE_DIRECTIONAL_GAIN_MIN + frontScale * (1 - GUIDE_DIRECTIONAL_GAIN_MIN);
   const guideGainTarget = (distanceFactor + nearBoost) * directionalGain;
   distanceToneGain.gain.setTargetAtTime(guideGainTarget, now, 0.04);
   // Keep the repeating guide call bright/clear, closer to the intro callout timbre.
   toneFilter.frequency.setTargetAtTime(4200, now, 0.06);
-  pulsePeak = 0.45;
+  pulsePeak = GUIDE_CONTINUOUS_PULSE;
   if (continuousGuideGain) {
     if (!runActive || mazeCompleted) {
       continuousGuideGain.gain.setTargetAtTime(0.0001, now, 0.04);
     } else {
-      const volumeTarget = Math.max(0.08, Math.min(1, pulsePeak));
+      const volumeTarget = Math.max(GUIDE_CONTINUOUS_GAIN_MIN, Math.min(1, pulsePeak));
       continuousGuideGain.gain.setTargetAtTime(volumeTarget, now, 0.04);
     }
   }
@@ -1318,9 +1334,9 @@ function createSpatialPannerAt(worldX, worldY) {
   const localPanner = audioCtx.createPanner();
   localPanner.panningModel = "equalpower";
   localPanner.distanceModel = "inverse";
-  localPanner.refDistance = 0.9;
-  localPanner.maxDistance = 24;
-  localPanner.rolloffFactor = 1.25;
+  localPanner.refDistance = GUIDE_PANNER_REF_DISTANCE;
+  localPanner.maxDistance = GUIDE_PANNER_MAX_DISTANCE;
+  localPanner.rolloffFactor = GUIDE_PANNER_ROLLOFF;
   localPanner.coneInnerAngle = 360;
   localPanner.coneOuterAngle = 360;
   localPanner.coneOuterGain = 0;
@@ -1422,9 +1438,9 @@ startButton.addEventListener("click", async () => {
     // can output silence with some sink configurations).
     panner.panningModel = "equalpower";
     panner.distanceModel = "inverse";
-    panner.refDistance = 0.9;
-    panner.maxDistance = 24;
-    panner.rolloffFactor = 1.3;
+    panner.refDistance = GUIDE_PANNER_REF_DISTANCE;
+    panner.maxDistance = GUIDE_PANNER_MAX_DISTANCE;
+    panner.rolloffFactor = GUIDE_PANNER_ROLLOFF;
     panner.coneInnerAngle = 360;
     // Some engines behave badly with coneOuterAngle 0; keep a full sphere.
     panner.coneOuterAngle = 360;
