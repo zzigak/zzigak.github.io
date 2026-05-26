@@ -12,9 +12,11 @@
   <!-- Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+
   <style>
     html {
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+      font-size: 17px;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       font-feature-settings: normal;
       font-variation-settings: normal;
       overflow-x: hidden;
@@ -48,7 +50,7 @@
     .hero-background {
       background-color: #f1f1f1;
       width: 100%;
-      padding: 45px 0 25px;
+      padding: 45px 0 38px;
       margin-bottom: 20px;
     }
 
@@ -80,9 +82,9 @@
 
     .hero-photo img {
       width: 180px;
-      height: 180px;
+      height: auto;
       border-radius: 10px;
-      object-fit: cover;
+      object-fit: contain;
       border: 2px solid #e0e0e0;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -110,21 +112,49 @@
     }
 
     .hero-links {
+      margin-top: 1.1rem;
       display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      margin-top: 20px;
-      justify-content: flex-start;
+      flex-direction: column;
+      gap: 0;
     }
 
     .hero-links a {
-      color: #666;
+      color: #444;
       font-size: 0.95em;
       transition: color 0.13s;
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      text-decoration: none;
+      padding: 0.18rem 0;
+    }
+
+    .hero-links a .link-label {
+      flex-shrink: 0;
+      color: #888;
+      min-width: 4.5rem;
+      font-size: 0.95em;
+    }
+
+    .hero-links a .link-dots {
+      flex: 1;
+      border-bottom: 1px dotted #ccc;
+      margin: 0 0.5rem;
+      position: relative;
+      top: -0.2em;
+      min-width: 2rem;
+    }
+
+    .hero-links a .link-value {
+      flex-shrink: 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: #bbb;
     }
 
     .hero-bio {
       font-size: 0.95em;
+      line-height: 1.7;
     }
 
     .hero-update {
@@ -137,8 +167,17 @@
     }
 
     .hero-links a:hover {
-      color: #222;
-      text-decoration: underline;
+      color: #111;
+    }
+
+    .hero-links a:hover .link-value {
+      text-decoration-color: #555;
+    }
+
+    .contact-footer {
+      max-width: 840px;
+      margin: 18px auto 0;
+      padding: 0 24px 60px;
     }
 
     @media (max-width: 700px) {
@@ -162,7 +201,7 @@
       }
 
       .hero-links {
-        justify-content: center;
+        align-items: stretch;
       }
     }
 
@@ -487,6 +526,7 @@
       }
     }
 
+
   </style>
   <script>
     function showSection(section, event) {
@@ -522,7 +562,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      showSection('all');
+      showSection('publications');
     });
   </script>
 </head>
@@ -532,32 +572,21 @@
     <div class="content">
       <div class="hero-section">
         <div class="hero-photo">
-          <img src="image/ziga_blue.png" alt="Žiga">
+          <img src="image/ziga_blue_narrow.png" alt="Žiga">
         </div>
         <div class="hero-info">
           <div class="hero-name">Žiga Kovačič <span class="hero-pronunciation">//Zhee-guh koh-VAH-chich//</span></div>
           <p class="hero-bio" style="margin-top: 0; margin-bottom: 0;">
-            I'm a Cornell undergrad advised by <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin
-              Ellis</a> and <a href="https://www.cs.cornell.edu/~srm/" target="_blank">Steve Marschner</a>. I’m interested
-            in hierarchical world models that learn the right level of physical abstraction for each
-            task and co-evolve through interaction. I also "occasionally" work on physical simulation.
+            I’m an incoming CS PhD student at Stanford, advised by <a href="https://jiajunwu.com/" target="_blank">Jiajun Wu</a> and co-advised by <a href="https://jiayuanm.com/" target="_blank">Jiayuan Mao</a>. I’m interested in hierarchical world models that learn the right level of physical abstraction for each task and co-evolve through interaction. I also have a deep interest in physical simulation.
           </p>
-          <p class="hero-update">I'm an incoming CS PhD student at Stanford (Fall 2026)!</p>
-          <div class="hero-links">
-            <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ"><i
-                class="fas fa-graduation-cap"></i> Scholar</a>
-            <a target="_blank" href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
-            <a target="_blank" href="https://x.com/zzigakovacic"><i class="fab fa-twitter"></i> X</a>
-            <a target="_blank" href="pdf/grad_school.pdf"><i class="fas fa-file-alt"></i> CV</a>
-            <a href="mailto:zk66@cornell.edu" aria-label="Email"><i class="fas fa-envelope"></i> Email</a>
-          </div>
+          <p class="hero-bio" style="margin-top: 0.5em; margin-bottom: 0;">Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a>.</p>
         </div>
       </div>
     </div>
   </div>
 
   <section class="news-section">
-    <h2 class="section-header" style="margin-top: 0;">News</h2>
+    <h2 class="section-header" style="margin-top: 0; font-size: 1.1rem;">News</h2>
     <ul class="news-list">
       <li class="news-item"><strong>Mar. 2026</strong> Recognised as top 1% of graduating class, Merrill Presidential
         Scholar award.</li>
@@ -570,8 +599,8 @@
   <!-- Tabs - Owen-inspired style -->
   <div class="tabs-container">
     <div class="tabs">
-      <button class="active" data-section="all" onclick="showSection('all', event)">All</button>
-      <button data-section="publications" onclick="showSection('publications', event)">Publications</button>
+      <button data-section="all" onclick="showSection('all', event)">All</button>
+      <button class="active" data-section="publications" onclick="showSection('publications', event)">Publications</button>
       <button data-section="projects" onclick="showSection('projects', event)">Projects</button>
       <button data-section="teaching" onclick="showSection('teaching', event)">Teaching</button>
     </div>
@@ -844,6 +873,36 @@
       </div>
     </div>
   </div>
+
+  <footer class="contact-footer">
+    <div class="hero-links">
+      <a href="mailto:zk66@cornell.edu">
+        <span class="link-label">email</span>
+        <span class="link-dots"></span>
+        <span class="link-value">zk66@cornell.edu</span>
+      </a>
+      <a target="_blank" href="https://github.com/zzigak">
+        <span class="link-label">github</span>
+        <span class="link-dots"></span>
+        <span class="link-value">@zzigak</span>
+      </a>
+      <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">
+        <span class="link-label">scholar</span>
+        <span class="link-dots"></span>
+        <span class="link-value">Žiga Kovačič</span>
+      </a>
+      <a target="_blank" href="https://x.com/zzigakovacic">
+        <span class="link-label">x / twitter</span>
+        <span class="link-dots"></span>
+        <span class="link-value">@zzigakovacic</span>
+      </a>
+      <a target="_blank" href="pdf/grad_school.pdf">
+        <span class="link-label">cv</span>
+        <span class="link-dots"></span>
+        <span class="link-value">grad_school.pdf</span>
+      </a>
+    </div>
+  </footer>
 
 </body>
 
