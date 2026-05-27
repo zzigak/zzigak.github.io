@@ -13,6 +13,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
 
+
   <style>
     html {
       font-size: 17px;
@@ -27,7 +28,7 @@
       padding: 0 0 60px;
       background: #ffffff;
       font-family: inherit;
-      color: #222;
+      color: #333;
       line-height: 1.55;
       overflow-x: hidden;
     }
@@ -48,17 +49,17 @@
     }
 
     .hero-background {
-      background-color: #f1f1f1;
+      background-color: #f9f9f9;
       width: 100%;
       padding: 45px 0 38px;
-      margin-bottom: 20px;
+      margin-bottom: 36px;
     }
 
     .hero-section {
       width: 100%;
       display: flex;
       gap: 50px;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
     }
 
@@ -91,65 +92,87 @@
     }
 
     .hero-photo img:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
 
     .hero-name {
-      font-size: 2.0em;
+      font-size: 1.7em;
       font-family: inherit;
       font-weight: 600;
       margin-bottom: 0.32em;
       line-height: 1.05;
     }
 
-    .hero-pronunciation {
-      font-size: 0.5em;
-      font-weight: 400;
-      color: #555;
-      margin-left: 0.35rem;
-      white-space: normal;
-    }
-
-    .hero-links {
-      margin-top: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .hero-links a {
-      color: #444;
-      font-size: 0.95em;
-      transition: color 0.13s;
-      display: flex;
-      align-items: baseline;
-      gap: 0;
-      text-decoration: none;
-      padding: 0.18rem 0;
-    }
-
-    .hero-links a .link-label {
-      flex-shrink: 0;
-      color: #888;
-      min-width: 4.5rem;
-      font-size: 0.95em;
-    }
-
-    .hero-links a .link-dots {
-      flex: 1;
-      border-bottom: 1px dotted #ccc;
-      margin: 0 0.5rem;
+    .name-tooltip-wrap {
       position: relative;
-      top: -0.2em;
-      min-width: 2rem;
+      display: inline-block;
+      vertical-align: super;
+      font-size: 0.45em;
+      font-weight: 400;
+      margin-left: 0.3em;
+      cursor: default;
     }
 
-    .hero-links a .link-value {
-      flex-shrink: 0;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      text-decoration-color: #bbb;
+    .name-tooltip-trigger {
+      color: #777;
+      border-bottom: 1px dotted #777;
+      line-height: 1;
+    }
+
+    .name-tooltip-trigger:hover {
+      color: #333;
+      border-color: #333;
+    }
+
+    .name-tooltip-box {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      font-size: 1.6em;
+      font-weight: 400;
+      color: #333;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.09);
+      z-index: 10;
+      pointer-events: none;
+      line-height: 1.5;
+    }
+
+    .name-tooltip-wrap:hover .name-tooltip-box {
+      display: block;
+    }
+
+    .hero-links-row {
+      margin-top: 0.75rem;
+      margin-bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .hero-links-row a {
+      color: #555;
+      font-size: 0.88em;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      transition: color 0.13s, border-color 0.13s, background 0.13s;
+    }
+
+    .hero-links-row a:hover {
+      color: #111;
+      border-color: #999;
+      background: #f5f5f5;
+    }
+
+    .hero-links-row .sep {
+      display: none;
     }
 
     .hero-bio {
@@ -166,19 +189,6 @@
       font-style: italic;
     }
 
-    .hero-links a:hover {
-      color: #111;
-    }
-
-    .hero-links a:hover .link-value {
-      text-decoration-color: #555;
-    }
-
-    .contact-footer {
-      max-width: 840px;
-      margin: 18px auto 0;
-      padding: 0 24px 60px;
-    }
 
     @media (max-width: 700px) {
       .hero-section {
@@ -200,9 +210,6 @@
         text-align: left;
       }
 
-      .hero-links {
-        align-items: stretch;
-      }
     }
 
     .about {
@@ -301,7 +308,7 @@
     }
 
     .entry:hover {
-      background-color: #f1f1f1;
+      background-color: #f9f9f9;
     }
 
     .entry-image-container {
@@ -427,7 +434,7 @@
 
     .news-section {
       max-width: 840px;
-      margin: 6px auto 0;
+      margin: 28px auto 0;
       padding: 0 24px;
       padding-bottom: 14px;
       border-bottom: 1px solid #e6e6e6;
@@ -572,26 +579,32 @@
     <div class="content">
       <div class="hero-section">
         <div class="hero-photo">
-          <img src="image/ziga_blue_narrow.png" alt="Žiga">
+          <img src="image/ziga_city.png" alt="Žiga">
         </div>
         <div class="hero-info">
-          <div class="hero-name">Žiga Kovačič <span class="hero-pronunciation">//Zhee-guh koh-VAH-chich//</span></div>
+          <div class="hero-name">Žiga Kovačič<span class="name-tooltip-wrap">
+              <span class="name-tooltip-trigger">?</span>
+              <div class="name-tooltip-box">My name is of Slovenian origin.<br>Pronounced <em>Zhee-guh Koh-VAH-chich</em>.</div>
+            </span></div>
           <p class="hero-bio" style="margin-top: 0; margin-bottom: 0;">
             I’m an incoming CS PhD student at Stanford, advised by <a href="https://jiajunwu.com/" target="_blank">Jiajun Wu</a> and co-advised by <a href="https://jiayuanm.com/" target="_blank">Jiayuan Mao</a>. I’m interested in hierarchical world models that learn the right level of physical abstraction for each task and co-evolve through interaction. I also have a deep interest in physical simulation.
           </p>
-          <p class="hero-bio" style="margin-top: 0.5em; margin-bottom: 0;">Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a>.</p>
+          <p class="hero-bio" style="margin-top: 0.5em; margin-bottom: 0;">Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a>, and was recognised as a <a href="https://merrill.cornell.edu/programs-and-awards/presidential-scholars/" target="_blank">Merrill Presidential Scholar</a>.</p>
+          <p class="hero-links-row">
+            <a href="mailto:ziga@stanford.edu">email</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="https://github.com/zzigak">github</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">scholar</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="pdf/grad_school.pdf">cv</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="https://x.com/zzigakovacic">x</a>
+          </p>
         </div>
       </div>
     </div>
   </div>
-
-  <section class="news-section">
-    <h2 class="section-header" style="margin-top: 0; font-size: 1.1rem;">News</h2>
-    <ul class="news-list">
-      <li class="news-item"><strong>Mar. 2026</strong> Recognised as top 1% of graduating class, Merrill Presidential
-        Scholar award.</li>
-    </ul>
-  </section>
 
   <p class="pub-intro">See my <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Google
       Scholar</a> for the most up-to-date publication list.</p>
@@ -599,8 +612,8 @@
   <!-- Tabs - Owen-inspired style -->
   <div class="tabs-container">
     <div class="tabs">
+      <button class="active" data-section="publications" onclick="showSection('publications', event)">Selected</button>
       <button data-section="all" onclick="showSection('all', event)">All</button>
-      <button class="active" data-section="publications" onclick="showSection('publications', event)">Publications</button>
       <button data-section="projects" onclick="showSection('projects', event)">Projects</button>
       <button data-section="teaching" onclick="showSection('teaching', event)">Teaching</button>
     </div>
@@ -609,6 +622,23 @@
   <!-- Entries - Original index style -->
   <div class="entries-container">
     <div class="entries" id="all-content">
+
+      <!-- Publication 2 -->
+      <div class="entry publication selected">
+        <div class="entry-image-container">
+          <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
+        </div>
+        <div class="entry-info">
+          <h3>Physics-Based Simulation<span class="entry-type-label">Publication</span></h3>
+          <div class="authors">M. Li, C. Jiang, Z. Luo, <span class="me">Ž. Kovačič</span>, W. Du, C. Yu, T. Xie</div>
+          <div class="venue">Online Book (2025)</div>
+          <div class="links">
+            <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
+            <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
+              Code</a>
+          </div>
+        </div>
+      </div>
 
       <!-- Publication 1 -->
       <div class="entry publication selected">
@@ -626,23 +656,6 @@
               Method</a>
             <a href="https://github.com/code-refactor/minicode" target="_blank"><i class="fab fa-github"></i>
               Benchmark</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Publication 2 -->
-      <div class="entry publication selected">
-        <div class="entry-image-container">
-          <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
-        </div>
-        <div class="entry-info">
-          <h3>Physics-Based Simulation<span class="entry-type-label">Publication</span></h3>
-          <div class="authors">M. Li, C. Jiang, Z. Luo, W. Du, C. Yu, <span class="me">Ž. Kovačič</span>, T. Xie</div>
-          <div class="venue">Online Book (2025)</div>
-          <div class="links">
-            <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
-            <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
-              Code</a>
           </div>
         </div>
       </div>
@@ -874,35 +887,6 @@
     </div>
   </div>
 
-  <footer class="contact-footer">
-    <div class="hero-links">
-      <a href="mailto:zk66@cornell.edu">
-        <span class="link-label">email</span>
-        <span class="link-dots"></span>
-        <span class="link-value">zk66@cornell.edu</span>
-      </a>
-      <a target="_blank" href="https://github.com/zzigak">
-        <span class="link-label">github</span>
-        <span class="link-dots"></span>
-        <span class="link-value">@zzigak</span>
-      </a>
-      <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">
-        <span class="link-label">scholar</span>
-        <span class="link-dots"></span>
-        <span class="link-value">Žiga Kovačič</span>
-      </a>
-      <a target="_blank" href="https://x.com/zzigakovacic">
-        <span class="link-label">x / twitter</span>
-        <span class="link-dots"></span>
-        <span class="link-value">@zzigakovacic</span>
-      </a>
-      <a target="_blank" href="pdf/grad_school.pdf">
-        <span class="link-label">cv</span>
-        <span class="link-dots"></span>
-        <span class="link-value">grad_school.pdf</span>
-      </a>
-    </div>
-  </footer>
 
 </body>
 
