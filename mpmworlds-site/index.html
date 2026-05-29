@@ -180,7 +180,8 @@ body {
 .demo-video-wrap.is-loading::after,
 .vid-gt.is-loading::after,
 .vid-vdm-wrap.is-loading::after,
-.video-shell.is-loading::after {
+.video-shell.is-loading::after,
+.sg-cell.is-loading::after {
   content: '';
   position: absolute; inset: 0; z-index: 3;
   background: rgba(0, 0, 0, .35);
@@ -191,7 +192,8 @@ body {
 .demo-video-wrap.is-loading::before,
 .vid-gt.is-loading::before,
 .vid-vdm-wrap.is-loading::before,
-.video-shell.is-loading::before {
+.video-shell.is-loading::before,
+.sg-cell.is-loading::before {
   content: '';
   position: absolute; z-index: 4;
   top: 50%; left: 50%;
@@ -623,7 +625,7 @@ details[open] > .details-toggle::before { content: "▾"; }
 .demo-section#input-sensitivity .sens-grid {
   gap: 2px 8px;
 }
-.sg-cell { min-width: 0; }
+.sg-cell { min-width: 0; position: relative; }
 .sg-row-lbl {
   font-size: 13px; font-weight: 700; color: var(--sub);
   text-transform: uppercase; letter-spacing: .5px;
@@ -2557,7 +2559,8 @@ const VDM_PRED_START = (VDM_GT_FRAMES - VDM_PRED_EARLY_FRAMES) / VIDEO_FPS;
 function getVideoShell(v) {
   const p = v.parentElement;
   if (p && (p.classList.contains('vid-gt') || p.classList.contains('vid-vdm-wrap') ||
-      p.classList.contains('demo-video-wrap') || p.classList.contains('hero-video-wrap'))) {
+      p.classList.contains('demo-video-wrap') || p.classList.contains('hero-video-wrap') ||
+      p.classList.contains('sg-cell'))) {
     return p;
   }
   if (!p.classList.contains('video-shell')) {
@@ -2577,7 +2580,6 @@ function setupVideoLoading(v) {
   if (v.dataset.loadingSetup) return;
   v.dataset.loadingSetup = '1';
   v.addEventListener('waiting', () => setVideoLoading(v, true));
-  v.addEventListener('canplay', () => setVideoLoading(v, false));
   v.addEventListener('playing', () => setVideoLoading(v, false));
   v.addEventListener('error', () => setVideoLoading(v, false));
 }
@@ -2596,11 +2598,23 @@ function playWhenReady(v) {
   });
 }
 
+function waitForVideoReady(v) {
+  if (v.dataset.src && !v.dataset.loaded) loadVideoSource(v);
+  if (v.readyState >= 3) return Promise.resolve();
+  return new Promise(resolve => {
+    const done = () => resolve();
+    if (v.readyState >= 3) done();
+    else {
+      v.addEventListener('canplay', done, { once: true });
+      v.addEventListener('error', done, { once: true });
+    }
+  });
+}
+
 function loadVideoSource(v) {
   if (v.dataset.loaded) return;
   v.dataset.loaded = '1';
   setupVideoLoading(v);
-  setVideoLoading(v, true);
   v.src = v.dataset.src;
   v.load();
   const doSeek = () => {
@@ -2715,9 +2729,7 @@ function activateCard(card) {
   if (card.dataset.activated) return;
   card.dataset.activated = '1';
   wrapVdmVideos(card);
-  [...card.querySelectorAll('video[data-src]')].forEach((v, i) => {
-    setTimeout(() => loadVideoSource(v), i * 150);
-  });
+  card.querySelectorAll('video[data-src]').forEach(v => loadVideoSource(v));
 }
 
 const cardObserver = new IntersectionObserver(entries => {
@@ -2727,15 +2739,26 @@ document.querySelectorAll('.card').forEach(c => cardObserver.observe(c));
 
 function playCardVideos(card) {
   activateCard(card);
+  const videos = [...card.querySelectorAll('video')];
   const loopOn = card.dataset.loop === '1';
-  card.querySelectorAll('video').forEach(v => {
+  const playId = String(Number(card.dataset.playId || 0) + 1);
+  card.dataset.playId = playId;
+  videos.forEach(v => {
     v.loop = loopOn;
-    playWhenReady(v);
+    setupVideoLoading(v);
+  });
+  videos.forEach(v => setVideoLoading(v, true));
+  Promise.all(videos.map(waitForVideoReady)).then(() => {
+    if (card.dataset.playId !== playId) return;
+    videos.forEach(v => setVideoLoading(v, false));
+    videos.forEach(v => v.play().catch(() => {}));
   });
 }
 
 function pauseCardVideos(card, reset) {
+  card.dataset.playId = String(Number(card.dataset.playId || 0) + 1);
   card.querySelectorAll('video').forEach(v => {
+    setVideoLoading(v, false);
     v.pause();
     if (reset) v.currentTime = FRAME2;
   });
