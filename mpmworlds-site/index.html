@@ -169,9 +169,44 @@ body {
 .demo-desc .hl-vlm { color: var(--vlm); font-weight: 600; }
 .demo-desc .hl-vdm { color: var(--vdm); font-weight: 600; }
 .hero-findings li.highlight .item-label { color: var(--fg); }
+.hero-video-wrap {
+  position: relative; width: 100%;
+}
 .hero-video {
   width: 100%; aspect-ratio: 1; object-fit: contain;
   background: #000; border-radius: 4px; display: block;
+}
+.hero-video-wrap.is-loading::after,
+.demo-video-wrap.is-loading::after,
+.vid-gt.is-loading::after,
+.vid-vdm-wrap.is-loading::after,
+.video-shell.is-loading::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 3;
+  background: rgba(0, 0, 0, .35);
+  border-radius: 4px;
+  pointer-events: none;
+}
+.hero-video-wrap.is-loading::before,
+.demo-video-wrap.is-loading::before,
+.vid-gt.is-loading::before,
+.vid-vdm-wrap.is-loading::before,
+.video-shell.is-loading::before {
+  content: '';
+  position: absolute; z-index: 4;
+  top: 50%; left: 50%;
+  width: 28px; height: 28px; margin: -14px 0 0 -14px;
+  border: 3px solid rgba(255, 255, 255, .35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: video-spin .7s linear infinite;
+  pointer-events: none;
+}
+@keyframes video-spin { to { transform: rotate(360deg); } }
+.vid-gt, .video-shell { position: relative; min-width: 0; }
+.video-shell video {
+  width: 100%; aspect-ratio: 1; display: block;
+  object-fit: contain; background: var(--bg);
 }
 
 /* prose blocks */
@@ -705,7 +740,9 @@ footer {
       </li>
     </ul>
   </div>
-  <video class="hero-video" src="dataset_demo_spiral_2.mp4" autoplay muted loop playsinline></video>
+  <div class="hero-video-wrap">
+    <video class="hero-video" poster="dataset_demo_spiral_2.jpg" data-src="dataset_demo_spiral_2_web.mp4" muted loop playsinline preload="none"></video>
+  </div>
 </div>
 
 <section class="prose-section">
@@ -718,7 +755,7 @@ footer {
   <p class="demo-desc">We study a core capability of physical reasoning: given a short <em>observation</em> of a scene — a video prefix v<sub>≤t</sub> — can a model infer the underlying dynamics and <em>extrapolate</em> forward, predicting what happens next? Success means recovering a forward simulation that continues faithfully beyond the frames we show.</p>
   <div class="demo-video-wrap" data-hover-play>
     <span class="demo-video-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-    <video src="task_.mov" muted playsinline preload="metadata"></video>
+    <video src="task.mp4" muted playsinline preload="metadata"></video>
     <div class="demo-video-progress" aria-hidden="true"><div class="demo-video-progress-fill"></div></div>
   </div>
 </section>
@@ -728,7 +765,7 @@ footer {
   <p class="demo-desc">On MPMWorld, each simulation is split into an observation segment (v<sub>≤t</sub>) and a held-out extrapolation. A <span class="hl-vdm">video diffusion model</span> predicts extrapolation frames directly in pixel space; a <span class="hl-vlm">vision–language model</span> instead writes an executable MPM simulation program and runs it forward to produce the continuation.</p>
   <div class="demo-video-wrap" data-hover-play data-start-last-frame>
     <span class="demo-video-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-    <video src="task_demo copy (1).mov" muted playsinline preload="metadata"></video>
+    <video src="task_demo.mp4" muted playsinline preload="metadata"></video>
     <div class="demo-video-progress" aria-hidden="true"><div class="demo-video-progress-fill"></div></div>
   </div>
   <p class="demo-desc">Beyond the observation video, models may also receive structured scene information — and we vary how much is <strong>given</strong> vs. <strong>withheld</strong>. Structured inputs include scene configuration (colors, physics parameters, and other settings), object positions, and material information (type, parameter values, etc.). We evaluate four input regimes:</p>
@@ -2517,6 +2554,64 @@ const VDM_PRED_EARLY_FRAMES = 2;
 const VIDEO_FPS = 15;
 const VDM_PRED_START = (VDM_GT_FRAMES - VDM_PRED_EARLY_FRAMES) / VIDEO_FPS;
 
+function getVideoShell(v) {
+  const p = v.parentElement;
+  if (p && (p.classList.contains('vid-gt') || p.classList.contains('vid-vdm-wrap') ||
+      p.classList.contains('demo-video-wrap') || p.classList.contains('hero-video-wrap'))) {
+    return p;
+  }
+  if (!p.classList.contains('video-shell')) {
+    const shell = document.createElement('div');
+    shell.className = 'video-shell';
+    v.parentNode.insertBefore(shell, v);
+    shell.appendChild(v);
+  }
+  return v.parentElement;
+}
+
+function setVideoLoading(v, loading) {
+  getVideoShell(v).classList.toggle('is-loading', loading);
+}
+
+function setupVideoLoading(v) {
+  if (v.dataset.loadingSetup) return;
+  v.dataset.loadingSetup = '1';
+  v.addEventListener('waiting', () => setVideoLoading(v, true));
+  v.addEventListener('canplay', () => setVideoLoading(v, false));
+  v.addEventListener('playing', () => setVideoLoading(v, false));
+  v.addEventListener('error', () => setVideoLoading(v, false));
+}
+
+function playWhenReady(v) {
+  setupVideoLoading(v);
+  if (v.readyState >= 3) return v.play().catch(() => {});
+  setVideoLoading(v, true);
+  return new Promise(resolve => {
+    const go = () => {
+      setVideoLoading(v, false);
+      v.play().catch(() => {}).finally(resolve);
+    };
+    if (v.readyState >= 3) go();
+    else v.addEventListener('canplay', go, { once: true });
+  });
+}
+
+function loadVideoSource(v) {
+  if (v.dataset.loaded) return;
+  v.dataset.loaded = '1';
+  setupVideoLoading(v);
+  setVideoLoading(v, true);
+  v.src = v.dataset.src;
+  v.load();
+  const doSeek = () => {
+    if (v.currentTime < FRAME2) v.currentTime = FRAME2;
+    const wrap = v.closest('.vid-vdm-wrap');
+    if (wrap) setupVdmPhase(v, wrap);
+  };
+  if (v.readyState >= 1) doSeek();
+  else v.addEventListener('loadedmetadata', doSeek, { once: true });
+}
+
 function setupVdmPhase(v, wrap) {
   if (v.dataset.vdmPhase) return;
   v.dataset.vdmPhase = '1';
@@ -2546,6 +2641,7 @@ wrapVdmVideos(document);
 
 document.querySelectorAll('[data-hover-play]').forEach(wrap => {
   const v = wrap.querySelector('video');
+  setupVideoLoading(v);
   const fill = wrap.querySelector('.demo-video-progress-fill');
   const startLastFrame = wrap.hasAttribute('data-start-last-frame');
   let rafId = null;
@@ -2571,7 +2667,7 @@ document.querySelectorAll('[data-hover-play]').forEach(wrap => {
   const play = () => {
     wrap.classList.add('is-playing');
     if (startLastFrame) v.currentTime = 0;
-    v.play().catch(() => {});
+    playWhenReady(v);
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(tick);
   };
@@ -2619,16 +2715,8 @@ function activateCard(card) {
   if (card.dataset.activated) return;
   card.dataset.activated = '1';
   wrapVdmVideos(card);
-  card.querySelectorAll('video[data-src]').forEach(v => {
-    v.src = v.dataset.src;
-    v.load();
-    const doSeek = () => {
-      if (v.currentTime < FRAME2) v.currentTime = FRAME2;
-      const wrap = v.closest('.vid-vdm-wrap');
-      if (wrap) setupVdmPhase(v, wrap);
-    };
-    if (v.readyState >= 1) doSeek();
-    else v.addEventListener('loadedmetadata', doSeek, { once: true });
+  [...card.querySelectorAll('video[data-src]')].forEach((v, i) => {
+    setTimeout(() => loadVideoSource(v), i * 150);
   });
 }
 
@@ -2642,7 +2730,7 @@ function playCardVideos(card) {
   const loopOn = card.dataset.loop === '1';
   card.querySelectorAll('video').forEach(v => {
     v.loop = loopOn;
-    v.play().catch(() => {});
+    playWhenReady(v);
   });
 }
 
@@ -2691,6 +2779,17 @@ const navObs = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 ['task', 'comparison', 'results', 'code-gen-wins', 'diffusion-wins', 'both-models', 'input-sensitivity', 'both-do-well']
   .forEach(id => { const s = document.getElementById(id); if (s) navObs.observe(s); });
+
+const heroVideo = document.querySelector('.hero-video[data-src]');
+if (heroVideo) {
+  setupVideoLoading(heroVideo);
+  requestAnimationFrame(() => {
+    setVideoLoading(heroVideo, true);
+    heroVideo.src = heroVideo.dataset.src;
+    heroVideo.load();
+    playWhenReady(heroVideo);
+  });
+}
 </script>
 </body>
 </html>
