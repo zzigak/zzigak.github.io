@@ -2599,7 +2599,11 @@ function playWhenReady(v) {
 }
 
 function waitForVideoReady(v) {
-  if (v.dataset.src && !v.dataset.loaded) loadVideoSource(v);
+  if (v.dataset.src && !v.dataset.loaded && !v.dataset.loading) {
+    const card = v.closest('.card');
+    if (card) enqueueCardVideos(card, true);
+    else requestVideoLoad(v);
+  }
   if (v.readyState >= 3) return Promise.resolve();
   return new Promise(resolve => {
     const done = () => resolve();
@@ -2611,12 +2615,72 @@ function waitForVideoReady(v) {
   });
 }
 
-function loadVideoSource(v) {
-  if (v.dataset.loaded) return;
+const VIDEO_LOAD_CONCURRENCY = 3;
+let videoLoadsInFlight = 0;
+const videoLoadQueue = [];
+
+(function initVideoLoadOrder() {
+  let order = 0;
+  document.querySelectorAll('video[data-src]').forEach(v => {
+    v.dataset.loadOrder = String(order++);
+  });
+})();
+
+function requestVideoLoad(v) {
+  if (v.dataset.loaded || v.dataset.loading) return;
+  if (videoLoadQueue.includes(v)) return;
+  v.dataset.queued = '1';
+  videoLoadQueue.push(v);
+  drainVideoLoadQueue();
+}
+
+function enqueueCardVideos(card, urgent) {
+  const videos = [...card.querySelectorAll('video[data-src]')]
+    .sort((a, b) => Number(a.dataset.loadOrder) - Number(b.dataset.loadOrder))
+    .filter(v => !v.dataset.loaded && !v.dataset.loading);
+  if (!videos.length) return;
+  if (urgent) videos.forEach(v => { v.dataset.loadBoost = '1'; });
+  videos.forEach(v => {
+    if (videoLoadQueue.includes(v)) return;
+    v.dataset.queued = '1';
+    videoLoadQueue.push(v);
+  });
+  drainVideoLoadQueue();
+}
+
+function drainVideoLoadQueue() {
+  videoLoadQueue.sort((a, b) => {
+    const boost = Number(b.dataset.loadBoost || 0) - Number(a.dataset.loadBoost || 0);
+    if (boost) return boost;
+    return Number(a.dataset.loadOrder) - Number(b.dataset.loadOrder);
+  });
+  while (videoLoadsInFlight < VIDEO_LOAD_CONCURRENCY && videoLoadQueue.length) {
+    const v = videoLoadQueue.shift();
+    delete v.dataset.queued;
+    if (v.dataset.loaded || v.dataset.loading) continue;
+    videoLoadsInFlight++;
+    loadVideoSource(v, () => {
+      videoLoadsInFlight--;
+      drainVideoLoadQueue();
+    });
+  }
+}
+
+function loadVideoSource(v, onComplete) {
+  if (v.dataset.loaded) {
+    onComplete?.();
+    return;
+  }
   v.dataset.loaded = '1';
+  v.dataset.loading = '1';
   setupVideoLoading(v);
   v.src = v.dataset.src;
   v.load();
+  const finish = () => {
+    delete v.dataset.loading;
+    delete v.dataset.loadBoost;
+    onComplete?.();
+  };
   const doSeek = () => {
     if (v.currentTime < FRAME2) v.currentTime = FRAME2;
     const wrap = v.closest('.vid-vdm-wrap');
@@ -2624,6 +2688,11 @@ function loadVideoSource(v) {
   };
   if (v.readyState >= 1) doSeek();
   else v.addEventListener('loadedmetadata', doSeek, { once: true });
+  if (v.readyState >= 3) finish();
+  else {
+    v.addEventListener('canplay', finish, { once: true });
+    v.addEventListener('error', finish, { once: true });
+  }
 }
 
 function setupVdmPhase(v, wrap) {
@@ -2722,23 +2791,23 @@ function toggleTailView(id, btn) {
   btn.classList.add('active');
   const wrap = track.closest('.carousel-wrap');
   if (wrap) wrap.querySelectorAll('.carousel-arrow').forEach(a => { a.style.display = mode === 'carousel' ? '' : 'none'; });
-  track.querySelectorAll('.card').forEach(c => activateCard(c));
 }
 
 function activateCard(card) {
   if (card.dataset.activated) return;
   card.dataset.activated = '1';
   wrapVdmVideos(card);
-  card.querySelectorAll('video[data-src]').forEach(v => loadVideoSource(v));
+  enqueueCardVideos(card, false);
 }
 
 const cardObserver = new IntersectionObserver(entries => {
   entries.forEach(en => { if (en.isIntersecting) activateCard(en.target); });
-}, { threshold: 0.05 });
+}, { threshold: 0.05, rootMargin: '120px 0px' });
 document.querySelectorAll('.card').forEach(c => cardObserver.observe(c));
 
 function playCardVideos(card) {
   activateCard(card);
+  enqueueCardVideos(card, true);
   const videos = [...card.querySelectorAll('video')];
   const loopOn = card.dataset.loop === '1';
   const playId = String(Number(card.dataset.playId || 0) + 1);
