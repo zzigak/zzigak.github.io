@@ -127,13 +127,15 @@ body {
   stroke-linecap: round; stroke-linejoin: round;
 }
 .hero-tagline {
-  margin-top: 24px; font-size: 21px; font-weight: 600; line-height: 1.3;
-  color: var(--fg); text-align: left;
+  margin-top: 24px; font-size: 24px; font-weight: 700; line-height: 1.28;
+  color: var(--fg); text-align: left; letter-spacing: -.2px;
 }
 .hero-lead {
   margin-top: 14px; font-size: 18px; line-height: 1.58; color: var(--fg);
   text-align: justify; hyphens: auto;
 }
+.hero-lead .hl-vlm { color: var(--vlm); font-weight: 600; }
+.hero-lead .hl-vdm { color: var(--vdm); font-weight: 600; }
 .hero-contributions {
   margin-top: 20px; margin-bottom: 4px;
   font-size: 13px; font-weight: 700; letter-spacing: .8px;
@@ -720,8 +722,8 @@ footer {
         </a>
       </div>
     </div>
-    <p class="hero-tagline">Can Code Generation or Video Diffusion Infer Physical Dynamics?</p>
-    <p class="hero-lead">We study whether models can <strong>infer</strong> physical dynamics from video and <strong>extrapolate</strong> them forward in time, comparing vision–language code generation against video diffusion on rich 2D MPM simulations.</p>
+    <p class="hero-tagline">Does AI understand what it sees well enough to predict what happens next?</p>
+    <p class="hero-lead">On MPMWorld, a benchmark of rich 2D physical simulations, we compare two approaches — <span class="hl-vlm">vision–language code generation</span> and <span class="hl-vdm">video diffusion</span> — to test whether models can infer dynamics from video and extrapolate forward in time.</p>
     <div class="hero-contributions">Contributions</div>
     <ul class="hero-findings">
       <li>
