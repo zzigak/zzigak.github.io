@@ -318,8 +318,7 @@
     }
 
     /* ---------- PUBLICATION IMAGES ---------- */
-    .entry img,
-    .entry video {
+    .entry img {
       width: 200px !important;
       height: auto;
       max-height: 150px;
@@ -328,6 +327,17 @@
       border: 1px solid #e0e0e0;
       flex-shrink: 0;
       background-color: transparent;
+    }
+
+    .entry video {
+      width: 200px !important;
+      height: 100px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      background-color: #000;
     }
 
     .entry-info {
@@ -353,7 +363,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      font-size: 0.72rem;
+      font-size: 0.67rem;
       font-weight: 500;
       color: #7a7a7a;
       opacity: 0.85;
@@ -362,7 +372,7 @@
     }
 
     .entry-info .authors {
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       color: #666;
       margin-bottom: .2rem;
     }
@@ -373,23 +383,26 @@
     }
 
     .entry-info .venue {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: #666;
       margin-bottom: .3rem;
       font-style: italic;
     }
 
     .entry.project p,
-    .entry.publication p {
+    .entry.publication p,
+    .entry.teaching p {
       margin-top: 0.15rem !important;
       margin-bottom: 0.3rem;
+      font-size: 0.87rem !important;
+      line-height: 1.4;
     }
 
     .entry-info .links a {
       margin-right: 0.35rem;
       color: #666;
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       padding: 0.15rem 0.4rem;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -508,11 +521,19 @@
         margin: 0;
       }
 
-      .entry img,
-      .entry video {
+      .entry img {
         width: 100% !important;
+        height: auto;
         max-height: 210px;
         object-fit: contain;
+      }
+
+      .entry video {
+        width: 100% !important;
+        height: auto;
+        aspect-ratio: 2 / 1;
+        object-fit: cover;
+        object-position: center;
       }
 
       .entry-info {
@@ -623,6 +644,26 @@
   <div class="entries-container">
     <div class="entries" id="all-content">
 
+      <!-- Publication: MPMWorlds -->
+      <div class="entry publication selected">
+        <div class="entry-image-container">
+          <video id="mpmworlds-thumb" autoplay loop muted playsinline>
+            <source src="mpmworlds/dataset_demo_spiral_2_web_169.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="entry-info">
+          <h3>MPMWorlds: Material-Point-Method Simulations for Inferring and Extrapolating Physical Dynamics<span class="entry-type-label">Publication</span></h3>
+          <div class="authors"><span class="me">Ž. Kovačič</span>, K. Ellis</div>
+          <div class="venue">In submission (2026)</div>
+          <div class="links">
+            <a href="https://zzigak.github.io/mpmworlds/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+            <a href="https://arxiv.org/abs/2606.01538" target="_blank"><i class="fas fa-file-pdf"></i> Paper</a>
+            <a href="#"><i class="fas fa-database"></i> Dataset (TBD)</a>
+            <a href="#"><i class="fab fa-twitter"></i> X (TBD)</a>
+          </div>
+        </div>
+      </div>
+
       <!-- Publication 2 -->
       <div class="entry publication selected">
         <div class="entry-image-container">
@@ -631,7 +672,7 @@
         <div class="entry-info">
           <h3>Physics-Based Simulation<span class="entry-type-label">Publication</span></h3>
           <div class="authors">M. Li, C. Jiang, Z. Luo, <span class="me">Ž. Kovačič</span>, W. Du, C. Yu, T. Xie</div>
-          <div class="venue">Online Book (2025)</div>
+          <div class="venue">Online Book v1.0.3 (2026)</div>
           <div class="links">
             <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
             <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
@@ -887,6 +928,20 @@
     </div>
   </div>
 
+  <script>
+    (function () {
+      const video = document.getElementById('mpmworlds-thumb');
+      if (!video) return;
+      const start = 5;
+      const seekToStart = () => {
+        if (video.duration && start < video.duration) video.currentTime = start;
+      };
+      video.addEventListener('loadedmetadata', seekToStart);
+      video.addEventListener('timeupdate', () => {
+        if (video.currentTime < start - 0.1) video.currentTime = start;
+      });
+    })();
+  </script>
 
 </body>
 
