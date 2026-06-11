@@ -43,7 +43,7 @@
     }
 
     .content {
-      max-width: 840px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -238,14 +238,14 @@
     }
 
     .tabs-container {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .tabs {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin-top: 1.5rem;
       display: flex;
@@ -282,14 +282,14 @@
 
     /* Entries - Original index style */
     .entries-container {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .entries {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin-top: 1rem;
       display: flex;
@@ -341,17 +341,17 @@
     }
 
     .entry-info {
-      position: relative;
       flex: 1;
       min-width: 0;
-      max-width: 700px;
-      padding-right: 90px;
+      max-width: 780px;
+      padding-right: 0;
     }
 
     .entry-info h3 {
       font-size: 1.02rem;
       font-family: inherit;
-      font-weight: 600;
+      font-weight: 650;
+      color: #333;
       margin-bottom: .2rem;
       margin-top: 0;
       display: block;
@@ -359,34 +359,33 @@
       line-height: 1.24;
     }
 
-    .entry-type-label {
-      position: absolute;
-      right: 0;
-      top: 0;
-      font-size: 0.67rem;
-      font-weight: 500;
-      color: #7a7a7a;
-      opacity: 0.85;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
     .entry-info .authors {
       font-size: 0.86rem;
-      color: #666;
+      color: #333;
       margin-bottom: .2rem;
     }
 
     .entry-info .authors .me {
-      font-weight: 460;
-      color: #222;
+      font-weight: 600;
+      color: #333;
     }
 
     .entry-info .venue {
       font-size: 0.82rem;
-      color: #666;
+      color: #444;
       margin-bottom: .3rem;
       font-style: italic;
+    }
+
+    .venue-links-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .venue-links-row .venue {
+      margin-bottom: 0;
     }
 
     .entry.project p,
@@ -427,7 +426,7 @@
     }
 
     .pub-intro {
-      max-width: 840px;
+      max-width: 920px;
       margin: 0 auto 0.15rem;
       padding: 0 24px;
       font-size: 0.97rem;
@@ -446,7 +445,7 @@
     }
 
     .news-section {
-      max-width: 840px;
+      max-width: 920px;
       margin: 28px auto 0;
       padding: 0 24px;
       padding-bottom: 14px;
@@ -546,12 +545,6 @@
       .entry-info h3 {
         line-height: 1.3;
       }
-
-      .entry-type-label {
-        position: static;
-        margin-left: 0.45rem;
-        vertical-align: middle;
-      }
     }
 
 
@@ -647,13 +640,13 @@
       <!-- Publication: MPMWorlds -->
       <div class="entry publication selected">
         <div class="entry-image-container">
-          <video id="mpmworlds-thumb" autoplay loop muted playsinline>
+          <video id="mpmworlds-thumb" autoplay muted playsinline>
             <source src="mpmworlds/dataset_demo_spiral_2_web_169.mp4" type="video/mp4">
           </video>
         </div>
         <div class="entry-info">
-          <h3>MPMWorlds: Material-Point-Method Simulations for Inferring and Extrapolating Physical Dynamics<span class="entry-type-label">Publication</span></h3>
-          <div class="authors"><span class="me">Ž. Kovačič</span>, K. Ellis</div>
+          <h3>MPMWorlds: MPM Simulations for Inferring and Extrapolating Physical Dynamics</h3>
+          <div class="authors"><span class="me">Žiga Kovačič</span>, Kevin Ellis</div>
           <div class="venue">In submission (2026)</div>
           <div class="links">
             <a href="https://zzigak.github.io/mpmworlds/" target="_blank"><i class="fas fa-globe"></i> Project</a>
@@ -670,13 +663,15 @@
           <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
         </div>
         <div class="entry-info">
-          <h3>Physics-Based Simulation<span class="entry-type-label">Publication</span></h3>
-          <div class="authors">M. Li, C. Jiang, Z. Luo, <span class="me">Ž. Kovačič</span>, W. Du, C. Yu, T. Xie</div>
-          <div class="venue">Online Book v1.0.3 (2026)</div>
-          <div class="links">
-            <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
-            <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
-              Code</a>
+          <h3>Physics-Based Simulation</h3>
+          <div class="authors">Minchen Li, Chenfanfu Jiang, Zhaofeng Luo, <span class="me">Žiga Kovačič</span>, Wenxin Du, Chang Yu, Tianyi Xie</div>
+          <div class="venue-links-row">
+            <div class="venue">Online Book v1.0.3 (2026)</div>
+            <div class="links">
+              <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
+              <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
+                Code</a>
+            </div>
           </div>
         </div>
       </div>
@@ -687,8 +682,8 @@
           <img src="image/refactor_figure.png" alt="Refactoring Codebases">
         </div>
         <div class="entry-info">
-          <h3>Refactoring Codebases through Library Design<span class="entry-type-label">Publication</span></h3>
-          <div class="authors"><span class="me">Ž. Kovačič</span>*, J. T. Chiu*, C. Lee, W. Zhao, K. Ellis</div>
+          <h3>Refactoring Codebases through Library Design</h3>
+          <div class="authors"><span class="me">Žiga Kovačič</span>*, Justin T. Chiu*, Celine Lee, Wenting Zhao, Kevin Ellis</div>
           <div class="venue">DL4C @ NeurIPS 2025, Extension in submission</div>
           <div class="links">
             <a href="https://code-refactor.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
@@ -709,8 +704,8 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Pocket Time-Lapse<span class="entry-type-label">Publication</span></h3>
-          <div class="authors">E. M. Chen, <span class="me">Ž. Kovačič</span>, M. Agrawal, A. Davis</div>
+          <h3>Pocket Time-Lapse</h3>
+          <div class="authors">Eric M. Chen, <span class="me">Žiga Kovačič</span>, Madhav Aggarwal, Abe Davis</div>
           <div class="venue">SIGGRAPH (2025)</div>
           <div class="links">
             <a href="https://pocket-timelapse.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
@@ -728,7 +723,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>MPM Yarn Simulation (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>MPM Yarn Simulation (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implements Anisotropic Elastoplasticity for Cloth, Knit and Hair
             Frictional Contact [C. Jiang et. al., 2017].</p>
           <div class="links">
@@ -745,7 +740,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>XPBD Simulator (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>XPBD Simulator (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implements PBD solver with ability to simulate cloth, volumetric
             meshes, and fluids in the same solver.</p>
           <div class="links">
@@ -762,7 +757,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>MLS-MPM and CPIC (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>MLS-MPM and CPIC (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implementation of the Moving Least Squared Material Point
             Method, CPIC, various materials, and mesh extraction in 2D and 3D.</p>
           <div class="links">
@@ -779,7 +774,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Obstruction Removal - SliceSplatting (2024)<span class="entry-type-label">Project</span></h3>
+          <h3>Obstruction Removal - SliceSplatting (2024)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Modifies Gaussian Splatting to remove obstructions blocking the
             view of objects of interest in 3D scene reconstruction.</p>
           <div class="links">
@@ -797,7 +792,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Path Tracing in OCaml (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>Path Tracing in OCaml (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">A path tracer featuring distributive ray tracing, reflections,
             refractions, volumetrics, emissive objects, and a BVH.</p>
           <div class="links">
@@ -813,7 +808,7 @@
           <img src="image/pen2graph.png" alt="Pen-2-Graph">
         </div>
         <div class="entry-info">
-          <h3>Pen-2-Graph (2024)<span class="entry-type-label">Project</span></h3>
+          <h3>Pen-2-Graph (2024)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Automates generation of node-edge graph programs from sketches
             using vision-language models and differential evolution.</p>
           <div class="links">
@@ -830,7 +825,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Image Space Modal Basis (2024)<span class="entry-type-label">Project</span></h3>
+          <h3>Image Space Modal Basis (2024)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implements "Image-Space Modal Bases for Plausible Manipulation
             of Objects in Video", extending it with modal warping. Features a Python pipeline and custom JS rasterizer.
           </p>
@@ -849,7 +844,7 @@
           <img src="image/melodyMesh.png" alt="MelodyMesh">
         </div>
         <div class="entry-info">
-          <h3>MelodyMesh (2023)<span class="entry-type-label">Project</span></h3>
+          <h3>MelodyMesh (2023)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">3D music visualizer that deforms meshes based on audio
             frequencies.</p>
           <div class="links">
@@ -933,12 +928,14 @@
       const video = document.getElementById('mpmworlds-thumb');
       if (!video) return;
       const start = 5;
+      const end = 13;
       const seekToStart = () => {
         if (video.duration && start < video.duration) video.currentTime = start;
       };
       video.addEventListener('loadedmetadata', seekToStart);
       video.addEventListener('timeupdate', () => {
-        if (video.currentTime < start - 0.1) video.currentTime = start;
+        if (video.currentTime >= end) video.currentTime = start;
+        else if (video.currentTime < start - 0.1) video.currentTime = start;
       });
     })();
   </script>
