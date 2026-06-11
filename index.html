@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-accent="apple">
 
 <head>
   <meta charset="UTF-8" />
@@ -15,6 +15,91 @@
 
 
   <style>
+    :root,
+    [data-accent="apple"] {
+      --accent: #007AFF;
+      --accent-hover: #0056B3;
+      --accent-soft: rgba(0, 122, 255, 0.09);
+      --accent-border: rgba(0, 122, 255, 0.34);
+    }
+
+    [data-accent="orange"] {
+      --accent: #D4642C;
+      --accent-hover: #B45322;
+      --accent-soft: rgba(212, 100, 44, 0.1);
+      --accent-border: rgba(212, 100, 44, 0.34);
+    }
+
+    [data-accent="nvidia"] {
+      --accent: #5E9400;
+      --accent-hover: #4A7600;
+      --accent-soft: rgba(118, 185, 0, 0.11);
+      --accent-border: rgba(118, 185, 0, 0.38);
+    }
+
+    [data-accent="discord"] {
+      --accent: #4752C4;
+      --accent-hover: #3C45A5;
+      --accent-soft: rgba(71, 82, 196, 0.1);
+      --accent-border: rgba(71, 82, 196, 0.34);
+    }
+
+    [data-accent="stanford"] {
+      --accent: #8C1515;
+      --accent-hover: #731010;
+      --accent-soft: rgba(140, 21, 21, 0.09);
+      --accent-border: rgba(140, 21, 21, 0.32);
+    }
+
+    [data-accent="teal"] {
+      --accent: #0D9488;
+      --accent-hover: #0B7A71;
+      --accent-soft: rgba(13, 148, 136, 0.09);
+      --accent-border: rgba(13, 148, 136, 0.34);
+    }
+
+    [data-accent="rose"] {
+      --accent: #BE123C;
+      --accent-hover: #9F1239;
+      --accent-soft: rgba(190, 18, 60, 0.09);
+      --accent-border: rgba(190, 18, 60, 0.32);
+    }
+
+    [data-accent="indigo"] {
+      --accent: #4338CA;
+      --accent-hover: #3730A3;
+      --accent-soft: rgba(67, 56, 202, 0.09);
+      --accent-border: rgba(67, 56, 202, 0.34);
+    }
+
+    [data-accent="amber"] {
+      --accent: #B45309;
+      --accent-hover: #92400E;
+      --accent-soft: rgba(180, 83, 9, 0.1);
+      --accent-border: rgba(180, 83, 9, 0.34);
+    }
+
+    [data-accent="violet"] {
+      --accent: #6D28D9;
+      --accent-hover: #5B21B6;
+      --accent-soft: rgba(109, 40, 217, 0.09);
+      --accent-border: rgba(109, 40, 217, 0.32);
+    }
+
+    [data-accent="cornell"] {
+      --accent: #B31B1B;
+      --accent-hover: #962020;
+      --accent-soft: rgba(179, 27, 27, 0.09);
+      --accent-border: rgba(179, 27, 27, 0.32);
+    }
+
+    [data-accent="slate"] {
+      --accent: #475569;
+      --accent-hover: #334155;
+      --accent-soft: rgba(71, 85, 105, 0.09);
+      --accent-border: rgba(71, 85, 105, 0.34);
+    }
+
     html {
       font-size: 17px;
       font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -68,12 +153,14 @@
       text-align: left;
     }
 
-    .hero-info p a {
+    .hero-bio a {
       text-decoration: underline;
-      color: #222;
+      text-underline-offset: 2px;
+      color: var(--accent);
     }
 
-    .hero-info p a:hover {
+    .hero-bio a:hover {
+      color: var(--accent-hover);
       text-decoration: none;
     }
 
@@ -98,6 +185,7 @@
       font-size: 1.7em;
       font-family: inherit;
       font-weight: 600;
+      color: #222;
       margin-bottom: 0.32em;
       line-height: 1.05;
     }
@@ -156,19 +244,19 @@
     }
 
     .hero-links-row a {
-      color: #555;
+      color: var(--accent);
       font-size: 0.88em;
       text-decoration: none;
-      border: 1px solid #ddd;
+      border: 1px solid var(--accent-border);
       border-radius: 4px;
       padding: 0.18rem 0.55rem;
       transition: color 0.13s, border-color 0.13s, background 0.13s;
     }
 
     .hero-links-row a:hover {
-      color: #111;
-      border-color: #999;
-      background: #f5f5f5;
+      color: var(--accent-hover);
+      border-color: var(--accent);
+      background: var(--accent-soft);
     }
 
     .hero-links-row .sep {
@@ -177,7 +265,11 @@
 
     .hero-bio {
       font-size: 0.95em;
-      line-height: 1.7;
+      line-height: 1.6;
+    }
+
+    .hero-bio + .hero-bio {
+      margin-top: 0.3em;
     }
 
     .hero-update {
@@ -351,8 +443,8 @@
       font-size: 1.02rem;
       font-family: inherit;
       font-weight: 650;
-      color: #333;
-      margin-bottom: .2rem;
+      color: #222;
+      margin-bottom: .35rem;
       margin-top: 0;
       display: block;
       padding-right: 0;
@@ -438,10 +530,12 @@
       text-decoration: underline;
       text-underline-offset: 3px;
       text-decoration-color: #b8b8b8;
+      color: inherit;
     }
 
     .pub-intro a:hover {
       text-decoration-color: #222;
+      color: #222;
     }
 
     .news-section {
@@ -547,6 +641,68 @@
       }
     }
 
+    .accent-picker {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding: 0.55rem 0.7rem;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #e4e4e4;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      font-size: 0.72rem;
+      color: #666;
+    }
+
+    .accent-picker-label {
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .accent-swatches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-width: 118px;
+    }
+
+    .accent-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .accent-swatch:hover {
+      transform: scale(1.08);
+    }
+
+    .accent-swatch.is-active {
+      box-shadow: 0 0 0 2px var(--accent), 0 0 0 3px #fff;
+    }
+
+    .accent-swatch[data-accent="orange"] { background: #D4642C; }
+    .accent-swatch[data-accent="nvidia"] { background: #76B900; }
+    .accent-swatch[data-accent="apple"] { background: #007AFF; }
+    .accent-swatch[data-accent="discord"] { background: #4752C4; }
+    .accent-swatch[data-accent="stanford"] { background: #8C1515; }
+    .accent-swatch[data-accent="teal"] { background: #0D9488; }
+    .accent-swatch[data-accent="rose"] { background: #BE123C; }
+    .accent-swatch[data-accent="indigo"] { background: #4338CA; }
+    .accent-swatch[data-accent="amber"] { background: #B45309; }
+    .accent-swatch[data-accent="violet"] { background: #6D28D9; }
+    .accent-swatch[data-accent="cornell"] { background: #B31B1B; }
+    .accent-swatch[data-accent="slate"] { background: #475569; }
+
 
   </style>
   <script>
@@ -603,7 +759,7 @@
           <p class="hero-bio" style="margin-top: 0; margin-bottom: 0;">
             I’m an incoming CS PhD student at Stanford, advised by <a href="https://jiajunwu.com/" target="_blank">Jiajun Wu</a>. I'm interested in hierarchical world models that learn the right level of physical abstraction for each task and co-evolve through interaction. I also have a deep interest in physical simulation.
           </p>
-          <p class="hero-bio" style="margin-top: 0.5em; margin-bottom: 0;">Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a> and was recognised as a Merrill Presidential Scholar.</p>
+          <p class="hero-bio" style="margin-bottom: 0;">Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a> and was recognised as a Merrill Presidential Scholar.</p>
           <p class="hero-links-row">
             <a href="mailto:ziga@stanford.edu">email</a>
             <span class="sep">|</span>
@@ -922,6 +1078,47 @@
       </div>
     </div>
   </div>
+
+  <div class="accent-picker" aria-label="Accent color preview">
+    <span class="accent-picker-label">Accent preview</span>
+    <div class="accent-swatches">
+      <button type="button" class="accent-swatch" data-accent="orange" title="Orange" aria-label="Orange accent"></button>
+      <button type="button" class="accent-swatch" data-accent="nvidia" title="NVIDIA green" aria-label="NVIDIA green accent"></button>
+      <button type="button" class="accent-swatch is-active" data-accent="apple" title="Apple blue" aria-label="Apple blue accent"></button>
+      <button type="button" class="accent-swatch" data-accent="discord" title="Discord purple" aria-label="Discord purple accent"></button>
+      <button type="button" class="accent-swatch" data-accent="stanford" title="Stanford red" aria-label="Stanford red accent"></button>
+      <button type="button" class="accent-swatch" data-accent="teal" title="Teal" aria-label="Teal accent"></button>
+      <button type="button" class="accent-swatch" data-accent="rose" title="Rose" aria-label="Rose accent"></button>
+      <button type="button" class="accent-swatch" data-accent="indigo" title="Indigo" aria-label="Indigo accent"></button>
+      <button type="button" class="accent-swatch" data-accent="amber" title="Amber" aria-label="Amber accent"></button>
+      <button type="button" class="accent-swatch" data-accent="violet" title="Violet" aria-label="Violet accent"></button>
+      <button type="button" class="accent-swatch" data-accent="cornell" title="Cornell red" aria-label="Cornell red accent"></button>
+      <button type="button" class="accent-swatch" data-accent="slate" title="Slate" aria-label="Slate accent"></button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const swatches = document.querySelectorAll('.accent-swatch');
+      const saved = localStorage.getItem('site-accent');
+      const initial = saved || root.dataset.accent || 'apple';
+
+      function setAccent(name) {
+        root.dataset.accent = name;
+        localStorage.setItem('site-accent', name);
+        swatches.forEach((btn) => {
+          btn.classList.toggle('is-active', btn.dataset.accent === name);
+        });
+      }
+
+      swatches.forEach((btn) => {
+        btn.addEventListener('click', () => setAccent(btn.dataset.accent));
+      });
+
+      setAccent(initial);
+    })();
+  </script>
 
   <script>
     (function () {
