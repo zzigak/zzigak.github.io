@@ -12,9 +12,13 @@
   <!-- Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+
+
+
   <style>
     html {
-      font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+      font-size: 17px;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       font-feature-settings: normal;
       font-variation-settings: normal;
       overflow-x: hidden;
@@ -25,9 +29,10 @@
       padding: 0 0 60px;
       background: #ffffff;
       font-family: inherit;
-      color: #222;
-      line-height: 1.55;
+      color: #333;
+      line-height: 1.42;
       overflow-x: hidden;
+      font-weight: 350;
     }
 
     a,
@@ -40,23 +45,23 @@
     }
 
     .content {
-      max-width: 840px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .hero-background {
-      background-color: #f1f1f1;
+      background-color: #f9f9f9;
       width: 100%;
-      padding: 45px 0 25px;
-      margin-bottom: 20px;
+      padding: 45px 0 38px;
+      margin-bottom: 36px;
     }
 
     .hero-section {
       width: 100%;
       display: flex;
       gap: 50px;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
     }
 
@@ -65,12 +70,13 @@
       text-align: left;
     }
 
-    .hero-info p a {
+    .hero-bio a {
       text-decoration: underline;
-      color: #222;
+      text-underline-offset: 2px;
+      font-weight: 500;
     }
 
-    .hero-info p a:hover {
+    .hero-bio a:hover {
       text-decoration: none;
     }
 
@@ -80,43 +86,103 @@
 
     .hero-photo img {
       width: 180px;
-      height: 180px;
+      height: auto;
       border-radius: 10px;
-      object-fit: cover;
+      object-fit: contain;
       border: 2px solid #e0e0e0;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hero-photo img:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
+    .hero-photo img:hover {}
 
     .hero-name {
-      font-size: 2.0em;
+      font-size: 1.7em;
       font-family: inherit;
       font-weight: 600;
+      color: #222;
       margin-bottom: 0.32em;
       line-height: 1.05;
     }
 
-    .hero-links {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      margin-top: 20px;
-      justify-content: flex-start;
+    .name-tooltip-wrap {
+      position: relative;
+      display: inline-block;
+      vertical-align: super;
+      font-size: 0.45em;
+      font-weight: 400;
+      margin-left: 0.3em;
+      cursor: default;
     }
 
-    .hero-links a {
-      color: #666;
-      font-size: 0.95em;
-      transition: color 0.13s;
+    .name-tooltip-trigger {
+      color: #777;
+      border-bottom: 1px dotted #777;
+      line-height: 1;
+    }
+
+    .name-tooltip-trigger:hover {
+      color: #333;
+      border-color: #333;
+    }
+
+    .name-tooltip-box {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      font-size: 1.6em;
+      font-weight: 400;
+      color: #333;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+      z-index: 10;
+      pointer-events: none;
+      line-height: 1.5;
+    }
+
+    .name-tooltip-wrap:hover .name-tooltip-box {
+      display: block;
+    }
+
+    .hero-links-row {
+      margin-top: 0.75rem;
+      margin-bottom: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .hero-links-row a {
+      font-size: 0.88em;
+      text-decoration: none;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      transition: color 0.13s, border-color 0.13s, background 0.13s;
+    }
+
+    .hero-links-row a:hover {
+      border-color: #bbb;
+      background: #f1f1f1;
+    }
+
+    .hero-links-row .sep {
+      display: none;
     }
 
     .hero-bio {
       font-size: 0.95em;
+      line-height: 1.45;
+    }
+
+    .hero-bio+.hero-bio {
+      margin-top: 0.3em;
     }
 
     .hero-update {
@@ -128,10 +194,6 @@
       font-style: italic;
     }
 
-    .hero-links a:hover {
-      color: #222;
-      text-decoration: underline;
-    }
 
     @media (max-width: 700px) {
       .hero-section {
@@ -153,15 +215,12 @@
         text-align: left;
       }
 
-      .hero-links {
-        justify-content: center;
-      }
     }
 
     .about {
       margin-bottom: 40px;
       color: #444;
-      line-height: 1.6;
+      line-height: 1.45;
     }
 
     .about a {
@@ -184,14 +243,14 @@
     }
 
     .tabs-container {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .tabs {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin-top: 1.5rem;
       display: flex;
@@ -202,11 +261,12 @@
     .tabs button {
       background: transparent;
       border: none;
+      font-family: inherit;
       font-size: .95rem;
       line-height: 1.35rem;
       padding: .34rem .9rem;
       cursor: pointer;
-      color: rgb(115 115 115);
+      color: #333;
       border-radius: .25rem;
       transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
       transition-timing-function: cubic-bezier(.4, 0, .2, 1);
@@ -216,25 +276,25 @@
     }
 
     .tabs button.active {
-      color: rgb(0 0 0);
+      color: #000;
       background: #f1f1f1;
       font-weight: 500;
     }
 
     .tabs button:hover {
-      color: #222;
+      color: #000;
     }
 
     /* Entries - Original index style */
     .entries-container {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin: 0 auto;
       padding: 0 24px;
     }
 
     .entries {
-      max-width: 840px;
+      max-width: 920px;
       width: 100%;
       margin-top: 1rem;
       display: flex;
@@ -253,7 +313,7 @@
     }
 
     .entry:hover {
-      background-color: #f4f4fa;
+      background-color: #f9f9f9;
     }
 
     .entry-image-container {
@@ -263,8 +323,7 @@
     }
 
     /* ---------- PUBLICATION IMAGES ---------- */
-    .entry img,
-    .entry video {
+    .entry img {
       width: 200px !important;
       height: auto;
       max-height: 150px;
@@ -275,66 +334,79 @@
       background-color: transparent;
     }
 
+    .entry video {
+      width: 200px !important;
+      height: 100px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+      flex-shrink: 0;
+      background-color: #000;
+    }
+
     .entry-info {
-      position: relative;
       flex: 1;
       min-width: 0;
-      max-width: 700px;
-      padding-right: 90px;
+      max-width: 780px;
+      padding-right: 0;
     }
 
     .entry-info h3 {
       font-size: 1.02rem;
       font-family: inherit;
-      font-weight: 600;
-      margin-bottom: .2rem;
+      font-weight: 650;
+      color: #222;
+      margin-bottom: .35rem;
       margin-top: 0;
       display: block;
       padding-right: 0;
       line-height: 1.24;
     }
 
-    .entry-type-label {
-      position: absolute;
-      right: 0;
-      top: 0;
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: #7a7a7a;
-      opacity: 0.85;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
     .entry-info .authors {
-      font-size: 0.92rem;
-      color: #666;
+      font-size: 0.86rem;
+      color: #333;
       margin-bottom: .2rem;
     }
 
     .entry-info .authors .me {
-      font-weight: 460;
-      color: #222;
+      font-weight: 600;
+      color: #333;
     }
 
     .entry-info .venue {
-      font-size: 0.88rem;
-      color: #666;
+      font-size: 0.82rem;
+      color: #444;
       margin-bottom: .3rem;
       font-style: italic;
     }
 
+    .venue-links-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .venue-links-row .venue {
+      margin-bottom: 0;
+    }
+
     .entry.project p,
-    .entry.publication p {
+    .entry.publication p,
+    .entry.teaching p {
       margin-top: 0.15rem !important;
       margin-bottom: 0.3rem;
+      font-size: 0.87rem !important;
+      line-height: 1.35;
     }
 
     .entry-info .links a {
       margin-right: 0.35rem;
       color: #666;
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       padding: 0.15rem 0.4rem;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -343,7 +415,7 @@
     }
 
     .entry-info .links a:hover {
-      background: #f4f4fa;
+      background: #f1f1f1;
       box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.04);
       color: #222;
     }
@@ -359,27 +431,29 @@
     }
 
     .pub-intro {
-      max-width: 840px;
+      max-width: 920px;
       margin: 0 auto 0.15rem;
       padding: 0 24px;
       font-size: 0.97rem;
-      line-height: 1.45;
-      color: #666;
+      line-height: 1.38;
+      color: #333;
     }
 
     .pub-intro a {
       text-decoration: underline;
       text-underline-offset: 3px;
       text-decoration-color: #b8b8b8;
+      color: inherit;
     }
 
     .pub-intro a:hover {
       text-decoration-color: #222;
+      color: #222;
     }
 
     .news-section {
-      max-width: 840px;
-      margin: 6px auto 0;
+      max-width: 920px;
+      margin: 28px auto 0;
       padding: 0 24px;
       padding-bottom: 14px;
       border-bottom: 1px solid #e6e6e6;
@@ -393,7 +467,7 @@
 
     .news-item {
       margin-bottom: 0.45rem;
-      line-height: 1.55;
+      line-height: 1.42;
     }
 
     .pub-intro {
@@ -402,6 +476,7 @@
     }
 
     @media (max-width: 760px) {
+
       .pub-intro,
       .tabs-container,
       .entries-container {
@@ -453,11 +528,19 @@
         margin: 0;
       }
 
-      .entry img,
-      .entry video {
+      .entry img {
         width: 100% !important;
+        height: auto;
         max-height: 210px;
         object-fit: contain;
+      }
+
+      .entry video {
+        width: 100% !important;
+        height: auto;
+        aspect-ratio: 2 / 1;
+        object-fit: cover;
+        object-position: center;
       }
 
       .entry-info {
@@ -470,14 +553,7 @@
       .entry-info h3 {
         line-height: 1.3;
       }
-
-      .entry-type-label {
-        position: static;
-        margin-left: 0.45rem;
-        vertical-align: middle;
-      }
     }
-
   </style>
   <script>
     function showSection(section, event) {
@@ -513,7 +589,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      showSection('all');
+      showSection('publications');
     });
   </script>
 </head>
@@ -523,37 +599,39 @@
     <div class="content">
       <div class="hero-section">
         <div class="hero-photo">
-          <img src="image/cap.png" alt="Žiga">
+          <!-- <img src="image/ziga_city.png" alt="Žiga"> -->
+          <img src="image/ziga_graduation_narrow.png" alt="Žiga">
         </div>
         <div class="hero-info">
-          <div class="hero-name">Žiga Kovačič</div>
+          <div class="hero-name">Žiga Kovačič<span class="name-tooltip-wrap">
+              <span class="name-tooltip-trigger">?</span>
+              <div class="name-tooltip-box">My name is of Slovenian origin.<br>Pronounced <em>Zhee-guh
+                  Koh-VAH-chich</em>.</div>
+            </span></div>
           <p class="hero-bio" style="margin-top: 0; margin-bottom: 0;">
-            I'm a Cornell undergrad advised by <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin
-              Ellis</a> and <a href="https://www.cs.cornell.edu/~srm/" target="_blank">Steve Marschner</a>. I’m interested
-            in hierarchical world models that learn the right level of physical abstraction for each
-            task and co-evolve through interaction. I also "occasionally" work on physical simulation.
+            I’m an incoming CS PhD student at Stanford, advised by <a href="https://jiajunwu.com/"
+              target="_blank">Jiajun Wu</a>. I'm interested in hierarchical world models that learn the right level of
+            physical abstraction for each task and co-evolve through interaction. I also have a deep interest in
+            physical simulation.
           </p>
-          <p class="hero-update">I'm an incoming CS PhD student at Stanford (Fall 2026)!</p>
-          <div class="hero-links">
-            <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ"><i
-                class="fas fa-graduation-cap"></i> Scholar</a>
-            <a target="_blank" href="https://github.com/zzigak"><i class="fab fa-github"></i> GitHub</a>
-            <a target="_blank" href="https://x.com/zzigakovacic"><i class="fab fa-twitter"></i> X</a>
-            <a target="_blank" href="pdf/grad_school.pdf"><i class="fas fa-file-alt"></i> CV</a>
-            <a href="mailto:zk66@cornell.edu" aria-label="Email"><i class="fas fa-envelope"></i> Email</a>
-          </div>
+          <p class="hero-bio" style="margin-bottom: 0;">Previously, I completed my undergrad at Cornell, where I was
+            fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/" target="_blank">Kevin Ellis</a> and was
+            recognised as a Merrill Presidential Scholar.</p>
+          <p class="hero-links-row">
+            <a href="mailto:ziga@stanford.edu">email</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="https://github.com/zzigak">github</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">scholar</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="pdf/Resume.pdf">cv</a>
+            <span class="sep">|</span>
+            <a target="_blank" href="https://x.com/zzigakovacic">x</a>
+          </p>
         </div>
       </div>
     </div>
   </div>
-
-  <section class="news-section">
-    <h2 class="section-header" style="margin-top: 0;">News</h2>
-    <ul class="news-list">
-      <li class="news-item"><strong>Mar. 2026</strong> Recognised as top 1% of graduating class, Merrill Presidential
-        Scholar award.</li>
-    </ul>
-  </section>
 
   <p class="pub-intro">See my <a target="_blank" href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Google
       Scholar</a> for the most up-to-date publication list.</p>
@@ -561,8 +639,8 @@
   <!-- Tabs - Owen-inspired style -->
   <div class="tabs-container">
     <div class="tabs">
-      <button class="active" data-section="all" onclick="showSection('all', event)">All</button>
-      <button data-section="publications" onclick="showSection('publications', event)">Publications</button>
+      <button class="active" data-section="publications" onclick="showSection('publications', event)">Selected</button>
+      <button data-section="all" onclick="showSection('all', event)">All</button>
       <button data-section="projects" onclick="showSection('projects', event)">Projects</button>
       <button data-section="teaching" onclick="showSection('teaching', event)">Teaching</button>
     </div>
@@ -572,14 +650,56 @@
   <div class="entries-container">
     <div class="entries" id="all-content">
 
+      <!-- Publication: MPMWorlds -->
+      <div class="entry publication selected">
+        <div class="entry-image-container">
+          <video id="mpmworlds-thumb" autoplay muted playsinline>
+            <source src="mpmworlds/dataset_demo_spiral_2_web_169.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="entry-info">
+          <h3>MPMWorlds: MPM Simulations for Inferring and Extrapolating Physical Dynamics</h3>
+          <div class="authors"><span class="me">Žiga Kovačič</span>, Kevin Ellis</div>
+          <div class="venue">In submission (2026)</div>
+          <div class="links">
+            <a href="https://zzigak.github.io/mpmworlds/" target="_blank"><i class="fas fa-globe"></i> Project</a>
+            <a href="https://arxiv.org/abs/2606.01538" target="_blank"><i class="fas fa-file-pdf"></i> Paper</a>
+            <a href="#"><i class="fas fa-database"></i> Dataset (TBD)</a>
+            <a href="#"><i class="fab fa-twitter"></i> X (TBD)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Publication 2 -->
+      <div class="entry publication selected">
+        <div class="entry-image-container">
+          <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
+        </div>
+        <div class="entry-info">
+          <h3>Physics-Based Simulation</h3>
+          <div class="authors">Minchen Li, Chenfanfu Jiang, Zhaofeng Luo, <span class="me">Žiga Kovačič</span>, Wenxin
+            Du, Chang Yu, Tianyi Xie</div>
+          <div class="venue-links-row">
+            <div class="venue">Online Book v1.0.3 (2026)</div>
+            <div class="links">
+              <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
+              <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i
+                  class="fab fa-github"></i>
+                Code</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Publication 1 -->
       <div class="entry publication selected">
         <div class="entry-image-container">
           <img src="image/refactor_figure.png" alt="Refactoring Codebases">
         </div>
         <div class="entry-info">
-          <h3>Refactoring Codebases through Library Design<span class="entry-type-label">Publication</span></h3>
-          <div class="authors"><span class="me">Ž. Kovačič</span>*, J. T. Chiu*, C. Lee, W. Zhao, K. Ellis</div>
+          <h3>Refactoring Codebases through Library Design</h3>
+          <div class="authors"><span class="me">Žiga Kovačič</span>*, Justin T. Chiu*, Celine Lee, Wenting Zhao, Kevin
+            Ellis</div>
           <div class="venue">DL4C @ NeurIPS 2025, Extension in submission</div>
           <div class="links">
             <a href="https://code-refactor.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
@@ -592,23 +712,6 @@
         </div>
       </div>
 
-      <!-- Publication 2 -->
-      <div class="entry publication selected">
-        <div class="entry-image-container">
-          <img src="image/publication_book.jpg" alt="Physics-Based Simulation">
-        </div>
-        <div class="entry-info">
-          <h3>Physics-Based Simulation<span class="entry-type-label">Publication</span></h3>
-          <div class="authors">M. Li, C. Jiang, Z. Luo, W. Du, C. Yu, <span class="me">Ž. Kovačič</span>, T. Xie</div>
-          <div class="venue">Online Book (2025)</div>
-          <div class="links">
-            <a href="https://phys-sim-book.github.io/" target="_blank"><i class="fas fa-book"></i> Book</a>
-            <a href="https://github.com/phys-sim-book/solid-sim-tutorial" target="_blank"><i class="fab fa-github"></i>
-              Code</a>
-          </div>
-        </div>
-      </div>
-
       <!-- Publication 3 -->
       <div class="entry publication selected">
         <div class="entry-image-container">
@@ -617,8 +720,8 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Pocket Time-Lapse<span class="entry-type-label">Publication</span></h3>
-          <div class="authors">E. M. Chen, <span class="me">Ž. Kovačič</span>, M. Agrawal, A. Davis</div>
+          <h3>Pocket Time-Lapse</h3>
+          <div class="authors">Eric M. Chen, <span class="me">Žiga Kovačič</span>, Madhav Aggarwal, Abe Davis</div>
           <div class="venue">SIGGRAPH (2025)</div>
           <div class="links">
             <a href="https://pocket-timelapse.github.io/" target="_blank"><i class="fas fa-globe"></i> Project</a>
@@ -636,7 +739,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>MPM Yarn Simulation (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>MPM Yarn Simulation (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implements Anisotropic Elastoplasticity for Cloth, Knit and Hair
             Frictional Contact [C. Jiang et. al., 2017].</p>
           <div class="links">
@@ -653,7 +756,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>XPBD Simulator (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>XPBD Simulator (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implements PBD solver with ability to simulate cloth, volumetric
             meshes, and fluids in the same solver.</p>
           <div class="links">
@@ -670,7 +773,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>MLS-MPM and CPIC (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>MLS-MPM and CPIC (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implementation of the Moving Least Squared Material Point
             Method, CPIC, various materials, and mesh extraction in 2D and 3D.</p>
           <div class="links">
@@ -687,7 +790,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Obstruction Removal - SliceSplatting (2024)<span class="entry-type-label">Project</span></h3>
+          <h3>Obstruction Removal - SliceSplatting (2024)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Modifies Gaussian Splatting to remove obstructions blocking the
             view of objects of interest in 3D scene reconstruction.</p>
           <div class="links">
@@ -705,7 +808,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Path Tracing in OCaml (2025)<span class="entry-type-label">Project</span></h3>
+          <h3>Path Tracing in OCaml (2025)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">A path tracer featuring distributive ray tracing, reflections,
             refractions, volumetrics, emissive objects, and a BVH.</p>
           <div class="links">
@@ -721,7 +824,7 @@
           <img src="image/pen2graph.png" alt="Pen-2-Graph">
         </div>
         <div class="entry-info">
-          <h3>Pen-2-Graph (2024)<span class="entry-type-label">Project</span></h3>
+          <h3>Pen-2-Graph (2024)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Automates generation of node-edge graph programs from sketches
             using vision-language models and differential evolution.</p>
           <div class="links">
@@ -738,7 +841,7 @@
           </video>
         </div>
         <div class="entry-info">
-          <h3>Image Space Modal Basis (2024)<span class="entry-type-label">Project</span></h3>
+          <h3>Image Space Modal Basis (2024)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">Implements "Image-Space Modal Bases for Plausible Manipulation
             of Objects in Video", extending it with modal warping. Features a Python pipeline and custom JS rasterizer.
           </p>
@@ -757,7 +860,7 @@
           <img src="image/melodyMesh.png" alt="MelodyMesh">
         </div>
         <div class="entry-info">
-          <h3>MelodyMesh (2023)<span class="entry-type-label">Project</span></h3>
+          <h3>MelodyMesh (2023)</h3>
           <p style="font-size:0.95rem;margin:0.3rem 0;">3D music visualizer that deforms meshes based on audio
             frequencies.</p>
           <div class="links">
@@ -835,6 +938,23 @@
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const video = document.getElementById('mpmworlds-thumb');
+      if (!video) return;
+      const start = 5;
+      const end = 13;
+      const seekToStart = () => {
+        if (video.duration && start < video.duration) video.currentTime = start;
+      };
+      video.addEventListener('loadedmetadata', seekToStart);
+      video.addEventListener('timeupdate', () => {
+        if (video.currentTime >= end) video.currentTime = start;
+        else if (video.currentTime < start - 0.1) video.currentTime = start;
+      });
+    })();
+  </script>
 
 </body>
 
