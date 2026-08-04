@@ -5,11 +5,24 @@
 <meta name="color-scheme" content="light dark">
 <title>Žiga Kovačič</title>
 <style>
+    html {
+        scrollbar-gutter: stable
+    }
+
     body {
         margin: 7em auto 1em;
         max-width: 57em;
         padding: 0 .62em 3.24em;
-        font: 1em/1.6 sans-serif
+        font: 1em/1.5 Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        color: light-dark(#212529, #dee2e6)
+    }
+
+    a {
+        color: light-dark(#0004e8, #a5d6fe)
+    }
+
+    a:hover {
+        filter: brightness(.8)
     }
 
     h1, h2, h3 {
@@ -19,12 +32,12 @@
     .hero {
         display: flex;
         gap: 3em;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 2.2em
     }
 
     .hero img {
-        width: 11em;
+        width: 13em;
         flex-shrink: 0
     }
 
@@ -51,49 +64,66 @@
         margin: 1.2em 0 .5em
     }
 
+    .tabs button {
+        font: inherit;
+        background: none;
+        border: none;
+        padding: 0;
+        color: GrayText;
+        cursor: pointer
+    }
+
+    .tabs button.active {
+        color: CanvasText;
+        cursor: default
+    }
+
+    .tabs .sep {
+        color: GrayText;
+        font-weight: 400
+    }
+
     .entry {
         display: flex;
         gap: 1.4em;
-        align-items: flex-start;
-        margin: 1.1em 0;
-        font-size: .92em;
-        line-height: 1.55
+        align-items: center;
+        margin: 1.5em 0;
+        line-height: 1.1
     }
 
     .entry img, .entry video {
-        width: 200px;
+        width: 80px;
+        height: 80px;
         flex-shrink: 0;
-        border: 1px solid CanvasText;
-        box-sizing: border-box
-    }
-
-    .entry img {
-        max-height: 150px;
-        object-fit: contain
-    }
-
-    .entry video {
-        height: 105px;
-        object-fit: cover
+        object-fit: cover;
+        border-radius: 2px
     }
 
     .entry h3 {
-        margin: 0 0 .15em;
-        font-size: 1.12em;
-        font-weight: 600
+        margin: 0 0 .25em;
+        font-size: 1.1em;
+        font-weight: 500;
+        line-height: 1.1
+    }
+
+    .entry h3 a {
+        text-decoration: none
+    }
+
+    .entry h3 a:hover {
+        text-decoration: underline
     }
 
     .entry p {
-        margin: 0
+        margin: .25em 0
     }
 
-    .venue {
-        font-style: italic
+    .entry .links {
+        font-size: .88em
     }
 
     ul {
-        font-size: .92em;
-        line-height: 1.55
+        line-height: 1.4
     }
 
     li {
@@ -108,15 +138,12 @@
         }
 
         .entry {
-            display: block
+            gap: 1em
         }
 
         .entry img, .entry video {
-            width: 100%;
-            height: auto;
-            max-height: 14em;
-            object-fit: cover;
-            margin-bottom: .4em
+            width: 72px;
+            height: 72px
         }
     }
 
@@ -126,6 +153,14 @@
         }
     }
 </style>
+<script>
+    function setTab(all) {
+        document.getElementById('extra').hidden = !all
+        document.getElementById('tab-all').classList.toggle('active', all)
+        document.getElementById('tab-sel').classList.toggle('active', !all)
+        if (all) document.querySelectorAll('#extra video').forEach(v => v.play())
+    }
+</script>
 <article>
     <header class="hero">
         <img src="image/ziga_graduation_narrow.png" alt="Žiga Kovačič">
@@ -152,41 +187,45 @@
         </div>
     </header>
 
-    <h2>Publications</h2>
+    <h2 class="tabs">
+        <button id="tab-sel" class="active" onclick="setTab(false)">Publications</button>
+        <span class="sep">|</span>
+        <button id="tab-all" onclick="setTab(true)">All</button>
+    </h2>
     <p>See <a href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Google Scholar</a> for the most up-to-date list.
 
     <div class="entry">
         <video autoplay loop muted playsinline src="mpmworlds/dataset_demo_spiral_2_web_169.mp4"></video>
         <div>
-            <h3>MPMWorlds: MPM Simulations for Inferring and Extrapolating Physical Dynamics</h3>
+            <h3><a href="https://zzigak.github.io/mpmworlds/">MPMWorlds: MPM Simulations for Inferring and Extrapolating Physical Dynamics</a></h3>
             <p><strong>Žiga Kovačič</strong>, Kevin Ellis
             <p class="venue">In submission (2026)
-            <p>
+            <p class="links">
                 <a href="https://zzigak.github.io/mpmworlds/">Project</a> |
                 <a href="https://arxiv.org/abs/2606.01538">Paper</a>
         </div>
     </div>
 
     <div class="entry">
-        <img src="image/publication_book.jpg" alt="Physics-Based Simulation book cover">
+        <img src="image/book.png" alt="Physics-Based Simulation book cover">
         <div>
-            <h3>Physics-Based Simulation</h3>
+            <h3><a href="https://phys-sim-book.github.io/">Physics-Based Simulation</a></h3>
             <p>Minchen Li, Chenfanfu Jiang, Zhaofeng Luo, <strong>Žiga Kovačič</strong>,
                 Wenxin Du, Chang Yu, Tianyi Xie
             <p class="venue">Online book, v1.0.3 (2026)
-            <p>
+            <p class="links">
                 <a href="https://phys-sim-book.github.io/">Book</a> |
                 <a href="https://github.com/phys-sim-book/solid-sim-tutorial">Code</a>
         </div>
     </div>
 
     <div class="entry">
-        <img src="image/refactor_figure.png" alt="Refactoring Codebases figure">
+        <img src="image/refactoring_square.png" alt="Refactoring Codebases figure">
         <div>
-            <h3>Refactoring Codebases through Library Design</h3>
+            <h3><a href="https://code-refactor.github.io/">Refactoring Codebases through Library Design</a></h3>
             <p><strong>Žiga Kovačič</strong>*, Justin T. Chiu*, Celine Lee, Wenting Zhao, Kevin Ellis
             <p class="venue">DL4C @ NeurIPS 2025, extension in submission
-            <p>
+            <p class="links">
                 <a href="https://code-refactor.github.io/">Project</a> |
                 <a href="https://arxiv.org/abs/2506.11058">Paper</a> |
                 <a href="https://github.com/code-refactor/Librarian">Method</a> |
@@ -197,24 +236,26 @@
     <div class="entry">
         <video autoplay loop muted playsinline src="video/ptl.mp4"></video>
         <div>
-            <h3>Pocket Time-Lapse</h3>
+            <h3><a href="https://pocket-timelapse.github.io/">Pocket Time-Lapse</a></h3>
             <p>Eric M. Chen, <strong>Žiga Kovačič</strong>, Madhav Aggarwal, Abe Davis
             <p class="venue">SIGGRAPH 2025
-            <p>
+            <p class="links">
                 <a href="https://pocket-timelapse.github.io/">Project</a> |
                 <a href="https://github.com/abedavis/pocket-time-lapse-registration">Code</a>
         </div>
     </div>
+
+    <div id="extra" hidden>
 
     <h2>Projects</h2>
 
     <div class="entry">
         <video autoplay loop muted playsinline src="video/yarn.mp4"></video>
         <div>
-            <h3>MPM Yarn Simulation (2025)</h3>
+            <h3><a href="https://github.com/zzigak/mpm-yarn">MPM Yarn Simulation (2025)</a></h3>
             <p>Implements Anisotropic Elastoplasticity for Cloth, Knit and Hair
                 Frictional Contact [C. Jiang et al., 2017].
-            <p><a href="https://github.com/zzigak/mpm-yarn">Code</a>
+            <p class="links"><a href="https://github.com/zzigak/mpm-yarn">Code</a>
         </div>
     </div>
 
@@ -230,20 +271,20 @@
     <div class="entry">
         <video autoplay loop muted playsinline src="video/mls-mpm.mp4"></video>
         <div>
-            <h3>MLS-MPM and CPIC (2025)</h3>
+            <h3><a href="https://github.com/zzigak/MPM-MLS-CPIC">MLS-MPM and CPIC (2025)</a></h3>
             <p>Moving Least Squares Material Point Method, CPIC, various
                 materials, and mesh extraction in 2D and 3D.
-            <p><a href="https://github.com/zzigak/MPM-MLS-CPIC">Code</a>
+            <p class="links"><a href="https://github.com/zzigak/MPM-MLS-CPIC">Code</a>
         </div>
     </div>
 
     <div class="entry">
         <video autoplay loop muted playsinline src="video/path_tracing.mp4"></video>
         <div>
-            <h3>Path Tracing in OCaml (2025)</h3>
+            <h3><a href="https://github.com/zzigak/path-tracer-ocaml">Path Tracing in OCaml (2025)</a></h3>
             <p>Distributive ray tracing, reflections, refractions, volumetrics,
                 emissive objects, and a BVH.
-            <p><a href="https://github.com/zzigak/path-tracer-ocaml">Code</a>
+            <p class="links"><a href="https://github.com/zzigak/path-tracer-ocaml">Code</a>
         </div>
     </div>
 
@@ -259,30 +300,30 @@
     <div class="entry">
         <img src="image/pen2graph.png" alt="Pen-2-Graph">
         <div>
-            <h3>Pen-2-Graph (2024)</h3>
+            <h3><a href="https://github.com/zzigak/Pen2Graph">Pen-2-Graph (2024)</a></h3>
             <p>Generates node-edge graph programs from sketches using
                 vision-language models and differential evolution.
-            <p><a href="https://github.com/zzigak/Pen2Graph">Code</a>
+            <p class="links"><a href="https://github.com/zzigak/Pen2Graph">Code</a>
         </div>
     </div>
 
     <div class="entry">
         <video autoplay loop muted playsinline src="video/ismb_demo.mp4"></video>
         <div>
-            <h3>Image Space Modal Basis (2024)</h3>
+            <h3><a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">Image Space Modal Basis (2024)</a></h3>
             <p>Implements "Image-Space Modal Bases for Plausible Manipulation
                 of Objects in Video", extended with modal warping.
-            <p><a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">Code</a>
+            <p class="links"><a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">Code</a>
         </div>
     </div>
 
     <div class="entry">
         <img src="image/melodyMesh.png" alt="MelodyMesh">
         <div>
-            <h3>MelodyMesh (2023)</h3>
+            <h3><a href="https://github.com/zzigak/MelodyMesh">MelodyMesh (2023)</a></h3>
             <p>3D music visualizer that deforms meshes based on audio
                 frequencies.
-            <p>
+            <p class="links">
                 <a href="https://github.com/zzigak/MelodyMesh">Code</a> |
                 <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o">Video</a>
         </div>
@@ -312,6 +353,8 @@
             (Spring 2023) — TA.
 
     </ul>
+
+    </div>
 
 </article>
 </html>
