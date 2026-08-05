@@ -2,7 +2,7 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
 <title>Žiga Kovačič</title>
 <style>
     html {
@@ -14,15 +14,32 @@
         max-width: 57em;
         padding: 0 .62em 3.24em;
         font: 1em/1.5 Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-        color: light-dark(#212529, #dee2e6)
+        color: #212529
     }
 
     a {
-        color: light-dark(#0004e8, #a5d6fe)
+        color: #0004e8
     }
 
     a:hover {
         filter: brightness(.8)
+    }
+
+    .mono a {
+        color: inherit
+    }
+
+    .mono a:hover {
+        color: #555;
+        filter: none
+    }
+
+    .mono img, .mono video {
+        filter: grayscale(1)
+    }
+
+    .mono .entry:hover img, .mono .entry:hover video {
+        filter: none
     }
 
     h1, h2, h3 {
@@ -96,7 +113,8 @@
         height: 80px;
         flex-shrink: 0;
         object-fit: cover;
-        border-radius: 2px
+        border-radius: 2px;
+        transition: filter .25s
     }
 
     .entry h3 {
@@ -130,6 +148,18 @@
         margin-bottom: .5em
     }
 
+    #mono-toggle {
+        position: fixed;
+        top: 1em;
+        right: 1em;
+        font: .8em/1 inherit;
+        background: none;
+        border: none;
+        padding: .3em;
+        color: GrayText;
+        cursor: pointer
+    }
+
     @media (max-width: 34em) {
         .hero {
             flex-direction: column;
@@ -154,6 +184,14 @@
     }
 </style>
 <script>
+    if (localStorage.getItem('mono') === '1')
+        document.documentElement.classList.add('mono')
+
+    function toggleMono() {
+        const on = document.documentElement.classList.toggle('mono')
+        localStorage.setItem('mono', on ? '1' : '0')
+    }
+
     function setTab(all) {
         document.getElementById('extra').hidden = !all
         document.getElementById('tab-all').classList.toggle('active', all)
@@ -161,6 +199,7 @@
         if (all) document.querySelectorAll('#extra video').forEach(v => v.play())
     }
 </script>
+<button id="mono-toggle" onclick="toggleMono()" title="Toggle monochrome">◐ mono</button>
 <article>
     <header class="hero">
         <img src="image/ziga_graduation_narrow.png" alt="Žiga Kovačič">
