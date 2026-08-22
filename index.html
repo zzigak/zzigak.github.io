@@ -53,15 +53,6 @@ a.item-title:hover{color:var(--accent-h)}
 .me{font-weight:400;text-decoration:underline;text-underline-offset:2px}
 .term{color:var(--muted)}
 
-/* collapsible section */
-.fold{margin:0}
-.fold>summary{cursor:pointer;list-style:none;display:block}
-.fold>summary::-webkit-details-marker{display:none}
-.fold>summary::before{content:"B8";display:inline-block;width:1em;margin-right:.15em;
-  color:#c1c7cd;font-size:.75em;vertical-align:.12em}
-.fold[open]>summary::before{content:"BE"}
-.fold>summary:hover::before{color:#868e96}
-
 ul.teaching{margin:0;padding-left:1.25rem;font-weight:300}
 ul.teaching li{margin-bottom:.6rem;line-height:1.5}
 
@@ -163,8 +154,7 @@ ul.teaching li{margin-bottom:.6rem;line-height:1.5}
       <li>CS 2110: Object Oriented Programming and Data Structures <span class="term">(Spring 2023)</span> &mdash; TA.</li>
     </ul>
 
-    <details class="fold" id="projects" ontoggle="playIn(this)">
-      <summary class="subtitle">Projects</summary>
+    <h3 class="subtitle">Projects</h3>
     <div class="entry">
       <video class="thumb" autoplay loop muted playsinline src="video/yarn.mp4"></video>
       <p class="lead">
@@ -236,7 +226,6 @@ ul.teaching li{margin-bottom:.6rem;line-height:1.5}
         <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o">[Video]</a>
       </p>
     </div>
-    </details>
   </div>
 
 </div>
@@ -245,14 +234,7 @@ function setTab(all) {
   document.getElementById('extra').hidden = !all;
   document.getElementById('tab-all').classList.toggle('active', all);
   document.getElementById('tab-sel').classList.toggle('active', !all);
-  if (all) playIn(document.getElementById('extra'));
-}
-function playIn(el) {
-  if (el.tagName === 'DETAILS' && !el.open) return;
-  el.querySelectorAll('video').forEach(v => {
-    if (v.closest('details') && !v.closest('details').open) return;
-    v.play();
-  });
+  if (all) document.querySelectorAll('#extra video').forEach(v => v.play());
 }
 </script>
 </html>
