@@ -1,0 +1,108 @@
+WEBSITE REDESIGN — REFERENCE SITES & NOTES
+==========================================
+Saved: 2026-08-21
+Goal: refresh personal site. Current version feels rough; mobile looks bad.
+
+
+1) https://www.cs.cmu.edu/~minchenl/
+   LIKE:    general style of the publications section
+   DISLIKE: the long / wide figures
+
+2) https://nooraovo.github.io/
+   LIKE:    overall aesthetic; the boxes; the image placed on the right
+   DISLIKE: how the image is handled on mobile
+
+3) https://williamywang.com/
+   LIKE:    the publications section
+   CHANGE:  publication titles should be slightly thicker (heavier weight)
+            my own name should be highlighted somehow (e.g. underlined)
+   DISLIKE: the style of the link boxes — something like [ABS] might be better
+
+4) https://hjbahng.github.io/
+   LIKE:    the simplicity of the site; roughly how the publication section works
+   CHANGE:  prefer square (or only slightly non-square) thumbnails
+   DISLIKE: the top section of the page
+   IDEA:    replace the top section with something like nooraovo's, and keep
+            the bio below like it is now
+
+5) https://web.archive.org/web/20260216103951/http://www.bailey-miller.com/
+   LIKE:    the publications section — square image, spacing, rhythm
+   DISLIKE: the top part of the page
+
+6) https://mengfeill.github.io/
+   LIKE:    how it handles phone / narrow screens
+   NOTE:    it works mainly because the layout is narrow with small default text
+
+
+SUMMARY OF DIRECTION
+--------------------
+- Header/top: nooraovo-style (boxed-ish, portrait image on the right), but with a
+  mobile treatment that actually works.
+- Bio: keep below the header, roughly as it is now.
+- Publications: square thumbnails (bailey-miller / hjbahng), generous spacing,
+  slightly bolder titles, own name emphasized, plain [ABS] [PDF] [CODE] style links
+  instead of filled pill boxes.
+- Mobile: narrow measure, smaller base type, single column, image stacks cleanly.
+
+
+==========================================================
+MEASURED SPECS (pulled from each site's actual CSS/markup)
+==========================================================
+
+minchenl (Bootstrap 3)
+  section head : .page-header -> h1 + border-bottom 1px #eee, margin 40px 0 20px
+  entry        : row, col-lg-3 image / col-lg-9 text
+  image        : 350px WIDE teaser in .thumbnail frame (4px pad, 1px #ddd, radius 4px)
+                 <-- this is the "long figures" I don't like
+  title        : <h4><b> = 18px bold, plain BLACK (not a link colour)
+  authors      : <p>, own name in <b>
+  venue+links  : <i>venue</i> &nbsp; then small .btn-xs bordered buttons
+  base text    : 18px inline everywhere
+
+nooraovo (luost26/academic-homepage, Bootstrap 4)
+  page         : body.bg-light (#f8f9fa), Lato, 18px, navbar fixed-top
+  box          : .card.border-0.shadow-sm.bg-white + .card-body.p-5
+                 shadow = 0 .125rem .25rem rgba(0,0,0,.075), radius .25rem
+  portrait     : float-right ml-4 mb-4, height 200px, .img-thumbnail
+                 (4px pad + 1px #dee2e6 + white bg + radius), caption under
+  MOBILE       : d-none d-md-block hides it, swaps in a 48px rounded-circle
+                 <-- the mobile handling I don't like
+  name         : .h1.font-weight-normal, then position lines w/ 16px badges
+
+williamywang (al-folio)
+  entry        : ol.bibliography li, col-sm-2 image / col-sm-8 text
+  image        : .preview.rounded, width 100% of the 2/12 column
+  title        : .title — NOT bold        <-- make it thicker
+  authors      : .author — own name NOT marked  <-- underline mine
+  venue        : .periodical <em>
+  links        : <a class="btn btn-sm z-depth-0">Abs</a>  <-- MDB boxes, use [Abs]
+
+hjbahng (Bootstrap 4)
+  layout       : container > col-md-8 (centred, ~66%)
+  entry        : row, col-sm-3 img-fluid image / col text, vertically centred
+  text         : ONE <p class="lead"> at 0.95rem with <br> between lines
+                 bold title / authors w/ bold own name / <i>venue</i> / links
+  links        : [Paper] [Webpage] [Code]  <-- plain bracket text
+  section head : <hr> then h3.subtitle 1.7rem
+  top          : circular portrait at col-sm-5, name 2.2rem  <-- don't like
+
+bailey-miller (Bootstrap 4)
+  entry        : d-flex flex-row pb-4 align-items-center
+  thumb        : 80px x 80px, border-radius 2px
+  text col     : pl-4 (1.5rem), line-height 1.1, children margin-bottom .25rem
+  title        : .item-title 1.1rem, weight 500, #1a73e8 (hover #0c4da2)
+  authors      : links black, own name <b>
+  venue        : plain text, base size
+  profile pic  : 240x240, float-left, radius .5rem
+  section head : <h4>publications</h4> (lowercase) + <hr>
+
+mengfeill
+  page         : section{width:700px;margin:auto}, body margin 60px
+  type         : 14px / 1.5, weight 300, colour #555, links BLACK
+  entry        : <table> with colgroup 20% / 80%, td padding 5px 16px,
+                 vertical-align middle, img width:100%
+  MOBILE       : @770px section{width:auto}; @780px body margin 20px, 12px text
+                 the 20/80 split NEVER stacks  <-- why the phone view works
+  title        : .paper-title bold; own name <strong> (font-weight 1000)
+  summary      : 12px italic
+  headings     : h2 20px, margin 0 0 24px; hr 1px #e5e5e5

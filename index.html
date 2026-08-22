@@ -5,395 +5,236 @@
 <meta name="color-scheme" content="light">
 <title>Žiga Kovačič</title>
 <style>
-    html {
-        scrollbar-gutter: stable
-    }
 
-    body {
-        margin: 7em auto 1em;
-        max-width: 57em;
-        padding: 0 .62em 3.24em;
-        font: 1em/1.5 Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-        color: #212529
-    }
+*{box-sizing:border-box}
+:root{
+  --accent:#1a73e8;
+  --accent-h:#0c4da2;
+  --text:#212529;
+  --muted:#6c757d;
+}
+html{font-size:17px;-webkit-text-size-adjust:100%}
+body{margin:0;padding:2.5rem 0 5rem;background:#fff;color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size:1rem;font-weight:400;line-height:1.5}
+.container{max-width:54rem;margin:0 auto;padding:0 1.25rem}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-h)}
+img,video{display:block;max-width:100%}
 
-    a {
-        color: #0004e8
-    }
+/* ---- header ---- */
+.hero .toprow{display:contents}
+.hero::after{content:"";display:block;clear:both}
+.portrait{float:right;width:215px;margin:.3rem 0 1.25rem 2.25rem;border-radius:3px}
+h1.name{margin:0;font-size:2.2rem;font-weight:600;line-height:1.2}
+.bio{margin:1rem 0 0;font-weight:300}
+.bio p{margin:0 0 .8rem}
+.bio p:last-child{margin-bottom:0}
+.social{margin:.85rem 0 0}
+.social a{margin-right:.5rem;white-space:nowrap}
 
-    a:hover {
-        filter: brightness(.8)
-    }
+/* ---- section headings ---- */
+.subtitle{margin:2.5rem 0 1.1rem;font-size:1.7rem;font-weight:500;line-height:1.2;color:var(--text)}
+.tabs{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+.tabs button{font:inherit;background:none;border:0;padding:0;margin:0;color:#c1c7cd;cursor:pointer}
+.tabs button.active{color:var(--text);cursor:default}
+.tabs button:not(.active):hover{color:#868e96}
+.tabs .sep{color:#dee2e6;font-weight:300}
+.note{margin:-.5rem 0 1.3rem;font-size:.9rem;font-weight:300;color:var(--muted)}
 
-    .mono a {
-        color: inherit
-    }
+/* ---- entries ---- */
+.entry{display:flex;flex-direction:row;align-items:center;margin-bottom:1.15rem}
+.thumb{width:100px;height:100px;flex:0 0 auto;object-fit:cover;border-radius:2px;background:#f1f3f5}
+.entry .lead{margin:0 0 0 1.5rem;min-width:0;overflow-wrap:break-word;
+  font-size:.95rem;font-weight:300;line-height:1.5}
+.item-title{font-size:1.05rem;font-weight:500;color:var(--accent)}
+a.item-title:hover{color:var(--accent-h)}
+.venue{color:var(--muted);font-style:italic}
+.me{font-weight:400;text-decoration:underline;text-underline-offset:2px}
+.term{color:var(--muted)}
 
-    .mono a:hover {
-        color: #555;
-        filter: none
-    }
+ul.teaching{margin:0;padding-left:1.25rem;font-weight:300}
+ul.teaching li{margin-bottom:.6rem;line-height:1.5}
 
-    .mono img, .mono video {
-        filter: grayscale(1)
-    }
+/* ---- phone ---- */
+@media (max-width:47rem){
+  html{font-size:16px}
+  body{padding:1.5rem 0 3rem}
+  .container{padding:0 1.1rem}
+  h1.name{font-size:1.55rem}
+  .subtitle{margin-top:2rem;font-size:1.35rem}
+  .note{margin:-.3rem 0 1rem}
 
-    .mono .entry:hover img, .mono .entry:hover video {
-        filter: none
-    }
+  /* photo | name over socials, bio full width below */
+  .hero{display:grid;grid-template-columns:84px 1fr;column-gap:.9rem;align-items:start}
+  .hero .portrait{grid-column:1;grid-row:1 / span 2;align-self:start;
+    float:none;width:84px;height:84px;object-fit:cover;margin:0}
+  .hero h1.name{grid-column:2;grid-row:1;align-self:end}
+  .hero .social{grid-column:2;grid-row:2;align-self:start;margin-top:.35rem}
+  .hero .bio{grid-column:1 / -1;grid-row:3;margin-top:1rem}
+  .hero::after{display:none}
 
-    h1, h2, h3 {
-        line-height: 1.2
-    }
+  .entry{align-items:flex-start;margin-bottom:1rem}
+  .thumb{width:72px;height:72px}
+  .entry .lead{margin-left:1rem}
+  ul.teaching{padding-left:1.1rem}
+}
 
-    .hero {
-        display: flex;
-        gap: 3em;
-        align-items: flex-start;
-        margin-bottom: 2.2em
-    }
+@media print{ body{padding:0} .container{max-width:none} }
 
-    .hero img {
-        width: 13em;
-        flex-shrink: 0
-    }
-
-    .hero h1 {
-        margin: 0
-    }
-
-    .hero aside {
-        font-size: .85em;
-        color: GrayText;
-        margin-bottom: .8em
-    }
-
-    .hero p {
-        margin: .45em 0;
-        text-align: justify
-    }
-
-    .hero .links a {
-        margin-right: .9em
-    }
-
-    h2 {
-        margin: 1.2em 0 .5em
-    }
-
-    .tabs button {
-        font: inherit;
-        background: none;
-        border: none;
-        padding: 0;
-        color: GrayText;
-        cursor: pointer
-    }
-
-    .tabs button.active {
-        color: CanvasText;
-        cursor: default
-    }
-
-    .tabs .sep {
-        color: GrayText;
-        font-weight: 400
-    }
-
-    .entry {
-        display: flex;
-        gap: 1.4em;
-        align-items: center;
-        margin: 1.5em 0;
-        line-height: 1.1
-    }
-
-    .entry img, .entry video {
-        width: 80px;
-        height: 80px;
-        flex-shrink: 0;
-        object-fit: cover;
-        border-radius: 2px;
-        transition: filter .25s
-    }
-
-    .entry h3 {
-        margin: 0 0 .25em;
-        font-size: 1.1em;
-        font-weight: 500;
-        line-height: 1.1
-    }
-
-    .entry h3 a {
-        text-decoration: none
-    }
-
-    .entry h3 a:hover {
-        text-decoration: underline
-    }
-
-    .entry p {
-        margin: .25em 0
-    }
-
-    .entry .links {
-        font-size: .88em
-    }
-
-    ul {
-        line-height: 1.4
-    }
-
-    li {
-        margin-bottom: .5em
-    }
-
-    #mono-toggle {
-        position: fixed;
-        top: 1em;
-        right: 1em;
-        font: .8em/1 inherit;
-        background: none;
-        border: none;
-        padding: .3em;
-        color: GrayText;
-        cursor: pointer
-    }
-
-    @media (max-width: 34em) {
-        .hero {
-            flex-direction: column;
-            gap: 1.5em;
-            text-align: center
-        }
-
-        .entry {
-            gap: 1em
-        }
-
-        .entry img, .entry video {
-            width: 72px;
-            height: 72px
-        }
-    }
-
-    @media print {
-        body {
-            max-width: none
-        }
-    }
 </style>
-<script>
-    if (localStorage.getItem('mono') === '1')
-        document.documentElement.classList.add('mono')
+<div class="container">
 
-    function toggleMono() {
-        const on = document.documentElement.classList.toggle('mono')
-        localStorage.setItem('mono', on ? '1' : '0')
-    }
+  <header class="hero">
+    <div class="toprow">
+      <img class="portrait" src="image/ziga_graduation_narrow.png" alt="Žiga Kovačič">
+      <h1 class="name">Žiga Kovačič</h1>
+    </div>
+    <div class="bio">
+      <p>I'm an incoming CS PhD student at Stanford, advised by <a href="https://jiajunwu.com/">Jiajun Wu</a>. I'm interested in hierarchical world models that learn the right level of physical abstraction for each task and co-evolve through interaction. I also have a deep interest in physical simulation.</p>
+      <p>Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a> and was recognised as a Merrill Presidential Scholar.</p>
+    </div>
+    <p class="social"><a href="mailto:ziga@stanford.edu">[Email]</a> <a href="https://github.com/zzigak">[GitHub]</a> <a href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">[Google Scholar]</a> <a href="pdf/Resume.pdf">[CV]</a> <a href="https://x.com/zzigakovacic">[X]</a></p>
+  </header>
 
-    function setTab(all) {
-        document.getElementById('extra').hidden = !all
-        document.getElementById('tab-all').classList.toggle('active', all)
-        document.getElementById('tab-sel').classList.toggle('active', !all)
-        if (all) document.querySelectorAll('#extra video').forEach(v => v.play())
-    }
-</script>
-<button id="mono-toggle" onclick="toggleMono()" title="Toggle monochrome">◐ mono</button>
-<article>
-    <header class="hero">
-        <img src="image/ziga_graduation_narrow.png" alt="Žiga Kovačič">
-        <div>
-            <h1>Žiga Kovačič</h1>
-            <aside>Pronounced <em>Zhee-guh Koh-VAH-chich</em>. It's Slovenian.</aside>
-            <p>
-                I'm an incoming CS PhD student at Stanford, advised by
-                <a href="https://jiajunwu.com/">Jiajun Wu</a>. I'm interested in
-                hierarchical world models that learn the right level of physical
-                abstraction for each task and co-evolve through interaction. I
-                also have a deep interest in physical simulation.
-            <p>
-                Previously, I completed my undergrad at Cornell, where I was
-                fortunate to work with
-                <a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a>
-                and was recognised as a Merrill Presidential Scholar.
-            <p class="links">
-                <a href="mailto:ziga@stanford.edu">Email</a>
-                <a href="https://github.com/zzigak">GitHub</a>
-                <a href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Scholar</a>
-                <a href="pdf/Resume.pdf">CV</a>
-                <a href="https://x.com/zzigakovacic">X</a>
-        </div>
-    </header>
-
-    <h2 class="tabs">
-        <button id="tab-sel" class="active" onclick="setTab(false)">Publications</button>
-        <span class="sep">|</span>
-        <button id="tab-all" onclick="setTab(true)">All</button>
-    </h2>
-    <p>See <a href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Google Scholar</a> for the most up-to-date list.
-
+  <div class="tabs subtitle">
+    <button id="tab-sel" class="active" onclick="setTab(false)">Publications</button><span class="sep">|</span><button id="tab-all" onclick="setTab(true)">All</button>
+  </div>
+  <p class="note">See <a href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">Google Scholar</a> for the most up-to-date list.</p>
     <div class="entry">
-        <video autoplay loop muted playsinline src="mpmworlds/dataset_demo_spiral_2_web_169.mp4"></video>
-        <div>
-            <h3><a href="https://zzigak.github.io/mpmworlds/">MPMWorlds: MPM Simulations for Inferring and Extrapolating Physical Dynamics</a></h3>
-            <p><strong>Žiga Kovačič</strong>, Kevin Ellis
-            <p class="venue">In submission (2026)
-            <p class="links">
-                <a href="https://zzigak.github.io/mpmworlds/">Project</a> |
-                <a href="https://arxiv.org/abs/2606.01538">Paper</a>
-        </div>
+      <video class="thumb" autoplay loop muted playsinline src="mpmworlds/dataset_demo_spiral_2_web_169.mp4"></video>
+      <p class="lead">
+        <a class="item-title" href="https://zzigak.github.io/mpmworlds/">MPMWorlds: MPM Simulations for Inferring and Extrapolating Physical Dynamics</a><br>
+        <span class="me">Žiga Kovačič</span>, Kevin Ellis<br>
+        <i class="venue">In submission, 2026</i><br>
+        <a href="https://zzigak.github.io/mpmworlds/">[Project]</a>
+        <a href="https://arxiv.org/abs/2606.01538">[Paper]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <img class="thumb" src="image/book.png" alt="">
+      <p class="lead">
+        <a class="item-title" href="https://phys-sim-book.github.io/">Physics-Based Simulation</a><br>
+        Minchen Li, Chenfanfu Jiang, Zhaofeng Luo, <span class="me">Žiga Kovačič</span>, Wenxin Du, Chang Yu, Tianyi Xie<br>
+        <i class="venue">Online book, v1.0.3, 2026</i><br>
+        <a href="https://phys-sim-book.github.io/">[Book]</a>
+        <a href="https://github.com/phys-sim-book/solid-sim-tutorial">[Code]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <img class="thumb" src="image/refactoring_square.png" alt="">
+      <p class="lead">
+        <a class="item-title" href="https://code-refactor.github.io/">Refactoring Codebases through Library Design</a><br>
+        <span class="me">Žiga Kovačič</span>*, Justin T. Chiu*, Celine Lee, Wenting Zhao, Kevin Ellis<br>
+        <i class="venue">DL4C @ NeurIPS 2025, extension in submission</i><br>
+        <a href="https://code-refactor.github.io/">[Project]</a>
+        <a href="https://arxiv.org/abs/2506.11058">[Paper]</a>
+        <a href="https://github.com/code-refactor/Librarian">[Method]</a>
+        <a href="https://github.com/code-refactor/minicode">[Benchmark]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <video class="thumb" autoplay loop muted playsinline src="video/ptl.mp4"></video>
+      <p class="lead">
+        <a class="item-title" href="https://pocket-timelapse.github.io/">Pocket Time-Lapse</a><br>
+        Eric M. Chen, <span class="me">Žiga Kovačič</span>, Madhav Aggarwal, Abe Davis<br>
+        <i class="venue">SIGGRAPH 2025</i><br>
+        <a href="https://pocket-timelapse.github.io/">[Project]</a>
+        <a href="https://github.com/abedavis/pocket-time-lapse-registration">[Code]</a>
+      </p>
     </div>
 
+  <div id="extra" hidden>
+    <h3 class="subtitle">Projects</h3>
     <div class="entry">
-        <img src="image/book.png" alt="Physics-Based Simulation book cover">
-        <div>
-            <h3><a href="https://phys-sim-book.github.io/">Physics-Based Simulation</a></h3>
-            <p>Minchen Li, Chenfanfu Jiang, Zhaofeng Luo, <strong>Žiga Kovačič</strong>,
-                Wenxin Du, Chang Yu, Tianyi Xie
-            <p class="venue">Online book, v1.0.3 (2026)
-            <p class="links">
-                <a href="https://phys-sim-book.github.io/">Book</a> |
-                <a href="https://github.com/phys-sim-book/solid-sim-tutorial">Code</a>
-        </div>
+      <video class="thumb" autoplay loop muted playsinline src="video/yarn.mp4"></video>
+      <p class="lead">
+        <a class="item-title" href="https://github.com/zzigak/mpm-yarn">MPM Yarn Simulation</a><br>
+        Anisotropic elastoplasticity for cloth, knit and hair frictional contact [C. Jiang et al., 2017].<br>
+        <i class="venue">2025</i><br>
+        <a href="https://github.com/zzigak/mpm-yarn">[Code]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <video class="thumb" autoplay loop muted playsinline src="video/xpbd.mp4"></video>
+      <p class="lead">
+        <span class="item-title">XPBD Simulator</span><br>
+        PBD solver that simulates cloth, volumetric meshes, and fluids in the same solver. Code coming soon.<br>
+        <i class="venue">2025</i>
+      </p>
+    </div>
+    <div class="entry">
+      <video class="thumb" autoplay loop muted playsinline src="video/mls-mpm.mp4"></video>
+      <p class="lead">
+        <a class="item-title" href="https://github.com/zzigak/MPM-MLS-CPIC">MLS-MPM and CPIC</a><br>
+        Moving least squares material point method, CPIC, various materials, and mesh extraction in 2D and 3D.<br>
+        <i class="venue">2025</i><br>
+        <a href="https://github.com/zzigak/MPM-MLS-CPIC">[Code]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <video class="thumb" autoplay loop muted playsinline src="video/path_tracing.mp4"></video>
+      <p class="lead">
+        <a class="item-title" href="https://github.com/zzigak/path-tracer-ocaml">Path Tracing in OCaml</a><br>
+        Distributive ray tracing, reflections, refractions, volumetrics, emissive objects, and a BVH.<br>
+        <i class="venue">2025</i><br>
+        <a href="https://github.com/zzigak/path-tracer-ocaml">[Code]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <video class="thumb" autoplay loop muted playsinline src="video/obstruction_removal.mp4"></video>
+      <p class="lead">
+        <span class="item-title">Obstruction Removal — SliceSplatting</span><br>
+        Modifies Gaussian splatting to remove obstructions blocking objects of interest in 3D scene reconstruction. Code coming soon.<br>
+        <i class="venue">2024</i>
+      </p>
+    </div>
+    <div class="entry">
+      <img class="thumb" src="image/pen2graph.png" alt="">
+      <p class="lead">
+        <a class="item-title" href="https://github.com/zzigak/Pen2Graph">Pen-2-Graph</a><br>
+        Generates node-edge graph programs from sketches using vision-language models and differential evolution.<br>
+        <i class="venue">2024</i><br>
+        <a href="https://github.com/zzigak/Pen2Graph">[Code]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <video class="thumb" autoplay loop muted playsinline src="video/ismb_demo.mp4"></video>
+      <p class="lead">
+        <a class="item-title" href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">Image Space Modal Basis</a><br>
+        Implements "Image-Space Modal Bases for Plausible Manipulation of Objects in Video", extended with modal warping.<br>
+        <i class="venue">2024</i><br>
+        <a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">[Code]</a>
+      </p>
+    </div>
+    <div class="entry">
+      <img class="thumb" src="image/melodyMesh.png" alt="">
+      <p class="lead">
+        <a class="item-title" href="https://github.com/zzigak/MelodyMesh">MelodyMesh</a><br>
+        3D music visualizer that deforms meshes based on audio frequencies.<br>
+        <i class="venue">2023</i><br>
+        <a href="https://github.com/zzigak/MelodyMesh">[Code]</a>
+        <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o">[Video]</a>
+      </p>
     </div>
 
-    <div class="entry">
-        <img src="image/refactoring_square.png" alt="Refactoring Codebases figure">
-        <div>
-            <h3><a href="https://code-refactor.github.io/">Refactoring Codebases through Library Design</a></h3>
-            <p><strong>Žiga Kovačič</strong>*, Justin T. Chiu*, Celine Lee, Wenting Zhao, Kevin Ellis
-            <p class="venue">DL4C @ NeurIPS 2025, extension in submission
-            <p class="links">
-                <a href="https://code-refactor.github.io/">Project</a> |
-                <a href="https://arxiv.org/abs/2506.11058">Paper</a> |
-                <a href="https://github.com/code-refactor/Librarian">Method</a> |
-                <a href="https://github.com/code-refactor/minicode">Benchmark</a>
-        </div>
-    </div>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/ptl.mp4"></video>
-        <div>
-            <h3><a href="https://pocket-timelapse.github.io/">Pocket Time-Lapse</a></h3>
-            <p>Eric M. Chen, <strong>Žiga Kovačič</strong>, Madhav Aggarwal, Abe Davis
-            <p class="venue">SIGGRAPH 2025
-            <p class="links">
-                <a href="https://pocket-timelapse.github.io/">Project</a> |
-                <a href="https://github.com/abedavis/pocket-time-lapse-registration">Code</a>
-        </div>
-    </div>
-
-    <div id="extra" hidden>
-
-    <h2>Projects</h2>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/yarn.mp4"></video>
-        <div>
-            <h3><a href="https://github.com/zzigak/mpm-yarn">MPM Yarn Simulation (2025)</a></h3>
-            <p>Implements Anisotropic Elastoplasticity for Cloth, Knit and Hair
-                Frictional Contact [C. Jiang et al., 2017].
-            <p class="links"><a href="https://github.com/zzigak/mpm-yarn">Code</a>
-        </div>
-    </div>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/xpbd.mp4"></video>
-        <div>
-            <h3>XPBD Simulator (2025)</h3>
-            <p>PBD solver that simulates cloth, volumetric meshes, and fluids
-                in the same solver. Code coming soon.
-        </div>
-    </div>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/mls-mpm.mp4"></video>
-        <div>
-            <h3><a href="https://github.com/zzigak/MPM-MLS-CPIC">MLS-MPM and CPIC (2025)</a></h3>
-            <p>Moving Least Squares Material Point Method, CPIC, various
-                materials, and mesh extraction in 2D and 3D.
-            <p class="links"><a href="https://github.com/zzigak/MPM-MLS-CPIC">Code</a>
-        </div>
-    </div>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/path_tracing.mp4"></video>
-        <div>
-            <h3><a href="https://github.com/zzigak/path-tracer-ocaml">Path Tracing in OCaml (2025)</a></h3>
-            <p>Distributive ray tracing, reflections, refractions, volumetrics,
-                emissive objects, and a BVH.
-            <p class="links"><a href="https://github.com/zzigak/path-tracer-ocaml">Code</a>
-        </div>
-    </div>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/obstruction_removal.mp4"></video>
-        <div>
-            <h3>Obstruction Removal — SliceSplatting (2024)</h3>
-            <p>Modifies Gaussian Splatting to remove obstructions blocking
-                objects of interest in 3D scene reconstruction. Code coming soon.
-        </div>
-    </div>
-
-    <div class="entry">
-        <img src="image/pen2graph.png" alt="Pen-2-Graph">
-        <div>
-            <h3><a href="https://github.com/zzigak/Pen2Graph">Pen-2-Graph (2024)</a></h3>
-            <p>Generates node-edge graph programs from sketches using
-                vision-language models and differential evolution.
-            <p class="links"><a href="https://github.com/zzigak/Pen2Graph">Code</a>
-        </div>
-    </div>
-
-    <div class="entry">
-        <video autoplay loop muted playsinline src="video/ismb_demo.mp4"></video>
-        <div>
-            <h3><a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">Image Space Modal Basis (2024)</a></h3>
-            <p>Implements "Image-Space Modal Bases for Plausible Manipulation
-                of Objects in Video", extended with modal warping.
-            <p class="links"><a href="https://github.com/zzigak/WARPED-Image-Space-Modal-Basis">Code</a>
-        </div>
-    </div>
-
-    <div class="entry">
-        <img src="image/melodyMesh.png" alt="MelodyMesh">
-        <div>
-            <h3><a href="https://github.com/zzigak/MelodyMesh">MelodyMesh (2023)</a></h3>
-            <p>3D music visualizer that deforms meshes based on audio
-                frequencies.
-            <p class="links">
-                <a href="https://github.com/zzigak/MelodyMesh">Code</a> |
-                <a href="https://www.youtube.com/watch?v=-yw7hq0Sm4o">Video</a>
-        </div>
-    </div>
-
-    <h2>Teaching</h2>
-    <ul>
-        <li>
-            <a href="https://www.cs.cornell.edu/courses/cs4787/2025fa/">CS 4787: Large Scale Machine Learning</a>
-            (Fall 2025) — Head TA. Distributed ML, large-scale optimization,
-            scalable ML systems.
-
-        <li>
-            <a href="https://www.cs.cornell.edu/courses/cs4782/2025sp/">CS 4782: Introduction to Deep Learning</a>
-            (Spring 2025) — Head TA. Built an autograder from scratch for all
-            assignments.
-
-        <li>
-            CS 4620: Introduction to Computer Graphics (Fall 2024) — TA.
-
-        <li>
-            CS 4780: Introduction to Machine Learning (Spring 2024) — TA.
-            Received TA Award for outstanding teaching contributions.
-
-        <li>
-            CS 2110: Object Oriented Programming and Data Structures
-            (Spring 2023) — TA.
-
+    <h3 class="subtitle">Teaching</h3>
+    <ul class="teaching">
+      <li><a href="https://www.cs.cornell.edu/courses/cs4787/2025fa/">CS 4787: Large Scale Machine Learning</a> <span class="term">(Fall 2025)</span> &mdash; Head TA. Distributed ML, large-scale optimization, scalable ML systems.</li>
+      <li><a href="https://www.cs.cornell.edu/courses/cs4782/2025sp/">CS 4782: Introduction to Deep Learning</a> <span class="term">(Spring 2025)</span> &mdash; Head TA. Built an autograder from scratch for all assignments.</li>
+      <li>CS 4620: Introduction to Computer Graphics <span class="term">(Fall 2024)</span> &mdash; TA.</li>
+      <li>CS 4780: Introduction to Machine Learning <span class="term">(Spring 2024)</span> &mdash; TA. Received TA Award for outstanding teaching contributions.</li>
+      <li>CS 2110: Object Oriented Programming and Data Structures <span class="term">(Spring 2023)</span> &mdash; TA.</li>
     </ul>
+  </div>
 
-    </div>
-
-</article>
+</div>
+<script>
+function setTab(all) {
+  document.getElementById('extra').hidden = !all;
+  document.getElementById('tab-all').classList.toggle('active', all);
+  document.getElementById('tab-sel').classList.toggle('active', !all);
+  if (all) document.querySelectorAll('#extra video').forEach(v => v.play());
+}
+</script>
 </html>
