@@ -3,6 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
+<link rel="icon" href="image/favicon.ico" sizes="any">
 <title>Žiga Kovačič</title>
 <style>
 
@@ -12,10 +13,13 @@
   --accent-h:#0c4da2;
   --text:#212529;
   --muted:#6c757d;
+  --font-body:Palatino,"Palatino Linotype","Palatino LT STD","Book Antiqua",Georgia,serif;
+  --font-scale:0.98;
+  --portrait-radius:10px;
 }
-html{font-size:17px;-webkit-text-size-adjust:100%}
+html{font-size:calc(17px * var(--font-scale));-webkit-text-size-adjust:100%}
 body{margin:0;padding:2.5rem 0 5rem;background:#fff;color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family:var(--font-body);
   font-size:1rem;font-weight:400;line-height:1.5}
 .container{max-width:54rem;margin:0 auto;padding:0 1.25rem}
 a{color:var(--accent);text-decoration:none}
@@ -25,7 +29,8 @@ img,video{display:block;max-width:100%}
 /* ---- header ---- */
 .hero .toprow{display:contents}
 .hero::after{content:"";display:block;clear:both}
-.portrait{float:right;width:215px;margin:.3rem 0 1.25rem 2.25rem;border-radius:3px}
+.portrait{float:right;width:215px;margin:.3rem 0 1.25rem 2.25rem;
+  border-radius:var(--portrait-radius);transition:border-radius .18s ease}
 h1.name{margin:0;font-size:2.2rem;font-weight:600;line-height:1.2}
 .bio{margin:1rem 0 0;font-weight:300}
 .bio p{margin:0 0 .8rem}
@@ -58,9 +63,23 @@ a.item-title:hover{color:var(--accent-h)}
 ul.teaching{margin:0;padding-left:1.25rem;font-weight:300}
 ul.teaching li{margin-bottom:.6rem;line-height:1.5}
 
+/* ---- appearance controls ---- */
+.controls{margin:3.5rem 0 0;padding-top:1.1rem;border-top:1px solid #e9ecef;
+  font-size:.82rem;font-weight:300;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:.35rem 1.75rem}
+.ctl{display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem}
+.ctl > span{color:#adb5bd}
+.ctl button{font:inherit;font-size:.82rem;background:none;border:0;padding:0;margin:0;
+  color:#b6bcc2;cursor:pointer}
+.ctl button:hover{color:#6c757d}
+.ctl button[aria-pressed="true"]{color:var(--text);cursor:default}
+
+/* circle crop needs a square box */
+:root[data-radius="circle"] .portrait{height:215px;object-fit:cover;object-position:50% 18%}
+
 /* ---- phone ---- */
 @media (max-width:47rem){
-  html{font-size:16px}
+  html{font-size:calc(16px * var(--font-scale))}
   body{padding:1.5rem 0 3rem}
   .container{padding:0 1.1rem}
   h1.name{font-size:1.55rem}
@@ -75,6 +94,9 @@ ul.teaching li{margin-bottom:.6rem;line-height:1.5}
   .hero .social{grid-column:2;grid-row:2;align-self:start;margin-top:.35rem}
   .hero .bio{grid-column:1 / -1;grid-row:3;margin-top:1rem}
   .hero::after{display:none}
+
+  .controls{margin-top:2.5rem;gap:.35rem 1.25rem}
+  :root[data-radius="circle"] .hero .portrait{height:84px}
 
   .entry{align-items:flex-start;margin-bottom:1rem}
   .thumb{width:72px;height:72px}
@@ -230,6 +252,11 @@ ul.teaching li{margin-bottom:.6rem;line-height:1.5}
     </div>
   </div>
 
+  <div class="controls">
+    <div class="ctl" id="font-ctl"><span>Typeface</span></div>
+    <div class="ctl" id="radius-ctl"><span>Photo corners</span></div>
+  </div>
+
 </div>
 <script>
 function setTab(all) {
@@ -238,5 +265,69 @@ function setTab(all) {
   document.getElementById('tab-sel').classList.toggle('active', !all);
   if (all) document.querySelectorAll('#extra video').forEach(v => v.play());
 }
+
+/* ---- appearance: typeface + photo corners ---- */
+var FONTS = [
+  ['System',   '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji"', 1],
+  ['Grotesk',  '"Helvetica Neue",Helvetica,"Inter",Arial,sans-serif', 1],
+  ['Palatino', 'Palatino,"Palatino Linotype","Palatino LT STD","Book Antiqua",Georgia,serif', 0.98],
+  ['Charter',  'Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,serif', 1],
+  ['Georgia',  'Georgia,"Iowan Old Style","Times New Roman",Times,serif', 0.96]
+];
+var RADII = [
+  ['Sharp',  '0',    'sharp'],
+  ['Subtle', '3px',  'subtle'],
+  ['Soft',   '10px', 'soft'],
+  ['Round',  '24px', 'round'],
+  ['Circle', '50%',  'circle']
+];
+
+function applyFont(i) {
+  var f = FONTS[i] || FONTS[0];
+  var r = document.documentElement.style;
+  r.setProperty('--font-body', f[1]);
+  r.setProperty('--font-scale', f[2]);
+  mark('font-ctl', i);
+  try { localStorage.setItem('font', i); } catch (e) {}
+}
+
+function applyRadius(i) {
+  var v = RADII[i] || RADII[1];
+  document.documentElement.style.setProperty('--portrait-radius', v[1]);
+  document.documentElement.setAttribute('data-radius', v[2]);
+  mark('radius-ctl', i);
+  try { localStorage.setItem('radius', i); } catch (e) {}
+}
+
+function mark(id, i) {
+  var bs = document.getElementById(id).querySelectorAll('button');
+  for (var k = 0; k < bs.length; k++) bs[k].setAttribute('aria-pressed', k === i);
+}
+
+(function build() {
+  function fill(id, list, apply) {
+    var box = document.getElementById(id);
+    list.forEach(function (item, i) {
+      if (i) box.appendChild(document.createTextNode('\u00b7'));
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = item[0];
+      b.onclick = function () { apply(i); };
+      box.appendChild(b);
+    });
+  }
+  fill('font-ctl', FONTS, applyFont);
+  fill('radius-ctl', RADII, applyRadius);
+
+  var sf = 2, sr = 2;
+  try {
+    var a = parseInt(localStorage.getItem('font'), 10);
+    var b = parseInt(localStorage.getItem('radius'), 10);
+    if (a >= 0 && a < FONTS.length) sf = a;
+    if (b >= 0 && b < RADII.length) sr = b;
+  } catch (e) {}
+  applyFont(sf);
+  applyRadius(sr);
+})();
 </script>
 </html>
