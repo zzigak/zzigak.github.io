@@ -19,14 +19,22 @@ body{margin:0;padding:2.5rem 0 5rem;background:#fff;color:var(--text);
   font-family:Palatino,"Palatino Linotype","Palatino LT STD","Book Antiqua",Georgia,serif;
   font-size:1rem;font-weight:400;line-height:1.5}
 .container{max-width:54rem;margin:0 auto;padding:0 1.25rem}
-a{color:var(--accent);text-decoration:none}
+a{color:var(--accent);text-decoration:underline 1px;text-underline-offset:3px}
+a[href^="http"],a[href^="mailto:"]{text-decoration-style:dotted}
+a:has(img,video){text-decoration:none}
 a:hover{color:var(--accent-h)}
 img,video{display:block;max-width:100%}
 
 /* ---- header ---- */
 .hero .toprow{display:contents}
 .hero::after{content:"";display:block;clear:both}
-.portrait{float:right;width:215px;margin:.3rem 0 1.25rem 2.25rem;border-radius:10px}
+.portrait{float:right;width:215px;margin:.3rem 0 1.25rem 2.25rem}
+.portrait.dissolve{
+  /* edge dissolves into the page cell by cell (mask generated as a grid of rects) */
+  --fade:url(image/portrait-mask.svg);
+  -webkit-mask-image:var(--fade);mask-image:var(--fade);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 h1.name{margin:0;font-size:2.2rem;font-weight:600;line-height:1.2}
 .bio{margin:1rem 0 0;font-weight:300}
 .bio p{margin:0 0 .8rem}
@@ -55,6 +63,7 @@ a.item-title:hover{color:var(--accent-h)}
 .venue{color:var(--muted);font-style:italic}
 .entry .lead a:not(.item-title){color:var(--text)}
 .entry .lead a:not(.item-title):hover{color:var(--accent)}
+.entry .lead a:not(.item-title, .venue ~ a){text-decoration:none} /* author names */
 .me{font-weight:400;text-decoration:underline;text-underline-offset:2px}
 .term{color:var(--muted)}
 
@@ -92,11 +101,11 @@ ul.teaching li{margin-bottom:.6rem;line-height:1.5}
 
   <header class="hero">
     <div class="toprow">
-      <img class="portrait" src="image/ziga_graduation_narrow.png" alt="Žiga Kovačič">
+      <img class="portrait dissolve" src="image/ziga_graduation_narrow.png" alt="Žiga Kovačič">
       <h1 class="name">Žiga Kovačič</h1>
     </div>
     <div class="bio">
-      <p>I'm a first-year CS PhD student at Stanford, currently rotating with <a href="https://jiajunwu.com/">Jiajun Wu</a>. I'm interested in hierarchical world models that learn the right level of physical abstraction for each task and co-evolve through interaction. I also have a deep interest in physical simulation.</p>
+      <p>I'm a first-year CS PhD student at Stanford. My research is currently advised by <a href="https://jiajunwu.com/">Jiajun Wu</a>. I'm interested in world models that are physically consistent, efficient, and operate at the right level of abstraction. I also have a deep interest in physical simulation and inverse physics problems.</p>
       <p>Previously, I completed my undergrad at Cornell, where I was fortunate to work with <a href="https://www.cs.cornell.edu/~ellisk/">Kevin Ellis</a> and was recognised as a Merrill Presidential Scholar.</p>
     </div>
     <p class="social"><a href="mailto:ziga@stanford.edu">[Email]</a> <a href="https://github.com/zzigak">[GitHub]</a> <a href="https://scholar.google.com/citations?user=EgGCu2wAAAAJ">[Google Scholar]</a> <a href="pdf/Resume.pdf">[CV]</a> <a href="https://x.com/zzigakovacic">[X]</a></p>
